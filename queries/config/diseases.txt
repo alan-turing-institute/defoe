@@ -1,0 +1,13 @@
+cholera
+tuberculosis
+consumption
+phthisis
+typhoid
+whooping
+measles
+typhus
+smallpox
+diarrhoea
+dysentry
+diphtheria
+cancer

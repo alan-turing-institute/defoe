@@ -1,0 +1,7 @@
+{
+    "keyword": professor,
+    "optimizer": online,
+    "max_iterations": 1,
+    "ntopics": 1,
+    "topic_words": 1
+}
