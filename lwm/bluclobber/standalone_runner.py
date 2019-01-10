@@ -17,8 +17,8 @@ import yaml
 
 from pyspark import SparkContext, SparkConf
 
-from bluclobber.sparkrods import get_streams
-from bluclobber.query import do_query
+from lwm.bluclobber.sparkrods import get_streams
+from lwm.bluclobber.query import do_query
 
 
 def main():

@@ -17,8 +17,8 @@ import yaml
 
 from pyspark import SparkContext, SparkConf
 
-from newsrods.sparkrods import get_streams
-from newsrods.query import do_query
+from lwm.newsrods.sparkrods import get_streams
+from lwm.newsrods.query import do_query
 
 
 def main():

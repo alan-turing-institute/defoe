@@ -1,16 +1,16 @@
 """
-bluclobber.page.Page tests.
+lwm.bluclobber.page.Page tests.
 """
 
 from unittest import TestCase
 
-from bluclobber.page import Page
-from bluclobber.test.fixtures import get_path
+from lwm.bluclobber.page import Page
+from lwm.bluclobber.test.fixtures import get_path
 
 
 class TestPage(TestCase):
     """
-    bluclobber.page.Page tests.
+    lwm.bluclobber.page.Page tests.
     """
 
     def setUp(self):

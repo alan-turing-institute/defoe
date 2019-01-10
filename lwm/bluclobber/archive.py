@@ -7,7 +7,7 @@ import logging
 import re
 import zipfile
 
-from bluclobber.book import Book
+from lwm.bluclobber.book import Book
 
 
 class Archive(object):
