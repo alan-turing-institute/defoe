@@ -1,0 +1,7 @@
+mako
+lxml>=3.8
+psutil>=5.4
+pyyaml>=3.12
+pytest>=3.2
+requests>=2.18
+regex>=2018
