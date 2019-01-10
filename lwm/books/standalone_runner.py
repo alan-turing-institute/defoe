@@ -17,8 +17,8 @@ import yaml
 
 from pyspark import SparkContext, SparkConf
 
-from lwm.newsrods.sparkrods import get_streams
-from lwm.newsrods.query import do_query
+from lwm.books.sparkrods import get_streams
+from lwm.books.query import do_query
 
 
 def main():
@@ -30,13 +30,13 @@ def main():
         num_cores = sys.argv[1]
 
     conf = SparkConf()
-    conf.setAppName("Newspapers")
+    conf.setAppName("Books")
     conf.set("spark.cores.max", num_cores)
 
     context = SparkContext(conf=conf)
     log = context._jvm.org.apache.log4j.LogManager.getLogger(__name__)
-    issues = get_streams(context, num_cores, source="files.txt")
-    results = do_query(issues, 'input.data', log)
+    archives = get_streams(context, num_cores, source="files.txt")
+    results = do_query(archives, 'input.data', log)
 
     with open('result.yml', 'w') as result_file:
         result_file.write(yaml.safe_dump(dict(results)))

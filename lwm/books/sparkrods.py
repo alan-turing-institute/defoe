@@ -4,7 +4,7 @@ Load and read files to get streams for Spark.
 
 from requests import get
 
-from lwm.bluclobber.archive import Archive
+from lwm.books.archive import Archive
 
 
 def open_stream(url):

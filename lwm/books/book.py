@@ -8,7 +8,7 @@ import re
 
 from lxml import etree
 
-from lwm.bluclobber.page import Page
+from lwm.books.page import Page
 
 
 class Book(object):

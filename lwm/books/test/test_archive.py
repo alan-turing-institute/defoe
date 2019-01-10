@@ -1,16 +1,16 @@
 """
-lwm.bluclobber.archive.Archive tests.
+lwm.books.archive.Archive tests.
 """
 
 from unittest import TestCase
 
-from lwm.bluclobber.test.fixtures import open_file
-from lwm.bluclobber.archive import Archive
+from lwm.books.test.fixtures import open_file
+from lwm.books.archive import Archive
 
 
 class TestArchive(TestCase):
     """
-    lwm.bluclobber.archive.Archive tests.
+    lwm.books.archive.Archive tests.
     """
 
     def setUp(self):

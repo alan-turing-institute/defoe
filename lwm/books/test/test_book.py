@@ -1,17 +1,17 @@
 """
-lwm.bluclobber.book.Book tests.
+lwm.books.book.Book tests.
 """
 
 from unittest import TestCase
 
-from lwm.bluclobber.archive import Archive
-from lwm.bluclobber.book import Book
-from lwm.bluclobber.test.fixtures import open_file
+from lwm.books.archive import Archive
+from lwm.books.book import Book
+from lwm.books.test.fixtures import open_file
 
 
 class TestBook(TestCase):
     """
-    lwm.bluclobber.book.Book tests.
+    lwm.books.book.Book tests.
     """
 
     def setUp(self):

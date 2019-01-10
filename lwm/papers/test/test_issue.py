@@ -1,16 +1,16 @@
 """
-lwm.newsrods.issue.Issue tests.
+lwm.papers.issue.Issue tests.
 """
 
 from unittest import TestCase
 
-from lwm.newsrods.test.fixtures import open_file
-from lwm.newsrods.issue import Issue
+from lwm.papers.test.fixtures import open_file
+from lwm.papers.issue import Issue
 
 
 class TestIssue(TestCase):
     """
-    lwm.newsrods.issue.Issue tests.
+    lwm.papers.issue.Issue tests.
     """
 
     def setUp(self):

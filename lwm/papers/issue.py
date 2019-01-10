@@ -6,7 +6,7 @@ from datetime import datetime
 from logging import getLogger
 from lxml import etree
 
-from lwm.newsrods.article import Article
+from lwm.papers.article import Article
 
 
 class Issue(object):
