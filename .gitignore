@@ -1,0 +1,66 @@
+# Byte-compiled/optimized /library files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution/packaging files
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+*.egg
+*.egg-info/
+eggs/
+.eggs/
+env/
+.installed.cfg
+lib/
+lib64/
+parts/
+sdist/
+var/
+
+# Installer logs
+pip-delete-this-directory.txt
+pip-log.txt
+
+# Unit test/test coverage reports
+.cache
+.coverage
+.coverage.*
+coverage.xml
+*,cover
+htmlcov/
+.hypothesis/
+nosetests.xml
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# IPython Notebook
+.ipynb_checkpoints
+
+# Environments
+.env
+.python-version
+venv/
+ENV/
+
+# IDE/editor files
+*~
+.vscode/
+*#
+*.swp
+*.swo
+.pytest_cache
+.cache
+
+# Local Spark testing
+metastore_db/
