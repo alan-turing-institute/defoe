@@ -67,13 +67,12 @@ Having created a job bundle, it can be submitted to Spark as follows.
 
 ```bash
 cd <JOB_BUNDLE_DIRECTORY>
-spark-submit --py-files lwm.zip lwm/<MODEL>/standalone_runner.py [<NUM_CORES>]
+spark-submit --py-files lwm.zip lwm/query_runner.py [<NUM_CORES>]
 ```
 
 where:
 
 * `<JOB_BUNDLE_DIRECTORY>` is the job bundle directory created earlier.
-* `<MODEL>` is the data model into which the data files should be parsed. This should be the same value as used when creating the job bundle i.e. `books` or `newspapers`.
 * `<NUM_CORES>` is the number of computer processor cores requested for the job. If omitted the default is 1.
 
 **Note for Urika users**
@@ -85,14 +84,14 @@ For example, to submit the job bundle to run the query to search a set of books 
 
 ```bash
 cd job-book
-spark-submit --py-files lwm.zip lwm/books/standalone_runner.py
+spark-submit --py-files lwm.zip lwm/query_runner.py
 ```
 
 For example, to submit the job bundle to run the query to search a set of newspapers for occurrences of gender-specific words (e.g. "she", "he" etc.) and return the counts of these occurrences grouped by year, you could run:
 
 ```bash
 cd job-papers
-spark-submit --py-files lwm.zip lwm/papers/standalone_runner.py
+spark-submit --py-files lwm.zip lwm/query_runner.py
 ```
 
 If successful the results will be written into a new file (commonly called `results.yml`) in the job bundle directory.
@@ -104,11 +103,7 @@ If successful the results will be written into a new file (commonly called `resu
 To submit a job to Spark as a background process, meaning you can do other things while Spark is running your query, use `nohup` and capture the output from Spark in ` log.txt` file. For example:
 
 ```bash
-nohup spark-submit --py-files lwm.zip lwm/books/standalone_runner.py 144 > log.txt &
-```
-
-```bash
-nohup spark-submit --py-files lwm.zip lwm/papers/standalone_runner.py 144 > log.txt &
+nohup spark-submit --py-files lwm.zip lwm/query_runner.py 144 > log.txt &
 ```
 
 ---

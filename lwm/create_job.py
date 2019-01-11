@@ -21,11 +21,21 @@ The job bundle is structured as follows:
         lwm/                 # Copy of lwm/ code, including...
         lwm/<model>/query.py # Copy of <query>
         lwm.zip              # ZIP of lwm/
+        job.json             # Job configuration file
         data.txt             # Copy of <data> file
         query.dat            # Copy of <config> file
+
+The format of the job configuration file is as follows:
+
+    {
+        "model": <model> # "books"|"papers"
+    }
+
+"model" specifies whether "book" or "paper" model is to be used.
 """
 
 from argparse import ArgumentParser
+import json
 import os
 import shutil
 import sys
@@ -36,6 +46,7 @@ def main():
     Parses command-line arguments and creates job bundle.
     """
     module_dir = "lwm"
+    job_config_file = "job.json"
     data_file = "data.txt"
     query_file = "query.py"
     config_file = "query.dat"
@@ -73,6 +84,9 @@ def main():
                     ignore=shutil.ignore_patterns("*.pyc",
                                                   "*__pycache__*",
                                                   "test"))
+
+    with open(os.path.join(args.job_dir, job_config_file), "w") as f:
+        json.dump({"model": args.model}, f)
 
     shutil.copyfile(args.data, os.path.join(args.job_dir, data_file))
     shutil.copyfile(args.query,
