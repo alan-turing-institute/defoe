@@ -34,13 +34,13 @@ Alternatively, you can use the bash `find` command, to search for the files. For
 * On a local machine:
 
 ```bash
-find <BOOKS> -name "*.zip" > files.txt
+find <BOOKS> -name "*.zip" > data.txt
 ```
 
 * On Urika:
 
 ```bash
-find /mnt/lustre/<your-urika-username>/dch/BritishLibraryBooks -name "*.zip" > files.txt
+find /mnt/lustre/<your-urika-username>/dch/BritishLibraryBooks -name "*.zip" > data.txt
 ```
 
 Suppose you want to run a query over all the books in the folder `1510_1699`. You can create a file with the paths to these books files as follows:
@@ -48,13 +48,13 @@ Suppose you want to run a query over all the books in the folder `1510_1699`. Yo
 * On a local machine:
 
 ```bash
-find <BOOKS>/1510_1699/ -name "*.zip" > files.txt
+find <BOOKS>/1510_1699/ -name "*.zip" > data.txt
 ```
 
 * On Urika:
 
 ```bash
-find /mnt/lustre/<your-urika-username>/dch/BritishLibraryBooks/1510_1699 -name "*.zip" > files.txt
+find /mnt/lustre/<your-urika-username>/dch/BritishLibraryBooks/1510_1699 -name "*.zip" > data.txt
 ```
 
 ---
@@ -91,13 +91,13 @@ Alternatively, you can use the bash `find` command, to search for the files. For
 * On a local machine:
 
 ```bash
-find <NEWSPAPERS>/xmls -name "*.xml" > files.txt
+find <NEWSPAPERS>/xmls -name "*.xml" > data.txt
 ```
 
 * On Urika:
 
 ```bash
-find /mnt/lustre/<your-urika-username>/blpaper/xmls -name "*.xml" > files.txt
+find /mnt/lustre/<your-urika-username>/blpaper/xmls -name "*.xml" > data.txt
 ```
 
 Suppose you want to run a query over all the newspapers in the folder `0000164- The Courier and Argus/`. You can create a file with the paths to these newspapers files as follows:
@@ -105,11 +105,11 @@ Suppose you want to run a query over all the newspapers in the folder `0000164- 
 * On a local machine:
 
 ```bash
-find "<NEWSPAPERS>/xmls/0000164- The Courier and Argus/" -name "*.xml" > files.txt
+find "<NEWSPAPERS>/xmls/0000164- The Courier and Argus/" -name "*.xml" > data.txt
 ```
 
 * On Urika:
 
 ```bash
-find "/mnt/lustre/<your-urika-username>/blpaper/xmls/0000164- The Courier and Argus/" -name "*.xml" > files.txt
+find "/mnt/lustre/<your-urika-username>/blpaper/xmls/0000164- The Courier and Argus/" -name "*.xml" > data.txt
 ```

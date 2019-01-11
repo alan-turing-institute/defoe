@@ -21,8 +21,8 @@ The job bundle is structured as follows:
         lwm/                 # Copy of lwm/ code, including...
         lwm/<model>/query.py # Copy of <query>
         lwm.zip              # ZIP of lwm/
-        files.txt            # Copy of <data> file
-        input.data           # Copy of <config> file
+        data.txt             # Copy of <data> file
+        query.dat            # Copy of <config> file
 """
 
 from argparse import ArgumentParser
@@ -36,9 +36,9 @@ def main():
     Parses command-line arguments and creates job bundle.
     """
     module_dir = "lwm"
-    data_file = "files.txt"
+    data_file = "data.txt"
     query_file = "query.py"
-    config_file = "input.data"
+    config_file = "query.dat"
     models = ["books", "papers"]
 
     parser = ArgumentParser(description="Create Spark query job bundle")

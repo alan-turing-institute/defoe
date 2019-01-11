@@ -34,28 +34,28 @@ optional arguments:
 For example, to create a job bundle to run a query to search a set of books for occurrences of some words (e.g. "heart" or "hearts") and return the counts of these occurrences grouped by year, you could run:
 
 ```bash
-python lwm/create_job.py job-books files.txt books queries/books/find_words_group_by_year.py queries/config/hearts.txt
+python lwm/create_job.py job-books data.txt books queries/books/find_words_group_by_year.py queries/config/hearts.txt
 ```
 
 where:
 
 * `job-books` is the directory within which the job bundle is created.
-* `files.txt` is the file with the paths to the books files to run the query over.
-* `books` tells the code that the data files listed in `files.txt` are books so should be parsed into a books data model.
+* `data.txt` is the file with the paths to the books files to run the query over.
+* `books` tells the code that the data files listed in `data.txt` are books so should be parsed into a books data model.
 * `queries/books/find_words_group_by_year.py` is the code that runs the query.
 * `queries/config/hearts.txt` is a configuration file for the query which contains a list of the words, one per line, to search for.
 
 For example, to create a job bundle to run a query to search a set of newspapers for occurrences of gender-specific words (e.g. "she", "he" etc.) and return the counts of these occurrences grouped by year, you could run:
 
 ```bash
-python lwm/create_job.py job-papers files.txt papers queries/papers/articles_containing_words.py queries/config/gender.txt
+python lwm/create_job.py job-papers data.txt papers queries/papers/articles_containing_words.py queries/config/gender.txt
 ```
 
 where:
 
 * `job-papers` is the directory within which the job bundle is created.
-* `files.txt` is the file with the paths to the newspapers files to run the query over.
-* `papers` tells the code that the data files listed in `files.txt` are newspapers so should be parsed into a newspapers data model.
+* `data.txt` is the file with the paths to the newspapers files to run the query over.
+* `papers` tells the code that the data files listed in `data.txt` are newspapers so should be parsed into a newspapers data model.
 * `queries/papers/articles_containing_words.py` is the code that runs the query.
 * `queries/config/gender.txt` is a configuration file for the query, which contains a list of the words, one per line, to search for.
 

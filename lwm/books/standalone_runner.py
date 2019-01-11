@@ -6,8 +6,8 @@ the number of cores Spark should use. If omitted, defaults to 1.
 
 The following files are read:
 
-* files.txt: URLs or file paths, for data to be analysed (mandatory)
-* input.data: query-specific configuration (optional)
+* data.txt: URLs or file paths, for data to be analysed (mandatory)
+* query.dat: query-specific configuration (optional)
 
 Results are placed in a YAML file, results.yml.
 """
@@ -35,8 +35,8 @@ def main():
 
     context = SparkContext(conf=conf)
     log = context._jvm.org.apache.log4j.LogManager.getLogger(__name__)
-    archives = get_streams(context, num_cores, source="files.txt")
-    results = do_query(archives, 'input.data', log)
+    archives = get_streams(context, num_cores, source="data.txt")
+    results = do_query(archives, 'query.dat', log)
 
     with open('result.yml', 'w') as result_file:
         result_file.write(yaml.safe_dump(dict(results)))
