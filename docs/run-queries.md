@@ -48,7 +48,7 @@ where:
 For example, to create a job bundle to run a query to search a set of newspapers for occurrences of gender-specific words (e.g. "she", "he" etc.) and return the counts of these occurrences grouped by year, you could run:
 
 ```bash
-python lwm/create_job.py job-papers files.txt papers queries/papers/articles_containing_words.py queries/config/interesting_gender_words.txt
+python lwm/create_job.py job-papers files.txt papers queries/papers/articles_containing_words.py queries/config/gender.txt
 ```
 
 where:
@@ -57,7 +57,7 @@ where:
 * `files.txt` is the file with the paths to the newspapers files to run the query over.
 * `papers` tells the code that the data files listed in `files.txt` are newspapers so should be parsed into a newspapers data model.
 * `queries/papers/articles_containing_words.py` is the code that runs the query.
-* `queries/config/interesting_gender_words.txt` is a configuration file for the query, which contains a list of the words, one per line, to search for.
+* `queries/config/gender.txt` is a configuration file for the query, which contains a list of the words, one per line, to search for.
 
 ---
 

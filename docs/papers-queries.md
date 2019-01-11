@@ -7,8 +7,8 @@
 * Configuration file: 
   - One or more words to search for, one per line.
   - Examples:
-    - `queries/config/interesting_gender_words.txt`
-    - `queries/config/interesting_words.txt`
+    - `queries/config/gender.txt`
+    - `queries/config/krakatoa.txt`
 * Result format:
 
 ```
@@ -22,7 +22,7 @@ YEAR:
 
 ### Sample results
 
-Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml` with `queries/config/interesting_gender_words.txt`:
+Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml` with `queries/config/gender.txt`:
 
 ```
 1907:
@@ -35,7 +35,7 @@ Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- T
 ...
 ```
 
-Query over `0000164- The Courier and Argus/*.xml` with `queries/config/interesting_words.txt`:
+Query over `0000164- The Courier and Argus/*.xml` with `queries/config/krakatoa.txt`:
 
 ```
 1901:
@@ -63,8 +63,8 @@ Query over `0000164- The Courier and Argus/*.xml` with `queries/config/interesti
 * Configuration file: 
   - One or more words to search for, one per line.
   - Examples:
-    - `queries/config/interesting_gender_words.txt`
-    - `queries/config/interesting_words.txt`
+    - `queries/config/gender.txt`
+    - `queries/config/krakatoa.txt`
 * Result format:
 
 ```
@@ -75,7 +75,7 @@ YEAR 00:00:00: [<ARTICLE_XML>, <ARTICLE_XML>, ...]
 
 ### Sample results
 
-Query over all newspapers with `queries/config/interesting_words.txt`:
+Query over all newspapers with `queries/config/krakatoa.txt`:
 
 ```
 1883-08-31 00:00:00: ["<article xmlns:dc=\"http://purl.org/dc/elements/1.1/\">
