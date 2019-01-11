@@ -1,4 +1,3 @@
-mako
 lxml>=3.8
 psutil>=5.4
 pyyaml>=3.12
