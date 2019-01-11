@@ -55,7 +55,7 @@ The project team included: Rosa Filgueira (EPCC), Mike Jackson (EPCC)
 See the GitHub repositories:
 
 * [alan-turing-institute/cluster-code (branch:epcc-sparkrods)](https://github.com/alan-turing-institute/cluster-code/tree/epcc-sparkrods)
-* [alan-turing-institute/i_newspaper_rods (branch:epcc-master)]https://github.com/alan-turing-institute/i_newspaper_rods/tree/epcc-master)
+* [alan-turing-institute/i_newspaper_rods (branch:epcc-master)](https://github.com/alan-turing-institute/i_newspaper_rods/tree/epcc-master)
 
 ---
 
@@ -66,7 +66,6 @@ Copyright (c) 2015-2018 University College London
 Copyright (c) 2018-2019 The University of Edinburgh
 
 All code is available for use and reuse under a [MIT Licence](http://opensource.org/licenses/MIT). See [LICENSE](./LICENSE).
-
 
 ### Data
 
