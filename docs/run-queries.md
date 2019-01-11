@@ -1,4 +1,4 @@
-## Run queries
+# Run queries
 
 To run a query on Spark you need to create a job bundle, which contains:
 
