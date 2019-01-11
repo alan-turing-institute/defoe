@@ -14,6 +14,15 @@ Create Spark query job bundle.
 
     optional arguments:
       -h, --help  show this help message and exit
+
+The job bundle is structured as follows:
+
+    <job_dir>/
+        lwm/                 # Copy of lwm/ code, including...
+        lwm/<model>/query.py # Copy of <query>
+        lwm.zip              # ZIP of lwm/
+        files.txt            # Copy of <data> file
+        input.data           # Copy of <config> file
 """
 
 from argparse import ArgumentParser
