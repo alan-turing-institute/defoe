@@ -5,7 +5,8 @@ lwm.books.archive.Archive tests.
 from unittest import TestCase
 
 from lwm.books.archive import Archive
-from lwm.test.books.fixtures import open_file
+from lwm.test.books import fixtures
+from lwm.test import open_file
 
 
 class TestArchive(TestCase):
@@ -14,7 +15,8 @@ class TestArchive(TestCase):
     """
 
     def setUp(self):
-        source = open_file('000000037_0_1-42pgs__944211_dat_modified.zip')
+        source = open_file(fixtures,
+                           '000000037_0_1-42pgs__944211_dat_modified.zip')
         self.archive = Archive(source)
 
     def test_books(self):

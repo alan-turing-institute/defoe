@@ -5,7 +5,8 @@ lwm.papers.article.Article tests.
 from unittest import TestCase
 
 from lwm.papers.issue import Issue
-from lwm.test.papers.fixtures import open_file
+from lwm.test.papers import fixtures
+from lwm.test import open_file
 
 
 class TestArticle(TestCase):
@@ -17,7 +18,7 @@ class TestArticle(TestCase):
         """
         Load the standard test file
         """
-        source = open_file('2000_04_24.xml')
+        source = open_file(fixtures, '2000_04_24.xml')
         issue = Issue(source)
         self.article = issue.articles[0]
 

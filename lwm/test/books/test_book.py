@@ -6,7 +6,8 @@ from unittest import TestCase
 
 from lwm.books.archive import Archive
 from lwm.books.book import Book
-from lwm.test.books.fixtures import open_file
+from lwm.test.books import fixtures
+from lwm.test import open_file
 
 
 class TestBook(TestCase):
@@ -15,7 +16,8 @@ class TestBook(TestCase):
     """
 
     def setUp(self):
-        source = open_file('000000037_0_1-42pgs__944211_dat_modified.zip')
+        source = open_file(fixtures,
+                           '000000037_0_1-42pgs__944211_dat_modified.zip')
         self.archive = Archive(source)
         self.book = self.archive[0]
 
@@ -45,7 +47,7 @@ class TestBook(TestCase):
         self.assertEqual([1823, 1869], self.book.years)
 
     def test_yearify(self):
-        fixtures = {
+        year_fixtures = {
             "[1866]": [1866],
             "1885]": [1885],
             "1847 [1846, 47]": [1846, 1847],
@@ -54,5 +56,5 @@ class TestBook(TestCase):
             "[ca. 1730]": [1730],
             "1725, 26": [1725, 1726],
         }
-        for case, expected in list(fixtures.items()):
+        for case, expected in list(year_fixtures.items()):
             self.assertEqual(expected, Book.parse_year(case))

@@ -5,7 +5,8 @@ lwm.papers.issue.Issue tests.
 from unittest import TestCase
 
 from lwm.papers.issue import Issue
-from lwm.test.papers.fixtures import open_file
+from lwm.test.papers import fixtures
+from lwm.test import open_file
 
 
 class TestIssue(TestCase):
@@ -17,7 +18,7 @@ class TestIssue(TestCase):
         """
         Load the standard test file
         """
-        source = open_file('2000_04_24.xml')
+        source = open_file(fixtures, '2000_04_24.xml')
         self.issue = Issue(source)
 
     def test_date(self):
