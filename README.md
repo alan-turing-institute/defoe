@@ -26,6 +26,21 @@ This dataset is available, under licence, from [Gale](https://www.gale.com), a d
 
 ---
 
+# Get started
+
+* [Set up local environment](docs/setup-local.md)
+* [Set up Urika environment](docs/setup-urika.md)
+
+* [Specify data to query](docs/specify-data.md)
+* [Run queries](docs/run-queries.md)
+
+* [British Library Books queries](docs/books-queries.md)
+* [British Library Newspapers](docs/papers-queries.md) (these can also be run on the Times Digital Archive)
+
+* [Run unit tests](docs/tests.md)
+
+---
+
 ## Origins and acknowledgements
 
 ### British Library Books analysis code
