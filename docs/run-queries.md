@@ -123,6 +123,23 @@ grep Exec log.txt | wc -l
 
 ---
 
+## Troubleshooting: `No such file or directory: ''` and `Error reading file: ''`
+If you get an error like:
+
+```
+IOError: [Errno 2] No such file or directory: ''
+```
+
+or:
+
+```
+IOError: Error reading file '': failed to load external entity ""
+```
+
+then check for blank lines in your data file and, if there are any, then remove them.
+
+---
+
 ## Troubleshooting: `result.yml` is `{}`
 
 If you run:
