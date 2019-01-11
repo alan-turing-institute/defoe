@@ -4,8 +4,8 @@ lwm.papers.issue.Issue tests.
 
 from unittest import TestCase
 
-from lwm.papers.test.fixtures import open_file
 from lwm.papers.issue import Issue
+from lwm.test.papers.fixtures import open_file
 
 
 class TestIssue(TestCase):

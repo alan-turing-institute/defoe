@@ -5,7 +5,7 @@ lwm.books.page.Page tests.
 from unittest import TestCase
 
 from lwm.books.page import Page
-from lwm.books.test.fixtures import get_path
+from lwm.test.books.fixtures import get_path
 
 
 class TestPage(TestCase):

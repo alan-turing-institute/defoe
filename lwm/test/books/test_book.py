@@ -6,7 +6,7 @@ from unittest import TestCase
 
 from lwm.books.archive import Archive
 from lwm.books.book import Book
-from lwm.books.test.fixtures import open_file
+from lwm.test.books.fixtures import open_file
 
 
 class TestBook(TestCase):

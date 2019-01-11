@@ -4,8 +4,8 @@ lwm.books.archive.Archive tests.
 
 from unittest import TestCase
 
-from lwm.books.test.fixtures import open_file
 from lwm.books.archive import Archive
+from lwm.test.books.fixtures import open_file
 
 
 class TestArchive(TestCase):
