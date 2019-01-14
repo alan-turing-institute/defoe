@@ -108,12 +108,61 @@ nohup spark-submit --py-files lwm.zip lwm/query_runner.py 144 > log.txt &
 
 ---
 
+## Run a job on Spark using `pyspark` (local only)
+
+Jobs can be run using `pyspark` as follows:
+
+```bash
+cd <JOB_BUNDLE_DIRECTORY>
+pyspark < lwm/query_runner.py [<NUM_CORES>]
+```
+
+For example:
+
+```bash
+pyspark < lwm/query_runner.py
+```
+
+---
+
 ## Check number of executors used
 
 A quick-and-dirty way to check the number of executors used is, if you have used `nohup` and output capture to `log.txt`, to run:
 
 ```bash
 grep Exec log.txt | wc -l
+```
+
+---
+
+## Troubleshooting: `pyspark: command not found`
+
+If running `pyspark` locally you get:
+
+```
+bash: pyspark: command not found...
+```
+
+Then add Apache Spark to your `PATH` e.g.
+
+```bash
+export PATH=~/spark-2.4.0-bin-hadoop2.7/bin:$PATH
+```
+
+---
+
+## Troubleshooting: `spark-submit: command not found`
+
+If running `spark-submit` locally you get:
+
+```
+bash: spark-submit: command not found...
+```
+
+Then add Apache Spark to your `PATH` e.g.
+
+```bash
+export PATH=~/spark-2.4.0-bin-hadoop2.7/bin:$PATH
 ```
 
 ---
@@ -149,7 +198,9 @@ and see:
 {}
 ```
 
-then check the permissions of the data files. This can arise if, for example, a data file has permissions like:
+then check that the files the query is being run over exist.
+
+If the files are on the local file system then also check their permissions. This error can arise if, for example, a data file has permissions like:
 
 ```bash
 ls -l /mnt/lustre/<user>/blpaper/0000164_19010101.xml
@@ -157,3 +208,15 @@ ls -l /mnt/lustre/<user>/blpaper/0000164_19010101.xml
 ```
 ---------- 1 <user> at01 3374189 May 31 13:57
 ```
+
+---
+
+## Troubleshooting: `raise BadZipfile, "File is not a zip file"`
+
+If you get an exception
+
+```
+raise BadZipfile, "File is not a zip file"
+```
+
+then check that the files the query is being run over exist.

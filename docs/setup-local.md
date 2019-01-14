@@ -25,34 +25,43 @@ brew install apache-spark
 Run:
 
 ```bash
-yum install java-1.8.0-openjdk-devel
-wget https://repo.anaconda.com/archive/Anaconda2-5.1.0-Linux-x86_64.sh
+yum install -y java-1.8.0-openjdk-devel
 ```
 
-### Install Anaconda 5.1 Python 2.7
+### Install Anaconda Python 2.7
 
 For full information, see:
 
 * Anaconda [Installation](https://docs.anaconda.com/anaconda/install/)
 * [Download Anaconda Distribution](https://www.anaconda.com/download/)
 
+For example:
+
+```bash
+wget https://repo.continuum.io/archive/Anaconda2-2018.12-Linux-x86_64.sh
+```
+
 After downloading installer, run:
 
 ```bash
-bash Anaconda2-5.1.0-Linux-x86_64.sh
+bash Anaconda2-2018.12-Linux-x86_64.sh
 ```
 
-Create `anaconda2.sh` with content:
+Create `setenv-py2.sh`:
 
 ```bash
-export PATH=/home/centos/anaconda2/bin:$PATH
+echo 'export PATH=$HOME/anaconda2/bin:$PATH' > setenv-py2.sh
+echo 'source $HOME/anaconda2/etc/profile.d/conda.sh' >> setenv-py2.sh
 ```
 
 Run:
 
 ```bash
-source anaconda2.sh
-pip install -r requirements.txt
+source setenv-py2.sh
+python -V
+```
+```
+Python 2.7.15 :: Anaconda, Inc.
 ```
 
 ### Install Apache Spark
@@ -62,21 +71,54 @@ For full information, see:
 * [Spark Overview](https://spark.apache.org/docs/latest/index.html)
 * [Download Apache Spark](https://spark.apache.org/downloads.html)
 
-To quickly install, run:
+To quickly install, download package, signatures, checksums, keys:
 
 ```bash
-wget http://apache.mirror.anlx.net/spark/spark-2.3.0/spark-2.3.0-bin-hadoop2.7.tgz
-wget https://archive.apache.org/dist/spark/spark-2.3.0/spark-2.3.0-bin-hadoop2.7.tgz.asc
-wget https://archive.apache.org/dist/spark/spark-2.3.0/spark-2.3.0-bin-hadoop2.7.tgz.md5
-wget https://archive.apache.org/dist/spark/spark-2.3.0/spark-2.3.0-bin-hadoop2.7.tgz.sha512
+wget http://apache.mirror.anlx.net/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.7.tgz
+
+wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.7.tgz.asc
+wget https://archive.apache.org/dist/spark/spark-2.4.0/spark-2.4.0-bin-hadoop2.7.tgz.sha512
+
 wget https://www.apache.org/dist/spark/KEYS
+```
+
+Validate signatures, checksums, keys:
+
+```bash
 gpg --import KEYS
-gpg --verify spark-2.3.0-bin-hadoop2.7.tgz.asc spark-2.3.0-bin-hadoop2.7.tgz
-md5sum spark-2.3.0-bin-hadoop2.7.tgz
-cat spark-2.3.0-bin-hadoop2.7.tgz.md5 
-sha512sum spark-2.3.0-bin-hadoop2.7.tgz
-cat spark-2.3.0-bin-hadoop2.7.tgz.sha512 
-tar -xf spark-2.3.0-bin-hadoop2.7.tgz
-cd spark-2.3.0-bin-hadoop2.7/
-export PATH=~/spark-2.3.0-bin-hadoop2.7/bin:$PATH
+gpg --verify spark-2.4.0-bin-hadoop2.7.tgz.asc spark-2.4.0-bin-hadoop2.7.tgz
+```
+```
+gpg: Signature made Mon 29 Oct 2018 06:36:32 GMT using RSA key ID 4F4FDC8A
+gpg: Good signature from "Wenchen Fan (CODE SIGNING KEY) <wenchen@apache.org>"
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 9B31 1CB5 38F2 1588 6143  5661 6BAC 7289 4F4F DC8A
+```
+```bash
+gpg --fingerprint 4F4FDC8A
+```
+```
+pub   4096R/4F4FDC8A 2018-09-18
+      Key fingerprint = 9B31 1CB5 38F2 1588 6143  5661 6BAC 7289 4F4F DC8A
+uid                  Wenchen Fan (CODE SIGNING KEY) <wenchen@apache.org>
+sub   4096R/6F3F5B0E 2018-09-18
+```
+```bash
+sha512sum spark-2.4.0-bin-hadoop2.7.tgz
+cat spark-2.4.0-bin-hadoop2.7.tgz.sha512
+```
+
+Unpack:
+
+```bash
+tar -xf spark-2.4.0-bin-hadoop2.7.tgz
+echo 'export PATH=$HOME/spark-2.4.0-bin-hadoop2.7/bin:$PATH' >> setenv-py2.sh
+export PATH=~/spark-2.4.0-bin-hadoop2.7/bin:$PATH
+```
+
+### Install dependencies
+
+```bash
+pip install -r requirements.txt
 ```
