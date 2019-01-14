@@ -3,7 +3,7 @@
 ## Total books
 
 * Count total number of books.
-* Query code: `queries/books/total_books.py`
+* Query module: `lwm.books.queries.total_books`
 * Configuration file: None
 * Result format:
 
@@ -38,7 +38,7 @@ Query over all books:
 ## Total pages
 
 * Count total number of books and pages.
-* Query code: `queries/books/total_pages.py`
+* Query module: `lwm.books.queries.total_pages`
 * Configuration file: None
 * Result format:
 
@@ -85,7 +85,7 @@ Query over all books:
 ## Total words
 
 * Count total number of books and words.
-* Query code: `queries/books/total_words.py`
+* Query module: `lwm.books.queries.total_words`
 * Configuration file: None
 * Result format:
 
@@ -130,12 +130,12 @@ Query over all books:
 ## Count specific words and group by year
 
 * Count occurrences of each of a set of words and return counts, grouped by year. Words in the books are converted to lower-case and non 'a-z' characters (e.g. commas, hyphens etc.) removed before matches are done.
-* Query code: `queries/books/find_words_group_by_year.py`
+* Query module: `lwm.books.queries.find_words_group_by_year`
 * Configuration file:
   - One or more words to search for, one per line.
   - Examples:
-    - `queries/config/diseases.txt`
-    - `queries/config/hearts.txt`
+    - `queries/diseases.txt`
+    - `queries/hearts.txt`
 * Result format:
 
 ```
@@ -149,7 +149,7 @@ Query over all books:
 
 ### Sample results
 
-Query over `1510_1699/000001143_0_1-20pgs__560409_dat.zip` and `1510_1699/000000874_0_1-22pgs__570785_dat.zip` with `queries/config/hearts.txt`:
+Query over `1510_1699/000001143_0_1-20pgs__560409_dat.zip` and `1510_1699/000000874_0_1-22pgs__570785_dat.zip` with `queries/hearts.txt`:
 
 ```
 1676:
@@ -162,12 +162,12 @@ Query over `1510_1699/000001143_0_1-20pgs__560409_dat.zip` and `1510_1699/000000
 ## Count specific words and group by word
 
 * Count occurrences of each of a set of words and return counts per year, grouped by word. Words in the books are converted to lower-case and non 'a-z' characters (e.g. commas, hyphens etc.) removed before matches are done.
-* Query code: `queries/books/find_words_group_by_word.py`
+* Query module: `lwm.books.queries.find_words_group_by_word`
 * Configuration file:
   - One or more words to search for, one per line.
   - Examples:
-    - `queries/config/diseases.txt`
-    - `queries/config/hearts.txt`
+    - `queries/diseases.txt`
+    - `queries/hearts.txt`
 * Result format:
 
 ```
@@ -181,7 +181,7 @@ Query over `1510_1699/000001143_0_1-20pgs__560409_dat.zip` and `1510_1699/000000
 
 ### Sample results
 
-Query over `1510_1699/000001143_0_1-20pgs__560409_dat.zip` and `1510_1699/000000874_0_1-22pgs__570785_dat.zip` with `queries/config/hearts.txt`:
+Query over `1510_1699/000001143_0_1-20pgs__560409_dat.zip` and `1510_1699/000000874_0_1-22pgs__570785_dat.zip` with `queries/hearts.txt`:
 
 ```
 heart:
@@ -190,7 +190,7 @@ hearts:
 - [1676, 1]
 ```
 
-Query over `1510_1699/*.zip` with `queries/config/diseases.txt`:
+Query over `1510_1699/*.zip` with `queries/diseases.txt`:
 
 ```
 cancer:
@@ -238,12 +238,12 @@ cancer:
 ## Get context of specific words and group by year
 
 * Get context (title, publisher, place, page, enclosing text) of each of a set of words and return, grouped by year. Words in the books are converted to lower-case and non 'a-z' characters (e.g. commas, hyphens etc.) removed before matches are done.
-* Query code: `queries/books/find_words_context_group_by_year.py`
+* Query module: `lwm.books.queries.find_words_context_group_by_year`
 * Configuration file:
   - One or more words to search for, one per line.
   - Examples:
-    - `queries/config/diseases.txt`
-    - `queries/config/hearts.txt`
+    - `queries/diseases.txt`
+    - `queries/hearts.txt`
 * Result format:
 
 ```
@@ -261,7 +261,7 @@ cancer:
 
 ### Sample results
 
-Query over `1510_1699/000001143_0_1-20pgs__560409_dat.zip` and `1510_1699/000000874_0_1-22pgs__570785_dat.zip` with `queries/config/hearts.txt`:
+Query over `1510_1699/000001143_0_1-20pgs__560409_dat.zip` and `1510_1699/000000874_0_1-22pgs__570785_dat.zip` with `queries/hearts.txt`:
 
 ```
 1676:
@@ -279,12 +279,12 @@ Query over `1510_1699/000001143_0_1-20pgs__560409_dat.zip` and `1510_1699/000000
 ## Get context of specific words and group by word
 
 * Get context (title, publisher, place, page, enclosing text, year) of each of a set of words and return, grouped by word. Words in the books are converted to lower-case and non 'a-z' characters (e.g. commas, hyphens etc.) removed before matches are done.
-* Query code: `queries/books/find_words_context_group_by_word.py`
+* Query module: `lwm.books.queries.find_words_context_group_by_word`
 * Configuration file:
   - One or more words to search for, one per line.
   - Examples:
-    - `queries/config/diseases.txt`
-    - `queries/config/hearts.txt`
+    - `queries/diseases.txt`
+    - `queries/hearts.txt`
 * Result format:
 
 ```
@@ -302,7 +302,7 @@ Query over `1510_1699/000001143_0_1-20pgs__560409_dat.zip` and `1510_1699/000000
 
 ### Sample results
 
-Query over `1510_1699/000001143_0_1-20pgs__560409_dat.zip` and `1510_1699/000000874_0_1-22pgs__570785_dat.zip` with `queries/config/hearts.txt`:
+Query over `1510_1699/000001143_0_1-20pgs__560409_dat.zip` and `1510_1699/000000874_0_1-22pgs__570785_dat.zip` with `queries/hearts.txt`:
 
 ```
 heart:
@@ -320,7 +320,7 @@ heart:
 ## Normalize
 
 * Count total number of books, pages and words. This can be useful if wanting to see how the average number of books, pages and words change over time.
-* Query code: `queries/books/normalize.py`
+* Query module: `lwm.books.queries.normalize`
 * Configuration file: None
 * Result format:
 

@@ -3,12 +3,12 @@
 ## Count specific words and group by year
 
 * Count occurrences of each of a set of words and return counts, grouped by year. 
-* Query code: `queries/papers/articles_containing_words.py`
+* Query module: `lwm.papers.queries.articles_containing_words`
 * Configuration file: 
   - One or more words to search for, one per line.
   - Examples:
-    - `queries/config/gender.txt`
-    - `queries/config/krakatoa.txt`
+    - `queries/gender.txt`
+    - `queries/krakatoa.txt`
 * Result format:
 
 ```
@@ -22,7 +22,7 @@ YEAR:
 
 ### Sample results
 
-Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml` with `queries/config/gender.txt`:
+Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml` with `queries/gender.txt`:
 
 ```
 1907:
@@ -35,7 +35,7 @@ Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- T
 ...
 ```
 
-Query over `0000164- The Courier and Argus/*.xml` with `queries/config/krakatoa.txt`:
+Query over `0000164- The Courier and Argus/*.xml` with `queries/krakatoa.txt`:
 
 ```
 1901:
@@ -59,12 +59,12 @@ Query over `0000164- The Courier and Argus/*.xml` with `queries/config/krakatoa.
 ## Get articles containing specific words and group by year
 
 * Get articles containing each of a set of words and return, grouped by year. Words in the books are converted to lower-case and non 'a-z' characters.
-* Query code: `queries/papers/article_xml_with_words.py`
+* Query module: `lwm.papers.queries.article_xml_with_words`
 * Configuration file: 
   - One or more words to search for, one per line.
   - Examples:
-    - `queries/config/gender.txt`
-    - `queries/config/krakatoa.txt`
+    - `queries/gender.txt`
+    - `queries/krakatoa.txt`
 * Result format:
 
 ```
@@ -75,7 +75,7 @@ YEAR 00:00:00: [<ARTICLE_XML>, <ARTICLE_XML>, ...]
 
 ### Sample results
 
-Query over all newspapers with `queries/config/krakatoa.txt`:
+Query over all newspapers with `queries/krakatoa.txt`:
 
 ```
 1883-08-31 00:00:00: ["<article xmlns:dc=\"http://purl.org/dc/elements/1.1/\">

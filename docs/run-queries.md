@@ -1,78 +1,26 @@
 # Run queries
 
-To run a query on Spark you need to create a job bundle, which contains:
+A query can be submitted to Spark as follows.
 
-* A list of the paths to the data files to query. This is described in [Specify data to query](./specify-data.md).
-* The code in this directory, which parses the data and runs the query.
-* The code that implements the query.
-* A configuration file which provides the query code with additional information (e.g. words to search for).
-
-Here we describe how to create the job bundle and submit a job to Spark to run the query.
-
----
-
-## Create a job bundle
-
-We provide a `create_job.py` tool to create the bundle. Its arguments are as follows:
-
-```
-usage: create_job.py [-h] job data model query [config]
-
-Create Spark query job bundle
-
-positional arguments:
-  job_dir     Directory to create to hold job bundle
-  data        Data file listing data files to query
-  model       Data model to which data files conform: ['books', 'papers']
-  query       Python query file
-  config      Query-specific configuration file
-
-optional arguments:
-  -h, --help  show this help message and exit
-```
-
-For example, to create a job bundle to run a query to search a set of books for occurrences of some words (e.g. "heart" or "hearts") and return the counts of these occurrences grouped by year, you could run:
+ZIP up the source code (Spark needs this to run the query):
 
 ```bash
-python lwm/create_job.py job-books data.txt books queries/books/find_words_group_by_year.py queries/config/hearts.txt
+zip -r lwm.zip lwm
+```
+
+Submit the source code to Spark along with information about your query:
+
+```bash
+spark-submit --py-files lwm.zip lwm/run_query.py <DATA_FILE> <MODEL_NAME> <QUERY_NAME> <QUERY_CONFIG_FILE> [-r <RESULTS_FILE>] [-n <NUM_CORES>]
 ```
 
 where:
 
-* `job-books` is the directory within which the job bundle is created.
-* `data.txt` is the file with the paths to the books files to run the query over.
-* `books` tells the code that the data files listed in `data.txt` are books so should be parsed into a books data model.
-* `queries/books/find_words_group_by_year.py` is the code that runs the query.
-* `queries/config/hearts.txt` is a configuration file for the query which contains a list of the words, one per line, to search for.
-
-For example, to create a job bundle to run a query to search a set of newspapers for occurrences of gender-specific words (e.g. "she", "he" etc.) and return the counts of these occurrences grouped by year, you could run:
-
-```bash
-python lwm/create_job.py job-papers data.txt papers queries/papers/articles_containing_words.py queries/config/gender.txt
-```
-
-where:
-
-* `job-papers` is the directory within which the job bundle is created.
-* `data.txt` is the file with the paths to the newspapers files to run the query over.
-* `papers` tells the code that the data files listed in `data.txt` are newspapers so should be parsed into a newspapers data model.
-* `queries/papers/articles_containing_words.py` is the code that runs the query.
-* `queries/config/gender.txt` is a configuration file for the query, which contains a list of the words, one per line, to search for.
-
----
-
-## Submit a job to Spark
-
-Having created a job bundle, it can be submitted to Spark as follows.
-
-```bash
-cd <JOB_BUNDLE_DIRECTORY>
-spark-submit --py-files lwm.zip lwm/query_runner.py [<NUM_CORES>]
-```
-
-where:
-
-* `<JOB_BUNDLE_DIRECTORY>` is the job bundle directory created earlier.
+* `<DATA_FILE>` is a file that lists either URLs or file paths which are the files over which the query is to be run, one per line. Either URLs or file paths should be exclusively used, not both.
+* `<MODEL_NAME>` specifies which text model is to be used, `books` or `papers`. For example, `books` tells the code that the data files listed in `data.txt` are books so should be parsed into a books data model.
+* `<QUERY_NAME>` is the name of a Python module implementing the query to run, for example `lwm.books.queries.find_words_group_by_word` or `lwm.papers.queries.articles_containing_words`. The query must be compatible with the chosen model.
+* `<QUERY_CONFIG_FILE>` is a query-specific configuration file. This is optional and depends on the query implementation.
+* `<RESULTS_FILE>` is the query results file, to hold the query results in YAML format. If omitted the default is `results.yml`.
 * `<NUM_CORES>` is the number of computer processor cores requested for the job. If omitted the default is 1.
 
 **Note for Urika users**
@@ -80,21 +28,31 @@ where:
 * It is recommended that the value of 144 be used for `<NUM_CORES>`. This, with the number of cores per node, determines the number of workers/executors and nodes. As Urika has 36 cores per node, this would request 144/36 = 4 workers/executors and nodes.
 * This is required as `spark-runner --total-executor-cores` seems to be ignored.
 
-For example, to submit the job bundle to run the query to search a set of books for occurrences of some words (e.g. "heart" or "hearts") and return the counts of these occurrences grouped by year, you could run:
+For example, to submit a query to search a set of books for occurrences of some words (e.g. "heart" or "hearts") and return the counts of these occurrences grouped by year, you could run:
 
 ```bash
-cd job-book
-spark-submit --py-files lwm.zip lwm/query_runner.py
+spark-submit --py-files lwm.zip lwm/run_query.py data.txt books lwm.books.queries.find_words_group_by_year queries/hearts.txt
 ```
 
-For example, to submit the job bundle to run the query to search a set of newspapers for occurrences of gender-specific words (e.g. "she", "he" etc.) and return the counts of these occurrences grouped by year, you could run:
+where:
+
+* `data.txt` is the file with the paths to the books files to run the query over.
+* `lwm.books.queries.find_words_group_by_year` is the module that runs the query.
+* `queries/hearts.txt` is a configuration file for the query which contains a list of the words, one per line, to search for.
+
+For example, to submit a query to search a set of newspapers for occurrences of gender-specific words (e.g. "she", "he" etc.) and return the counts of these occurrences grouped by year, you could run:
 
 ```bash
-cd job-papers
-spark-submit --py-files lwm.zip lwm/query_runner.py
+spark-submit --py-files lwm.zip lwm/run_query.py ~/data/papers.2.txt papers lwm.papers.queries.articles_containing_words queries/gender.txt
 ```
 
-If successful the results will be written into a new file (commonly called `results.yml`) in the job bundle directory.
+where:
+
+* `data.txt` is the file with the paths to the papers files to run the query over.
+* `lwm.papers.queries.articles_containing_words` is the module that runs the query.
+* `queries/gender.txt` is a configuration file for the query which contains a list of the words, one per line, to search for.
+
+If successful the results will be written into a new file (by default called `results.yml`) in the current directory.
 
 ---
 
@@ -103,24 +61,7 @@ If successful the results will be written into a new file (commonly called `resu
 To submit a job to Spark as a background process, meaning you can do other things while Spark is running your query, use `nohup` and capture the output from Spark in ` log.txt` file. For example:
 
 ```bash
-nohup spark-submit --py-files lwm.zip lwm/query_runner.py 144 > log.txt &
-```
-
----
-
-## Run a job on Spark using `pyspark` (local only)
-
-Jobs can be run using `pyspark` as follows:
-
-```bash
-cd <JOB_BUNDLE_DIRECTORY>
-pyspark < lwm/query_runner.py [<NUM_CORES>]
-```
-
-For example:
-
-```bash
-pyspark < lwm/query_runner.py
+nohup spark-submit --py-files lwm.zip lwm/run_query.py <DATA_FILE> <MODEL_NAME> <QUERY_NAME> <QUERY_CONFIG_FILE> [-r <RESULTS_FILE>] [-n <NUM_CORES>] > log.txt &
 ```
 
 ---
@@ -131,22 +72,6 @@ A quick-and-dirty way to check the number of executors used is, if you have used
 
 ```bash
 grep Exec log.txt | wc -l
-```
-
----
-
-## Troubleshooting: `pyspark: command not found`
-
-If running `pyspark` locally you get:
-
-```
-bash: pyspark: command not found...
-```
-
-Then add Apache Spark to your `PATH` e.g.
-
-```bash
-export PATH=~/spark-2.4.0-bin-hadoop2.7/bin:$PATH
 ```
 
 ---
