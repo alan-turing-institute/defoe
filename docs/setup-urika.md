@@ -2,11 +2,11 @@
 
 ## Set up Python environment
 
-Create `py27` environment:
+Create `urika-py27` environment:
 
 ```bash
 module load anaconda3/4.1.1
-conda create -n py27 python=2.7 anaconda
+conda create -n urika-py27 python=2.7 anaconda
 
 Proceed ([y]/n)? y
 ```
@@ -14,7 +14,7 @@ Proceed ([y]/n)? y
 Activate environment:
 
 ```bash
-source activate py27
+source activate urika-py27
 ```
 
 Show active environment:
@@ -23,16 +23,15 @@ Show active environment:
 conda env list
 ```
 ```
-# conda environments:
-#
-py27                  *  /home/users/<your-urika-username>/.conda/envs/py27
-root                     /opt/cray/anaconda3/4.1.1
+...
+urika-py27            *  /home/users/<your-urika-username>/.conda/envs/urika-py27
+...
 ```
 
 Install dependencies:
 
 ```bash
-cd i_newspaper_rods
+cd books-papers-code
 conda install -c anaconda --file requirements.txt
 ```
 
@@ -40,7 +39,7 @@ conda install -c anaconda --file requirements.txt
 
 ```bash
 module load anaconda3/4.1.1
-source activate py27
+source activate urika-py27
 ```
 
 ---

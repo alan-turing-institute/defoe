@@ -120,5 +120,6 @@ export PATH=~/spark-2.4.0-bin-hadoop2.7/bin:$PATH
 ### Install dependencies
 
 ```bash
-pip install -r requirements.txt
+cd books-papers-code
+conda install -c anaconda --file requirements.txt 
 ```
