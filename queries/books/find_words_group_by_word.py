@@ -22,7 +22,7 @@ Only words that occur one or more times are returned.
 
 from operator import add
 
-import utils
+from lwm.books import utils
 
 
 def do_query(archives, words_file, logger=None):
