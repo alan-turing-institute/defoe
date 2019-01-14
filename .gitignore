@@ -64,3 +64,8 @@ ENV/
 
 # Local Spark testing
 metastore_db/
+
+# Miscellaneous
+log.txt
+lwm.zip
+results.yml
