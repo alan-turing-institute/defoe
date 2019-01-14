@@ -26,11 +26,11 @@ Run Spark text query job.
   paths should be exclusively used, not both.
 * model_name: specifies which text model is to be used. The model
   determines the modules loaded. These are assumed to be:
-  - "lwm.<MODEL_NAME>.sparkrods", which must have a "get_streams"
+  - "defoe.<MODEL_NAME>.sparkrods", which must have a "get_streams"
   function.
 * query_name: name of Python module implementing the query to run
-  e.g. "lwm.books.queries.find_words_group_by_word" or
-  "lwm.papers.queries.articles_containing_words". The query must
+  e.g. "defoe.books.queries.find_words_group_by_word" or
+  "defoe.papers.queries.articles_containing_words". The query must
   be compatible with the chosen model.
 * "query_config_file": query-specific configuration. This is optional
   and depends on the query implementation.
@@ -49,7 +49,7 @@ def main():
     """
     Run Spark text analysis job.
     """
-    root_module = "lwm"
+    root_module = "defoe"
     setup_module = "setup"
     models = ["books", "papers"]
 

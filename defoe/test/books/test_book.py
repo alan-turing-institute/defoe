@@ -1,18 +1,18 @@
 """
-lwm.books.book.Book tests.
+defoe.books.book.Book tests.
 """
 
 from unittest import TestCase
 
-from lwm.books.archive import Archive
-from lwm.books.book import Book
-from lwm.test.books import fixtures
-from lwm.test import open_file
+from defoe.books.archive import Archive
+from defoe.books.book import Book
+from defoe.test.books import fixtures
+from defoe.test import open_file
 
 
 class TestBook(TestCase):
     """
-    lwm.books.book.Book tests.
+    defoe.books.book.Book tests.
     """
 
     def setUp(self):

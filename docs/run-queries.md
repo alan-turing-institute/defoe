@@ -5,20 +5,20 @@ A query can be submitted to Spark as follows.
 ZIP up the source code (Spark needs this to run the query):
 
 ```bash
-zip -r lwm.zip lwm
+zip -r defoe.zip defoe
 ```
 
 Submit the source code to Spark along with information about your query:
 
 ```bash
-spark-submit --py-files lwm.zip lwm/run_query.py <DATA_FILE> <MODEL_NAME> <QUERY_NAME> <QUERY_CONFIG_FILE> [-r <RESULTS_FILE>] [-n <NUM_CORES>]
+spark-submit --py-files defoe.zip defoe/run_query.py <DATA_FILE> <MODEL_NAME> <QUERY_NAME> <QUERY_CONFIG_FILE> [-r <RESULTS_FILE>] [-n <NUM_CORES>]
 ```
 
 where:
 
 * `<DATA_FILE>` is a file that lists either URLs or file paths which are the files over which the query is to be run, one per line. Either URLs or file paths should be exclusively used, not both.
 * `<MODEL_NAME>` specifies which text model is to be used, `books` or `papers`. For example, `books` tells the code that the data files listed in `data.txt` are books so should be parsed into a books data model.
-* `<QUERY_NAME>` is the name of a Python module implementing the query to run, for example `lwm.books.queries.find_words_group_by_word` or `lwm.papers.queries.articles_containing_words`. The query must be compatible with the chosen model.
+* `<QUERY_NAME>` is the name of a Python module implementing the query to run, for example `defoe.books.queries.find_words_group_by_word` or `defoe.papers.queries.articles_containing_words`. The query must be compatible with the chosen model.
 * `<QUERY_CONFIG_FILE>` is a query-specific configuration file. This is optional and depends on the query implementation.
 * `<RESULTS_FILE>` is the query results file, to hold the query results in YAML format. If omitted the default is `results.yml`.
 * `<NUM_CORES>` is the number of computer processor cores requested for the job. If omitted the default is 1.
@@ -31,25 +31,25 @@ where:
 For example, to submit a query to search a set of books for occurrences of some words (e.g. "heart" or "hearts") and return the counts of these occurrences grouped by year, you could run:
 
 ```bash
-spark-submit --py-files lwm.zip lwm/run_query.py data.txt books lwm.books.queries.find_words_group_by_year queries/hearts.txt
+spark-submit --py-files defoe.zip defoe/run_query.py data.txt books defoe.books.queries.find_words_group_by_year queries/hearts.txt
 ```
 
 where:
 
 * `data.txt` is the file with the paths to the books files to run the query over.
-* `lwm.books.queries.find_words_group_by_year` is the module that runs the query.
+* `defoe.books.queries.find_words_group_by_year` is the module that runs the query.
 * `queries/hearts.txt` is a configuration file for the query which contains a list of the words, one per line, to search for.
 
 For example, to submit a query to search a set of newspapers for occurrences of gender-specific words (e.g. "she", "he" etc.) and return the counts of these occurrences grouped by year, you could run:
 
 ```bash
-spark-submit --py-files lwm.zip lwm/run_query.py ~/data/papers.2.txt papers lwm.papers.queries.articles_containing_words queries/gender.txt
+spark-submit --py-files defoe.zip defoe/run_query.py ~/data/papers.2.txt papers defoe.papers.queries.articles_containing_words queries/gender.txt
 ```
 
 where:
 
 * `data.txt` is the file with the paths to the papers files to run the query over.
-* `lwm.papers.queries.articles_containing_words` is the module that runs the query.
+* `defoe.papers.queries.articles_containing_words` is the module that runs the query.
 * `queries/gender.txt` is a configuration file for the query which contains a list of the words, one per line, to search for.
 
 If successful the results will be written into a new file (by default called `results.yml`) in the current directory.
@@ -61,7 +61,7 @@ If successful the results will be written into a new file (by default called `re
 To submit a job to Spark as a background process, meaning you can do other things while Spark is running your query, use `nohup` and capture the output from Spark in ` log.txt` file. For example:
 
 ```bash
-nohup spark-submit --py-files lwm.zip lwm/run_query.py <DATA_FILE> <MODEL_NAME> <QUERY_NAME> <QUERY_CONFIG_FILE> [-r <RESULTS_FILE>] [-n <NUM_CORES>] > log.txt &
+nohup spark-submit --py-files defoe.zip defoe/run_query.py <DATA_FILE> <MODEL_NAME> <QUERY_NAME> <QUERY_CONFIG_FILE> [-r <RESULTS_FILE>] [-n <NUM_CORES>] > log.txt &
 ```
 
 ---

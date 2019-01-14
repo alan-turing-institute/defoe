@@ -7,7 +7,7 @@ import logging
 import re
 import zipfile
 
-from lwm.books.book import Book
+from defoe.books.book import Book
 
 
 class Archive(object):

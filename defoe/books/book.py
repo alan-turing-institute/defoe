@@ -8,7 +8,7 @@ import re
 
 from lxml import etree
 
-from lwm.books.page import Page
+from defoe.books.page import Page
 
 
 class Book(object):

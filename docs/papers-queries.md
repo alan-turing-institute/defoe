@@ -3,7 +3,7 @@
 ## Count specific words and group by year
 
 * Count occurrences of each of a set of words and return counts, grouped by year. 
-* Query module: `lwm.papers.queries.articles_containing_words`
+* Query module: `defoe.papers.queries.articles_containing_words`
 * Configuration file: 
   - One or more words to search for, one per line.
   - Examples:
@@ -59,7 +59,7 @@ Query over `0000164- The Courier and Argus/*.xml` with `queries/krakatoa.txt`:
 ## Get articles containing specific words and group by year
 
 * Get articles containing each of a set of words and return, grouped by year. Words in the books are converted to lower-case and non 'a-z' characters.
-* Query module: `lwm.papers.queries.article_xml_with_words`
+* Query module: `defoe.papers.queries.article_xml_with_words`
 * Configuration file: 
   - One or more words to search for, one per line.
   - Examples:

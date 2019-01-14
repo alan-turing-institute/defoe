@@ -23,7 +23,7 @@ The result is of form, for example:
     ...
 """
 
-from lwm.books import utils
+from defoe.books import utils
 
 
 def do_query(archives, words_file, logger=None):

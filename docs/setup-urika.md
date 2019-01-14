@@ -31,7 +31,7 @@ urika-py27            *  /home/users/<your-urika-username>/.conda/envs/urika-py2
 Install dependencies:
 
 ```bash
-cd books-papers-code
+cd <REPOSITORY-DIRECTORY>
 conda install -c anaconda --file requirements.txt
 ```
 

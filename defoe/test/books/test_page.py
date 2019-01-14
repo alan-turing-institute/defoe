@@ -1,17 +1,17 @@
 """
-lwm.books.page.Page tests.
+defoe.books.page.Page tests.
 """
 
 from unittest import TestCase
 
-from lwm.books.page import Page
-from lwm.test.books import fixtures
-from lwm.test import get_path
+from defoe.books.page import Page
+from defoe.test.books import fixtures
+from defoe.test import get_path
 
 
 class TestPage(TestCase):
     """
-    lwm.books.page.Page tests.
+    defoe.books.page.Page tests.
     """
 
     def setUp(self):

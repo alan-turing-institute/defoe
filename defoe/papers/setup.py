@@ -4,7 +4,7 @@ Load and read files to get streams for Spark.
 
 from requests import get
 
-from lwm.papers.issue import Issue
+from defoe.papers.issue import Issue
 
 
 def open_stream(url):

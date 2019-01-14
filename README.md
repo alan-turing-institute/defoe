@@ -1,6 +1,6 @@
-# British Library Books and British Library Newspapers Data Analysis Software
+# "Defoe" - analysis of historical books and newspapers data
 
-This repository contains code to analyse datasets using Apache Spark.
+This repository contains code to analyse historical books and newspapers datasets using Apache Spark. 
 
 ---
 
@@ -74,6 +74,12 @@ See the GitHub repositories:
 
 ---
 
+## Name
+
+The code is called "defoe" after [Daniel Defoe](https://en.wikipedia.org/wiki/Daniel_Defoe), writer, journalist and pamphleteer of the 17-18 century.
+
+---
+
 ## Copyright and licence
 
 Copyright (c) 2015-2018 University College London
@@ -84,7 +90,7 @@ All code is available for use and reuse under a [MIT Licence](http://opensource.
 
 ### Data
 
-The file lwm/books/test/fixtures/000000037_0_1-42pgs__944211_dat_modified.zip is a modified copy of the file 000000037_0_1-42pgs__944211_dat.zip from [OCR text derived from digitised books published 1880 - 1889 in ALTO XML](https://data.bl.uk/digbks/db11.html) (doi: 10.21250/db11) which is licenced under [CC0 1.0 Public Domain](https://creativecommons.org/licenses/by/4.0/).
+The file defoe/test/books/fixtures/000000037_0_1-42pgs__944211_dat_modified.zip is a modified copy of the file 000000037_0_1-42pgs__944211_dat.zip from [OCR text derived from digitised books published 1880 - 1889 in ALTO XML](https://data.bl.uk/digbks/db11.html) (doi: 10.21250/db11) which is licenced under [CC0 1.0 Public Domain](https://creativecommons.org/licenses/by/4.0/).
 
 The modifications are as follows:
 

@@ -1,17 +1,17 @@
 """
-lwm.books.archive.Archive tests.
+defoe.books.archive.Archive tests.
 """
 
 from unittest import TestCase
 
-from lwm.books.archive import Archive
-from lwm.test.books import fixtures
-from lwm.test import open_file
+from defoe.books.archive import Archive
+from defoe.test.books import fixtures
+from defoe.test import open_file
 
 
 class TestArchive(TestCase):
     """
-    lwm.books.archive.Archive tests.
+    defoe.books.archive.Archive tests.
     """
 
     def setUp(self):

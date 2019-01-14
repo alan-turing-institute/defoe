@@ -1,17 +1,17 @@
 """
-lwm.papers.article.Article tests.
+defoe.papers.article.Article tests.
 """
 
 from unittest import TestCase
 
-from lwm.papers.issue import Issue
-from lwm.test.papers import fixtures
-from lwm.test import open_file
+from defoe.papers.issue import Issue
+from defoe.test.papers import fixtures
+from defoe.test import open_file
 
 
 class TestArticle(TestCase):
     """
-    lwm.papers.article.Article tests.
+    defoe.papers.article.Article tests.
     """
 
     def setUp(self):
