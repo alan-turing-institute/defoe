@@ -6,7 +6,7 @@ from unittest import TestCase
 
 from defoe.papers.issue import Issue
 from defoe.test.papers import fixtures
-from defoe.test import open_file
+from defoe.test import get_path
 
 
 class TestArticle(TestCase):
@@ -18,7 +18,7 @@ class TestArticle(TestCase):
         """
         Load the standard test file
         """
-        source = open_file(fixtures, '2000_04_24.xml')
+        source = get_path(fixtures, '2000_04_24.xml')
         issue = Issue(source)
         self.article = issue.articles[0]
 

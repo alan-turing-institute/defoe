@@ -26,8 +26,8 @@ Run Spark text query job.
   paths should be exclusively used, not both.
 * model_name: specifies which text model is to be used. The model
   determines the modules loaded. These are assumed to be:
-  - "defoe.<MODEL_NAME>.sparkrods", which must have a "get_streams"
-  function.
+  - "defoe.<MODEL_NAME>.sparkrods", which must have a
+  "filenames_to_objects" function.
 * query_name: name of Python module implementing the query to run
   e.g. "defoe.books.queries.find_words_group_by_word" or
   "defoe.papers.queries.articles_containing_words". The query must
@@ -43,6 +43,8 @@ import importlib
 import yaml
 
 from pyspark import SparkContext, SparkConf
+
+from defoe.file_utils import files_to_rdd
 
 
 def main():
@@ -93,7 +95,7 @@ def main():
                                     "." +
                                     setup_module)
     query = importlib.import_module(query_name)
-    get_streams = setup.get_streams
+    filenames_to_objects = setup.filenames_to_objects
     do_query = query.do_query
 
     # Configure Spark.
@@ -104,7 +106,8 @@ def main():
     # Submit job.
     context = SparkContext(conf=conf)
     log = context._jvm.org.apache.log4j.LogManager.getLogger(__name__)
-    data = get_streams(context, num_cores, source=data_file)
+    rdd_filenames = files_to_rdd(context, num_cores, data_file=data_file)
+    data = filenames_to_objects(rdd_filenames)
     results = do_query(data, query_config_file, log)
 
     # Write results.

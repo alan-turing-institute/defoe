@@ -7,6 +7,17 @@ HTTPS = "https://"
 BLOB = "blob:"
 
 
+def files_to_rdd(context,
+                 num_cores=1,
+                 data_file="data.txt"):
+    """
+    Populate Spark RDD with file names over which query is to be run.
+    """
+    filenames = [filename.strip() for filename in list(open(data_file))]
+    rdd_filenames = context.parallelize(filenames, num_cores)
+    return rdd_filenames
+
+
 def open_stream(filename):
     """
     Open a file and return a stream.
@@ -21,7 +32,9 @@ def open_stream(filename):
         import requests
         from cStringIO import StringIO
 
-        stream = StringIO(requests.get(filename, stream=True).raw.read())
+        stream = requests.get(filename, stream=True).raw
+        stream.decode_content = True
+        stream = StringIO(stream.read())
 
     elif is_blob:
         import io

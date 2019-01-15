@@ -7,7 +7,7 @@ from unittest import TestCase
 from defoe.books.archive import Archive
 from defoe.books.book import Book
 from defoe.test.books import fixtures
-from defoe.test import open_file
+from defoe.test import get_path
 
 
 class TestBook(TestCase):
@@ -16,8 +16,8 @@ class TestBook(TestCase):
     """
 
     def setUp(self):
-        source = open_file(fixtures,
-                           '000000037_0_1-42pgs__944211_dat_modified.zip')
+        source = get_path(fixtures,
+                          '000000037_0_1-42pgs__944211_dat_modified.zip')
         self.archive = Archive(source)
         self.book = self.archive[0]
 

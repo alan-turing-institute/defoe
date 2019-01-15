@@ -8,6 +8,7 @@ import re
 import zipfile
 
 from defoe.books.book import Book
+from defoe.file_utils import open_stream
 
 
 class Archive(object):
@@ -15,12 +16,12 @@ class Archive(object):
     Object model representation of ZIP archive of books.
     """
 
-    def __init__(self, stream):
+    def __init__(self, filename):
         self.logger = logging.getLogger('performance')
         self.logger.info("Opening archive")
-        mmap = StringIO(stream.read())
+        stream = open_stream(filename)
         self.logger.debug("Opened archive")
-        self.zip = zipfile.ZipFile(mmap)
+        self.zip = zipfile.ZipFile(stream)
         self.logger.info("Slurped archive")
         self.logger.debug("Examining books in archive")
         self.filenames = [entry.filename for entry in self.zip.infolist()]

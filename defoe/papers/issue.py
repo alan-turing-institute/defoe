@@ -7,6 +7,7 @@ from logging import getLogger
 from lxml import etree
 
 from defoe.papers.article import Article
+from defoe.file_utils import open_stream
 
 
 class Issue(object):
@@ -14,8 +15,9 @@ class Issue(object):
     Object module representation of XML issue of newspaper.
     """
 
-    def __init__(self, stream):
+    def __init__(self, filename):
         self.logger = getLogger('py4j')
+        stream = open_stream(filename)
         # Try hard to parse the file, even if it looks like this:
         # <wd pos="1664,5777,2052,5799">Bart,OwnerndPetitioner.Take/wd>
         parser = etree.XMLParser(recover=True)
