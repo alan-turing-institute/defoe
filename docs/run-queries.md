@@ -17,7 +17,11 @@ spark-submit --py-files defoe.zip defoe/run_query.py <DATA_FILE> <MODEL_NAME> <Q
 where:
 
 * `<DATA_FILE>` is a file that lists either URLs or file paths which are the files over which the query is to be run, one per line. Either URLs or file paths should be exclusively used, not both.
-* `<MODEL_NAME>` specifies which text model is to be used, `books` or `papers`. For example, `books` tells the code that the data files listed in `data.txt` are books so should be parsed into a books data model.
+* `<MODEL_NAME>` specifies which text model is to be used, one of:
+  -  `books`: British Library Books
+  - `papers`: British Library Newspapers
+  - `fmp`: Find My Past Newspapers
+  - For example, `books` tells the code that the data files listed in `data.txt` are books so should be parsed into a books data model.
 * `<QUERY_NAME>` is the name of a Python module implementing the query to run, for example `defoe.alto.queries.find_words_group_by_word` or `defoe.papers.queries.articles_containing_words`. The query must be compatible with the chosen model.
 * `<QUERY_CONFIG_FILE>` is a query-specific configuration file. This is optional and depends on the query implementation.
 * `<RESULTS_FILE>` is the query results file, to hold the query results in YAML format. If omitted the default is `results.yml`.

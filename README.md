@@ -24,6 +24,10 @@ The code can also handle the [Times Digital Archive](https://www.gale.com/uk/c/t
 
 This dataset is available, under licence, from [Gale](https://www.gale.com), a division of [CENGAGE](https://www.cengage.com/).
 
+### Find My Past Newspapers
+
+This dataset is available, under licence, from [Find My Past](https://www.findmypast.co.uk/).
+
 ---
 
 # Get started
@@ -40,7 +44,7 @@ Run queries:
 
 Available queries:
 
-* [ALTO document queries](docs/alto-queries) (British Library Books dataset)
+* [ALTO document queries](docs/alto-queries) (British Library Books and Find My Past Newspapers datasets)
 * [British Library Newspapers](docs/papers-queries.md) (these can also be run on the Times Digital Archive)
 
 Developers:
@@ -90,7 +94,7 @@ The code is called "defoe" after [Daniel Defoe](https://en.wikipedia.org/wiki/Da
 
 ## Copyright and licence
 
-Copyright (c) 2015-2018 University College London
+Copyright (c) 2015-2019 University College London
 
 Copyright (c) 2018-2019 The University of Edinburgh
 
