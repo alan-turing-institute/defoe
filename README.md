@@ -28,14 +28,22 @@ This dataset is available, under licence, from [Gale](https://www.gale.com), a d
 
 # Get started
 
+Set up:
+
 * [Set up local environment](docs/setup-local.md)
 * [Set up Urika environment](docs/setup-urika.md)
+
+Run queries:
 
 * [Specify data to query](docs/specify-data.md)
 * [Run queries](docs/run-queries.md)
 
+Available queries:
+
 * [British Library Books queries](docs/books-queries.md)
 * [British Library Newspapers](docs/papers-queries.md) (these can also be run on the Times Digital Archive)
+
+Developers:
 
 * [Run unit tests](docs/tests.md)
 
@@ -47,7 +55,7 @@ This dataset is available, under licence, from [Gale](https://www.gale.com), a d
 
 The code to analyse the British Library Books dataset has its origins in the first phase of '[Enabling Complex Analysis of Large Scale Digital Collections](http://figshare.com/articles/Enabling_Complex_Analysis_of_Large_Scale_Digital_Collections/1319482)', a project funded by the [Jisc Research Data Spring](https://www.jisc.ac.uk/rd/projects/research-data-spring) in 2015.
 
-The project team included: Melissa Terras (UCL), James Baker (British Library), David Beavan (UCL), James Hetherington (UCL), Martin Zaltz Austwick (UCL)< Oliver Duke-Williams (UCL), Will Finley (University of Sheffield), Helen O'Neill (UCL), Anne Welsh (UCL).
+The project team included: Melissa Terras (UCL), James Baker (British Library), David Beavan (UCL), James Hetherington (UCL), Martin Zaltz Austwick (UCL), Oliver Duke-Williams (UCL), Will Finley (University of Sheffield), Helen O'Neill (UCL), Anne Welsh (UCL).
 
 See the GitHub repository, [UCL-dataspring/cluster-code](https://github.com/UCL-dataspring/cluster-code).
 
