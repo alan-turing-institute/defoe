@@ -113,3 +113,22 @@ find "<NEWSPAPERS>/xmls/0000164- The Courier and Argus/" -name "*.xml" > data.tx
 ```bash
 find "/mnt/lustre/<your-urika-username>/blpaper/xmls/0000164- The Courier and Argus/" -name "*.xml" > data.txt
 ```
+
+---
+
+## Alan Turing Institute Azure datasets
+
+If running queries on datasets in the Alan Turing Institute Azure storage, then you need to configure your connection to Azure. For example:
+
+```bash
+export BLOB_ACCOUNT_NAME="clustercodetestdata"
+export BLOB_SAS_TOKEN="?sv=2017-11-09&ss=b&srt=sco&sp=rl&se=2020-12-31T00:00:00Z&st=2018-11-01T00:00:00Z&spr=https&sig=FsZ0mSMXK8jj5gNewDxDKe6iT8xt7tqR5qf5y3%2B%2F9lM%3D"
+export BLOB_CONTAINER_NAME="clustercodetestdata"
+```
+
+Paths in the data file need to be prefixed with `blob:`, for example:
+
+```
+blob:book37.zip
+blob:000206133_0_1-1178pgs__1023547_dat.zip
+```
