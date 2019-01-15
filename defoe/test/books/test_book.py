@@ -5,7 +5,6 @@ defoe.books.book.Book tests.
 from unittest import TestCase
 
 from defoe.books.archive import Archive
-from defoe.books.book import Book
 from defoe.test.books import fixtures
 from defoe.test import get_path
 
@@ -29,9 +28,9 @@ class TestBook(TestCase):
 
     def test_code(self):
         self.assertEqual('000000218', self.book.code)
-        self.assertTrue(self.book.code in self.archive.book_codes)
+        self.assertTrue(self.book.code in self.archive.document_codes)
         self.assertTrue('03_000002' in
-                        self.archive.book_codes[self.book.code])
+                        self.archive.document_codes[self.book.code])
 
     def test_page_codes(self):
         self.assertTrue('03_000002' in self.book.page_codes)
@@ -45,16 +44,3 @@ class TestBook(TestCase):
 
     def test_year(self):
         self.assertEqual([1823, 1869], self.book.years)
-
-    def test_yearify(self):
-        year_fixtures = {
-            "[1866]": [1866],
-            "1885]": [1885],
-            "1847 [1846, 47]": [1846, 1847],
-            "1862, [1861]": [1861, 1862],
-            "1873-80": [1873, 1880],
-            "[ca. 1730]": [1730],
-            "1725, 26": [1725, 1726],
-        }
-        for case, expected in list(year_fixtures.items()):
-            self.assertEqual(expected, Book.parse_year(case))

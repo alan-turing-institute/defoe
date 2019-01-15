@@ -15,9 +15,9 @@ class Page(object):
     images_path = etree.XPath('//GraphicalElement')
     page_path = etree.XPath('//Page')
 
-    def __init__(self, book, code, source=None):
+    def __init__(self, document, code, source=None):
         if not source:
-            source = book.archive.page_file(book.code, code)
+            source = document.archive.page_file(document.code, code)
         self.code = code
         self.tree = etree.parse(source)
         self.page_element = self.single_query(Page.page_path)

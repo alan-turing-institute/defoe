@@ -1,5 +1,5 @@
 """
-Object model representation of XML book.
+Object model representation of XML document.
 """
 
 from collections import defaultdict
@@ -8,12 +8,12 @@ import re
 
 from lxml import etree
 
-from defoe.books.page import Page
+from defoe.alto.page import Page
 
 
-class Book(object):
+class Document(object):
     """
-    Object model representation of XML book.
+    Object model representation of XML document.
     """
 
     def __init__(self, code, archive):
@@ -25,22 +25,22 @@ class Book(object):
         self.logger = logging.getLogger('performance')
         self.code = code
         self.pages = None
-        self.logger.debug("Loading book metadata")
+        self.logger.debug("Loading document metadata")
         self.metadata = self.archive.metadata_file(self.code)
-        self.logger.debug("Building book metadata")
+        self.logger.debug("Building document metadata")
         self.tree = etree.parse(self.metadata)
         self.title = self.single_query('//mods:title/text()')
         self.logger.debug("Sorting pages")
         self.page_codes = \
-            sorted(self.archive.book_codes[self.code], key=Book.sorter)
+            sorted(self.archive.document_codes[self.code], key=Document.sorter)
         self.pages = len(self.page_codes)
         self.logger.debug("Sorted pages")
         self.years = \
-            Book.parse_year(self.single_query('//mods:dateIssued/text()'))
+            Document.parse_year(self.single_query('//mods:dateIssued/text()'))
         self.publisher = self.single_query('//mods:publisher/text()')
         self.place = self.single_query('//mods:placeTerm/text()')
         # places often have a year in:
-        self.years += Book.parse_year(self.place)
+        self.years += Document.parse_year(self.place)
         self.years = sorted(self.years)
         if self.years:
             self.year = self.years[0]
@@ -75,7 +75,7 @@ class Book(object):
         return Page(self, code)
 
     def zip_info(self):
-        return self.archive.zip_info_for_book(self.code)
+        return self.archive.zip_info_for_document(self.code)
 
     def page_zip_info(self, page_code):
         return self.archive.zip_info_for_page(self.code, page_code)

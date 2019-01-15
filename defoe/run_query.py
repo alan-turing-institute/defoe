@@ -29,7 +29,7 @@ Run Spark text query job.
   - "defoe.<MODEL_NAME>.sparkrods", which must have a
   "filenames_to_objects" function.
 * query_name: name of Python module implementing the query to run
-  e.g. "defoe.books.queries.find_words_group_by_word" or
+  e.g. "defoe.alto.queries.find_words_group_by_word" or
   "defoe.papers.queries.articles_containing_words". The query must
   be compatible with the chosen model.
 * "query_config_file": query-specific configuration. This is optional

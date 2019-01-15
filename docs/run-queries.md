@@ -18,7 +18,7 @@ where:
 
 * `<DATA_FILE>` is a file that lists either URLs or file paths which are the files over which the query is to be run, one per line. Either URLs or file paths should be exclusively used, not both.
 * `<MODEL_NAME>` specifies which text model is to be used, `books` or `papers`. For example, `books` tells the code that the data files listed in `data.txt` are books so should be parsed into a books data model.
-* `<QUERY_NAME>` is the name of a Python module implementing the query to run, for example `defoe.books.queries.find_words_group_by_word` or `defoe.papers.queries.articles_containing_words`. The query must be compatible with the chosen model.
+* `<QUERY_NAME>` is the name of a Python module implementing the query to run, for example `defoe.alto.queries.find_words_group_by_word` or `defoe.papers.queries.articles_containing_words`. The query must be compatible with the chosen model.
 * `<QUERY_CONFIG_FILE>` is a query-specific configuration file. This is optional and depends on the query implementation.
 * `<RESULTS_FILE>` is the query results file, to hold the query results in YAML format. If omitted the default is `results.yml`.
 * `<NUM_CORES>` is the number of computer processor cores requested for the job. If omitted the default is 1.
@@ -31,13 +31,13 @@ where:
 For example, to submit a query to search a set of books for occurrences of some words (e.g. "heart" or "hearts") and return the counts of these occurrences grouped by year, you could run:
 
 ```bash
-spark-submit --py-files defoe.zip defoe/run_query.py data.txt books defoe.books.queries.find_words_group_by_year queries/hearts.txt
+spark-submit --py-files defoe.zip defoe/run_query.py data.txt books defoe.alto.queries.find_words_group_by_year queries/hearts.txt
 ```
 
 where:
 
 * `data.txt` is the file with the paths to the books files to run the query over.
-* `defoe.books.queries.find_words_group_by_year` is the module that runs the query.
+* `defoe.alto.queries.find_words_group_by_year` is the module that runs the query.
 * `queries/hearts.txt` is a configuration file for the query which contains a list of the words, one per line, to search for.
 
 For example, to submit a query to search a set of newspapers for occurrences of gender-specific words (e.g. "she", "he" etc.) and return the counts of these occurrences grouped by year, you could run:

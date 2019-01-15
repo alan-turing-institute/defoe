@@ -40,7 +40,7 @@ Run queries:
 
 Available queries:
 
-* [British Library Books queries](docs/books-queries.md)
+* [ALTO document queries](docs/alto-queries) (British Library Books dataset)
 * [British Library Newspapers](docs/papers-queries.md) (these can also be run on the Times Digital Archive)
 
 Developers:
