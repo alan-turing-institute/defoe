@@ -122,17 +122,3 @@ class Document(object):
         for page in self:
             for image in page.images:
                 yield page, image
-
-    def describe_relevant(self, scanner, checker):
-        finds = defaultdict(list)
-        for target in scanner:
-            find = checker(*target)
-            if find:
-                page, finding = find
-                finds[page].append(finding)
-        if finds:
-            return {self.year:
-                    [[self.title, self.year, self.place, self.publisher,
-                      [[page.code, page.content, finds]
-                       for page, finds in list(finds.items())]]]}
-        return None
