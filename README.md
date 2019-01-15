@@ -101,7 +101,7 @@ See the GitHub repository branches:
 
 This work is ongoing, using this repository.
 
-The project team includes: David Beavan (Turing), Rosa Filgueira (EPCC), Mike Jackson (EPCC).
+The development team includes: David Beavan (Turing), Rosa Filgueira (EPCC), Mike Jackson (EPCC).
 
 ---
 
