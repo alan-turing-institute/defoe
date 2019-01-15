@@ -59,30 +59,49 @@ Developers:
 
 The code to analyse the British Library Books dataset has its origins in the first phase of '[Enabling Complex Analysis of Large Scale Digital Collections](http://figshare.com/articles/Enabling_Complex_Analysis_of_Large_Scale_Digital_Collections/1319482)', a project funded by the [Jisc Research Data Spring](https://www.jisc.ac.uk/rd/projects/research-data-spring) in 2015.
 
-The project team included: Melissa Terras (UCL), James Baker (British Library), David Beavan (UCL), James Hetherington (UCL), Martin Zaltz Austwick (UCL), Oliver Duke-Williams (UCL), Will Finley (University of Sheffield), Helen O'Neill (UCL), Anne Welsh (UCL).
+See the GitHub repository:
 
-See the GitHub repository, [UCL-dataspring/cluster-code](https://github.com/UCL-dataspring/cluster-code).
+* [UCL-dataspring/cluster-code](https://github.com/UCL-dataspring/cluster-code)
+
+The project team included: Melissa Terras (UCL), James Baker (British Library), David Beavan (UCL), James Hetherington (UCL), Martin Zaltz Austwick (UCL), Oliver Duke-Williams (UCL), Will Finley (University of Sheffield), Helen O'Neill (UCL), Anne Welsh (UCL).
 
 ### Times Digital Archive and British Library Newspapers analysis code
 
 The code to analyse the Times Digital Archive and British Library Newspapers dataset has its origins in code developed by [UCL](https://www.ucl.ac.uk/) to analyse the Times Digital Archive. This work took place from 2016-2018.
 
-The project team included: James Hetherington (UCL), Raquel Alegre (UCL), Roma Klapaukh (UCL).
+See the GitHub repository:
 
-See the GitHub repository, [UCL/i_newspaper_rods](https://github.com/UCL/i_newspaper_rods)
+* [UCL/i_newspaper_rods](https://github.com/UCL/i_newspaper_rods)
+
+The project team included: James Hetherington (UCL), Raquel Alegre (UCL), Roma Klapaukh (UCL).
 
 ### Analysing humanities data using Cray Urika-GX
 
-Both codes were updated and extended by [EPCC](https://www.epcc.ed.ac.uk) as part of the [Research Engineering Group](https://www.turing.ac.uk/research/research-engineering) of the [The Alan Turing Institute](https://www.turing.ac.uk). The work focused on running both codes on the [Alan Turing Institute Cray Urika-GX Service](https://ati-rescomp-service-docs.readthedocs.io/en/latest/cray/introduction.html).
+Both the above codes were updated and extended by [EPCC](https://www.epcc.ed.ac.uk) as part of the [Research Engineering Group](https://www.turing.ac.uk/research/research-engineering) of the [The Alan Turing Institute](https://www.turing.ac.uk). The work focused on running both codes on the [Alan Turing Institute Cray Urika-GX Service](https://ati-rescomp-service-docs.readthedocs.io/en/latest/cray/introduction.html).
 
-This work was done in conjunction with Melissa Terras, College of Arts, Humanities and Social Sciences (CAHSS), The University of Edinburgh. The work was funded by Scottish Enterprise as part of the Alan Turing Institute-Scottish Enterprise Data Engineering Program. This work took place from 2018-2019.
-
-The project team included: Rosa Filgueira (EPCC), Mike Jackson (EPCC)
+This work was done in conjunction with Melissa Terras, College of Arts, Humanities and Social Sciences (CAHSS), The University of Edinburgh. The work was funded by Scottish Enterprise as part of the Alan Turing Institute-Scottish Enterprise Data Engineering Program. This work runs from 2018 to 2019.
 
 See the GitHub repositories:
 
 * [alan-turing-institute/cluster-code (branch:epcc-sparkrods)](https://github.com/alan-turing-institute/cluster-code/tree/epcc-sparkrods)
 * [alan-turing-institute/i_newspaper_rods (branch:epcc-master)](https://github.com/alan-turing-institute/i_newspaper_rods/tree/epcc-master)
+
+This work is ongoing, using this repository.
+
+The project team includes: Rosa Filgueira (EPCC), Mike Jackson (EPCC), Anna Roubickova (EPCC).
+
+### Living With Machines
+
+The code to analyse the Find My Past Newspapers dataset and to support blobs on Azure was developed by David Beavan (The Alan Turing Institute) as part of [Living With Machines](https://www.turing.ac.uk/research/research-projects/living-machines) funded by UKRI's [Strategic Priorities Fund](https://www.ukri.org/funding/funding-opportunities/) and led by the [Arts and Humanities Research Council](https://ahrc.ukri.org/) (AHRC). Living With Machines runs from 2018-2023.
+
+See the GitHub repository branches:
+
+* [DavidBeavan/cluster-code (branch:epcc-sparkrods)](https://github.com/DavidBeavan/cluster-code/tree/epcc-sparkrods)
+* [DavidBeavan/cluster-code (branch:azure-sparkrods)](https://github.com/DavidBeavan/cluster-code/tree/azure-sparkrods)
+
+This work is ongoing, using this repository.
+
+The project team includes: David Beavan (Turing), Rosa Filgueira (EPCC), Mike Jackson (EPCC).
 
 ---
 
