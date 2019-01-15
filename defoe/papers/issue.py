@@ -81,9 +81,3 @@ class Issue(object):
         # Iterate through all the articles
         for article in self.articles:
             yield article
-
-    def images(self):
-        # Iterate through all the pictures' metadata
-        # (Size, caption...)
-        for _, image in self.scan_images():
-            yield image
