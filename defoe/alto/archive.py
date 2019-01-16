@@ -23,7 +23,8 @@ class AltoArchive(object):
     def __init__(self, filename):
         self.logger = logging.getLogger('performance')
         self.logger.info("Opening archive")
-        stream = open_stream(filename)
+        self.filename = filename
+        stream = open_stream(self.filename)
         self.logger.debug("Opened archive")
         self.zip = zipfile.ZipFile(stream)
         self.logger.info("Slurped archive")

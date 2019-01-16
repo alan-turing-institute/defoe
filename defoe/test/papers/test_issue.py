@@ -18,16 +18,22 @@ class TestIssue(TestCase):
         """
         Load the standard test file
         """
-        source = get_path(fixtures, '2000_04_24.xml')
-        self.issue = Issue(source)
+        self.filename = get_path(fixtures, '2000_04_24.xml')
+        self.issue = Issue(self.filename)
+
+    def test_filename(self):
+        """
+        Test that the filename is correct
+        """
+        self.assertEqual(self.filename, self.issue.filename)
 
     def test_date(self):
         """
         Test that the date is correct
         """
-        assert self.issue.date.year == 2000
-        assert self.issue.date.month == 4
-        assert self.issue.date.day == 24
+        self.assertEqual(2000, self.issue.date.year)
+        self.assertEqual(4, self.issue.date.month)
+        self.assertEqual(24, self.issue.date.day)
 
     def test_page_count(self):
         """

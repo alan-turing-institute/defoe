@@ -15,9 +15,13 @@ class TestArchive(TestCase):
     """
 
     def setUp(self):
-        source = get_path(fixtures,
-                          '000000037_0_1-42pgs__944211_dat_modified.zip')
-        self.archive = Archive(source)
+        self.filename = get_path(
+            fixtures,
+            '000000037_0_1-42pgs__944211_dat_modified.zip')
+        self.archive = Archive(self.filename)
+
+    def test_filename(self):
+        self.assertEqual(self.filename, self.archive.filename)
 
     def test_documents(self):
         self.assertEqual(['000000218', '000000037'],
