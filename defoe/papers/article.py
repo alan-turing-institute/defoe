@@ -30,7 +30,7 @@ class Article(object):
         self.article_id = ""
         article_id = self.tree.xpath('id/text()')
         if article_id:
-            self.article_id = str(article_id[0])
+            self.article_id = article_id[0]
         self.page_ids = []
         pi = self.tree.xpath('pi/text()')
         splitter = None
