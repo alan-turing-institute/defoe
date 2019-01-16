@@ -35,19 +35,20 @@ class Issue(object):
             self.page_count = 0
             self.day_of_week = ''
             raise error
-        # DTD says there's only one issue element
-        # Note there are two different DTDs:
-        # GALENP: /GALENP/*/issue/page/article/text/*/p/wd
-        # LTO: /issue/article/text/*/p/wd
+
         try:
+            # GALENP: /GALENP/Newspaper/issue/page/article/text/*/p/wd
             self.issue = self.single_query('.//issue')
         except IndexError:
+            # BLN: /issue/article/text/*/p/wd
             self.issue = self.single_query('/issue')
 
         self.newspaper_id = ''
-        newspaper_id = self.single_query('//newspaperId/text()')
+        # GALENP: /GALEN/Newspaper/issue/metadatainfo/newspaperID
+        newspaper_id = self.single_query('//newspaperID/text()')
         if newspaper_id is None:
-            newspaper_id = self.single_query('//newspaperID/text()')
+            # BLN: /issue/newspaperId
+            newspaper_id = self.single_query('//newspaperId/text()')
         if not newspaper_id is None:
             self.newspaper_id = newspaper_id
 

@@ -63,16 +63,8 @@ def do_query(issues, words_file, logger=None):
                                            article,
                                            words_regex))
 
-    keyed_interest = interest.map(
-        lambda (year, newspaper_id, filename, article_title, content):
-        (year,
-         {"filename": filename,
-          "newspaper_id": newspaper_id,
-          "article_title": article_title,
-          "content": content}))
-
     # Group elements by year
-    interesting_by_year = keyed_interest \
+    interesting_by_year = interest \
         .groupByKey() \
         .map(lambda (year, data): (year, list(data))) \
         .collect()
@@ -97,12 +89,12 @@ def check_text(date, issue, article, words_regex):
     """
     if words_regex.search(article.words_string) is not None:
         return [(str(date.date()),
-                 issue.newspaper_id,
-                 issue.filename,
-                 " ".join(article.title),
-                 # etree.tostring(article.tree),
-                 " XML RESTORE etree.tostring(article.tree)",
+                 {
+                     "newspaper_id": issue.newspaper_id,
+                     "filename": issue.filename,
+                     "article_title": " ".join(article.title),
+                     # etree.tostring(article.tree),
+                     "content":" XML RESTORE etree.tostring(article.tree)",
+                 }
              )]
     return []
-
-    ## build JSON here!

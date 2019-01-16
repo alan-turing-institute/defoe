@@ -39,3 +39,17 @@ class TestArticle(TestCase):
         Make sure that the OCR quality is read.
         """
         self.assertEqual(0, self.article.quality)
+
+    def test_article_id(self):
+        """
+        Test that the article ID is correct.
+        """
+        self.assertEqual("0FFO-2000-0424-0001-001",
+                         self.article.article_id)
+
+    def test_page_ids(self):
+        """
+        Test that the page IDs are correct.
+        """
+        self.assertEqual(1, len(self.article.page_ids))
+        self.assertEqual("0001", self.article.page_ids[0])

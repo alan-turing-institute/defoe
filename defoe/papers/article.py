@@ -1,8 +1,5 @@
 """
 Object model representation of XML Article.
-
-
-Module for articles, many of which make up an issue
 """
 
 from logging import getLogger
@@ -19,10 +16,6 @@ class Article(object):
         self.logger = getLogger('py4j')
         self.tree = source
         self.filename = filename
-        # DTD says only one text element per article
-        # Texts can have different children: preamble, title and cr. Each of
-        # those is formed by pg (position guide) and p (paragraph) elements.
-        # Paras are  made of words (wd).
         self.quality = self.tree.xpath('ocr/text()')
         if not self.quality:
             self.quality = None
@@ -34,17 +27,23 @@ class Article(object):
         self.title = self.tree.xpath('text/text.title/p/wd/text()')
         self.preamble = self.tree.xpath('text/text.preamble/p/wd/text()')
         self.content = self.tree.xpath('text/text.cr/p/wd/text()')
-
-#        page_total = tree.xpath('pi/text()')    
-#        page = []
-#        for i in page_total:
-#            page.append(i.split("_")[-1]) # [0001, 0002, 0003,...]
-#        # Split on "_" OR "-"
-#        self.pages = " ".join(page).replace(' - ', '') # '0001, 0002, 0003,...#'
-#        self.xml_id = page_total[0].split("_")[:2] # [0000164, 19070603]
-#        self.issue_id = "_".join(xml_id) # '0000164_19070603'
-#        self.newspaper_id = page_total[0].split("_")[:1] # [0000164]
-#        self.newspaper_id = "".join(self_newspaper_id) # 0000164
+        self.article_id = ""
+        article_id = self.tree.xpath('id/text()')
+        if article_id:
+            self.article_id = article_id[0]
+        self.page_ids = []
+        pi = self.tree.xpath('pi/text()')
+        splitter = None
+        if pi:
+            if "_" in pi[0]:
+                # BLN
+                splitter = "_"
+            elif "-" in pi[0]:
+                # GALENP
+                splitter = "-"
+            if splitter:
+                for p in pi:
+                    self.page_ids.append(p.split(splitter)[-1])
 
     @property
     def words(self):
