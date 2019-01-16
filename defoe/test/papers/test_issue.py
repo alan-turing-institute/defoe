@@ -27,6 +27,12 @@ class TestIssue(TestCase):
         """
         self.assertEqual(self.filename, self.issue.filename)
 
+    def test_newspaper_id(self):
+        """
+        Test that the newspaper ID is correct
+        """
+        self.assertEqual('0FFO', self.issue.newspaper_id)
+
     def test_date(self):
         """
         Test that the date is correct

@@ -29,6 +29,7 @@ class Issue(object):
                               error.msg)
             self.tree = None
             self.issue = ''
+            self.newspaper_id = ''
             self.articles = []
             self.date = datetime.now()
             self.page_count = 0
@@ -42,6 +43,13 @@ class Issue(object):
             self.issue = self.single_query('.//issue')
         except IndexError:
             self.issue = self.single_query('/issue')
+
+        self.newspaper_id = ''
+        newspaper_id = self.single_query('//newspaperId/text()')
+        if newspaper_id is None:
+            newspaper_id = self.single_query('//newspaperID/text()')
+        if not newspaper_id is None:
+            self.newspaper_id = newspaper_id
 
         self.articles = [Article(article, self.filename)
                          for article in self.query('.//article')]
