@@ -34,7 +34,7 @@ class Issue(object):
             self.date = datetime.now()
             self.page_count = 0
             self.day_of_week = ''
-            raise error
+            return
 
         try:
             # GALENP: /GALENP/Newspaper/issue/page/article/text/*/p/wd
