@@ -8,12 +8,12 @@ per line.
 The result is of form, for example:
 
     YEAR:
-    - { "title": TITLE,
-        "place": PLACE,
-        "publisher": PUBLISHER,
-        "page": PAGE,
-        "text": TEXT,
-        "word": WORD }
+    - { "filename": FILENAME,
+        "newspaper_id": NEWSPAPER_ID,
+        "article_title": TITLE,
+        "article_id": ARTICLE_ID,
+        "page_ids": [PAGE_D, PAGE_ID, ...],
+        "content": XML_CONTENT }
     - { ... }
     ...
     YEAR:
@@ -49,12 +49,13 @@ def do_query(issues, words_file, logger=None):
 
     words_regex = re.compile(words_regex_str, re.I | re.U)
 
-    # Map each article in each issue to a year of publication
+    # Map each article in each issue to its year of publication
     articles = issues.flatMap(lambda issue: [(issue.date,
                                               issue,
                                               article) for
                                              article in issue.articles])
-    # Add 1 record for each word that appears in each article in each year
+    # Add one record for each word that appears in each article in
+    # each year
     interest = articles.flatMap(lambda (date,
                                         issue,
                                         article):
@@ -62,7 +63,6 @@ def do_query(issues, words_file, logger=None):
                                            issue,
                                            article,
                                            words_regex))
-
     # Group elements by year
     interesting_by_year = interest \
         .groupByKey() \
@@ -75,6 +75,19 @@ def check_text(date, issue, article, words_regex):
     """
     Catch articles that match the given regex.
 
+    A list of tuples of the following form are returned
+
+        (DATE,
+         {
+           "filename": FILENAME,
+           "newspaper_id": NEWSPAPER_ID,
+           "article_title": TITLE,
+           "article_id": ARTICLE_ID,
+           "page_ids": [PAGE_D, PAGE_ID, ...],
+           "content": XML_CONTENT
+          }
+        )
+
     :param date: Issue publication date
     :type date: datetime
     :param issue: Issue to which article belongs
@@ -83,18 +96,19 @@ def check_text(date, issue, article, words_regex):
     :type article: defoe.papers.article.Article
     :param words_regex: Regular expression with words to search for
     :type words_regex: _sre.SRE_Pattern
-    :return: list of (DATE, NEWSPAPER_ID, FILENAME, ARTICLE_TITLE, ARTICLE_XML) if the article's
+    :return: list of (DATE, NEWSPAPER_ID, FILENAME, ARTICLE_TITLE,
+    ARTICLE_ID, PAGE_IDS_LIST, ARTICLE_XML) if the article's
     text matches the given regular expression
-    :rtype: list(tuple(str or unicode, str or unicode, str or unicode))
+    :rtype: list of tuple(str or unicode, list)
     """
     if words_regex.search(article.words_string) is not None:
-        return [(str(date.date()),
+        return [(date.date(),
                  {
                      "newspaper_id": issue.newspaper_id,
                      "filename": issue.filename,
-                     "article_title": " ".join(article.title),
-                     # etree.tostring(article.tree),
-                     "content":" XML RESTORE etree.tostring(article.tree)",
-                 }
-             )]
+                     "article_title": str(article.title),
+                     "article_id": str(article.article_id),
+                     "page_ids": article.page_ids,
+                     "content": etree.tostring(article.tree),
+                 })]
     return []
