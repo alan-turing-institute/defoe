@@ -12,12 +12,13 @@ class Article(object):
     """
     Class to represent an article in an issue of an newspaper
     """
-    def __init__(self, source):
+    def __init__(self, source, filename):
         """
         Create the article from source XML
         """
         self.logger = getLogger('py4j')
         self.tree = source
+        self.filename = filename
         # DTD says only one text element per article
         # Texts can have different children: preamble, title and cr. Each of
         # those is formed by pg (position guide) and p (paragraph) elements.

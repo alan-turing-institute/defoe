@@ -18,9 +18,15 @@ class TestArticle(TestCase):
         """
         Load the standard test file
         """
-        source = get_path(fixtures, '2000_04_24.xml')
-        issue = Issue(source)
+        self.filename = get_path(fixtures, '2000_04_24.xml')
+        issue = Issue(self.filename)
         self.article = issue.articles[0]
+
+    def test_filename(self):
+        """
+        Check that the filename is correct.
+        """
+        self.assertEqual(self.filename, self.article.filename)
 
     def test_words_in_article(self):
         """

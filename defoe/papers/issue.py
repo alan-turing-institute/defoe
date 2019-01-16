@@ -43,7 +43,7 @@ class Issue(object):
         except IndexError:
             self.issue = self.single_query('/issue')
 
-        self.articles = [Article(article)
+        self.articles = [Article(article, self.filename)
                          for article in self.query('.//article')]
         raw_date = self.single_query('//pf/text()')
         if raw_date:
