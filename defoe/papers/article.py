@@ -35,6 +35,17 @@ class Article(object):
         self.preamble = self.tree.xpath('text/text.preamble/p/wd/text()')
         self.content = self.tree.xpath('text/text.cr/p/wd/text()')
 
+#        page_total = tree.xpath('pi/text()')    
+#        page = []
+#        for i in page_total:
+#            page.append(i.split("_")[-1]) # [0001, 0002, 0003,...]
+#        # Split on "_" OR "-"
+#        self.pages = " ".join(page).replace(' - ', '') # '0001, 0002, 0003,...#'
+#        self.xml_id = page_total[0].split("_")[:2] # [0000164, 19070603]
+#        self.issue_id = "_".join(xml_id) # '0000164_19070603'
+#        self.newspaper_id = page_total[0].split("_")[:1] # [0000164]
+#        self.newspaper_id = "".join(self_newspaper_id) # 0000164
+
     @property
     def words(self):
         """
