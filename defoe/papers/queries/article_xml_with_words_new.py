@@ -12,8 +12,8 @@ The result is of form, for example:
         "newspaper_id": NEWSPAPER_ID,
         "article_title": TITLE,
         "article_id": ARTICLE_ID,
-        "page_ids": [PAGE_D, PAGE_ID, ...],
-        "content": XML_CONTENT }
+        "page_ids": [PAGE_ID, PAGE_ID, ...],
+        "text": TEXT }
     - { ... }
     ...
     YEAR:
@@ -21,7 +21,6 @@ The result is of form, for example:
 """
 
 import re
-from lxml import etree
 
 
 def do_query(issues, words_file, logger=None):
@@ -75,7 +74,7 @@ def check_text(date, issue, article, words_regex):
     """
     Catch articles that match the given regex.
 
-    A list of tuples of the following form are returned
+    A list with a tuple of the following form is returned
 
         (DATE,
          {
@@ -84,7 +83,7 @@ def check_text(date, issue, article, words_regex):
            "article_title": TITLE,
            "article_id": ARTICLE_ID,
            "page_ids": [PAGE_D, PAGE_ID, ...],
-           "content": XML_CONTENT
+           "text": TEXT
           }
         )
 
@@ -96,9 +95,8 @@ def check_text(date, issue, article, words_regex):
     :type article: defoe.papers.article.Article
     :param words_regex: Regular expression with words to search for
     :type words_regex: _sre.SRE_Pattern
-    :return: list of (DATE, NEWSPAPER_ID, FILENAME, ARTICLE_TITLE,
-    ARTICLE_ID, PAGE_IDS_LIST, ARTICLE_XML) if the article's
-    text matches the given regular expression
+    :return: list with a tuple if the article's text matches the
+    given regular expression
     :rtype: list of tuple(str or unicode, list)
     """
     if words_regex.search(article.words_string) is not None:
@@ -106,9 +104,9 @@ def check_text(date, issue, article, words_regex):
                  {
                      "newspaper_id": issue.newspaper_id,
                      "filename": issue.filename,
-                     "article_title": str(article.title),
+                     "article_title": " ".join(article.title),
                      "article_id": str(article.article_id),
                      "page_ids": article.page_ids,
-                     "content": etree.tostring(article.tree),
+                     "text": article.words_string
                  })]
     return []
