@@ -18,7 +18,7 @@ class TestArticle(TestCase):
         """
         Load the standard test file
         """
-        self.filename = get_path(fixtures, '2000_04_24.xml')
+        self.filename = get_path(fixtures, 'bln-dummy.xml')
         issue = Issue(self.filename)
         self.article = issue.articles[0]
 
@@ -32,19 +32,19 @@ class TestArticle(TestCase):
         """
         Check that the article length is correct.
         """
-        self.assertEqual(18, len(self.article.words))
+        self.assertEqual(7, len(self.article.words))
 
     def test_ocr_quality(self):
         """
         Make sure that the OCR quality is read.
         """
-        self.assertEqual(0, self.article.quality)
+        self.assertEqual(91.22, self.article.quality)
 
     def test_article_id(self):
         """
         Test that the article ID is correct.
         """
-        self.assertEqual("0FFO-2000-0424-0001-001",
+        self.assertEqual("1234567_19121110_0001-001",
                          self.article.article_id)
 
     def test_page_ids(self):

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE GALENP SYSTEM "GALENP.dtd">
+<GALENP>
+    <Newspaper>
+        <issue>
+            <metadatainfo>
+                <newspaperID>NID123</newspaperID>
+            </metadatainfo>
+            <pf>19121110</pf>
+            <dw>Monday</dw>
+            <ip>1</ip>
+            <page>
+                <article type="article">
+                    <id>NID123-1912-1110-0001-001</id>
+                    <ocr relevant="no">0</ocr>
+                    <pi pgref="1">NID123-1912-1110-0001</pi>
+                    <text>
+                        <text.title>
+                            <p>
+                                <wd pos="1,2,3,4">Article 1 Title</wd>
+                            </p>
+                        </text.title>
+                        <text.cr>
+                            <p>
+                                <wd pos="1,2,3,4">A</wd>
+                            </p>
+                            <p>
+                                <wd pos="1,2,3,4">B</wd>
+                                <wd pos="1,2,3,4">C</wd>
+                            </p>
+                            <p>
+                                <wd pos="1,2,3,4">D</wd>
+                                <wd pos="1,2,3,4">E</wd>
+                                <wd pos="1,2,3,4">F</wd>
+                            </p>
+                        </text.cr>
+                    </text>
+                </article>
+                <article type="article">
+                    <id>NID123-1912-1110-0001-002</id>
+                    <ocr relevant="no">0</ocr>
+                    <pi pgref="1">NID123-1912-1110-0001</pi>
+                    <text>
+                        <text.title>
+                            <p>
+                                <wd pos="1,2,3,4">Article 2 Title</wd>
+                            </p>
+                        </text.title>
+                        <text.cr>
+                            <p>
+                                <wd pos="1,2,3,4">G</wd>
+                            </p>
+                            <p>
+                                <wd pos="1,2,3,4">H</wd>
+                                <wd pos="1,2,3,4">I</wd>
+                            </p>
+                            <p>
+                                <wd pos="1,2,3,4">J</wd>
+                                <wd pos="1,2,3,4">K</wd>
+                                <wd pos="1,2,3,4">L</wd>
+                            </p>
+                        </text.cr>
+                    </text>
+                </article>
+                <article type="article">
+                    <id>NID123-1912-1110-0001-003</id>
+                    <ocr relevant="no">0</ocr>
+                    <pi pgref="1">NID123-1912-1110-0001</pi>
+                    <text>
+                        <text.title>
+                            <p>
+                                <wd pos="1,2,3,4">Article 3 Title</wd>
+                            </p>
+                        </text.title>
+                        <text.cr>
+                            <p>
+                                <wd pos="1,2,3,4">M</wd>
+                            </p>
+                            <p>
+                                <wd pos="1,2,3,4">N</wd>
+                                <wd pos="1,2,3,4">O</wd>
+                            </p>
+                            <p>
+                                <wd pos="1,2,3,4">P</wd>
+                                <wd pos="1,2,3,4">Q</wd>
+                                <wd pos="1,2,3,4">R</wd>
+                            </p>
+                        </text.cr>
+                    </text>
+                </article>
+            </page>
+        </issue>
+    </Newspaper>
+</GALENP>

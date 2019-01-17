@@ -18,7 +18,7 @@ class TestIssue(TestCase):
         """
         Load the standard test file
         """
-        self.filename = get_path(fixtures, '2000_04_24.xml')
+        self.filename = get_path(fixtures, 'bln-dummy.xml')
         self.issue = Issue(self.filename)
 
     def test_filename(self):
@@ -31,21 +31,21 @@ class TestIssue(TestCase):
         """
         Test that the newspaper ID is correct
         """
-        self.assertEqual('0FFO', self.issue.newspaper_id)
+        self.assertEqual('NID123', self.issue.newspaper_id)
 
     def test_date(self):
         """
         Test that the date is correct
         """
-        self.assertEqual(2000, self.issue.date.year)
-        self.assertEqual(4, self.issue.date.month)
-        self.assertEqual(24, self.issue.date.day)
+        self.assertEqual(1912, self.issue.date.year)
+        self.assertEqual(11, self.issue.date.month)
+        self.assertEqual(10, self.issue.date.day)
 
     def test_page_count(self):
         """
         Test that the page count is correct.
         """
-        self.assertEqual(88, self.issue.page_count)
+        self.assertEqual(8, self.issue.page_count)
 
     def test_day_of_week(self):
         """
@@ -57,4 +57,4 @@ class TestIssue(TestCase):
         """
         Test that the articles per issue is correct.
         """
-        self.assertEqual(580, len(self.issue.articles))
+        self.assertEqual(3, len(self.issue.articles))

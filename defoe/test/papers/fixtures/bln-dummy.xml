@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE issue SYSTEM "bl_ncnp_issue_apex.dtd">
+<issue xmlns:dc="http://purl.org/dc/elements/1.1/">
+    <pf>19121110</pf>
+    <dw>Monday</dw>
+    <ip>8</ip>
+    <newspaperId>NID123</newspaperId>
+    <article>
+        <id>1234567_19121110_0001-001</id>
+        <ocr relevant="yes">91.22</ocr>
+        <pi pgref="1">1234567_19121110_0001</pi>
+        <text>
+            <text.title>
+                <p>
+                    <wd pos="1,2,3,4">Article 1 Title</wd>
+                </p>
+            </text.title>
+            <text.cr>
+                <p>
+                    <wd pos="1,2,3,4">A</wd>
+                </p>
+                <p>
+                    <wd pos="1,2,3,4">B</wd>
+                    <wd pos="1,2,3,4">C</wd>
+                </p>
+                <p>
+                    <wd pos="1,2,3,4">D</wd>
+                    <wd pos="1,2,3,4">E</wd>
+                    <wd pos="1,2,3,4">F</wd>
+                </p>
+            </text.cr>
+        </text>
+    </article>
+    <article>
+        <id>1234567_19121110_0001-002</id>
+        <ocr relevant="yes">85.82</ocr>
+        <pi pgref="1">1234567_19121110_0001</pi>
+        <pi pgref="2">1234567_19121110_0002</pi>
+        <pi pgref="6">1234567_19121110_0006</pi>
+        <pi pgref="7">1234567_19121110_0007</pi>
+        <pi pgref="8">1234567_19121110_0008</pi>
+        <text>
+            <text.title>
+                <p>
+                    <wd pos="1,2,3,4">Article 2 Title</wd>
+                </p>
+            </text.title>
+            <text.cr>
+                <p>
+                    <wd pos="1,2,3,4">G</wd>
+                </p>
+                <p>
+                    <wd pos="1,2,3,4">H</wd>
+                    <wd pos="1,2,3,4">I</wd>
+                </p>
+                <p>
+                    <wd pos="1,2,3,4">J</wd>
+                    <wd pos="1,2,3,4">K</wd>
+                    <wd pos="1,2,3,4">L</wd>
+                </p>
+            </text.cr>
+        </text>
+    </article>
+    <article>
+        <id>1234567_19121110_0002-003</id>
+        <ocr relevant="yes">78.10</ocr>
+        <pi pgref="2">1234567_19121110_0002</pi>
+        <text>
+            <text.title>
+                <p>
+                    <wd pos="1,2,3,4">Article 3 Title</wd>
+                </p>
+            </text.title>
+            <text.cr>
+                <p>
+                    <wd pos="1,2,3,4">M</wd>
+                </p>
+                <p>
+                    <wd pos="1,2,3,4">N</wd>
+                    <wd pos="1,2,3,4">O</wd>
+                </p>
+                <p>
+                    <wd pos="1,2,3,4">P</wd>
+                    <wd pos="1,2,3,4">Q</wd>
+                    <wd pos="1,2,3,4">R</wd>
+                </p>
+            </text.cr>
+        </text>
+    </article>
+</issue>
