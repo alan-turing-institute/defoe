@@ -32,24 +32,39 @@ This dataset is available, under licence, from [Find My Past](https://www.findmy
 
 # Get started
 
-Set up:
+Set up (local):
 
-* [Set up local environment](docs/setup-local.md)
-* [Set up Urika environment](docs/setup-urika.md)
+* [Set up local environment](./docs/setup-local.md)
+
+Set up (Urika):
+
+* [Set up Urika environment](./docs/setup-urika.md)
+* [Import data into Urika](./docs/import-data-urika.md)
+* [Import British Library Books and Newspapers data into Urika](./docs/import-data-urika-ati-se-humanities-uoe.md) (Alan Turing Institute-Scottish Enterprise Data Engineering Program University of Edinburgh project members only)
 
 Run queries:
 
-* [Specify data to query](docs/specify-data.md)
-* [Run queries](docs/run-queries.md)
+* [Specify data to query](./docs/specify-data-to-query.md)
+* [Run queries](./docs/run-queries.md)
 
 Available queries:
 
-* [ALTO document queries](docs/alto-queries) (British Library Books and Find My Past Newspapers datasets)
-* [British Library Newspapers](docs/papers-queries.md) (these can also be run on the Times Digital Archive)
+* [ALTO document queries](./docs/alto-queries) (British Library Books and Find My Past Newspapers datasets)
+* [British Library Newspapers](./docs/papers-queries.md) (these can also be run on the Times Digital Archive)
 
 Developers:
 
-* [Run unit tests](docs/tests.md)
+* [Run unit tests](./docs/tests.md)
+
+
+
+# Import British Library Books and Newspapers data into Urika
+
+**Note:** This information applies to Alan Turing Institute-Scottish Enterprise Data Engineering Program University of Edinburgh project members only.
+
+
+
+
 
 ---
 
