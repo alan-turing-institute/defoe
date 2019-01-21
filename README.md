@@ -45,6 +45,7 @@ Set up (Urika):
 Run queries:
 
 * [Specify data to query](./docs/specify-data-to-query.md)
+* [Specify Azure data to query](./docs/specify-data-to-query-azure.md)
 * [Run queries](./docs/run-queries.md)
 
 Available queries:
@@ -55,16 +56,6 @@ Available queries:
 Developers:
 
 * [Run unit tests](./docs/tests.md)
-
-
-
-# Import British Library Books and Newspapers data into Urika
-
-**Note:** This information applies to Alan Turing Institute-Scottish Enterprise Data Engineering Program University of Edinburgh project members only.
-
-
-
-
 
 ---
 
