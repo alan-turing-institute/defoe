@@ -18,7 +18,7 @@ class TestIssue(TestCase):
         """
         Load the standard test file
         """
-        self.filename = get_path(fixtures, 'bln-dummy.xml')
+        self.filename = get_path(fixtures, '1912_11_10.xml')
         self.issue = Issue(self.filename)
 
     def test_filename(self):
@@ -45,7 +45,7 @@ class TestIssue(TestCase):
         """
         Test that the page count is correct.
         """
-        self.assertEqual(8, self.issue.page_count)
+        self.assertEqual(1, self.issue.page_count)
 
     def test_day_of_week(self):
         """

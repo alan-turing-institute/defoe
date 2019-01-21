@@ -17,21 +17,21 @@
                     <text>
                         <text.title>
                             <p>
-                                <wd pos="1,2,3,4">Article 1 Title</wd>
+                                <wd>Article 1 Title</wd>
                             </p>
                         </text.title>
                         <text.cr>
                             <p>
-                                <wd pos="1,2,3,4">A</wd>
+                                <wd>A</wd>
                             </p>
                             <p>
-                                <wd pos="1,2,3,4">B</wd>
-                                <wd pos="1,2,3,4">C</wd>
+                                <wd>B</wd>
+                                <wd>C</wd>
                             </p>
                             <p>
-                                <wd pos="1,2,3,4">D</wd>
-                                <wd pos="1,2,3,4">E</wd>
-                                <wd pos="1,2,3,4">F</wd>
+                                <wd>D</wd>
+                                <wd>E</wd>
+                                <wd>F</wd>
                             </p>
                         </text.cr>
                     </text>
@@ -43,21 +43,21 @@
                     <text>
                         <text.title>
                             <p>
-                                <wd pos="1,2,3,4">Article 2 Title</wd>
+                                <wd>Article 2 Title</wd>
                             </p>
                         </text.title>
                         <text.cr>
                             <p>
-                                <wd pos="1,2,3,4">G</wd>
+                                <wd>G</wd>
                             </p>
                             <p>
-                                <wd pos="1,2,3,4">H</wd>
-                                <wd pos="1,2,3,4">I</wd>
+                                <wd>H</wd>
+                                <wd>I</wd>
                             </p>
                             <p>
-                                <wd pos="1,2,3,4">J</wd>
-                                <wd pos="1,2,3,4">K</wd>
-                                <wd pos="1,2,3,4">L</wd>
+                                <wd>J</wd>
+                                <wd>K</wd>
+                                <wd>L</wd>
                             </p>
                         </text.cr>
                     </text>
@@ -69,21 +69,21 @@
                     <text>
                         <text.title>
                             <p>
-                                <wd pos="1,2,3,4">Article 3 Title</wd>
+                                <wd>Article 3 Title</wd>
                             </p>
                         </text.title>
                         <text.cr>
                             <p>
-                                <wd pos="1,2,3,4">M</wd>
+                                <wd>M</wd>
                             </p>
                             <p>
-                                <wd pos="1,2,3,4">N</wd>
-                                <wd pos="1,2,3,4">O</wd>
+                                <wd>N</wd>
+                                <wd>O</wd>
                             </p>
                             <p>
-                                <wd pos="1,2,3,4">P</wd>
-                                <wd pos="1,2,3,4">Q</wd>
-                                <wd pos="1,2,3,4">R</wd>
+                                <wd>P</wd>
+                                <wd>Q</wd>
+                                <wd>R</wd>
                             </p>
                         </text.cr>
                     </text>

@@ -137,7 +137,7 @@ All code is available for use and reuse under a [MIT Licence](http://opensource.
 
 ### Data
 
-The file defoe/test/books/fixtures/000000037_0_1-42pgs__944211_dat_modified.zip is a modified copy of the file 000000037_0_1-42pgs__944211_dat.zip from [OCR text derived from digitised books published 1880 - 1889 in ALTO XML](https://data.bl.uk/digbks/db11.html) (doi: 10.21250/db11) which is licenced under [CC0 1.0 Public Domain](https://creativecommons.org/licenses/by/4.0/).
+The file `defoe/test/books/fixtures/000000037_0_1-42pgs__944211_dat_modified.zip` is a modified copy of the file `000000037_0_1-42pgs__944211_dat.zip` from [OCR text derived from digitised books published 1880 - 1889 in ALTO XML](https://data.bl.uk/digbks/db11.html) (doi: 10.21250/db11) which is licenced under [CC0 1.0 Public Domain](https://creativecommons.org/licenses/by/4.0/).
 
 The modifications are as follows:
 
@@ -155,3 +155,5 @@ The modifications are as follows:
 -               <MODS:placeTerm type="text">London</MODS:placeTerm>
 +               <MODS:placeTerm type="text">London [1823]</MODS:placeTerm>
 ```
+
+The file `defoe/test/papers/fixtures/1912_11_10.xml` is a copy of the file [newsrods/test/fixtures/2000_04_24.xml](https://github.com/UCL/i_newspaper_rods/blob/master/newsrods/test/fixtures/2000_04_24.xml) from from [ucl/i_newspaper_rods](https://github.com/ucl/i_newspaper_rods). The file has been renamed, most of its content removed, and its data replaced by dummy data.
