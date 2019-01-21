@@ -70,6 +70,4 @@ chmod -R u+rx /mnt/lustre/<your-urika-username>/blpaper/*/*.xml
 
 ## Important
 
-Do **not** mount DataStore directories directly onto Lustre. Urika compute nodes have no network access and so cannot access DataStore via the mount. Also, for efficient processing, data movement needs to be minimised
-
-Copy the data into Lustre!
+Do **not** mount DataStore directories directly onto Lustre.
