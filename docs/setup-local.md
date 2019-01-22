@@ -122,4 +122,8 @@ export PATH=~/spark-2.4.0-bin-hadoop2.7/bin:$PATH
 ```bash
 cd <REPOSITORY-DIRECTORY>
 conda install -c anaconda --file requirements.txt 
+pip freeze | grep azure > azure.txt
+pip uninstall -y -r azure.txt
+rm azure.txt
+conda install -c conda-forge azure
 ```

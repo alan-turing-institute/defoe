@@ -33,6 +33,10 @@ Install dependencies:
 ```bash
 cd <REPOSITORY-DIRECTORY>
 conda install -c anaconda --file requirements.txt
+pip freeze | grep azure > azure.txt
+pip uninstall -y -r azure.txt
+rm azure.txt
+conda install -c conda-forge azure
 ```
 
 **Note**:  After creating the `py27` environment, for your subsequent Urika sessions you just need to type:
