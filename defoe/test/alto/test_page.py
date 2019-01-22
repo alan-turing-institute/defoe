@@ -15,8 +15,8 @@ class TestPage(TestCase):
     """
 
     def setUp(self):
-        source = get_path(fixtures, 'page.xml')
+        source = get_path(fixtures, '000000037_000005.xml')
         self.page = Page(None, None, source)
 
     def test_content(self):
-        self.assertTrue("LOVE THE AVENGER" in self.page.content)
+        self.assertTrue("BEFORE YOU BUY" in self.page.content)
