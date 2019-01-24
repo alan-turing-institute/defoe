@@ -12,7 +12,10 @@ class TestDocument(TestCase):
     defoe.alto.document.Document tests.
     """
 
-    def test_yearify(self):
+    def test_parse_year(self):
+        """
+        Tests parse_year returns expected years when given various strings.
+        """
         year_fixtures = {
             "[1866]": [1866],
             "1885]": [1885],
