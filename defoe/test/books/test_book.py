@@ -36,7 +36,7 @@ class TestBook(TestCase):
         self.assertTrue('03_000002' in self.book.page_codes)
 
     def test_pages(self):
-        self.assertEqual(306, self.book.pages)
+        self.assertEqual(306, self.book.num_pages)
 
     def test_content(self):
         self.assertTrue(("the great Avorld of Paris" in

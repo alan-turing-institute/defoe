@@ -19,7 +19,7 @@ def do_query(archives, data_file=None, logger=None):
 
     counts = documents.map(lambda document:
                            (document.year,
-                            (1, document.pages, len(list(document.words())))))
+                            (1, document.num_pages, len(list(document.words())))))
 
     result = counts \
         .reduceByKey(lambda x, y:
