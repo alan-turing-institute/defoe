@@ -1,59 +1,122 @@
 """
-Object model representation of XML page.
+Object model representation of a page represented as an XML file in
+METS/MODS format.
 """
+
 
 from lxml import etree
 
 
 class Page(object):
     """
-    Object model representation of XML page.
+    Object model representation of a page represented as an XML file
+    in METS/MODS format.
     """
 
-    words_path = etree.XPath('//String/@CONTENT')
-    strings_path = etree.XPath('//String')
-    images_path = etree.XPath('//GraphicalElement')
-    page_path = etree.XPath('//Page')
+    WORDS_XPATH = etree.XPath('//String/@CONTENT')
+    """ XPath query for String content """
+    STRINGS_XPATH = etree.XPath('//String')
+    """ XPath query for String elements """
+    IMAGES_XPATH = etree.XPath('//GraphicalElement')
+    """ XPath query for Graphical Element """
+    PAGE_XPATH = etree.XPath('//Page')
+    """ XPath query for Page """
 
     def __init__(self, document, code, source=None):
+        """
+        Constructor.
+
+        :param document: Document object corresponding to document to
+        which this page belongs
+        :type document: defoe.alto.document.Document
+        :param code: identifier for this page within an archive
+        :type code: str or unicode
+        :param source: stream. If None then an attempt is made to
+        open the file holding the page via the given "document"
+        :type source: zipfile.ZipExt or another file-like object
+        """
         if not source:
             source = document.archive.open_page(document.code, code)
         self.code = code
         self.tree = etree.parse(source)
-        self.page_element = self.single_query(Page.page_path)
-        self.width = int(self.page_element.get("WIDTH"))
-        self.height = int(self.page_element.get("HEIGHT"))
-        self.bwords = None
-        self.bstrings = None
-        self.bimages = None
+        self.page_tree = self.single_query(Page.PAGE_XPATH)
+        self.width = int(self.page_tree.get("WIDTH"))
+        self.height = int(self.page_tree.get("HEIGHT"))
+        self.page_words = None
+        self.page_strings = None
+        self.page_images = None
 
-    def query(self, query):
-        return query(self.tree)
+    def query(self, xpath_query):
+        """
+        Run XPath query.
 
-    def single_query(self, query):
-        result = self.query(query)
+        :param xpath_query: XPath query
+        :type xpath_query: lxml.etree.XPath
+        :return: list of query results or None if none
+        :rtype: list(lxml.etree._Element)
+        """
+        return xpath_query(self.tree)
+
+    def single_query(self, xpath_query):
+        """
+        Run XPath query and return first result.
+
+        :param xpath_query: XPath query
+        :type xpath_query: lxml.etree.XPath
+        :return: query result or None if none
+        :rtype: lxml.etree._Element
+        """
+        result = self.query(xpath_query)
         if not result:
             return None
         return result[0]
 
     @property
     def words(self):
-        if not self.bwords:
-            self.bwords = list(map(unicode, self.query(Page.words_path)))
-        return self.bwords
+        """
+        Gets all words in page. These are then saved in an attribute,
+        so the words are only retrieved once.
+
+        :return: words
+        :rtype: list(str or unicode)
+        """
+        if not self.page_words:
+            self.page_words = list(map(unicode, self.query(Page.WORDS_XPATH)))
+        return self.page_words
 
     @property
     def strings(self):
-        if not self.bstrings:
-            self.bstrings = self.query(Page.words_path)
-        return self.bstrings
+        """
+        Gets all strings in page. These are then saved in an attribute,
+        so the strings are only retrieved once.
+
+        :return: strings
+        :rtype: list(lxml.etree._ElementStringResult)
+        """
+        if not self.page_strings:
+            self.page_strings = self.query(Page.STRINGS_XPATH)
+        return self.page_strings
 
     @property
     def images(self):
-        if not self.bimages:
-            self.bimages = self.query(Page.images_path)
-        return self.bimages
+        """
+        Gets all images in page. These are then saved in an attribute,
+        so the images are only retrieved once.
+
+        :return: images
+        :rtype: list(lxml.etree._Element)
+        """
+        if not self.page_images:
+            self.page_images = self.query(Page.IMAGES_XPATH)
+        return self.page_images
 
     @property
     def content(self):
+        """
+        Gets all words in page and contatenates together using ' ' as
+        delimiter.
+
+        :return: content
+        :rtype: str or unicode
+        """
         return ' '.join(self.words)
