@@ -32,9 +32,8 @@ class TestPage(TestCase):
         Tests Page.words property includes expected words.
         """
         words = self.page.words
-        self.assertTrue("BEFORE" in words)
-        self.assertTrue("YOU" in words)
-        self.assertTrue("BUY" in words)
+        for word in ["BEFORE", "YOU", "BUY"]:
+            self.assertTrue(word in words)
 
     def test_strings_count(self):
         """
