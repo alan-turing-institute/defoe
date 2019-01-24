@@ -20,21 +20,27 @@ Run Spark text query job.
       -r [RESULTS_FILE], --results_file [RESULTS_FILE]
                             Query results file
 
-* data_file: lists either URLs or file paths which are the files over
-  which the query is to be run, one per line. Either URLs or file
-  paths should be exclusively used, not both.
-* model_name: specifies which text model is to be used. The model
-  determines the modules loaded. These are assumed to be:
-  - "defoe.<MODEL_NAME>.sparkrods", which must have a
-  "filenames_to_objects" function.
+* data_file: lists either URLs or paths to files on the file system.
+* model_name: text model to be used. The model determines the modules
+  loaded. Given a "model_name" value of "<MODEL_NAME>" then a module
+  "defoe.<MODEL_NAME>.sparkrods" must exist and support a function:
+
+    pyspark.rdd.RDD filenames_to_objects(pyspark.rdd.RDD filenames)
+
 * query_name: name of Python module implementing the query to run
   e.g. "defoe.alto.queries.find_words_group_by_word" or
-  "defoe.papers.queries.articles_containing_words". The query must
-  be compatible with the chosen model.
-* "query_config_file": query-specific configuration. This is optional
-  and depends on the query implementation.
-* results_file": file to hold query results in YAML format.
-  Default: "results.yml".
+  "defoe.papers.queries.articles_containing_words". The query must be
+  compatible with the chosen model in "model_name". The module
+  must support a function
+
+    list do_query(pyspark.rdd.PipelinedRDD rdd,
+                  str|unicode config_file,
+                  py4j.java_gateway.JavaObject logger)
+
+* "query_config_file": query-specific configuration file. This is
+  optional and depends on the chosen query module above.
+* results_file": name of file to hold query results in YAML
+  format. Default: "results.yml".
 """
 
 from argparse import ArgumentParser
@@ -104,7 +110,7 @@ def main():
 
     # Submit job.
     context = SparkContext(conf=conf)
-    log = context._jvm.org.apache.log4j.LogManager.getLogger(__name__)
+    log = context._jvm.org.apache.log4j.LogManager.getLogger(__name__)  # pylint: disable=protected-access
     rdd_filenames = files_to_rdd(context, num_cores, data_file=data_file)
     data = filenames_to_objects(rdd_filenames)
     results = do_query(data, query_config_file, log)
