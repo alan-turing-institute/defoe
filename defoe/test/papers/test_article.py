@@ -16,7 +16,8 @@ class TestArticle(TestCase):
 
     def setUp(self):
         """
-        Load the standard test file
+        Creates Issue from test file fixtures/1912_11_10.xml then
+        retrieves first Article.
         """
         self.filename = get_path(fixtures, '1912_11_10.xml')
         issue = Issue(self.filename)
@@ -24,32 +25,38 @@ class TestArticle(TestCase):
 
     def test_filename(self):
         """
-        Check that the filename is correct.
+        Tests Article.filename attribute holds the expected filename.
         """
         self.assertEqual(self.filename, self.article.filename)
 
-    def test_words_in_article(self):
-        """
-        Check that the article length is correct.
-        """
-        self.assertEqual(7, len(self.article.words))
-
-    def test_ocr_quality(self):
-        """
-        Make sure that the OCR quality is read.
-        """
-        self.assertEqual(0, self.article.quality)
-
     def test_article_id(self):
         """
-        Test that the article ID is correct.
+        Tests Article.article_id attribute holds the expected article ID>
         """
         self.assertEqual('NID123-1912-1110-0001-001',
                          self.article.article_id)
 
+    def test_quality(self):
+        """
+        Tests Article.quality attribute holds the expected OCR quality.
+        """
+        self.assertEqual(0, self.article.quality)
+
+    def test_words(self):
+        """
+        Tests Article.words attribute holds the expected number of
+        words and that the words are as expected:
+        """
+        words = self.article.words
+        self.assertEqual(7, len(words))
+        for word in ["Article 1 Title", "A", "B", "C", "D", "E", "F"]:
+            self.assertTrue(word in words)
+
     def test_page_ids(self):
         """
-        Test that the page IDs are correct.
+        Tests Article.page_ids holds the expected number of page IDs
+        and that these are as expected.
         """
-        self.assertEqual(1, len(self.article.page_ids))
-        self.assertEqual("0001", self.article.page_ids[0])
+        page_ids = self.article.page_ids
+        self.assertEqual(1, len(page_ids))
+        self.assertTrue("0001" in page_ids)
