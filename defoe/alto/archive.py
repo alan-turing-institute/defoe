@@ -18,13 +18,13 @@ class AltoArchive(object):
     """
     __metaclass__ = abc.ABCMeta
 
-    """
-    Constructor
-
-    :param filename: archive filename
-    :type: filename: str or unicode
-    """
     def __init__(self, filename):
+        """
+        Constructor
+
+        :param filename: archive filename
+        :type: filename: str or unicode
+        """
         self.filename = filename
         stream = open_stream(self.filename)
         self.zip = zipfile.ZipFile(stream)
@@ -49,75 +49,75 @@ class AltoArchive(object):
     def __len__(self):
         return len(self.document_codes)
 
-    """
-    Gets pattern to find metadata filename which has information about
-    the document as a whole.
-
-    :return: pattern
-    :rtype: str or unicode
-    """
     @abc.abstractmethod
     def get_document_pattern(self):
+        """
+        Gets pattern to find metadata filename which has information about
+        the document as a whole.
+
+        :return: pattern
+        :rtype: str or unicode
+        """
         return
 
-    """
-    Gets pattern to find filenames corresponding to individual pages.
-
-    :return: pattern
-    :rtype: str or unicode
-    """
     @abc.abstractmethod
     def get_page_pattern(self):
+        """
+        Gets pattern to find filenames corresponding to individual pages.
+
+        :return: pattern
+        :rtype: str or unicode
+        """
         return
 
-    """
-    Gets information from ZIP file about metadata file.
-
-    :param document_code: document file code
-    :type document_code: str or unicode
-    :return: information
-    :rtype: zipfile.ZipInfo
-    """
     @abc.abstractmethod
     def get_document_info(self, document_code):
+        """
+        Gets information from ZIP file about metadata file.
+
+        :param document_code: document file code
+        :type document_code: str or unicode
+        :return: information
+        :rtype: zipfile.ZipInfo
+        """
         return
 
-    """
-    Gets information from ZIP file about a page file.
-
-    :param document_code: page file code
-    :type document_code: str or unicode
-    :param page_code: file code
-    :type page_code: str or unicode
-    :return: information
-    :rtype: zipfile.ZipInfo
-    """
     @abc.abstractmethod
     def get_page_info(self, document_code, page_code):
+        """
+        Gets information from ZIP file about a page file.
+
+        :param document_code: page file code
+        :type document_code: str or unicode
+        :param page_code: file code
+        :type page_code: str or unicode
+        :return: information
+        :rtype: zipfile.ZipInfo
+        """
         return
 
-    """
-    Opens metadata file.
-
-    :param document_code: document file code
-    :type document_code: str or unicode
-    :return: stream
-    :rtype: zipfile.ZipExt
-    """
     @abc.abstractmethod
     def open_document(self, document_code):
+        """
+        Opens metadata file.
+
+        :param document_code: document file code
+        :type document_code: str or unicode
+        :return: stream
+        :rtype: zipfile.ZipExt
+        """
         return
 
-    """
-    Opens page file.
-
-    :param document_code: page file code
-    :type document_code: str or unicode
-    :param page_code: file code
-    :type page_code: str or unicode
-    :return: stream
-    :rtype: zipfile.ZipExt
-    """
     @abc.abstractmethod
     def open_page(self, document_code, page_code):
+        """
+        Opens page file.
+
+        :param document_code: page file code
+        :type document_code: str or unicode
+        :param page_code: file code
+        :type page_code: str or unicode
+        :return: stream
+        :rtype: zipfile.ZipExt
+        """
         return
