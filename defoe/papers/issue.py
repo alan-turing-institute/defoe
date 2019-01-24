@@ -36,7 +36,7 @@ class Issue(object):
         self.issue = ''
         self.newspaper_id = ''
         self.articles = []
-        self.date = None
+        self.date = datetime.now()
         self.page_count = 0
         self.day_of_week = ''
         # Attempt to parse the file, even if its XML is invalid e.g:
