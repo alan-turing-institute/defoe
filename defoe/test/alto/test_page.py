@@ -16,7 +16,7 @@ class TestPage(TestCase):
 
     def setUp(self):
         """
-        Creates page from test file fixtures/000000037_000005.xml.
+        Creates Page from test file fixtures/000000037_000005.xml.
         """
         source = get_path(fixtures, '000000037_000005.xml')
         self.page = Page(None, None, source)
