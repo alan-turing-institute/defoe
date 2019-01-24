@@ -22,7 +22,7 @@ Only words that occur one or more times are returned.
 
 from operator import add
 
-from defoe.alto import utils
+from defoe import query_utils
 
 
 def do_query(archives, words_file, logger=None):
@@ -46,7 +46,7 @@ def do_query(archives, words_file, logger=None):
 
     words = documents.flatMap(
         lambda year_document: [
-            ((year_document[0], utils.normalize(word)), 1)
+            ((year_document[0], query_utils.normalize(word)), 1)
             for (_, word) in year_document[1].scan_words()
         ])
 

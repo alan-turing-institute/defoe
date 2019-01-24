@@ -23,7 +23,7 @@ The result is of form, for example:
     ...
 """
 
-from defoe.alto import utils
+from defoe import query_utils
 
 
 def do_query(archives, words_file, logger=None):
@@ -47,7 +47,7 @@ def do_query(archives, words_file, logger=None):
 
     words = documents.flatMap(
         lambda document: [
-            (document, page, utils.normalize(word))
+            (document, page, query_utils.normalize(word))
             for (page, word) in document.scan_words()
         ])
 
