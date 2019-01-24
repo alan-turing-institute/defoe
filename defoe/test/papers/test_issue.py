@@ -5,8 +5,8 @@ defoe.papers.issue.Issue tests.
 from unittest import TestCase
 
 from defoe.papers.issue import Issue
+from defoe.file_utils import get_path
 from defoe.test.papers import fixtures
-from defoe.test import get_path
 
 
 class TestIssue(TestCase):

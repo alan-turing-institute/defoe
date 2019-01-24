@@ -5,7 +5,7 @@ defoe.alto.page.Page tests.
 from unittest import TestCase
 
 from defoe.alto.page import Page
-from defoe.test import get_path
+from defoe.file_utils import get_path
 from defoe.test.alto import fixtures
 
 

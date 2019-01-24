@@ -1,59 +1,51 @@
 """
-File-handling utilities.
+Helper functions for accessing files within Python modules.
 """
 
-HTTP = "http://"
-HTTPS = "https://"
-BLOB = "blob:"
+import os
 
 
-def files_to_rdd(context,
-                 num_cores=1,
-                 data_file="data.txt"):
+def get_path(module, *name):
     """
-    Populate Spark RDD with file names over which query is to be run.
+    Gets path to file in module, given module and relative path.
+
+    :param module: module
+    :type module: module
+    :param *name: file name components
+    :type *name: str or unicode
+    :return: path to file
+    :rtype: str or unicode
     """
-    filenames = [filename.strip() for filename in list(open(data_file))]
-    rdd_filenames = context.parallelize(filenames, num_cores)
-    return rdd_filenames
+    return os.path.join(os.path.dirname(module.__file__), *name)
 
 
-def open_stream(filename):
+def open_file(module, *name):
     """
-    Open a file and return a stream.
+    Gets path to file in module, given module and relative path,
+    and returns open file.
+
+    :param module: module
+    :type module: module
+    :param *name: file name components
+    :type *name: str or unicode
+    :return: file handle
+    :rtype: file
     """
-    assert filename, "Filename must not be ''"
+    return open(get_path(module, *name))
 
-    is_url = (filename.lower().startswith(HTTP) or
-              filename.lower().startswith(HTTPS))
-    is_blob = (filename.lower().startswith(BLOB))
 
-    if is_url:
-        import requests
-        from cStringIO import StringIO
+def load_content(module, *name):
+    """
+    Gets path to file in module, given module and relative path,
+    and returns file content.
 
-        stream = requests.get(filename, stream=True).raw
-        stream.decode_content = True
-        stream = StringIO(stream.read())
-
-    elif is_blob:
-        import io
-        import os
-        from azure.storage.blob import BlobService
-
-        sas_token = os.environ['BLOB_SAS_TOKEN']
-        if sas_token[0] == '?':
-            sas_token = sas_token[1:]
-
-        blob_service = BlobService(account_name=os.environ['BLOB_ACCOUNT_NAME'],
-                                   sas_token=sas_token)
-        filename = filename[len(BLOB):]
-        blob = blob_service.get_blob_to_bytes(os.environ['BLOB_CONTAINER_NAME'],
-                                              filename)
-        stream = io.BytesIO(blob)
-
-    else:
-        from cStringIO import StringIO
-        stream = StringIO(open(filename).read())
-
-    return stream
+    :param module: module
+    :type module: module
+    :param *name: file name components
+    :type *name: str or unicode
+    :return: file content
+    :rtype: str or unicode
+    """
+    with open_file(module, *name) as f:
+        result = f.read()
+    return result

@@ -10,7 +10,7 @@ import re
 import zipfile
 
 from defoe.alto.document import Document
-from defoe.file_utils import open_stream
+from defoe.spark_utils import open_stream
 
 
 class AltoArchive(object):

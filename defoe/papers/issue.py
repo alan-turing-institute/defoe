@@ -7,7 +7,7 @@ from logging import getLogger
 from lxml import etree
 
 from defoe.papers.article import Article
-from defoe.file_utils import open_stream
+from defoe.spark_utils import open_stream
 
 
 class Issue(object):

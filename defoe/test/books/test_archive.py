@@ -5,8 +5,8 @@ defoe.books.archive.Archive tests.
 from unittest import TestCase
 
 from defoe.books.archive import Archive
+from defoe.file_utils import get_path
 from defoe.test.books import fixtures
-from defoe.test import get_path
 
 
 class TestArchive(TestCase):

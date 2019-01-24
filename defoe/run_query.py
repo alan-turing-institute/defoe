@@ -43,7 +43,7 @@ import yaml
 
 from pyspark import SparkContext, SparkConf
 
-from defoe.file_utils import files_to_rdd
+from defoe.spark_utils import files_to_rdd
 
 
 def main():
