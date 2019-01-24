@@ -17,7 +17,7 @@ class Page(object):
 
     def __init__(self, document, code, source=None):
         if not source:
-            source = document.archive.page_file(document.code, code)
+            source = document.archive.open_page(document.code, code)
         self.code = code
         self.tree = etree.parse(source)
         self.page_element = self.single_query(Page.page_path)

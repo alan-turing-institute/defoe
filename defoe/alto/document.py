@@ -26,7 +26,7 @@ class Document(object):
         self.code = code
         self.pages = None
         self.logger.debug("Loading document metadata")
-        self.metadata = self.archive.metadata_file(self.code)
+        self.metadata = self.archive.open_document(self.code)
         self.logger.debug("Building document metadata")
         self.tree = etree.parse(self.metadata)
         self.title = self.single_query('//mods:title/text()')
@@ -75,10 +75,10 @@ class Document(object):
         return Page(self, code)
 
     def zip_info(self):
-        return self.archive.zip_info_for_document(self.code)
+        return self.archive.get_document_info(self.code)
 
     def page_zip_info(self, page_code):
-        return self.archive.zip_info_for_page(self.code, page_code)
+        return self.archive.get_page_info(self.code, page_code)
 
     def single_query(self, query):
         result = self.query(query)
