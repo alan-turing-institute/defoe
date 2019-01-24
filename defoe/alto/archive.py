@@ -40,13 +40,33 @@ class AltoArchive(object):
             self.document_codes[match.group(1)].append(match.group(2))
 
     def __getitem__(self, index):
+        """
+        Given a document index, return a new Document object.
+
+        :param index: document index
+        :type index: int
+        :return: Document object
+        :rtype: defoe.alto.document.Document
+        """
         return Document(list(self.document_codes.keys())[index], self)
 
     def __iter__(self):
+        """
+        Iterate over document codes, creating Document objects.
+
+        :return: Document object
+        :rtype: defoe.alto.document.Document
+        """
         for document in self.document_codes:
             yield Document(document, self)
 
     def __len__(self):
+        """
+        Gets number of documents in ZIP archive.
+
+        :return: number of documents
+        :rtype: int
+        """
         return len(self.document_codes)
 
     @abc.abstractmethod
