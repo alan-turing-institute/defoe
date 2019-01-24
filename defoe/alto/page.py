@@ -53,7 +53,7 @@ class Page(object):
         :param xpath_query: XPath query
         :type xpath_query: lxml.etree.XPath
         :return: list of query results or None if none
-        :rtype: list(lxml.etree._Element)
+        :rtype: list(lxml.etree.<MODULE>) (depends on query)
         """
         return xpath_query(self.tree)
 
@@ -64,7 +64,7 @@ class Page(object):
         :param xpath_query: XPath query
         :type xpath_query: lxml.etree.XPath
         :return: query result or None if none
-        :rtype: lxml.etree._Element
+        :rtype: lxml.etree.<MODULE> (depends on query)
         """
         result = self.query(xpath_query)
         if not result:

@@ -105,7 +105,7 @@ class Document(object):
         :param query: XPath query
         :type query: str or unicode
         :return: list of query results or None if none
-        :rtype: list(str or unicode)
+        :rtype: list(lxml.etree.<MODULE>) (depends on query)
         """
         return self.metadata_tree.xpath(query, namespaces=self.namespaces)
 
