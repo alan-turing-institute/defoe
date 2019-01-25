@@ -1,0 +1,19 @@
+---
+version: 1
+disable_existing_loggers: False
+formatters:
+    time_level_name_message:
+        format: "%(asctime)s : [%(levelname)s] : %(name)s : %(message)s"
+
+handlers:
+    file_handler:
+        class: logging.handlers.RotatingFileHandler
+        level: INFO
+        formatter: time_level_name_message
+        filename: /mnt/lustre/<user>/logs.log
+        maxBytes: 1048576
+        backupCount: 5
+
+root:
+    level: INFO
+    handlers: [file_handler]

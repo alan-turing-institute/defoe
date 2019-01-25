@@ -9,9 +9,11 @@ The XML document can conform to the following schemas:
 """
 
 from datetime import datetime
+import logging
 from lxml import etree
 
 from defoe.papers.article import Article
+from defoe.logging_utils import get_logger
 from defoe.spark_utils import open_stream
 
 
@@ -31,7 +33,8 @@ class Issue(object):
         """
         self.filename = filename
         stream = open_stream(self.filename)
-
+        self.logger = get_logger(__name__)
+        self.logger.info("Read" + self.filename)
         self.issue_tree = None
         self.issue = ''
         self.newspaper_id = ''
