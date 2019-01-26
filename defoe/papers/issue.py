@@ -68,6 +68,8 @@ class Issue(object):
         raw_date = self.single_query('//pf/text()')
         if raw_date:
             self.date = datetime.strptime(raw_date, '%Y%m%d')
+        else:
+            self.date = None
 
         try:
             self.page_count = int(self.single_query('//ip/text()'))
