@@ -42,10 +42,11 @@ class Issue(object):
         # Attempt to parse the file, even if its XML is invalid e.g:
         # <wd ...>.../wd>
         parser = etree.XMLParser(recover=True)
-        try:
-            self.issue_tree = etree.parse(stream, parser)
-        except etree.XMLSyntaxError:
-            return
+        self.issue_tree = etree.parse(stream, parser)
+
+        has_issue = len(self.query("..//issue")) > 0
+        if not has_issue:
+            raise Exception("Missing 'issue' element")
 
         try:
             # GALENP: /GALENP/Newspaper/issue/page/article/text/*/p/wd

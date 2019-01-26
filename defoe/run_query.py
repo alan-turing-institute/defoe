@@ -100,6 +100,7 @@ def main():
                                     "." +
                                     setup_module)
     query = importlib.import_module(query_name)
+
     filenames_to_objects = setup.filenames_to_objects
     do_query = query.do_query
 
@@ -113,11 +114,24 @@ def main():
     log = context._jvm.org.apache.log4j.LogManager.getLogger(__name__)  # pylint: disable=protected-access
     rdd_filenames = files_to_rdd(context, num_cores, data_file=data_file)
     data = filenames_to_objects(rdd_filenames)
-    results = do_query(data, query_config_file, log)
+
+    ok_data = data \
+        .filter(lambda obj_file_err: obj_file_err[2] is None) \
+        .map(lambda obj_file_err: obj_file_err[0])
+    error_data = data \
+        .filter(lambda obj_file_err: obj_file_err[2] is not None) \
+        .map(lambda obj_file_err: (obj_file_err[1], obj_file_err[2]))
+
+    results = do_query(ok_data, query_config_file, log)
+    errors = error_data.collect()
 
     # Write results.
-    with open(results_file, "w") as results_file:
-        results_file.write(yaml.safe_dump(dict(results)))
+    with open(results_file, "w") as f:
+        f.write(yaml.safe_dump(dict(results)))
+
+    error_file = "errors.yml"
+    with open(error_file, "w") as f:
+        f.write(yaml.safe_dump(list(errors)))
 
 
 if __name__ == "__main__":
