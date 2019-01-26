@@ -10,7 +10,7 @@ handlers:
         class: logging.handlers.RotatingFileHandler
         level: INFO
         formatter: time_level_name_message
-        filename: /mnt/lustre/<user>/logs.log
+        filename: /<path-on-distributed-filesystem>/logs.log
         maxBytes: 1048576
         backupCount: 5
 
