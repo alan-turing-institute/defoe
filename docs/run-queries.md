@@ -80,6 +80,30 @@ grep Exec log.txt | wc -l
 
 ---
 
+## Configure logging
+
+Logging can be configured as follows.
+
+Edit `config/log.properties.yml`:
+
+* Scroll to the `filename` value:
+
+```
+filename: /<path-on-distributed-filesystem>/logs.log
+```
+
+* Update the path to be a path on a distributed file system to which all nodes in the cluster running Spark have access.
+  - On Urika, you create and use a directory in Lustre e.g. `/mnt/lustre/<your-urika-username>`
+* When you run `spark-submit`, pass the path to this log file via a `--files` argument e.g.
+
+   ```
+   ... --files config/log.properties.yml ...
+   ```
+
+For a description of the options available in Python's log files, see Python's [logging configuration](https://docs.python.org/2/library/logging.config.html).
+
+---
+
 ## Troubleshooting: `spark-submit: command not found`
 
 If running `spark-submit` locally you get:
