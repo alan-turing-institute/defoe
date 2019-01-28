@@ -11,7 +11,7 @@ zip -r defoe.zip defoe
 Submit the source code to Spark along with information about your query:
 
 ```bash
-spark-submit --py-files defoe.zip defoe/run_query.py <DATA_FILE> <MODEL_NAME> <QUERY_NAME> <QUERY_CONFIG_FILE> [-r <RESULTS_FILE>] [-n <NUM_CORES>]
+spark-submit --py-files defoe.zip defoe/run_query.py <DATA_FILE> <MODEL_NAME> <QUERY_NAME> <QUERY_CONFIG_FILE> [-r <RESULTS_FILE>] [-e <ERRORS_FILE>] [-n <NUM_CORES>]
 ```
 
 where:
@@ -25,6 +25,7 @@ where:
 * `<QUERY_NAME>` is the name of a Python module implementing the query to run, for example `defoe.alto.queries.find_words_group_by_word` or `defoe.papers.queries.articles_containing_words`. The query must be compatible with the chosen model.
 * `<QUERY_CONFIG_FILE>` is a query-specific configuration file. This is optional and depends on the query implementation.
 * `<RESULTS_FILE>` is the query results file, to hold the query results in YAML format. If omitted the default is `results.yml`.
+* `<ERRORS_FILE>` is the errors file, to hold information on any errors in YAML format. If omitted the default is `errors.yml`.
 * `<NUM_CORES>` is the number of computer processor cores requested for the job. If omitted the default is 1.
 
 **Note for Urika users**
@@ -66,6 +67,17 @@ To submit a job to Spark as a background process, meaning you can do other thing
 
 ```bash
 nohup spark-submit --py-files defoe.zip defoe/run_query.py <DATA_FILE> <MODEL_NAME> <QUERY_NAME> <QUERY_CONFIG_FILE> [-r <RESULTS_FILE>] [-n <NUM_CORES>] > log.txt &
+```
+
+---
+
+## Check if any data files were skipped due to errors
+
+If any problems arise in reading data files or converting these into objects before running queries then an attempt will be made to capture these errors and record them in the errors file (default name `errors.yml`). If present, this file provides a list of the problematic files and the errors that arose. For example:
+
+```
+- [/mnt/lustre/<user>/data/book.zip, File is not a zip file]
+- [/mnt/lustre/<user>/data/sample-book.zip, '[Errno 2] No such file or directory: ''sample-book.zip'
 ```
 
 ---
