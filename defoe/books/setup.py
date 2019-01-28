@@ -1,18 +1,24 @@
 """
-Map an RDD of filenames into an RDD of defoe.books.archive.Archive.
+Given a filename create a defoe.books.archive.Archive.
 """
 
 from defoe.books.archive import Archive
 
 
-def filenames_to_objects(filenames):
+def filename_to_object(filename):
     """
-    Map an RDD of filenames into an RDD of defoe.books.archive.Archive.
+    Given a filename create a defoe.books.archive.Archive.  If an error
+    arises during its creation this is caught and returned as a
+    string.
 
-    :param filenames: RDD of filenames
-    :type filenames: pyspark.rdd.RDD
-    :return: RDD of defoe.books.archive.Archive
-    :rtype: pyspark.rdd.RDD
+    :param filename: filename
+    :type filename: str or unicode
+    :return: tuple of form (Archive, None) or (filename, error message),
+    if there was an error creating Archive
+    :rtype: tuple(defoe.books.archive.Archive | str or unicode, str or unicode)
     """
-    archives = filenames.map(Archive)
-    return archives
+    try:
+        result = (Archive(filename), None)
+    except Exception as exception:
+        result = (filename, str(exception))
+    return result

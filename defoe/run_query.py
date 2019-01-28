@@ -2,6 +2,7 @@
 Run Spark text query job.
 
     usage: run_query.py [-h] [-n [NUM_CORES]] [-r [RESULTS_FILE]]
+                      [-e [ERRORS_FILE]]
                       data_file model_name query_name [query_config_file]
 
     Run Spark text analysis job
@@ -19,14 +20,23 @@ Run Spark text query job.
                             Number of cores
       -r [RESULTS_FILE], --results_file [RESULTS_FILE]
                             Query results file
+      -e [ERRORS_FILE], --errors_file [ERRORS_FILE]
+                            Errors file
 
 * data_file: lists either URLs or paths to files on the file system.
 * model_name: text model to be used. The model determines the modules
   loaded. Given a "model_name" value of "<MODEL_NAME>" then a module
-  "defoe.<MODEL_NAME>.sparkrods" must exist and support a function:
+  "defoe.<MODEL_NAME>.setup" must exist and support a function:
 
-    pyspark.rdd.RDD filenames_to_objects(pyspark.rdd.RDD filenames)
+    tuple(Object | str or unicode, str or unicode)
+    filename_to_object(str or unicode: filename)
 
+  - tuple(Object, None) is returned where Object is an instance of the
+  - object model representing the data, if the file was successfully
+  - read and parsed into an object
+  - tuple(str or unicode, filename) is returned with the filename and
+  - an error message, if the file was not successfully read and parsed
+  - into an object
 * query_name: name of Python module implementing the query to run
   e.g. "defoe.alto.queries.find_words_group_by_word" or
   "defoe.papers.queries.articles_containing_words". The query must be
@@ -45,6 +55,7 @@ Run Spark text query job.
 
 from argparse import ArgumentParser
 import importlib
+import os.path
 import yaml
 
 from pyspark import SparkContext, SparkConf
@@ -82,6 +93,11 @@ def main():
                         nargs="?",
                         default="results.yml",
                         help="Query results file")
+    parser.add_argument("-e",
+                        "--errors_file",
+                        nargs="?",
+                        default="errors.yml",
+                        help="Errors file")
 
     args = parser.parse_args()
     model_name = args.model_name
@@ -90,6 +106,11 @@ def main():
     num_cores = args.num_cores
     query_config_file = args.query_config_file
     results_file = args.results_file
+    errors_file = args.errors_file
+
+    for f in [results_file, errors_file]:
+        if os.path.exists(f):
+            os.remove(f)
 
     assert model_name in models, ("'model' must be one of " + str(models))
 
@@ -101,7 +122,7 @@ def main():
                                     setup_module)
     query = importlib.import_module(query_name)
 
-    filenames_to_objects = setup.filenames_to_objects
+    filename_to_object = setup.filename_to_object
     do_query = query.do_query
 
     # Configure Spark.
@@ -112,26 +133,31 @@ def main():
     # Submit job.
     context = SparkContext(conf=conf)
     log = context._jvm.org.apache.log4j.LogManager.getLogger(__name__)  # pylint: disable=protected-access
+    # [filename,...]
     rdd_filenames = files_to_rdd(context, num_cores, data_file=data_file)
-    data = filenames_to_objects(rdd_filenames)
+    # [(object, None)|(filename, error_message), ...]
+    data = rdd_filenames.map(
+        lambda filename: filename_to_object(filename))
 
+    # [object, ...]
     ok_data = data \
-        .filter(lambda obj_file_err: obj_file_err[2] is None) \
+        .filter(lambda obj_file_err: obj_file_err[1] is None) \
         .map(lambda obj_file_err: obj_file_err[0])
+    # [(filename, error_message), ...]
     error_data = data \
-        .filter(lambda obj_file_err: obj_file_err[2] is not None) \
-        .map(lambda obj_file_err: (obj_file_err[1], obj_file_err[2]))
+        .filter(lambda obj_file_err: obj_file_err[1] is not None) \
+        .map(lambda obj_file_err: (obj_file_err[0], obj_file_err[1]))
 
     results = do_query(ok_data, query_config_file, log)
     errors = error_data.collect()
 
-    # Write results.
     with open(results_file, "w") as f:
         f.write(yaml.safe_dump(dict(results)))
 
-    error_file = "errors.yml"
-    with open(error_file, "w") as f:
-        f.write(yaml.safe_dump(list(errors)))
+    errors = list(errors)
+    if errors:
+        with open(errors_file, "w") as f:
+            f.write(yaml.safe_dump(list(errors)))
 
 
 if __name__ == "__main__":
