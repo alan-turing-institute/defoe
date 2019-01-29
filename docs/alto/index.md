@@ -2,7 +2,7 @@
 
 British Library Books dataset and Find My Past dataset.
 
-* [Total documents](./total_documents.md)
+* [Count total number of documents](./total_documents.md)
 * [Total pages](./total_pages.md)
 * [Total words](./total_words.md)
 * [Count specific words and group by year](./find_words_context_group_by_year.md)
