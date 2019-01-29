@@ -1,12 +1,11 @@
-# Total words
+# Count total number of words
 
-* Count total number of documents and words.
 * Query module: `defoe.alto.queries.total_words`
 * Configuration file: None
 * Result format:
 
 ```
-{documents: <NUM_DOCUMENTS>, words: <NUM_WORDS>}
+{num_documents: <NUM_DOCUMENTS>, num_words: <NUM_WORDS>}
 ```
 
 * Validation:
@@ -26,17 +25,17 @@ grep \<String ALTO/*xml | wc -l
 Query over British Library Books `1510_1699/000001143_0_1-20pgs__560409_dat.zip` and `1510_1699/000000874_0_1-22pgs__570785_dat.zip`:
 
 ```
-{documents: 2, words: 4372}
+{num_documents: 2, num_words: 4372}
 ```
 
 Query over British Library Books `1510_1699/*.zip`:
 
 ```
-{documents: 693, words: 17479341}
+{num_documents: 693, num_words: 17479341}
 ```
 
 Query over British Library Books `*/*.zip`:
 
 ```
-{documents: 63701, words: 6866559285}
+{num_documents: 63701, num_words: 6866559285}
 ```

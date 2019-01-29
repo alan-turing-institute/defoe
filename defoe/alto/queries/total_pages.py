@@ -1,5 +1,5 @@
 """
-Counts total number of pages across all documents.
+Counts total number of pages.
 """
 
 from operator import add

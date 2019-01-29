@@ -1,4 +1,4 @@
-# Count total number of pages across all documents
+# Count total number of pages
 
 * Query module: `defoe.alto.queries.total_pages`
 * Configuration file: None
@@ -10,7 +10,7 @@
 
 * Validation:
   - The number of documents should be equal to the number of ZIP files over which the query was run.
-  - The number of pages should be equal to the number of `<Page>` elements in each XML file in the `ALTO` subdirectories within each zip file. This can be checked as follows (for example):
+  - The number of pages should be equal to the number of `<Page>` elements in each XML file in the `ALTO` subdirectories within each zip file. This can be validated as follows, for example:
 
 
 ```bash
