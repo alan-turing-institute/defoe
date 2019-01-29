@@ -1,4 +1,4 @@
-* Count number of occurrences of keywords and group by year
+# Count number of occurrences of keywords and group by year
 
 * Both keywords and words in documents are normalized, by removing all non-'a-z|A-Z' characters.
 * Query module: `defoe.alto.queries.keywords_by_year`
