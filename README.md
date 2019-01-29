@@ -50,8 +50,8 @@ Run queries:
 
 Available queries:
 
-* [ALTO document queries](./docs/alto-queries) (British Library Books and Find My Past Newspapers datasets)
-* [British Library Newspapers](./docs/papers-queries.md) (these can also be run on the Times Digital Archive)
+* [ALTO document queries](./docs/alto/index.md) (British Library Books and Find My Past Newspapers datasets)
+* [British Library Newspapers](./docs/papers/index.md) (these can also be run on the Times Digital Archive)
 
 Developers:
 
