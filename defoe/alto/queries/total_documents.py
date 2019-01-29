@@ -3,7 +3,7 @@ Counts total number of documents.
 """
 
 
-def do_query(archives, data_file=None, logger=None):
+def do_query(archives, config_file=None, logger=None):
     """
     Iterate through archives and count total number of documents.
     Returns result of form:
@@ -12,8 +12,8 @@ def do_query(archives, data_file=None, logger=None):
 
     :param archives: RDD of defoe.alto.archive.Archive
     :type archives: pyspark.rdd.PipelinedRDD
-    :param data_file: query configuration file (unused)
-    :type data_file: str or unicode
+    :param config_file: query configuration file (unused)
+    :type config_file: str or unicode
     :param logger: logger (unused)
     :type logger: py4j.java_gateway.JavaObject
     :return: total number of documents
