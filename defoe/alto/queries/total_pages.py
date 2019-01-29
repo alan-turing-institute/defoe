@@ -1,5 +1,5 @@
 """
-Counts the total number of pages across all documents.
+Counts total number of pages across all documents.
 """
 
 from operator import add
@@ -7,9 +7,29 @@ from operator import add
 
 def do_query(archives, data_file=None, logger=None):
     """
-    Counts the total number of pages across all documents.
+    Iterate through archives and count total number of documents
+    and total number of pages.
+
+    Returns result of form:
+
+        {
+            "num_documents": num_documents,
+            "num_pages": num_pages
+        }
+
+    :param archives: RDD of defoe.alto.archive.Archive
+    :type archives: pyspark.rdd.PipelinedRDD
+    :param data_file: query configuration file (unused)
+    :type data_file: str or unicode
+    :param logger: logger (unused)
+    :type logger: py4j.java_gateway.JavaObject
+    :return: total number of documents and pages
+    :rtype: dict
     """
+    # [Archive, Archive, ...]
     documents = archives.flatMap(lambda archive: list(archive))
-    page_counts = documents.map(lambda document: document.num_pages)
-    result = [documents.count(), page_counts.reduce(add)]
-    return {"documents": result[0], "pages": result[1]}
+    # [num_pages, num_pages, ...]
+    num_pages = documents.map(lambda document: document.num_pages)
+    result = [documents.count(), num_pages.reduce(add)]
+    return {"num_documents": result[0],
+            "num_pages": result[1]}
