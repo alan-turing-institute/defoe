@@ -26,7 +26,7 @@ def do_query(archives, config_file=None, logger=None):
     :return: total number of documents and words
     :rtype: dict
     """
-    # [Archive, Archive, ...]
+    # [archive, archive, ...]
     documents = archives.flatMap(lambda archive: list(archive))
     # [num_words, num_words, ...]
     num_words = documents.map(lambda document: len(list(document.words())))

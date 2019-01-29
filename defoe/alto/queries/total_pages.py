@@ -26,7 +26,7 @@ def do_query(archives, config_file=None, logger=None):
     :return: total number of documents and pages
     :rtype: dict
     """
-    # [Archive, Archive, ...]
+    # [archive, archive, ...]
     documents = archives.flatMap(lambda archive: list(archive))
     # [num_pages, num_pages, ...]
     num_pages = documents.map(lambda document: document.num_pages)

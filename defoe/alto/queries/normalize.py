@@ -26,7 +26,7 @@ def do_query(archives, config_file=None, logger=None):
     :return: total number of documents, pages and words per year
     :rtype: list
     """
-    # [Archive, Archive, ...]
+    # [archive, archive, ...]
     documents = archives.flatMap(lambda archive: list(archive))
     # [(year, (1, num_pages, num_words)), ...]
     counts = documents.map(lambda document:
