@@ -8,7 +8,7 @@ British Library Books dataset and Find My Past dataset.
 * [Normalize](./normalize.md) - count total number of documents, pages and words per year.
 
 * [Count number of occurrences of keywords and group by year](./keywords_by_year.md)
+* [Count number of occurrences of keywords and group by word](./keywords_by_word.md)
 
-* [Count specific words and group by word](./find_words_context_group_by_word.md)
-* [Get context of specific words and group by year](./find_words_group_by_year.md)
-* [Get context of specific words and group by word](./find_words_group_by_word.md)
+* [Get context of specific words and group by year](./find_words_context_group_by_year.md)
+* [Get context of specific words and group by word](./find_words_context_group_by_word.md)
