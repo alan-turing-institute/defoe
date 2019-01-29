@@ -23,7 +23,7 @@ def do_query(archives, config_file=None, logger=None):
     :type config_file: str or unicode
     :param logger: logger (unused)
     :type logger: py4j.java_gateway.JavaObject
-    :return: total number of documents and words
+    :return: total number of documents, pages and words per year
     :rtype: list
     """
     # [Archive, Archive, ...]
