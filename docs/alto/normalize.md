@@ -1,12 +1,12 @@
 # Normalize
 
-* Count total number of documents, pages and words. This can be useful if wanting to see how the average number of documents, pages and words change over time.
+Count total number of documents, pages and words per year. This can be useful if wanting to see how the average number of documents, pages and words change over time.
+
 * Query module: `defoe.alto.queries.normalize`
 * Configuration file: None
 * Result format:
 
 ```
-<YEAR>: [<NUM_DOCUMENTS>, <NUM_PAGES>, <NUM_WORDS>]
 <YEAR>: [<NUM_DOCUMENTS>, <NUM_PAGES>, <NUM_WORDS>]
 <YEAR>: [<NUM_DOCUMENTS>, <NUM_PAGES>, <NUM_WORDS>]
 ...
@@ -51,4 +51,3 @@ null: [14, 1660, 366436]
 1896: [1573, 506589, 138755318]
 1897: [1638, 530816, 144777228]
 1898: [1268, 420066, 123156558]
-```
