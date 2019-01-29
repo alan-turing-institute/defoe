@@ -1,4 +1,4 @@
-# Get information on documents in which keywords occur and groups by year
+# Get information on documents in which keywords occur and group by year
 
 * Both keywords and words in documents are normalized, by removing all non-'a-z|A-Z' characters.
 * Query module: `defoe.alto.queries.keywords_docs_by_year`
