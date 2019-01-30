@@ -14,13 +14,14 @@ def get_page_matches(document, keywords):
         (<YEAR>, <DOCUMENT>, <PAGE>, <KEYWORD>)
 
     If a keyword occurs more than once on a page, there will be only
-    one tuple. If more than one keyword occurs on a page, there will
-    be one tuple per keyword.
+    one tuple for the page for that keyword.
+    If more than one keyword occurs on a page, there will be one tuple
+    per keyword.
 
     :param document: document
     :type document: defoe.alto.document.Document
     :param keywords: keywords
-    :type document: list(str or unicode:
+    :type keywords: list(str or unicode:
     :return: list of tuples
     :rtype: list(tuple)
     """
