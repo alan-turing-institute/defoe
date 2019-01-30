@@ -35,5 +35,5 @@ def get_page_matches(document, keywords):
                     break
             if match:
                 matches.append(match)
-                continue # move to next page
+                continue  # move to next page
     return matches
