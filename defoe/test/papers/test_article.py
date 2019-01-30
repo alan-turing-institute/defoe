@@ -52,6 +52,23 @@ class TestArticle(TestCase):
         for word in ["Article 1 Title", "A", "B", "C", "D", "E", "F"]:
             self.assertTrue(word in words)
 
+    def test_words_string(self):
+        """
+        Tests Article.words_string property holds the expected
+        content.
+        """
+        words = self.article.words_string
+        self.assertEqual("Article 1 Title A B C D E F",
+                         words)
+
+    def test_title_string(self):
+        """
+        Tests Article.title_string property holds the expected
+        content.
+        """
+        title = self.article.title_string
+        self.assertEqual("Article 1 Title", title)
+
     def test_page_ids(self):
         """
         Tests Article.page_ids holds the expected number of page IDs

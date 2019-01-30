@@ -40,7 +40,7 @@ class Article(object):
         self.article_id = ""
         article_id = self.article_tree.xpath('id/text()')
         if article_id:
-            self.article_id = article_id[0]
+            self.article_id = str(article_id[0])
         self.page_ids = []
         pi_text = self.article_tree.xpath('pi/text()')
         splitter = None
@@ -81,3 +81,18 @@ class Article(object):
         :rtype: str or unicode
         """
         return ' '.join(self.words).replace(' - ', '')
+
+    @property
+    def title_string(self):
+        """
+        Get the title as as a single string, concatenated by spaces
+    and with hyphenation removed.
+
+        Note: merging hyphenated words may cause problems with
+        subordinate clauses e.g. "The sheep - the really aloud one -
+        had just entered my office".
+
+        :return: full text
+        :rtype: str or unicode
+        """
+        return ' '.join(self.title).replace(' - ', '')
