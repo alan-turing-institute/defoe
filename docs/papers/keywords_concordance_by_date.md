@@ -1,0 +1,51 @@
+# Get concordance for keywords and group by date
+
+* Both keywords and words in documents are normalized, by removing all non-'a-z|A-Z' characters.
+* Query module: `defoe.papers.queries.keywords_concordance_by_date`
+* Configuration file:
+  - One or more words to search for, one per line.
+  - Examples:
+    - `queries/gender.txt`
+    - `queries/krakatoa.txt`
+* Result format:
+
+```
+<DATE>:
+- { "title": <TITLE>,
+    "page_ids": <PAGE_IDS>,
+    "content": <PAGE_CONTENT>,
+    "word": <WORD>,
+    "article_id": <ARTICLE_ID>,
+    "issue_id": <ISSUE_ID>,
+    "filename": <FILENAME>}
+- { ... }
+...
+<DATE>:
+...
+```
+
+## Sample results
+
+Query over `0000164- The Courier and Argus/*.xml` with `queries/krakatoa.txt`:
+
+```
+1901-01-02:
+- article_id: 0000164_19010102_0005-063
+  content: "THE EARTH...",
+  filename: .../xmls/0000164- The Courier and Argus/0000164_19010102.xml
+  issue_id: BSNP0164
+  page_ids: ['0005']
+  title: THE EARTH AND ITS HEAT
+  word: krakatoa
+1902-03-05:
+- article_id: 0000164_19020305_0007-106
+  content: "EARTHQUAKE TERRORS...",
+  filename: .../xmls/0000164- The Courier and Argus/0000164_19020305.xml
+  issue_id: BSNP0164
+  page_ids: ['0007']
+  title: EARTHQUAKE TERRORS.
+  word: krakatoa
+1902-05-14:
+- article_id: 0000164_19020514_0007-110
+  ...
+```
