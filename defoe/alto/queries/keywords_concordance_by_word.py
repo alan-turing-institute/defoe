@@ -3,6 +3,7 @@ Gets concordance for keywords and groups by word.
 """
 
 from defoe import query_utils
+from defoe.alto.query_utils import get_page_matches
 
 
 def do_query(archives, config_file=None, logger=None):
@@ -44,23 +45,14 @@ def do_query(archives, config_file=None, logger=None):
     keywords = []
     with open(config_file, "r") as f:
         keywords = [query_utils.normalize(word) for word in list(f)]
-    # [(year, document), ...]
+    # [document, ...]
     documents = archives.flatMap(
-        lambda archive: [(document.year, document) for document in list(archive)])
+        lambda archive: [document for document in list(archive)])
 
     # [(year, document, page, word), ...]
-    words = documents.flatMap(
-        lambda year_document: [
-            (year_document[0],
-             year_document[1],
-             page,
-             query_utils.normalize(word))
-            for (page, word) in year_document[1].scan_words()
-        ])
-
-    # [(year, document, page, word), ...]
-    filtered_words = words.filter(
-        lambda year_document_page_word: year_document_page_word[3] in keywords)
+    filtered_words = documents.flatMap(
+        lambda document: get_page_matches(document,
+                                          keywords))
 
     # [(year, document, page, word), ...]
     # =>
