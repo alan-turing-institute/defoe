@@ -16,7 +16,9 @@
     "publisher": <PUBLISHER>,
     "page_number": <PAGE_NUMBER>,
     "content": <PAGE_CONTENT>,
-    "year": <YEAR> }
+    "year": <YEAR>,
+    "document_id": <DOCUMENT_ID>,
+    "filename": <FILENAME>}
 - { ... }
 <WORD>
 ...
@@ -33,12 +35,16 @@ heart:
    publisher: null,
    title: 'A Warning...'
    content: 'A WARNING...',
-   year: 1676}
+   year: 1676,
+   document_id: 000000874,
+   filename: .../1510_1699/000000874_0_1-22pgs__570785_dat.zip}
 - {content: "unto him...",
    page_number: '000013',
    place: 'London]',
    publisher: null,
    title: 'A Warning...'
-   year: 1676}
+   year: 1676,
+   document_id: 000000874,
+   filename: .../1510_1699/000000874_0_1-22pgs__570785_dat.zip}
 - ...
 ```

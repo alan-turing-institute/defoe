@@ -23,7 +23,9 @@ def do_query(archives, config_file=None, logger=None):
             "publisher": <PUBLISHER>,
             "page_number": <PAGE_NUMBER>,
             "content": <PAGE_CONTENT>,
-            "year": <YEAR> }
+            "year": <YEAR>,
+            "document_id": <DOCUMENT_ID>,
+            "filename": <FILENAME>}
         - { ... }
         ...
         <WORD>:
@@ -71,7 +73,9 @@ def do_query(archives, config_file=None, logger=None):
           "publisher": year_document_page_word[1].publisher,
           "page_number": year_document_page_word[2].code,
           "content": year_document_page_word[2].content,
-          "year": year_document_page_word[0]}))
+          "year": year_document_page_word[0],
+          "document_id": year_document_page_word[1].code,
+          "filename": year_document_page_word[1].archive.filename}))
 
     # [(word, {"title": title, ...}), ...]
     # =>

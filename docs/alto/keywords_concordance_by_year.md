@@ -16,7 +16,9 @@
     "publisher": <PUBLISHER>,
     "page_number": <PAGE_NUMBER>,
     "content": <PAGE_CONTENT>,
-    "word": <WORD> }
+    "word": <WORD>,
+    "document_id": <DOCUMENT_ID>,
+    "filename": <FILENAME>}
 - { ... }
 <YEAR>
 ...
@@ -33,12 +35,16 @@ Query over British Library Books `1510_1699/000001143_0_1-20pgs__560409_dat.zip`
    publisher: null,
    content: 'A WARNING...',
    title: 'A Warning...',
-   word: heart}
+   word: heart,
+   document_id: 000000874,
+   filename: .../1510_1699/000000874_0_1-22pgs__570785_dat.zip}
 - {content: "unto him...",
    page_number: '000013'
    place: 'London]',
    publisher: null,
    title: 'A Warning...',
-   word: heart}
+   word: heart,
+   document_id: 000000874,
+   filename: .../1510_1699/000000874_0_1-22pgs__570785_dat.zip}
 - ...
 ```
