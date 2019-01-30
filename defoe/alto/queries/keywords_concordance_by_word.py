@@ -1,5 +1,5 @@
 """
-Gets information on documents in which keywords occur and groups by word.
+Gets concordance for keywords and groups by word.
 """
 
 from defoe import query_utils
@@ -7,8 +7,7 @@ from defoe import query_utils
 
 def do_query(archives, config_file=None, logger=None):
     """
-    Gets information on documents in which keywords occur and groups
-    by word.
+    Gets concordance for keywords and groups by word.
 
     config_file must be the path to a configuration file with a list
     of the keywords to search for, one per line.
