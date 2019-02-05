@@ -7,6 +7,7 @@ General:
 * [Count total number of issues](./total_issues.md)
 * [Count total number of articles](./total_articles.md)
 * [Count total number of words](./total_words.md)
+* [Get measure of OCR quality for each article and group by year](./ocr_quality_by_year.md)
 
 Keyword searches:
 
