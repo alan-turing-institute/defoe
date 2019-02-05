@@ -22,7 +22,7 @@ grep \<article *xml | wc -l
 
 ## Sample results
 
-Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml` with `queries/gender.txt`:
+Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml`:
 
 ```
 {num_articles: 287, num_issues: 2}
