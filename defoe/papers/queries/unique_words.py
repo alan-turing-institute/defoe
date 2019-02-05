@@ -1,56 +1,71 @@
 """
-A module to query files to find every word used in the TDA and its frequency
+Finds every unique word and its frequency.
 """
 
 from operator import add
-from random import uniform
+import os.path
+import yaml
+
+from defoe import query_utils
 
 
-ACCEPTANCE_PROBABILTY = 0.2
-
-
-def do_query(issues, _in, _log):
+def do_query(issues, config_file=None, logger=None):
     """
-    Count each word that occurs in the archive
-    """
-    # Break out each article from each issue
-    articles = issues.flatMap(lambda issue: [article for
-                                             article in issue.articles])
-    # Break out each word from each article
-    words = articles.flatMap(lambda article: [(str(word), 1) for
-                                              word in article.words])
+    Finds every unique word and its frequency.
 
-    # Now add sum the word counts
+    config_file can be the path to a configuration file with a
+    threshold, the minimum number of occurrences of the word for the
+    word to be counted. This file, if provided, must be of form:
+
+        threshold: <COUNT>
+
+    where <COUNT> is >= 1.
+
+    If no configuration file is provided then a threshold of 1 is
+    assumed.
+
+    Words in documents are normalized, by removing all non-'a-z|A-Z'
+    characters.
+
+    Returns result of form:
+
+        {
+            <WORD>: <COUNT>,
+            <WORD>: <COUNT>,
+            ...
+        }
+
+    :param issues: RDD of defoe.papers.issue.Issue
+    :type issues: pyspark.rdd.PipelinedRDD
+    :param config_file: query configuration file (optional)
+    :type config_file: str or unicode
+    :param logger: logger (unused)
+    :type logger: py4j.java_gateway.JavaObject
+    :return: total number of issues and words
+    :rtype: dict
+    """
+    threshold = 1
+    if config_file is not None and\
+       os.path.exists(config_file) and\
+       os.path.isfile(config_file):
+        with open(config_file, "r") as f:
+            config = yaml.load(f)
+        value = config["threshold"]
+        threshold = max(threshold, value)
+
+    # [article, article, ...]
+    articles = issues.flatMap(lambda issue:
+                              [article for article in issue.articles])
+
+    # [(word, 1), (word, 1), ...]
+    words = articles.flatMap(lambda article:
+                             [(query_utils.normalize(word), 1) for word in article.words])
+
+    # [(word, 1), (word, 1), ...]
+    # =>
+    # [(word, count), (word, count), ...]
     word_counts = words. \
         reduceByKey(add). \
-        map(fix_counts). \
+        filter(lambda word_year: word_year[1] > threshold). \
         collect()
     return word_counts
-
-
-def fix_counts(record):
-    """
-    Fix the record counts based on the acceptance
-    probability
-    """
-    word, count = record
-    factor = 1.0 / ACCEPTANCE_PROBABILTY
-    return (word, int(count * factor))
-
-
-def count_words_in_article(words):
-    """
-    Count the number of times each word appears.
-    To deal with the long tail of unique words, roll a dice
-    before allowing a word in
-    """
-    counts = {}
-    for word in words:
-        if uniform(0, 1) > ACCEPTANCE_PROBABILTY:
-            continue
-        count = counts.get(word)
-        if count is None:
-            counts[word] = 1
-        else:
-            counts[word] = count + 1
-    return [(word, count) for word, count in counts.items()]

@@ -7,8 +7,9 @@ General:
 * [Count total number of issues](./total_issues.md)
 * [Count total number of articles](./total_articles.md)
 * [Count total number of words](./total_words.md)
-* [Normalize](./normalize.md) - count total number of issues, articles and words per year.
+* [Find every unique word and its frequency](./unique_words.md)
 * [Get measure of OCR quality for each article and group by year](./ocr_quality_by_year.md)
+* [Normalize](./normalize.md) - count total number of issues, articles and words per year.
 
 Keyword searches:
 
