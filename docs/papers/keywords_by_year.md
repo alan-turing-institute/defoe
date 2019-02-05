@@ -7,6 +7,7 @@
   - Examples:
     - `queries/gender.txt`
     - `queries/krakatoa.txt`
+    - `queries/prof.txt`
 * Result format:
 
 ```
