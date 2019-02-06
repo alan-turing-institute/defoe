@@ -5,11 +5,14 @@ Counts number of articles containing two or more keywords and groups by year.
 from operator import add
 
 from defoe import query_utils
+from defoe.papers.query_utils import get_keywords_in_article
+from defoe.papers.query_utils import word_article_count_list_to_dict
 
 
 def do_query(issues, config_file=None, logger=None):
     """
-    Counts number of articles containing two or more keywords and groups by year.
+    Counts number of articles containing two or more keywords and
+    groups by year.
 
     config_file must be the path to a configuration file with a list
     of the keywords to search for, one per line.
@@ -46,12 +49,13 @@ def do_query(issues, config_file=None, logger=None):
         keywords = [query_utils.normalize(word) for word in list(f)]
     # [(year, article), ...]
     articles = issues.flatMap(
-        lambda issue: [(issue.date.year, article) for article in issue.articles])
+        lambda issue: [(issue.date.year, article)
+                       for article in issue.articles])
     # [((year, [word, word, ...]), 1), ...]
     words = articles.map(
         lambda year_article: (
             (year_article[0],
-             find_multi_words(year_article[1], keywords)),
+             get_keywords_in_article(year_article[1], keywords)),
             1))
     # [((year, [word, word, ...]), 1), ...]
     match_words = words.filter(
@@ -80,49 +84,6 @@ def do_query(issues, config_file=None, logger=None):
         .groupByKey() \
         .map(lambda year_wordcount:
              (year_wordcount[0],
-              lists_to_dicts(year_wordcount[1])))\
+              word_article_count_list_to_dict(year_wordcount[1])))\
         .collect()
-    return result
-
-
-def find_multi_words(article, keywords):
-    """
-    Gets list of keywords occuring within an article.
-
-    :param article: Article
-    :type article: defoe.papers.article.Article
-    :param keywords: keywords
-    :type keywords: list(str or unicode)
-    :return: list of matching words
-    :rtype: list(str or unicode)
-    """
-    matches = []
-    for word in article.words:
-        normalized_word = query_utils.normalize(word)
-        if normalized_word in keywords:
-            matches.append(normalized_word)
-    return sorted(list(set(matches)))
-
-
-def lists_to_dicts(word_counts):
-    """
-    Converts list of list of words and numbers of articles these occur
-    in into list of dictionaries of words and numbers.
-
-    Dictionary is of form:
-
-        {
-            "words": "<WORD>, <WORD>, ...",
-            "count": <COUNT>
-        }
-
-    :param word_counts: words and counts
-    :type word_counts: list(tuple(int, str or unicode))
-    :return: dict
-    :rtype: dict
-    """
-    result = []
-    for word_count in word_counts:
-        result.append({"words": word_count[0],
-                       "count": word_count[1]})
     return result
