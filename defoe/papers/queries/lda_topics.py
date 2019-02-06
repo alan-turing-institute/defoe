@@ -1,51 +1,99 @@
 """
-A module to get LDA topic for the years that are in the current nodes group
+Gets the Latent Dirochelet Allocation (LDA) topics for words within
+articles.
 """
+
+from yaml import load
 
 from pyspark.ml.feature import CountVectorizer, StopWordsRemover
 from pyspark.mllib.clustering import LDA
 from pyspark.mllib.linalg import Vectors
 from pyspark.sql import Row, SparkSession
 
-from regex import I, U, compile as comp
+from defoe import query_utils
+from defoe.papers.query_utils import article_contains_word
 
-from yaml import load
 
-
-def do_query(issues, input_file, _log):
+def do_query(issues, config_file=None, logger=None):
     """
-    Get the Latent Dirochelet Allocation topics for this group of articles
-    """
+    Gets the Latent Dirochelet Allocation (LDA) topics for words
+    within articles.
 
-    # Extract parameters from input_rules
-    with open(input_file, 'r') as infile:
-        keys = load(infile)
-        keyword = keys['keyword']
-        optimizer = keys['optimizer']
+    config_file must be the path to a LDA configuration file in YAML
+    format. For example:
+
+        {
+            keyword: <KEYWORD>,
+            optimizer: online|em,
+            max_iterations: <N>,
+            ntopics: <N>,
+            topic_words: <N>
+        }
+
+    <N> must be >= 1 for each parameter.
+
+    The keyword and words in documents are normalized, by removing all
+    non-'a-z|A-Z' characters.
+
+    Returns result of form:
+
+        <0>: [<WORD_0>, ..., <WORD_topicwords>]
+        <1>: [<WORD_0>, ..., <WORD_topicwords>]
+        <2>: [<WORD_0>, ..., <WORD_topicwords>]
+
+        <ntopics>: [<WORD_0>, ..., <WORD_topicwords>]
+        years:[<MIN_YEAR>, <MAX_YEAR>]
+
+    :param issues: RDD of defoe.papers.issue.Issue
+    :type issues: pyspark.rdd.PipelinedRDD
+    :param config_file: query configuration file
+    :type config_file: str or unicode
+    :param logger: logger (unused)
+    :type logger: py4j.java_gateway.JavaObject
+    :return: LDA topics
+    :rtype: dict
+    """
+    with open(config_file, 'r') as f:
+        config = load(f)
+        keyword = config['keyword']
+        optimizer = config['optimizer']
         if optimizer != 'online' and optimizer != 'em':
             raise ValueError("Optmizer must be 'online' or 'em' but is '{}'"
                              .format(optimizer))
-        max_iterations = keys['max_iterations']
+        max_iterations = config['max_iterations']
         if max_iterations < 1:
             raise ValueError('max_iterations must be at least 1')
-        ntopics = keys['ntopics']
+        ntopics = config['ntopics']
         if ntopics < 1:
             raise ValueError('ntopics must be at least 1')
-        topic_words = keys['topic_words']
+        topic_words = config['topic_words']
         if topic_words < 1:
             raise ValueError('topic_words must be at least 1')
-    keyword_pattern = comp(r'\b{}\b'.format(keyword), U | I)
 
-    # Map each article in each issue to a year of publication
+    keyword = query_utils.normalize(keyword)
+
+    # [date, ...]
+    # =>
+    # [(yesr, year), ...]
+    # =>
+    # (year, year)
     min_year, max_year = issues \
         .filter(lambda issue: issue.date) \
         .map(lambda issue: (issue.date.year, issue.date.year)) \
-        .reduce(find_min_and_max)
+        .reduce(min_max_tuples)
 
+    # [issue, issue, ...]
+    # =>
+    # [article, article, ...]
+    # =>
+    # [(article, 0), (article, 1), ...]
+    # =>
+    # [Row, Row, ...]
     articles_rdd = issues.flatMap(lambda issue: issue.articles) \
-        .filter(contains_keyword(keyword_pattern)) \
+        .filter(lambda article:
+                article_contains_word(article, keyword)) \
         .zipWithIndex() \
-        .map(to_row_with_words)
+        .map(article_idx_to_words_row)
 
     spark = SparkSession \
         .builder \
@@ -59,7 +107,8 @@ def do_query(issues, input_file, _log):
 
     vectortoriser = CountVectorizer(inputCol='filtered', outputCol='vectors')
     model = vectortoriser.fit(articles_df)
-    vocab_array = model.vocabulary
+
+    vocabulary = model.vocabulary
     articles_df = model.transform(articles_df)
 
     corpus = articles_df \
@@ -68,70 +117,84 @@ def do_query(issues, input_file, _log):
         .map(lambda a: [a[0], Vectors.fromML(a[1])]) \
         .cache()
 
-    # Cluster the documents into n topics using LDA
-    lda_model = LDA.train(corpus, k=ntopics, maxIterations=max_iterations,
+    # Cluster the documents into N topics using LDA.
+    lda_model = LDA.train(corpus,
+                          k=ntopics,
+                          maxIterations=max_iterations,
                           optimizer=optimizer)
-    # topics = lda_model.topicsMatrix()
-    # _log.error(topics)
-    topics_final = [topic_render(topic, topic_words, vocab_array) for topic in
-                    lda_model.describeTopics(maxTermsPerTopic=topic_words)]
+    topics_final = [topic_render(topic, topic_words, vocabulary)
+                    for topic in lda_model.describeTopics(maxTermsPerTopic=topic_words)]
 
-    topics = [('Years', [min_year, max_year])]
+    topics = [('years', [min_year, max_year])]
     for i, topic in enumerate(topics_final):
-        t_words = []
+        term_words = []
         for term in topic:
-            t_words.append(term)
-        topics.append((str(i), t_words))
-
+            term_words.append(term)
+        topics.append((str(i), term_words))
     return topics
 
 
-def to_row_with_words(idx_article):
+def min_max_tuples(fst, snd):
     """
-    Given a tuple with an idx and an article, return
-    a Row with an idx and a list of words
+    Given two tuples (fst_min, fst_max) and (snd_min, snd_max) return
+    (min, max) where min is min(fst_min, snd_min) and
+    max is max(fst_max, snd_max).
+
+    :param fst: tuple
+    :type fst: tuple
+    :param fst: tuple
+    :type snd: tuple
+    :return: tuple
+    :rtype: tuple
     """
-    article, idx = idx_article
+    fst_min, fst_max = fst
+    snd_min, snd_max = snd
+    return (min(fst_min, snd_min), max(fst_max, snd_max))
+
+
+def article_idx_to_words_row(article_idx):
+    """
+    Given a tuple with an article and an index, return a Row with the
+    index ad a list of the words in the article.
+
+    The words in the article are normalized, by removing all
+    non-'a-z|A-Z' characters.
+
+    Any stop words (words of less than 2 characters) are ignored.
+
+    :param article_idx: tuple
+    :type article_idx: tuple(defoe.papers.article.Article, int)
+    :return: Row
+    :rtype: pyspark.sql.Row
+    """
+    article, idx = article_idx
     words = []
-    non_alpha = comp(r'[^a-z]', U)
     for word in article.words:
-        word = word.lower()
-        word = non_alpha.sub('', word)
+        normalized_word = query_utils.normalize(word)
         if len(word) > 2:   # Anything less is a stop word
-            words.append(word)
+            words.append(normalized_word)
     return Row(idx=idx, words=words)
 
 
-def find_min_and_max(fst, snd):
-    """
-    Given to date ranges, expand them to include both.
-    Assume that all date in the middle also exist
-    """
-    low_1, high_1 = fst
-    low_2, high_2 = snd
-    return (min(low_1, low_2), max(high_1, high_2))
-
-
-def topic_render(topic, num_words, vocab_array):
+def topic_render(topic, num_words, vocabulary):
     """
     Convert a topic result to a list of words
+
+    :param topic: topic data, first element is list of length
+    num_words, which contains indices which are used to extract words
+    from vocabulary to form the list that is returned
+    :type topic: tuple(list(int), list(float))
+    :param num_words: number of words, equal to "topic_words"
+    specified in query configuration file
+    :type num_words: int
+    :param vocabulary: vocabulary
+    :type vocabulary: list(unicode)
+    :return: list of num_words words from vocabulary
+    :rtype: list(unicode)
     """
-    terms = topic[0]
-    result = []
+    indices = topic[0]
+    terms = []
     for i in range(num_words):
-        term = vocab_array[terms[i]]
-        result.append(term)
-    return result
-
-
-def contains_keyword(pattern):
-    """
-    Create a function that filters articles based on whether they have a
-    given keyword or not
-    """
-    def filter_function(article):
-        """
-        Accept only articles that contain the given keyword pattern
-        """
-        return pattern.findall(article.words_string)
-    return filter_function
+        term = vocabulary[indices[i]]
+        terms.append(term)
+    return terms

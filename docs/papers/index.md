@@ -17,3 +17,4 @@ Keyword searches:
 * [Get concordance for keywords and group by date](./keyword_concordance_by_date.md)
 * [Count number of articles containing two or more keywords and group by year](./keywords_by_year.md)
 * [Count number of articles containing both a target word and one or more keywords and groups by year](./target_and_keywords_by_year.md)
+* [Gets the Latent Dirochelet Allocation (LDA) topics for words within articles](./lda_topics.md)

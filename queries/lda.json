@@ -1,7 +1,7 @@
 {
-    "keyword": professor,
-    "optimizer": online,
-    "max_iterations": 1,
-    "ntopics": 1,
-    "topic_words": 1
+    "keyword": princess,
+    "optimizer": em,
+    "max_iterations": 10,
+    "ntopics": 5,
+    "topic_words": 5
 }
