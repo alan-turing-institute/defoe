@@ -1,19 +1,19 @@
-# Gets the Latent Dirochelet Allocation (LDA) topics for words within articles
+# Get the Latent Dirochelet Allocation (LDA) topics for words within articles
 
 * Both keyword and words in documents are normalized, by removing all non-'a-z|A-Z' characters.
 * Query module: `defoe.papers.queries.lda_topics`
 * Configuration file:
   - An LDA configuration file, in YAML format:
 
-```        
-{
-    keyword: <KEYWORD>,
-    optimizer: online|em,
-    max_iterations: <N>,
-    ntopics: <N>,
-    topic_words: <N>
-}
-```
+    ```        
+    {
+        keyword: <KEYWORD>,
+        optimizer: online|em,
+        max_iterations: <N>,
+        ntopics: <N>,
+        topic_words: <N>
+    }
+    ```
 
   - `<N>` must be >= 1 for each parameter.
   - Examples:
