@@ -11,7 +11,7 @@ General:
 
 Keyword searches:
 
-* [Count number of occurrences of keywords and group by year](./keywords_by_year.md)
-* [Count number of occurrences of keywords and group by word](./keywords_by_word.md)
-* [Get concordance for keywords and group by year](./keywords_concordance_by_year.md)
-* [Get concordance for keywords and group by word](./keywords_concordance_by_word.md)
+* [Count number of occurrences of keywords and group by year](./keyword_by_year.md)
+* [Count number of occurrences of keywords and group by word](./keyword_by_word.md)
+* [Get concordance for keywords and group by year](./keyword_concordance_by_year.md)
+* [Get concordance for keywords and group by word](./keyword_concordance_by_word.md)

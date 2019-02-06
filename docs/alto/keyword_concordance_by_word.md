@@ -1,7 +1,7 @@
 # Get concordance for keywords and group by word
 
 * Both keywords and words in documents are normalized, by removing all non-'a-z|A-Z' characters.
-* Query module: `defoe.alto.queries.keywords_concordance_by_word`
+* Query module: `defoe.alto.queries.keyword_concordance_by_word`
 * Configuration file:
   - One or more words to search for, one per line.
   - Examples:

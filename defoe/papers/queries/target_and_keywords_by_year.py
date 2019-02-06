@@ -56,11 +56,13 @@ def do_query(issues, config_file=None, logger=None):
 
     # [(year, article), ...]
     articles = issues.flatMap(
-        lambda issue: [(issue.date.year, article) for article in issue.articles])
+        lambda issue: [(issue.date.year, article)
+                       for article in issue.articles])
 
     # [(year, article), ...]
     articles = articles.filter(
-        lambda year_article: article_contains_word(year_article[1], target_word))
+        lambda year_article: article_contains_word(
+            year_article[1], target_word))
 
     # [((year, [word, word, ...]), 1), ...]
     words = articles.map(

@@ -1,15 +1,18 @@
 """
-Counts number of occurrences of keywords and groups by year.
+Counts number of articles containing two or more keywords and groups by year.
 """
 
 from operator import add
 
 from defoe import query_utils
+from defoe.papers.query_utils import get_keywords_in_article
+from defoe.papers.query_utils import word_article_count_list_to_dict
 
 
 def do_query(issues, config_file=None, logger=None):
     """
-    Counts number of occurrences of keywords and groups by year.
+    Counts number of articles containing two or more keywords and
+    groups by year.
 
     config_file must be the path to a configuration file with a list
     of the keywords to search for, one per line.
@@ -20,8 +23,14 @@ def do_query(issues, config_file=None, logger=None):
     Returns result of form:
 
         <YEAR>:
-        - [<WORD>, <NUM_WORDS>]
-        - [<WORD>, <NUM_WORDS>]
+        - {
+            "words": "<WORD>, <WORD>, ...",
+            "count": <COUNT>
+          }
+        - {
+            "words": "<WORD>, <WORD>, ...",
+            "count": <COUNT>
+          }
         - ...
         <YEAR>:
         ...
@@ -40,29 +49,41 @@ def do_query(issues, config_file=None, logger=None):
         keywords = [query_utils.normalize(word) for word in list(f)]
     # [(year, article), ...]
     articles = issues.flatMap(
-        lambda issue: [(issue.date.year, article) for article in issue.articles])
-    # [((year, word), 1), ...]
-    words = articles.flatMap(
-        lambda year_article: [
-            ((year_article[0], query_utils.normalize(word)), 1)
-            for word in year_article[1].words
-        ])
-
-    # [((year, word), 1), ...]
-    matching_words = words.filter(
-        lambda yearword_count: yearword_count[0][1] in keywords)
-    # [((year, word), num_words), ...]
+        lambda issue: [(issue.date.year, article)
+                       for article in issue.articles])
+    # [((year, [word, word, ...]), 1), ...]
+    words = articles.map(
+        lambda year_article: (
+            (year_article[0],
+             get_keywords_in_article(year_article[1], keywords)),
+            1))
+    # [((year, [word, word, ...]), 1), ...]
+    match_words = words.filter(
+        lambda yearword_count: len(yearword_count[0][1]) > 1)
+    # [((year, "word, word, ..."), 1), ...]
+    multi_words = match_words.map(
+        lambda yearword_count: (
+            (yearword_count[0][0],
+             str(yearword_count[0][1])),
+            yearword_count[1]))
+    # [((year, "word, word, ..."), 1), ...]
     # =>
-    # [(year, (word, num_words)), ...]
+    # [((year, "word, word, ..."), count), ...]
     # =>
-    # [(year, [word, num_words]), ...]
-    result = matching_words \
+    # [((year, ("word, word, ...", count)), ...]
+    # =>
+    # [((year, [{"words": "word, word, ...",
+    #            "count": count}, ...],
+    #          ...]
+    result = multi_words \
         .reduceByKey(add) \
         .map(lambda yearword_count:
              (yearword_count[0][0],
-              (yearword_count[0][1], yearword_count[1]))) \
+              (yearword_count[0][1],
+               yearword_count[1]))) \
         .groupByKey() \
         .map(lambda year_wordcount:
-             (year_wordcount[0], list(year_wordcount[1]))) \
+             (year_wordcount[0],
+              word_article_count_list_to_dict(year_wordcount[1])))\
         .collect()
     return result

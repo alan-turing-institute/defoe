@@ -1,4 +1,4 @@
-# Count number of occurrences of keywords and group by year
+# Count number of articles containing two or more keywords and group by year
 
 * Both keywords and words in documents are normalized, by removing all non-'a-z|A-Z' characters.
 * Query module: `defoe.papers.queries.keywords_by_year`
@@ -11,11 +11,18 @@
 * Result format:
 
 ```
-<YEAR>
-- [<WORD>, <NUM_WORDS>]
-- [<WORD>, <NUM_WORDS>]
+<YEAR>:
+- {
+    "words": "<WORD>, <WORD>, ...",
+    "count": <COUNT>
+  }
+- {
+    "words": "<WORD>, <WORD>, ...",
+    "count": <COUNT>
+  }
 - ...
-<YEAR>
+<YEAR>:
+...
 ...
 ```
 
@@ -25,29 +32,16 @@ Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- T
 
 ```
 1907:
-- [man, 75]
-- [mrs, 64]
-- [alexander, 9]
-- [agnes, 2]
-- [jane, 2]
+- {count: 1, words: '[''he'', ''himself'', ''his'', ''it'', ''king'', ''them'', ''they'']'}
+- {count: 1, words: '[''him'', ''it'', ''mr'']'}
+- {count: 1, words: '[''duke'', ''his'', ''mr'']'}
+- {count: 1, words: '[''her'', ''husband'', ''woman'']'}
+- {count: 1, words: '[''george'', ''her'', ''his'', ''it'',
 ...
-```
-
-Query over `0000164- The Courier and Argus/*.xml` with `queries/krakatoa.txt`:
-
-```
-1901:
-- [krakatoa, 2]
-1902:
-- [krakatoa, 13]
-1908:
-- [krakatoa, 1]
-1912:
-- [krakatoa, 1]
-1913:
-- [krakatau, 1]
-1916:
-- [krakatau, 2]
-1924:
-- [krakatoa, 1]
+- {count: 1, words: '[''he'', ''mr'']'}
+1915:
+- {count: 1, words: '[''girl'', ''him'', ''man'']'}
+- {count: 1, words: '[''alexander'', ''alice'', ''boy'', ''edward'', ''george'', ''girl'',
+...
+- {count: 1, words: '[''he'', ''her'', ''his'', ''it'', ''john'']'}
 ```

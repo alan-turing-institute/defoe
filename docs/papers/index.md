@@ -13,6 +13,6 @@ General:
 
 Keyword searches:
 
-* [Count number of occurrences of keywords and group by year](./keywords_by_year.md)
-* [Get concordance for keywords and group by date](./keywords_concordance_by_date.md)
-* [Count number of articles containing two or more keywords and group by year](./multi_keywords_by_year.md)
+* [Count number of occurrences of keywords and group by year](./keyword_by_year.md)
+* [Get concordance for keywords and group by date](./keyword_concordance_by_date.md)
+* [Count number of articles containing two or more keywords and group by year](./keywords_by_year.md)

@@ -1,7 +1,7 @@
 # Get concordance for keywords and group by date
 
 * Both keywords and words in documents are normalized, by removing all non-'a-z|A-Z' characters.
-* Query module: `defoe.papers.queries.keywords_concordance_by_date`
+* Query module: `defoe.papers.queries.keyword_concordance_by_date`
 * Configuration file:
   - One or more words to search for, one per line.
   - Examples:
