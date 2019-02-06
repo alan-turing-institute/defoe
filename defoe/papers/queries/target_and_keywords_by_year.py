@@ -26,13 +26,13 @@ def do_query(issues, config_file=None, logger=None):
 
         <YEAR>:
         - {
-            "target": "<WORD>",
-            "words": "<WORD>, <WORD>, ...",
+            "target": <WORD>,
+            "words": [<WORD>, <WORD>, ...],
             "count": <COUNT>
           }
         - {
-            "target": "<WORD>",
-            "words": "<WORD>, <WORD>, ...",
+            "target": <WORD>,
+            "words": [<WORD>, <WORD>, ...],
             "count": <COUNT>
           }
         - ...
@@ -71,12 +71,13 @@ def do_query(issues, config_file=None, logger=None):
             1))
     # [((year, [word, word, ...]), 1), ...]
     match_words = words.filter(
-        lambda yearword_count: len(yearword_count[0][1]) > 1)
+        lambda yearword_count: len(yearword_count[0][1]) > 0)
     # [((year, "target_word, word, word, ..."), 1), ...]
+    # Convert word list to string so can serve as a key.
     multi_words = match_words.map(
         lambda yearword_count: (
             (yearword_count[0][0],
-             str(yearword_count[0][1])),
+             ",".join(yearword_count[0][1])),
             yearword_count[1]))
     # [((year, "word, word, ..."), 1), ...]
     # =>
@@ -87,6 +88,7 @@ def do_query(issues, config_file=None, logger=None):
     # [((year, [{"words": "word, word, ...",
     #            "count": count}, ...],
     #          ...]
+    # list of words is restored from string of words.
     result = multi_words \
         .reduceByKey(add) \
         .map(lambda yearword_count:
@@ -105,7 +107,8 @@ def do_query(issues, config_file=None, logger=None):
 def word_article_count_list_to_dict(target_word, word_counts):
     """
     Converts list of tuples of words and counts of articles these
-    occur in into list of dictionaries of words and counts.
+    occur in into list of dictionaries of target word, lists of words
+    and counts.
 
     List is of form:
 
@@ -114,21 +117,21 @@ def word_article_count_list_to_dict(target_word, word_counts):
     Dictionary is of form:
 
         {
-            "target": "<WORD>",
-            "words": "<WORD>, <WORD>, ...",
+            "target": <WORD>,
+            "words": [<WORD>, <WORD>, ...],
             "count": <COUNT>
         }
 
     :param target_word: target word
     :type target_word: str or unicode
     :param word_counts: words and counts
-    :type word_counts: list(tuple(str or unicode, int))
+    :type word_counts: list(tuple(list(str or unicode), int))
     :return: dict
     :rtype: dict
     """
     result = []
     for word_count in word_counts:
         result.append({"target_word": target_word,
-                       "words": word_count[0],
+                       "words": word_count[0].split(","),
                        "count": word_count[1]})
     return result
