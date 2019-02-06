@@ -40,7 +40,7 @@ def get_article_matches(issue, keywords):
     return matches
 
 
-def get_keywords_in_article(article, keywords):
+def get_article_keywords(article, keywords):
     """
     Gets list of keywords occuring within an article.
 
@@ -54,36 +54,12 @@ def get_keywords_in_article(article, keywords):
     :return: sorted list of keywords that occur within article
     :rtype: list(str or unicode)
     """
-    matches = []
+    matches = set()
     for word in article.words:
         normalized_word = query_utils.normalize(word)
         if normalized_word in keywords:
-            matches.append(normalized_word)
-    return sorted(list(set(matches)))
-
-
-def word_article_count_list_to_dict(word_counts):
-    """
-    Converts list of list of words and numbers of articles these occur
-    in into list of dictionaries of words and numbers.
-
-    Dictionary is of form:
-
-        {
-            "words": "<WORD>, <WORD>, ...",
-            "count": <COUNT>
-        }
-
-    :param word_counts: words and counts
-    :type word_counts: list(tuple(int, str or unicode))
-    :return: dict
-    :rtype: dict
-    """
-    result = []
-    for word_count in word_counts:
-        result.append({"words": word_count[0],
-                       "count": word_count[1]})
-    return result
+            matches.add(normalized_word)
+    return sorted(list(matches))
 
 
 def article_contains_word(article, keyword):

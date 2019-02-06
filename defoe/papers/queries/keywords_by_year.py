@@ -5,8 +5,7 @@ Counts number of articles containing two or more keywords and groups by year.
 from operator import add
 
 from defoe import query_utils
-from defoe.papers.query_utils import get_keywords_in_article
-from defoe.papers.query_utils import word_article_count_list_to_dict
+from defoe.papers.query_utils import get_article_keywords
 
 
 def do_query(issues, config_file=None, logger=None):
@@ -55,7 +54,7 @@ def do_query(issues, config_file=None, logger=None):
     words = articles.map(
         lambda year_article: (
             (year_article[0],
-             get_keywords_in_article(year_article[1], keywords)),
+             get_article_keywords(year_article[1], keywords)),
             1))
     # [((year, [word, word, ...]), 1), ...]
     match_words = words.filter(
@@ -86,4 +85,32 @@ def do_query(issues, config_file=None, logger=None):
              (year_wordcount[0],
               word_article_count_list_to_dict(year_wordcount[1])))\
         .collect()
+    return result
+
+
+def word_article_count_list_to_dict(word_counts):
+    """
+    Converts list of tuples of words and counts of articles these
+    occur in into list of dictionaries of words and counts.
+
+    List is of form:
+
+       [("word, word, ...", count), ...]
+
+    Dictionary is of form:
+
+        {
+            "words": "<WORD>, <WORD>, ...",
+            "count": <COUNT>
+        }
+
+    :param word_counts: words and counts
+    :type word_counts: list(tuple(str or unicode, int))
+    :return: dict
+    :rtype: dict
+    """
+    result = []
+    for word_count in word_counts:
+        result.append({"words": word_count[0],
+                       "count": word_count[1]})
     return result
