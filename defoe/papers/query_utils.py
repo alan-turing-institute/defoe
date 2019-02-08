@@ -4,6 +4,12 @@ Query-related utility functions.
 
 from defoe import query_utils
 
+"""
+prep_type: integer variable, which indicates the type of preprocess treatment
+to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); (other value) original word. 
+
+"""
+prep_type= 1
 
 def get_article_matches(issue, keywords):
     """
@@ -18,6 +24,8 @@ def get_article_matches(issue, keywords):
 
     If more than one keyword occurs in an article, there will be one
     tuple per keyword.
+   
+    
 
     :param issue: issue
     :type issue: defoe.alto.issue.Issue
@@ -31,7 +39,8 @@ def get_article_matches(issue, keywords):
         for article in issue:
             match = None
             for word in article.words:
-                if query_utils.normalize(word) == keyword:
+                preprocessed_word = query_utils.preprocess_word(word, prep_type)
+                if preprocessed_word == keyword:
                     match = (issue.date.date(), issue, article, keyword)
                     break
             if match:
@@ -56,9 +65,9 @@ def get_article_keywords(article, keywords):
     """
     matches = set()
     for word in article.words:
-        normalized_word = query_utils.normalize(word)
-        if normalized_word in keywords:
-            matches.add(normalized_word)
+        preprocessed_word = query_utils.preprocess_word(word, prep_type)
+        if preprocessed_word in keywords:
+            matches.add(preprocessed_word)
     return sorted(list(matches))
 
 
@@ -74,7 +83,28 @@ def article_contains_word(article, keyword):
     :rtype: bool
     """
     for word in article.words:
-        normalized_word = query_utils.normalize(word)
-        if keyword == normalized_word:
+        preprocessed_word = query_utils.preprocess_word(word, prep_type)
+        if keyword == preprocessed_word:
             return True
     return False
+
+
+def article_stop_words_removal(article):
+    """
+    Remove the stop words of an article.
+
+    :param article: Article
+    :type article: defoe.papers.article.Article
+    :return: True article without stop words
+    :rtype: list
+    """
+
+    stop_words = set(stopwords.words('english'))
+    article_words = []
+    for word in article.words:
+        preprocessed_word = preprocessed_word(word, prep_type)
+        if not preprocessed_word in stop_words:
+           article_words.append(preprocessed_word)
+    return article_words
+
+
