@@ -9,6 +9,11 @@ from defoe import query_utils
 from defoe.papers.query_utils import article_contains_word
 from defoe.papers.query_utils import get_article_keywords
 
+"""
+prep_type: integer variable, which indicates the type of preprocess treatment
+to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); (other value) original word. 
+"""
+prep_type= 1
 
 def do_query(issues, config_file=None, logger=None):
     """
@@ -50,10 +55,11 @@ def do_query(issues, config_file=None, logger=None):
     """
     keywords = []
     with open(config_file, "r") as f:
-        keywords = [query_utils.normalize(word) for word in list(f)]
-
+        keywords = [query_utils.preprocess_word(word, prep_type) for word in list(f)]
+     
     target_word = keywords[0]
     keywords = keywords[1:]
+   
 
     # [(year, article), ...]
     articles = issues.flatMap(
