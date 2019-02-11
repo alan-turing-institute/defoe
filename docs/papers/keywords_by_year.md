@@ -1,5 +1,10 @@
 # Count number of articles containing two or more keywords and group by year
 
+* For each article:
+  - Look for the keywords provided by the user and form a list of all the keywords that occur in the article.
+  - Record this list along with the article's year.
+  - Use the lists of keywords to count the articles that share those lists of keywords.
+  - Group the counts by year.
 * Both keywords and words in documents are normalized, by removing all non-'a-z|A-Z' characters.
 * Query module: `defoe.papers.queries.keywords_by_year`
 * Configuration file:
