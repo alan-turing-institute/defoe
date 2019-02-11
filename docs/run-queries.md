@@ -82,6 +82,22 @@ If any problems arise in reading data files or converting these into objects bef
 
 ---
 
+## Get Application ID
+
+A quick-and-dirty way to get the Spark application ID is, if you have used `nohup` and output capture to `log.txt`, to run:
+
+```bash
+grep Framework\ registered log.txt
+```
+
+For example:
+
+```
+I0125 09:07:58.364142 188697 sched.cpp:743] Framework registered with 6646eaa2-999d-4c87-a657-d4109b4f120b-0691
+```
+
+---
+
 ## Check number of executors used
 
 A quick-and-dirty way to check the number of executors used is, if you have used `nohup` and output capture to `log.txt`, to run:
