@@ -26,7 +26,7 @@ This dataset is available, under licence, from [Gale](https://www.gale.com), a d
 
 ### Find My Past Newspapers
 
-This dataset is available, under licence, from [Find My Past](https://www.findmypast.co.uk/).
+This dataset is available, under licence, from [Find My Past](https://www.findmypast.co.uk/). The code can run on ALTO-compliant subsets of this data.
 
 ---
 
@@ -56,6 +56,7 @@ Available queries:
 Developers:
 
 * [Run unit tests](./docs/tests.md)
+* [Design and implementation notes](./docs/design-implementation.md)
 
 ---
 
