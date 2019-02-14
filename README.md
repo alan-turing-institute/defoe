@@ -8,7 +8,7 @@ This repository contains code to analyse historical books and newspapers dataset
 
 ### British Library Books
 
-This dataset consists of ~1TB of digitised versions of ~68,000 books from the 16th to the 19th centuries. The books have been scanned into a collection of XML documents. Each book has one XML document one per page plus one XML document for metadata about the book as a whole. The XML documents for each book are held within a compressed, ZIP, file. These ZIP files occupy ~224GB.
+This dataset consists of ~1TB of digitised versions of ~68,000 books from the 16th to the 19th centuries. The books have been scanned into a collection of XML documents. Each book has one XML document one per page plus one XML document for metadata about the book as a whole. The XML documents for each book are held within a compressed, ZIP, file. Each ZIP file holds the XML documents for a single book (the exception is 1880-1889's 000000037_0_1-42pgs__944211_dat.zip which wholds the XML documents for 2 books). These ZIP files occupy ~224GB.
 
 This dataset is available under an open, public domain, licence. See [Datasets for content mining](https://www.bl.uk/collection-guides/datasets-for-content-mining) and [BL Labs Flickr Data: Book data and tag history (Dec 2013 - Dec 2014)](https://figshare.com/articles/BL_Labs_Flickr_Data/1269249). For links to the data itself, see [Digitised Books largely from the 19th Century](https://data.bl.uk/digbks/). The data is provided by [Gale](https://www.gale.com), a division of [CENGAGE](https://www.cengage.com/).
 
@@ -26,7 +26,7 @@ This dataset is available, under licence, from [Gale](https://www.gale.com), a d
 
 ### Find My Past Newspapers
 
-This dataset is available, under licence, from [Find My Past](https://www.findmypast.co.uk/).
+This dataset is available, under licence, from [Find My Past](https://www.findmypast.co.uk/). The code can run on ALTO-compliant subsets of this data.
 
 ---
 
@@ -56,6 +56,7 @@ Available queries:
 Developers:
 
 * [Run unit tests](./docs/tests.md)
+* [Design and implementation notes](./docs/design-implementation.md)
 
 ---
 
