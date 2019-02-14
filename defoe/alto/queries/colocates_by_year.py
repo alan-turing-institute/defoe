@@ -144,7 +144,9 @@ def get_colocates_matches(document, start_word, end_word, window=0):
                 matches.append({"start_page": str(start_page.code),
                                 "end_page": str(end_page.code),
                                 "span": span})
-                start_page = None
+                start_page = Non
+
+e
                 end_page = None
                 span = []
         # TODO check window
