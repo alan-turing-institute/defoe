@@ -145,7 +145,7 @@ def get_colocates_matches(document, start_word, end_word, window=0):
             span = []
             span_length = 0
         if start_page is not None:
-            span.append(word)
+            span.append(normalized_word)
             span_length += 1
             if span_length > window_plus_colocates:
                 start_page = None
