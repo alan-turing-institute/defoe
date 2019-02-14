@@ -29,13 +29,13 @@ def do_query(archives, config_file=None, logger=None):
     Returns result of form:
 
         <YEAR>:
-        - "document_id": <DOCUMENT_ID>
+        - "document_id": <DOCUMENT_ID>,
           "place": <PLACE>,
           "publisher": <PUBLISHER>,
           "filename": <FILENAME>
           "matches":
-          - "start_page": <PAGE_ID>
-            "end_page": <PAGE_ID>
+          - "start_page": <PAGE_ID>,
+            "end_page": <PAGE_ID>,
             "span": [<WORD>, ..., <WORD>]
           - ...
           ...
