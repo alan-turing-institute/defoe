@@ -23,8 +23,8 @@ def do_query(archives, config_file=None, logger=None):
     where <WINDOW> is greater than or equal to 0. If omitted then a
     default of 0 is assumed.
 
-    Both keywords and words in documents are normalized, by removing
-    all non-'a-z|A-Z' characters.
+    Both colocated words and words in documents are normalized, by
+    removing all non-'a-z|A-Z' characters.
 
     Returns result of form:
 
@@ -58,8 +58,8 @@ def do_query(archives, config_file=None, logger=None):
        os.path.isfile(config_file):
         with open(config_file, "r") as f:
             config = yaml.load(f)
-        start_word = config["start_word"]
-        end_word = config["end_word"]
+        start_word = query_utils.normalize(config["start_word"])
+        end_word = query_utils.normalize(config["end_word"])
         window = config["window"]
         if window < 0:
             raise ValueError('window must be at least 0')
@@ -74,6 +74,9 @@ def do_query(archives, config_file=None, logger=None):
                                                           start_word,
                                                           end_word,
                                                           window)))
+    # [(document, matches), ...]
+    colocated_words = colocated_words.filter(
+        lambda document_matches: len(document_matches[1]) > 0)
 
     # [(document, matches), ...]
     # =>
@@ -129,23 +132,30 @@ def get_colocates_matches(document, start_word, end_word, window=0):
     :rtype: list(dict)
     """
     start_page = None
-    end_page = None
     span = []
+    span_length = 0
     matches = []
+    window_plus_colocates = window + 2
     for page, word in document.scan_words():
         normalized_word = query_utils.normalize(word)
         if normalized_word == start_word:
             start_page = page
             span = []
+            span_length = 0
         if start_page is not None:
             span.append(word)
+            span_length += 1
+            if span_length > window_plus_colocates:
+                start_page = None
+                span = []
+                span_length = 0
+                continue
             if normalized_word == end_word:
-                end_page = page
                 matches.append({"start_page": str(start_page.code),
-                                "end_page": str(end_page.code),
+                                "end_page": str(page.code),
+                                "span_size": len(span),
                                 "span": span})
                 start_page = None
-                end_page = None
                 span = []
-        # TODO check window
+                span_length = 0
     return matches
