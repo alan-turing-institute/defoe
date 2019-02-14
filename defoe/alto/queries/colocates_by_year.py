@@ -153,7 +153,6 @@ def get_colocates_matches(document, start_word, end_word, window=0):
             if normalized_word == end_word:
                 matches.append({"start_page": str(start_page.code),
                                 "end_page": str(page.code),
-                                "span_size": len(span),
                                 "span": span})
                 start_page = None
                 span = []
