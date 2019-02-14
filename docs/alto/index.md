@@ -15,3 +15,7 @@ Keyword searches:
 * [Count number of occurrences of keywords and group by word](./keyword_by_word.md)
 * [Get concordance for keywords and group by year](./keyword_concordance_by_year.md)
 * [Get concordance for keywords and group by word](./keyword_concordance_by_word.md)
+
+Colocated word searches:
+
+* [Get colocated words and group by year](./colocates_by_year.md)
