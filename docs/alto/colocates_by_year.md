@@ -11,7 +11,7 @@
     window: <WINDOW>
     ```
 
-  - `<WINDOW`> is the maximum number of intervening words and, if
+  - `<WINDOW>` is the maximum number of intervening words and, if
     provided, must be >= 0. If omitted, a default of 0 is used.
   - Examples:
     - `queries/stranger_danger.yml`
