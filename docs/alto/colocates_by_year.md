@@ -40,11 +40,11 @@ Query over British Library Books `1510_1699/*.zip` with `queries/stranger_danger
 ```
 1640:
 - document_id: '000241254'
-  filename: .../1510_1699/000241254_0_1-90pgs__581128_dat.zip
+  filename: /mnt/lustre/michaelj/dch/BritishLibraryBooks/1510_1699/000241254_0_1-90pgs__581128_dat.zip
   matches:
   - end_page: '000070'
-    span: [stranger, ':', Loves, 'delight,', and, sweetest, 'blisse,', is, Got, with,
-      greatest, danger.]
+    span: [stranger, Loves, 'delight,', and, sweetest, 'blisse,', is, Got, with, greatest,
+      danger.]
     start_page: '000070'
   place: London
   publisher: Richard Hodgkinson, for W. W. and Laurence Blaikelocke
@@ -52,10 +52,10 @@ Query over British Library Books `1510_1699/*.zip` with `queries/stranger_danger
     with other poems
 1667:
 - document_id: 002952721
-  filename: .../1510_1699/002952721_0_1-346pgs__625035_dat.zip
+  filename: /mnt/lustre/michaelj/dch/BritishLibraryBooks/1510_1699/002952721_0_1-346pgs__625035_dat.zip
   matches:
   - end_page: 000178
-    span: [stranger, ;, 'no', one, knew, his, face., 'Liza,', at, the, approach, of,
+    span: [stranger, 'no', one, knew, his, face., 'Liza,', at, the, approach, of,
       'danger,']
     start_page: 000178
   place: London
