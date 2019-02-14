@@ -138,6 +138,8 @@ def get_colocates_matches(document, start_word, end_word, window=0):
     window_plus_colocates = window + 2
     for page, word in document.scan_words():
         normalized_word = query_utils.normalize(word)
+        if not normalized_word:
+            continue
         if normalized_word == start_word:
             start_page = page
             span = []
