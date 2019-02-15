@@ -12,9 +12,10 @@ def do_query(issues, config_file=None, logger=None):
 
     Returns result of form:
 
-        <YEAR>: [<NUM_ISSUES>, <NUM_ARTICLES>, <NUM_WORDS>]
-        <YEAR>: [<NUM_ISSUES>, <NUM_ARTICLES>, <NUM_WORDS>]
-        ...
+        {
+          <YEAR>: [<NUM_ISSUES>, <NUM_ARTICLES>, <NUM_WORDS>],
+          ...
+        }
 
     :param issues RDD of defoe.papers.issue.Issue
     :type issues: pyspark.rdd.PipelinedRDD

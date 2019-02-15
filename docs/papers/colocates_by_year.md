@@ -19,14 +19,15 @@
 
 ```
 <YEAR>:
-- "article_id": <ARTICLE_ID>,
-  "issue_id": <ISSUE_ID>,
-  "page_ids": <PAGE_IDS>,
-  "filename": <FILENAME>,
-  "matches":
-  - [<WORD>, ..., <WORD>],
-    [<WORD>, ..., <WORD>]
-  ...
+- article_id: <ARTICLE_ID>
+  issue_id: <ISSUE_ID>
+  page_ids: <PAGE_IDS>
+  filename: <FILENAME>
+  matches:
+  - [<WORD>, ..., <WORD>]
+  - ...
+- ...
+...
 <YEAR>:
 ...
 ```

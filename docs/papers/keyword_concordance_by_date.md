@@ -11,14 +11,13 @@
 
 ```
 <DATE>:
-- { "title": <TITLE>,
-    "page_ids": <PAGE_IDS>,
-    "content": <PAGE_CONTENT>,
-    "word": <WORD>,
-    "article_id": <ARTICLE_ID>,
-    "issue_id": <ISSUE_ID>,
-    "filename": <FILENAME>}
-- { ... }
+- title: <TITLE>
+  page_ids: <PAGE_IDS>
+  content: <PAGE_CONTENT>
+  word: <WORD>
+  article_id: <ARTICLE_ID>
+  issue_id: <ISSUE_ID>
+  filename: <FILENAME>
 ...
 <DATE>:
 ...
