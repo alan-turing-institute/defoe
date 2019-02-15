@@ -25,3 +25,9 @@ Query over `1.xml` and `2.xml`:
 ```
 {num_articles: 40}
 ```
+
+Query over `*.xml`:
+
+```
+{num_articles: 268180}
+```
