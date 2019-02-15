@@ -10,7 +10,7 @@ Run Spark text query job.
     positional arguments:
       data_file             Data file listing data files to query
       model_name            Data model to which data files conform:
-      ['books', 'papers', 'fmp']
+      ['books', 'papers', 'fmp','nzpp']
       query_name            Query module name
       query_config_file     Query-specific configuration file
 
@@ -69,7 +69,7 @@ def main():
     """
     root_module = "defoe"
     setup_module = "setup"
-    models = ["books", "papers", "fmp"]
+    models = ["books", "papers", "fmp", "nzpp"]
 
     parser = ArgumentParser(description="Run Spark text analysis job")
     parser.add_argument("data_file",
