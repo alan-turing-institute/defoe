@@ -19,14 +19,14 @@
 
 ```
 <YEAR>:
-- "document_id": <DOCUMENT_ID>
-  "place": <PLACE>,
-  "publisher": <PUBLISHER>,
-  "filename": <FILENAME>
-  "matches":
-  - "start_page": <PAGE_ID>
-    "end_page": <PAGE_ID>
-    "span": [<WORD>, ..., <WORD>]
+- document_id: <DOCUMENT_ID>
+  place: <PLACE>
+  publisher: <PUBLISHER>
+  filename: <FILENAME>
+  matches:
+  - start_page: <PAGE_ID>
+    end_page: <PAGE_ID>
+    span: [<WORD>, ..., <WORD>]
   - ...
   ...
 <YEAR>:

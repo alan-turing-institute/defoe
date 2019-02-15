@@ -18,19 +18,23 @@ def do_query(archives, config_file=None, logger=None):
 
     Returns result of form:
 
-        <WORD>:
-        - { "title": <TITLE>,
-            "place": <PLACE>,
-            "publisher": <PUBLISHER>,
-            "page_number": <PAGE_NUMBER>,
-            "content": <PAGE_CONTENT>,
-            "year": <YEAR>,
-            "document_id": <DOCUMENT_ID>,
-            "filename": <FILENAME>}
-        - { ... }
-        ...
-        <WORD>:
-        ...
+        {
+          <WORD>:
+          [
+            { "title": <TITLE>,
+              "place": <PLACE>,
+              "publisher": <PUBLISHER>,
+              "page_number": <PAGE_NUMBER>,
+              "content": <PAGE_CONTENT>,
+              "year": <YEAR>,
+              "document_id": <DOCUMENT_ID>,
+              "filename": <FILENAME>
+            },
+            ...
+          ],
+          <WORD>:
+          ...
+        }
 
     :param archives: RDD of defoe.alto.archive.Archive
     :type archives: pyspark.rdd.PipelinedRDD

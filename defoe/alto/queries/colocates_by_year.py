@@ -28,19 +28,29 @@ def do_query(archives, config_file=None, logger=None):
 
     Returns result of form:
 
-        <YEAR>:
-        - "document_id": <DOCUMENT_ID>,
-          "place": <PLACE>,
-          "publisher": <PUBLISHER>,
-          "filename": <FILENAME>
-          "matches":
-          - "start_page": <PAGE_ID>,
-            "end_page": <PAGE_ID>,
-            "span": [<WORD>, ..., <WORD>]
-          - ...
+        {
+          <YEAR>:
+          [
+            {
+              "document_id": <DOCUMENT_ID>,
+              "place": <PLACE>,
+              "publisher": <PUBLISHER>,
+              "filename": <FILENAME>
+              "matches":
+              [
+                {
+                  "start_page": <PAGE_ID>,
+                  "end_page": <PAGE_ID>,
+                  "span": [<WORD>, ..., <WORD>]
+                },
+                ...
+              ]
+            },
+            ...
+          ],
+          <YEAR>:
           ...
-        <YEAR>:
-        ...
+        }
 
     :param archives: RDD of defoe.alto.archive.Archive
     :type archives: pyspark.rdd.PipelinedRDD
@@ -117,9 +127,9 @@ def get_colocates_matches(document, start_word, end_word, window=0):
     the list returned:
 
         {
-            "start_page": <PAGE_CODE>,
-            "end_page": <PAGE_CODE>,
-            "span": [<START_WORD>, ..., <END_WORD>]
+          "start_page": <PAGE_CODE>,
+          "end_page": <PAGE_CODE>,
+          "span": [<START_WORD>, ..., <END_WORD>]
         }
 
     :param document: document

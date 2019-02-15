@@ -11,16 +11,16 @@
 
 ```
 <WORD>:
-- { "title": <TITLE>,
-    "place": <PLACE>,
-    "publisher": <PUBLISHER>,
-    "page_number": <PAGE_NUMBER>,
-    "content": <PAGE_CONTENT>,
-    "year": <YEAR>,
-    "document_id": <DOCUMENT_ID>,
-    "filename": <FILENAME>}
-- { ... }
-<WORD>
+- { title: <TITLE>,
+    place: <PLACE>,
+    publisher: <PUBLISHER>,
+    page_number: <PAGE_NUMBER>,
+    content: <PAGE_CONTENT>,
+    year: <YEAR>,
+    document_id: <DOCUMENT_ID>,
+    filename: <FILENAME>}
+- ...
+<WORD>:
 ...
 ```
 
