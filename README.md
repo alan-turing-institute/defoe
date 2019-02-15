@@ -58,8 +58,9 @@ Run queries:
 
 Available queries:
 
-* [ALTO document queries](./docs/alto/index.md) (British Library Books and Find My Past Newspapers datasets)
+* [ALTO documents](./docs/alto/index.md) (British Library Books and Find My Past Newspapers datasets)
 * [British Library Newspapers](./docs/papers/index.md) (these can also be run on the Times Digital Archive)
+* [Papers Past New Zealand and Pacific newspapers](./docs/nzpp/index.md)
 
 Developers:
 
