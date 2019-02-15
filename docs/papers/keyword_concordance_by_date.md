@@ -23,6 +23,8 @@
 ...
 ```
 
+**Caution:** as this query returns each article's content, for every match, there is a risk that the query will fail due to lack of memory. This query should only be run with interesting words that are not expected to occur often.
+
 ## Sample results
 
 Query over `0000164- The Courier and Argus/*.xml` with `queries/krakatoa.txt`:
