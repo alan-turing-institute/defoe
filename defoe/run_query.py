@@ -147,17 +147,16 @@ def main():
     error_data = data \
         .filter(lambda obj_file_err: obj_file_err[1] is not None) \
         .map(lambda obj_file_err: (obj_file_err[0], obj_file_err[1]))
-
-    results = do_query(ok_data, query_config_file, log)
+    # Collect and record problematic files before attempting query.
     errors = error_data.collect()
-
-    with open(results_file, "w") as f:
-        f.write(yaml.safe_dump(dict(results)))
-
     errors = list(errors)
     if errors:
         with open(errors_file, "w") as f:
             f.write(yaml.safe_dump(list(errors)))
+
+    results = do_query(ok_data, query_config_file, log)
+    with open(results_file, "w") as f:
+        f.write(yaml.safe_dump(dict(results)))
 
 
 if __name__ == "__main__":
