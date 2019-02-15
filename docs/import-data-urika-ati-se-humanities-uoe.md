@@ -68,6 +68,33 @@ Set file permissions so you can read the data:
 chmod -R u+rx /mnt/lustre/<project>/<project>/<username>/blpaper/*/*.xml
 ```
 
+## Mount Papers Past New Zealand and Pacific newspapers dataset
+
+Mount dataset from DataStore into your home directory on Urika:
+
+```bash
+mkdir dch
+sshfs -o intr,large_read,auto_cache,workaround=all -oPort=22222 <your-datastore-username>@chss.datastore.ed.ac.uk:/chss/datastore/chss/groups/Digital-Cultural-Heritage dch
+```
+
+Create directory on Lustre:
+
+```bash
+mkdir -p /mnt/lustre/<project>/<project>/<username>/nz-papers-past
+```
+
+Set file permissions so that no other user can access your data:
+
+```bash
+chmod -R go+rwx /mnt/lustre/<project>/<project>/<username>
+```
+
+Copy dataset to Lustre, by running in your home directory:
+
+```bash
+cp ~/dch/LBORO/PP_XMLs\ \(via\ api\)/*xml /mnt/lustre/<project>/<project>/<username>/nz-papers-past
+```
+
 ## Important
 
 Do **not** mount DataStore directories directly onto Lustre.
