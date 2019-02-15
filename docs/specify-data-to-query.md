@@ -23,8 +23,8 @@ If running on your local machine, your file would be as follows, where `<BOOKS>`
 If running on Urika, your file would be as follows:
 
 ```
-/mnt/lustre/<your-urika-username>/dch/BritishLibraryBooks/1510_1699/000001143_0_1-20pgs__560409_dat.zip
-/mnt/lustre/<your-urika-username>/dch/BritishLibraryBooks/1510_1699/000000874_0_1-22pgs__570785_dat.zip
+/mnt/lustre/<project>/<project>/<username>/dch/BritishLibraryBooks/1510_1699/000001143_0_1-20pgs__560409_dat.zip
+/mnt/lustre/<project>/<project>/<username>/dch/BritishLibraryBooks/1510_1699/000000874_0_1-22pgs__570785_dat.zip
 ```
 
 You can write these files by hand.
@@ -40,7 +40,7 @@ find <BOOKS> -name "*.zip" > data.txt
 * On Urika:
 
 ```bash
-find /mnt/lustre/<your-urika-username>/dch/BritishLibraryBooks -name "*.zip" > data.txt
+find /mnt/lustre/<project>/<project>/<username>/dch/BritishLibraryBooks -name "*.zip" > data.txt
 ```
 
 Suppose you want to run a query over all the books in the folder `1510_1699`. You can create a file with the paths to these books files as follows:
@@ -54,7 +54,7 @@ find <BOOKS>/1510_1699/ -name "*.zip" > data.txt
 * On Urika:
 
 ```bash
-find /mnt/lustre/<your-urika-username>/dch/BritishLibraryBooks/1510_1699 -name "*.zip" > data.txt
+find /mnt/lustre/<project>/<project>/<username>/dch/BritishLibraryBooks/1510_1699 -name "*.zip" > data.txt
 ```
 
 ---
@@ -80,8 +80,8 @@ If running on your local machine, your file would be as follows, where `<NEWSPAP
 If running on Urika, your file would be as follows:
 
 ```
-/mnt/lustre/<your-urika-username>/blpaper/xmls/0000164- The Courier and Argus/0000164_19070603.xml
-/mnt/lustre/<your-urika-username>/blpaper/xmls/0000164- The Courier and Argus/0000164_19151123.xml
+/mnt/lustre/<project>/<project>/<username>/blpaper/xmls/0000164- The Courier and Argus/0000164_19070603.xml
+/mnt/lustre/<project>/<project>/<username>/blpaper/xmls/0000164- The Courier and Argus/0000164_19151123.xml
 ```
 
 You can write these files by hand.
@@ -97,7 +97,7 @@ find <NEWSPAPERS>/xmls -name "*.xml" > data.txt
 * On Urika:
 
 ```bash
-find /mnt/lustre/<your-urika-username>/blpaper/xmls -name "*.xml" > data.txt
+find /mnt/lustre/<project>/<project>/<username>/blpaper/xmls -name "*.xml" > data.txt
 ```
 
 Suppose you want to run a query over all the newspapers in the folder `0000164- The Courier and Argus/`. You can create a file with the paths to these newspapers files as follows:
@@ -111,5 +111,5 @@ find "<NEWSPAPERS>/xmls/0000164- The Courier and Argus/" -name "*.xml" > data.tx
 * On Urika:
 
 ```bash
-find "/mnt/lustre/<your-urika-username>/blpaper/xmls/0000164- The Courier and Argus/" -name "*.xml" > data.txt
+find "/mnt/lustre/<project>/<project>/<username>/blpaper/xmls/0000164- The Courier and Argus/" -name "*.xml" > data.txt
 ```

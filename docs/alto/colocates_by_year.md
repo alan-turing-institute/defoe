@@ -40,7 +40,7 @@ Query over British Library Books `1510_1699/*.zip` with `queries/stranger_danger
 ```
 1640:
 - document_id: '000241254'
-  filename: /mnt/lustre/michaelj/dch/BritishLibraryBooks/1510_1699/000241254_0_1-90pgs__581128_dat.zip
+  filename: .../1510_1699/000241254_0_1-90pgs__581128_dat.zip
   matches:
   - end_page: '000070'
     span: [stranger, loves, delight, and, sweetest, blisse, is, got, with, greatest,
@@ -52,7 +52,7 @@ Query over British Library Books `1510_1699/*.zip` with `queries/stranger_danger
     with other poems
 1667:
 - document_id: 002952721
-  filename: /mnt/lustre/michaelj/dch/BritishLibraryBooks/1510_1699/002952721_0_1-346pgs__625035_dat.zip
+  filename: .../1510_1699/002952721_0_1-346pgs__625035_dat.zip
   matches:
   - end_page: 000178
     span: [stranger, 'no', one, knew, his, face, liza, at, the, approach, of, danger]

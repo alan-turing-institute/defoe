@@ -76,8 +76,8 @@ nohup spark-submit --py-files defoe.zip defoe/run_query.py <DATA_FILE> <MODEL_NA
 If any problems arise in reading data files or converting these into objects before running queries then an attempt will be made to capture these errors and record them in the errors file (default name `errors.yml`). If present, this file provides a list of the problematic files and the errors that arose. For example:
 
 ```
-- [/mnt/lustre/<user>/data/book.zip, File is not a zip file]
-- [/mnt/lustre/<user>/data/sample-book.zip, '[Errno 2] No such file or directory: ''sample-book.zip'
+- [/mnt/lustre/<project>/<project>/<username>/data/book.zip, File is not a zip file]
+- [/mnt/lustre/<project>/<project>/<username>/data/sample-book.zip, '[Errno 2] No such file or directory: ''sample-book.zip'
 ```
 
 ---
@@ -160,7 +160,7 @@ then check that the files the query is being run over exist.
 If the files are on the local file system then also check their permissions. This error can arise if, for example, a data file has permissions like:
 
 ```bash
-ls -l /mnt/lustre/<user>/blpaper/0000164_19010101.xml
+ls -l /mnt/lustre/<project>/<project>/<user>/blpaper/0000164_19010101.xml
 ```
 ```
 ---------- 1 <user> at01 3374189 May 31 13:57
