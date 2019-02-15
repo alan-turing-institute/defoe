@@ -28,6 +28,14 @@ This dataset is available, under licence, from [Gale](https://www.gale.com), a d
 
 This dataset is available, under licence, from [Find My Past](https://www.findmypast.co.uk/). The code can run on ALTO-compliant subsets of this data.
 
+### Papers Past New Zealand and Pacific newspapers
+
+[Papers Past](http://paperspast.natlib.govt.nz/) provide digitised [New Zealand and Pacific newspapers](http://paperspast.natlib.govt.nz/newspapers) from the 19th and 20th centuries.
+
+Data can be accessed via API calls which return search results in the form of XML documents. Each XML document holds one or more articles.
+
+This dataset is available, under licence, from [Papers Past](http://paperspast.natlib.govt.nz).
+
 ---
 
 # Get started
@@ -88,7 +96,7 @@ The code originated from the the GitHub repository [UCL/i_newspaper_rods](https:
 
 ### Analysing humanities data using Cray Urika-GX
 
-Both the above codes were updated and extended by [EPCC](https://www.epcc.ed.ac.uk) as part of the [Research Engineering Group](https://www.turing.ac.uk/research/research-engineering) of the [The Alan Turing Institute](https://www.turing.ac.uk). The work focused on running both codes on the [Alan Turing Institute Cray Urika-GX Service](https://ati-rescomp-service-docs.readthedocs.io/en/latest/cray/introduction.html).
+Both the above codes were updated and extended by [EPCC](https://www.epcc.ed.ac.uk) as part of the [Research Engineering Group](https://www.turing.ac.uk/research/research-engineering) of the [The Alan Turing Institute](https://www.turing.ac.uk). The work focused on running both codes on the [Alan Turing Institute Cray Urika-GX Service](https://ati-rescomp-service-docs.readthedocs.io/en/latest/cray/introduction.html) and analysing British Library Books, British Library Newspapers and Papers Past New Zealand and Pacific newspapers datasets.
 
 This work was done in conjunction with Melissa Terras, College of Arts, Humanities and Social Sciences (CAHSS), The University of Edinburgh. The work was funded by Scottish Enterprise as part of the Alan Turing Institute-Scottish Enterprise Data Engineering Program. This work runs from 2018 to 2019 and is ongoing at present, using this repository.
 
@@ -102,7 +110,10 @@ The code originated from the the GitHub repositories:
 * [alan-turing-institute/i_newspaper_rods](https://github.com/alan-turing-institute/i_newspaper_rods)
   - Branch: [epcc-master](https://github.com/alan-turing-institute/i_newspaper_rods/tree/epcc-master)
   - Commit: [b9c89764f97987ff1600a35cc3d3bc7bb68da79f](https://github.com/alan-turing-institute/i_newspaper_rods/commit/b9c89764f97987ff1600a35cc3d3bc7bb68da79f) (28 January 2019).
-* Developers: Rosa Filgueira (EPCC), Mike Jackson.
+* [alan-turing-institute/i_newspaper_rods](https://github.com/alan-turing-institute/i_newspaper_rods)
+  - Branch: [other-archives](https://github.com/alan-turing-institute/i_newspaper_rods/tree/other-archives)
+  - Commit: [43748ccd3839b71347660f4375e9a18c45648118](https://github.com/alan-turing-institute/i_newspaper_rods/commit/43748ccd3839b71347660f4375e9a18c45648118) (13 February 2019).
+* Developers: Rosa Filgueira (EPCC), Mike Jackson (EPCC), Anna Roubickova (EPCC).
 
 ### Living With Machines
 
