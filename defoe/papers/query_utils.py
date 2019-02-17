@@ -9,7 +9,7 @@ prep_type: integer variable, which indicates the type of preprocess treatment
 to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); (other value) original word. 
 
 """
-prep_type= 1
+prep_type= 0
 
 def get_article_matches(issue, keywords):
     """
@@ -107,4 +107,53 @@ def article_stop_words_removal(article):
            article_words.append(preprocessed_word)
     return article_words
 
+def get_article_as_string(article):
+    """
+    Checks if a keyword occurs within an article.
 
+    :param article: Article
+    :type article: defoe.papers.article.Article
+    :return: The complete Article as a string
+    :rtype: string
+    """
+    article_string=''
+    for word in article.words:
+        preprocessed_word = query_utils.preprocess_word(word, prep_type)
+        article_string+=' '+ preprocessed_word
+    return article_string
+
+def get_sentence_match(article_string, keysentence):
+    
+    """
+    Checks if a keysentence from an array of sentences occurs within the text of an article
+    and return the keysentence.
+
+    :param article: article
+    :type article: string 
+    :param keysentence: sentences
+    :type: array of strings
+    :return: The complete Article as a string
+    :rtype: string
+    """
+
+    for sentence in keysentence:
+        if sentence in article_string:
+                    return sentence
+
+def get_sentences_list_matches(article_string, keysentence):
+    """
+    Check which keysentences from occurs within the text of an article_string
+    and return the list of matches.
+
+    :param article_string: article_string
+    :type article_string: string 
+    :param keysentence: sentences
+    :type: array of strings
+    :return: The list of senteces matches
+    :rtype: set of sentences
+    """
+    match=set()
+    for sentence in keysentence:
+        if sentence in article_string:
+                    match.add(sentence)
+    return sorted(list(match))
