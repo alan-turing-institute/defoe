@@ -49,7 +49,10 @@ def do_query(issues, config_file=None, logger=None):
             sentence_word = [query_utils.preprocess_word(word, prep_type) for word in k_split]
             sentence_norm=''
             for word in sentence_word:
-               sentence_norm+=" "+ word
+               if sentence_norm == '' :
+                   sentence_norm = word
+               else:
+                   sentence_norm+=" "+ word
             keysentence.append(sentence_norm)
     # [(year, article_string)
     articles = issues.flatMap(
