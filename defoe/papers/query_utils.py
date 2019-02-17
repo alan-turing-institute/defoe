@@ -119,7 +119,10 @@ def get_article_as_string(article):
     article_string=''
     for word in article.words:
         preprocessed_word = query_utils.preprocess_word(word, prep_type)
-        article_string+=' '+ preprocessed_word
+        if article_string == '' :
+            article_string = preprocessed_word
+        else:
+            article_string+=' '+ preprocessed_word
     return article_string
 
 def get_sentence_match(article_string, keysentence):
