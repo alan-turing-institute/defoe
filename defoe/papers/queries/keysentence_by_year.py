@@ -16,7 +16,7 @@ prep_type= 0
 
 def do_query(issues, config_file=None, logger=None):
     """
-    Counts number of occurrences of keysentences and groups by year.
+    Counts number of articles that appears any of the keysentences and groups by year.
 
     config_file must be the path to a configuration file with a list
     of the keysentences to search for, one per line.
@@ -27,8 +27,8 @@ def do_query(issues, config_file=None, logger=None):
     Returns result of form:
 
         <YEAR>:
-        - [<SENTENCE>, <NUM_SENTENCE>]
-        - [<SENTENE>, <NUM_SENTENCES>]
+        - [<SENTENCE>, <NUM_ARTICLES>]
+        - [<SENTENCE>, <NUM_ARTICLES>]
         - ...
         <YEAR>:
         ...
