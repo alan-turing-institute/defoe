@@ -10,6 +10,7 @@ from defoe.papers.query_utils import article_contains_word
 from defoe.papers.query_utils import get_article_keywords
 
 """
+PREPROCESSING OPTIONS:
 prep_type: integer variable, which indicates the type of preprocess treatment
 to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); (other value) original word. 
 """
@@ -17,32 +18,24 @@ prep_type= 2
 
 def do_query(issues, config_file=None, logger=None):
     """
-    Counts number of articles containing both a target word and one or
-    more keywords and groups by year.
+    Counts number of terms containing both a target word and each keyword term,
+    groups by year.
+    Counts number of times that each term (or their pre-processed versions -> stemming/lemmatization ) 
+    appear for every article that has the target word (or its stemming/lemmatization version) in it.
 
     config_file must be the path to a configuration file with a target
     word and a list of one or more keywords to search for, one per
     line.
 
-    Target word, keywords and words in documents are normalized, by
-    removing all non-'a-z|A-Z' characters.
+    Target word, keywords and words in documents are preprocessed, using one of the above options.
 
     Returns result of form:
-
         <YEAR>:
-        - {
-            "target": <WORD>,
-            "words": [<WORD>, <WORD>, ...],
-            "count": <COUNT>
-          }
-        - {
-            "target": <WORD>,
-            "words": [<WORD>, <WORD>, ...],
-            "count": <COUNT>
-          }
+        - [<WORD>, <NUM_WORDS>]
+        - [<WORD>, <NUM_WORDS>]
         - ...
         <YEAR>:
-        ...
+
 
     :param issues: RDD of defoe.papers.issue.Issue
     :type issues: pyspark.rdd.PipelinedRDD
