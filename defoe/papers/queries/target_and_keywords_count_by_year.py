@@ -1,6 +1,6 @@
 """
-Counts number of articles containing both a target word and one or
-more keywords and groups by year.
+Counts number of times that each keyword (or its pre-processed versions -> stemming/lemmatization ) 
+appear for every article that has the target word (or its stemming/lemmatization version) in it.
 """
 
 from operator import add
@@ -18,8 +18,6 @@ prep_type= 2
 
 def do_query(issues, config_file=None, logger=None):
     """
-    Counts number of terms containing both a target word and each keyword term,
-    groups by year.
     Counts number of times that each term (or their pre-processed versions -> stemming/lemmatization ) 
     appear for every article that has the target word (or its stemming/lemmatization version) in it.
 
