@@ -1,5 +1,5 @@
 """
-Gets concordance and collocation for keywords and groups by date.
+Gets concordance and collocation for keywords selecting only the articles which have occurences of the target word,  and groups the results by date.
 """
 
 from defoe import query_utils
@@ -14,8 +14,8 @@ prep_type= 2
 
 def do_query(issues, config_file=None, logger=None):
     """
-    Gets concordance and collocation analysis for keywords and groups by date.
-    The variable window can be used for specified how many words to take. 
+    Gets concordance and collocation analysis for keywords giving a target word,  and it groups the results by date.
+    The window variable can be used for specifying the number of words to the right and left to take. 
     (e.g. 5 words to the left and right, including sentence boundaries).
   
  
