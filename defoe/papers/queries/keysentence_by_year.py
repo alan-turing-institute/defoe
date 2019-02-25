@@ -1,5 +1,5 @@
 """
-Counts number of occurrences of keysentences and groups by year.
+Counts number of articles in which they are occurences of keysentences and groups them by year.
 """
 
 from operator import add
