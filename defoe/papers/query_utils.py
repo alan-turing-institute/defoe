@@ -9,7 +9,7 @@ prep_type: integer variable, which indicates the type of preprocess treatment
 to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); original word (3). 
 
 """
-prep_type= 3
+prep_type= 2
 
 def get_article_matches(issue, keywords):
     """
@@ -51,7 +51,7 @@ def get_article_matches(issue, keywords):
 
 def get_article_keywords(article, keywords):
     """
-    Gets list of keywords occuring within an article.
+    Get list of keywords occuring within an article.
 
     Article words are normalized, by removing all non-'a-z|A-Z'
     characters.
@@ -73,7 +73,7 @@ def get_article_keywords(article, keywords):
 
 def article_contains_word(article, keyword):
     """
-    Checks if a keyword occurs within an article.
+    Check if a keyword occurs within an article.
 
     :param article: Article
     :type article: defoe.papers.article.Article
@@ -109,7 +109,7 @@ def article_stop_words_removal(article):
 
 def get_article_as_string(article):
     """
-    Checks if a keyword occurs within an article.
+    Return an article as a single string.
 
     :param article: Article
     :type article: defoe.papers.article.Article
@@ -125,23 +125,6 @@ def get_article_as_string(article):
             article_string+=' '+ preprocessed_word
     return article_string
 
-def get_sentence_match(article_string, keysentence):
-    
-    """
-    Checks if a keysentence from an array of sentences occurs within the text of an article
-    and return the keysentence.
-
-    :param article: article
-    :type article: string 
-    :param keysentence: sentences
-    :type: array of strings
-    :return: The complete Article as a string
-    :rtype: string
-    """
-
-    for sentence in keysentence:
-        if sentence in article_string:
-                    return sentence
 
 def get_sentences_list_matches(article_string, keysentence):
     """
@@ -163,7 +146,7 @@ def get_sentences_list_matches(article_string, keysentence):
 
 def get_article_idx(article, keywords):
     """
-    Gets a list of keywords (and their indices) occuring within an article.
+    Gets a list of keywords (and their indices) within an article.
 
     Article words are preprocessed. 
     :param article: Article
@@ -186,7 +169,7 @@ def get_article_idx(article, keywords):
 
 def get_concordance(article, match, window):
     """
-    For a given keyword position in an article, it returns the concordance/neightbours words (before and after) expecified in the window.
+    For a given keyword (and its position in an article), it returns the concordance of words (before and after) using a window.
 
     :param article: Article
     :type article: defoe.papers.article.Article
