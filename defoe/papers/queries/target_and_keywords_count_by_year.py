@@ -12,7 +12,7 @@ from defoe.papers.query_utils import get_article_keywords
 """
 PREPROCESSING OPTIONS:
 prep_type: integer variable, which indicates the type of preprocess treatment
-to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); (other value) original word. 
+to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); original word (3). 
 """
 prep_type= 2
 
