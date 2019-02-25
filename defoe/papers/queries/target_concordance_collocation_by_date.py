@@ -10,7 +10,7 @@ PREPROCESSING OPTIONS:
 prep_type: integer variable, which indicates the type of preprocess treatment
 to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); (other value) original word. 
 """
-prep_type= 0
+prep_type= 2
 
 def do_query(issues, config_file=None, logger=None):
     """
