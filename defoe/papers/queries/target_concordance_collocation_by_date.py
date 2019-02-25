@@ -10,7 +10,7 @@ PREPROCESSING OPTIONS:
 prep_type: integer variable, which indicates the type of preprocess treatment
 to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); (other value) original word. 
 """
-prep_type= 3
+prep_type= 0
 
 def do_query(issues, config_file=None, logger=None):
     """
@@ -54,6 +54,7 @@ def do_query(issues, config_file=None, logger=None):
     target_articles = articles.filter(
         lambda year_article: article_contains_word(
             year_article[1], target_word))
+
 
     # [(year, (article, [(word, idx), (word, idx) ...]), ...]
     matching_idx = target_articles.map(
