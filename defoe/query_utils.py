@@ -56,11 +56,11 @@ def lemmatization(word):
 def preprocess_word(word, prep_type):
     """
     Preprocess a word by applying different treatments depending on the prep_type paramenter.
-    (0) normalize; (1) normalize + stemming; (2) normalize + lemmatization; (other value) word. 
+    (0) normalize; (1) normalize + stemming; (2) normalize + lemmatization; (3) orig word. 
 
     :param word: word
     :type word: string
-    :param prep_type: 0 to apply just normalize. 1 to apply normalize and stemming, 2 to apply normalize and lemmatization. Otherwise, it just returns the original word.
+    :param prep_type: 0 to apply just normalize. 1 to apply normalize and stemming, 2 to apply normalize and lemmatization, and 3 to return the original word.
     :type integer 
     :return: words
     :rtype: string
@@ -73,7 +73,7 @@ def preprocess_word(word, prep_type):
        preprocessed_word = stemming(normalized_word)
     elif prep_type == 2:
        preprocessed_word = lemmatization(normalized_word)
-    else:
+    elif prep_type == 3:
        preprocessed_word = word
     return preprocessed_word
 

@@ -6,10 +6,10 @@ from defoe import query_utils
 
 """
 prep_type: integer variable, which indicates the type of preprocess treatment
-to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); (other value) original word. 
+to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); original word (3). 
 
 """
-prep_type= 1
+prep_type= 3
 
 def get_article_matches(issue, keywords):
     """
