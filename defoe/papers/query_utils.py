@@ -9,7 +9,7 @@ prep_type: integer variable, which indicates the type of preprocess treatment
 to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); (other value) original word. 
 
 """
-prep_type= 0
+prep_type= 1
 
 def get_article_matches(issue, keywords):
     """
@@ -67,7 +67,7 @@ def get_article_keywords(article, keywords):
     for word in article.words:
         preprocessed_word = query_utils.preprocess_word(word, prep_type)
         if preprocessed_word in keywords:
-            matches.add(preprocessed_word)
+           matches.add(preprocessed_word)
     return sorted(list(matches))
 
 
@@ -159,4 +159,60 @@ def get_sentences_list_matches(article_string, keysentence):
     for sentence in keysentence:
         if sentence in article_string:
                     match.add(sentence)
-    return sorted(list(match))
+    sorted(list(match))
+
+def get_article_idx(article, keywords):
+    """
+    Gets a list of keywords (and their indices) occuring within an article.
+
+    Article words are preprocessed. 
+    :param article: Article
+    :type article: defoe.papers.article.Article
+    :param keywords: keywords
+    :type keywords: list(str or unicode)
+    :return: article
+    :rtype article: defoe.papers.article.Article
+    :return: sorted list of keywords and indices hat occur within article
+    :rtype: list(str or unicode)
+    """
+    matches = set()
+    for idx, word in enumerate(article.words):
+        preprocessed_word = query_utils.preprocess_word(word, prep_type)
+        if preprocessed_word in keywords:
+            match=(preprocessed_word, idx)
+            matches.add(match)
+    return article, sorted(list(matches))
+
+
+def get_concordance(article, match, window):
+    """
+    For a given keyword position in an article, it returns the concordance/neightbours words (before and after) expecified in the window.
+
+    :param article: Article
+    :type article: defoe.papers.article.Article
+    :parm match: keyword and its position inside the article list
+    :type: list
+    :window: number of words to the right and left
+    :type: integer
+    :return: keyword and its concordance
+    :rtype: list
+    """
+    keyword = match[0]
+    idx = match[1]
+    article_size= len(article.words)
+     
+    if idx >=window: 
+        start_idx= idx-window
+    else: 
+        start_idx=0
+
+    if idx + window >=article_size:
+        end_idx = article_size
+    else:
+	end_idx= idx + window + 1
+
+    concordance_words = []
+    for word in article.words[start_idx:end_idx]:
+	concordance_words.append(query_utils.preprocess_word(word, prep_type))
+    return (keyword,concordance_words)
+    
