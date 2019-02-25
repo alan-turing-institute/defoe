@@ -10,7 +10,7 @@ PREPROCESSING OPTIONS:
 prep_type: integer variable, which indicates the type of preprocess treatment
 to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); (other value) original word. 
 """
-prep_type= 1
+prep_type= 3
 
 def do_query(issues, config_file=None, logger=None):
     """
@@ -66,6 +66,8 @@ def do_query(issues, config_file=None, logger=None):
         lambda target_article: [
             (target_article[0], get_concordance(target_article[1][0], match, window))
             for match in target_article[1][1]])
+    
+    # [(year, [word, concodance], [word, concordance]), ...]
 
     result = concordance_words.groupByKey() \
              .map(lambda year_wordcount:
