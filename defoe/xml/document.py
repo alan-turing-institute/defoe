@@ -29,7 +29,7 @@ class Document(object):
         self.document_tree = etree.parse(stream, parser)
         self.root_element = str(self.document_tree.getroot().tag)
         self.doc_type = str(self.document_tree.docinfo.doctype)
-        self.namespaces = str(self.document_tree.getroot().nsmap)
+        self.namespaces = self.document_tree.getroot().nsmap
 
     def query(self, query):
         """

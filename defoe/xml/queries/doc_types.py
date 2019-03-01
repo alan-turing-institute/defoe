@@ -16,8 +16,8 @@ def do_query(documents, config_file=None, logger=None):
           ...
         }
 
-    :param issues: RDD of defoe.xml.document.Document
-    :type issues: pyspark.rdd.PipelinedRDD
+    :param documents: RDD of defoe.xml.document.Document
+    :type documents: pyspark.rdd.PipelinedRDD
     :param config_file: query configuration file (unused)
     :type config_file: str or unicode
     :param logger: logger (unused)
