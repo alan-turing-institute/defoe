@@ -37,6 +37,7 @@ def do_query(documents, config_file=None, logger=None):
         collect()
     return namespace_counts
 
+
 def get_namespaces(document):
     """
     Extract namespaces from a document.
