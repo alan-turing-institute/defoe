@@ -8,6 +8,11 @@ from lxml import etree
 from defoe.spark_utils import open_stream
 
 
+XSI_NS = "http://www.w3.org/2001/XMLSchema-instance"
+SCHEMA_LOCATION = etree.QName(XSI_NS, "schemaLocation")
+NO_NS_SCHEMA_LOCATION = etree.QName(XSI_NS, "noNamespaceSchemaLocation")
+
+
 class Document(object):
     """
     Object model representation of an XML document.
@@ -27,9 +32,16 @@ class Document(object):
         self.document_tree = None
         parser = etree.XMLParser()
         self.document_tree = etree.parse(stream, parser)
-        self.root_element = str(self.document_tree.getroot().tag)
+        self.root_element = self.document_tree.getroot()
+        self.root_element_tag = str(self.root_element.tag)
         self.doc_type = str(self.document_tree.docinfo.doctype)
-        self.namespaces = self.document_tree.getroot().nsmap
+        self.namespaces = self.root_element.nsmap
+        self.schema_locations = self.root_element.get(
+            SCHEMA_LOCATION.text)
+        if self.schema_locations is not None:
+            self.schema_locations = self.schema_locations.split(" ")
+        self.no_ns_schema_location = self.root_element.get(
+            NO_NS_SCHEMA_LOCATION.text)
 
     def query(self, query):
         """
