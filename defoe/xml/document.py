@@ -28,6 +28,7 @@ class Document(object):
         parser = etree.XMLParser()
         self.document_tree = etree.parse(stream, parser)
         self.root_element = str(self.document_tree.getroot().tag)
+        self.doc_type = str(self.document_tree.docinfo.doctype)
 
     def query(self, query):
         """
