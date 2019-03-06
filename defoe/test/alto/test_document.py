@@ -24,6 +24,8 @@ class TestDocument(TestCase):
             "1873-80": [1873, 1880],
             "[ca. 1730]": [1730],
             "1725, 26": [1725, 1726],
+            "1929-10-05": [1929],
+            "1929/10/05": [1929],
         }
         for case, expected in list(year_fixtures.items()):
             self.assertEqual(expected, Document.parse_year(case))
