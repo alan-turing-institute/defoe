@@ -2,16 +2,15 @@
 Query-related utility functions.
 """
 
+from nltk.corpus import stopwords
+
 from defoe import query_utils
+from defoe.query_utils import PreprocessWordType
 
-"""
-prep_type: integer variable, which indicates the type of preprocess treatment
-to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); original word (3). 
 
-"""
-prep_type= 2
-
-def get_article_matches(issue, keywords):
+def get_article_matches(issue,
+                        keywords,
+                        preprocess_type=PreprocessWordType.NORMALIZE):
     """
     Get articles within an issue that include one or more keywords.
     For each article that includes a specific keyword, add a tuple of
@@ -24,13 +23,14 @@ def get_article_matches(issue, keywords):
 
     If more than one keyword occurs in an article, there will be one
     tuple per keyword.
-   
-    
 
     :param issue: issue
     :type issue: defoe.alto.issue.Issue
     :param keywords: keywords
-    :type keywords: list(str or unicode:
+    :type keywords: list(str or unicode)
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :type preprocess_type: defoe.query_utils.PreprocessWordType
     :return: list of tuples
     :rtype: list(tuple)
     """
@@ -39,7 +39,9 @@ def get_article_matches(issue, keywords):
         for article in issue:
             match = None
             for word in article.words:
-                preprocessed_word = query_utils.preprocess_word(word, prep_type)
+                preprocessed_word = query_utils.preprocess_word(
+                    word,
+                    preprocess_type)
                 if preprocessed_word == keyword:
                     match = (issue.date.date(), issue, article, keyword)
                     break
@@ -49,29 +51,33 @@ def get_article_matches(issue, keywords):
     return matches
 
 
-def get_article_keywords(article, keywords):
+def get_article_keywords(article,
+                         keywords,
+                         preprocess_type=PreprocessWordType.NORMALIZE):
     """
     Get list of keywords occuring within an article.
-
-    Article words are normalized, by removing all non-'a-z|A-Z'
-    characters.
 
     :param article: Article
     :type article: defoe.papers.article.Article
     :param keywords: keywords
     :type keywords: list(str or unicode)
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :type preprocess_type: defoe.query_utils.PreprocessWordType
     :return: sorted list of keywords that occur within article
     :rtype: list(str or unicode)
     """
     matches = set()
     for word in article.words:
-        preprocessed_word = query_utils.preprocess_word(word, prep_type)
+        preprocessed_word = query_utils.preprocess_word(word, preprocess_type)
         if preprocessed_word in keywords:
-           matches.add(preprocessed_word)
+            matches.add(preprocessed_word)
     return sorted(list(matches))
 
 
-def article_contains_word(article, keyword):
+def article_contains_word(article,
+                          keyword,
+                          preprocess_type=PreprocessWordType.NORMALIZE):
     """
     Check if a keyword occurs within an article.
 
@@ -79,80 +85,98 @@ def article_contains_word(article, keyword):
     :type article: defoe.papers.article.Article
     :param keywords: keyword
     :type keywords: str or unicode
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :type preprocess_type: defoe.query_utils.PreprocessWordType
     :return: True if the article contains the word, false otherwise
     :rtype: bool
     """
     for word in article.words:
-        preprocessed_word = query_utils.preprocess_word(word, prep_type)
+        preprocessed_word = query_utils.preprocess_word(word, preprocess_type)
         if keyword == preprocessed_word:
             return True
     return False
 
 
-def article_stop_words_removal(article):
+def article_stop_words_removal(article,
+                               preprocess_type=PreprocessWordType.NORMALIZE):
     """
     Remove the stop words of an article.
 
     :param article: Article
     :type article: defoe.papers.article.Article
-    :return: True article without stop words
-    :rtype: list
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :type preprocess_type: defoe.query_utils.PreprocessWordType
+    :return: article words without stop words
+    :rtype: list(str or unicode)
     """
-
     stop_words = set(stopwords.words('english'))
     article_words = []
     for word in article.words:
-        preprocessed_word = preprocessed_word(word, prep_type)
-        if not preprocessed_word in stop_words:
-           article_words.append(preprocessed_word)
+        preprocessed_word = query_utils.preprocess_word(word, preprocess_type)
+        if preprocessed_word not in stop_words:
+            article_words.append(preprocessed_word)
     return article_words
 
-def get_article_as_string(article):
+
+def get_article_as_string(article,
+                          preprocess_type=PreprocessWordType.NORMALIZE):
     """
     Return an article as a single string.
 
     :param article: Article
     :type article: defoe.papers.article.Article
-    :return: The complete Article as a string
-    :rtype: string
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :type preprocess_type: defoe.query_utils.PreprocessWordType
+    :return: article words as a string
+    :rtype: string or unicode
     """
-    article_string=''
+    article_string = ''
     for word in article.words:
-        preprocessed_word = query_utils.preprocess_word(word, prep_type)
-        if article_string == '' :
+        preprocessed_word = query_utils.preprocess_word(word, preprocess_type)
+        if article_string == '':
             article_string = preprocessed_word
         else:
-            article_string+=' '+ preprocessed_word
+            article_string += (' ' + preprocessed_word)
     return article_string
 
 
-def get_sentences_list_matches(article_string, keysentence):
+def get_sentences_list_matches(text, keysentence):
     """
-    Check which keysentences from occurs within the text of an article_string
+    Check which key-sentences from occurs within a string
     and return the list of matches.
 
-    :param article_string: article_string
-    :type article_string: string 
+    :param text: text
+    :type text: str or unicode
     :param keysentence: sentences
-    :type: array of strings
-    :return: The list of senteces matches
-    :rtype: set of sentences
+    :type: list(str or uniocde)
+    :return: Set of sentences
+    :rtype: set(str or unicode)
     """
-    match=set()
+    match = set()
     for sentence in keysentence:
-        if sentence in article_string:
-                    match.add(sentence)
+        if sentence in text:
+            match.add(sentence)
     sorted(list(match))
 
-def get_article_idx(article, keywords):
+
+def get_article_idx(article,
+                    keywords,
+                    preprocess_type=PreprocessWordType.NORMALIZE):
     """
     Gets a list of keywords (and their indices) within an article.
 
-    Article words are preprocessed. 
+    Article words are preprocessed.
+
     :param article: Article
     :type article: defoe.papers.article.Article
     :param keywords: keywords
     :type keywords: list(str or unicode)
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :type preprocess_type: defoe.query_utils.PreprocessWordType
     :return: article
     :rtype article: defoe.papers.article.Article
     :return: sorted list of keywords and indices hat occur within article
@@ -160,42 +184,49 @@ def get_article_idx(article, keywords):
     """
     matches = set()
     for idx, word in enumerate(article.words):
-        preprocessed_word = query_utils.preprocess_word(word, prep_type)
+        preprocessed_word = query_utils.preprocess_word(word, preprocess_type)
         if preprocessed_word in keywords:
-            match=(preprocessed_word, idx)
+            match = (preprocessed_word, idx)
             matches.add(match)
-    return article, sorted(list(matches))
+    return (article, sorted(list(matches)))
 
 
-def get_concordance(article, match, window):
+def get_concordance(article,
+                    match,
+                    window,
+                    preprocess_type=PreprocessWordType.NORMALIZE):
     """
-    For a given keyword (and its position in an article), it returns the concordance of words (before and after) using a window.
+    For a given keyword (and its position in an article), return
+    the concordance of words (before and after) using a window.
 
     :param article: Article
     :type article: defoe.papers.article.Article
     :parm match: keyword and its position inside the article list
-    :type: list
+    :type: list(str or unicode, int)
     :window: number of words to the right and left
-    :type: integer
+    :type: int
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :type preprocess_type: defoe.query_utils.PreprocessWordType
     :return: keyword and its concordance
-    :rtype: list
+    :rtype: tuple(str or unicode, list(str or unicode))
     """
     keyword = match[0]
     idx = match[1]
-    article_size= len(article.words)
-     
-    if idx >=window: 
-        start_idx= idx-window
-    else: 
-        start_idx=0
+    article_size = len(article.words)
 
-    if idx + window >=article_size:
+    if idx >= window:
+        start_idx = idx - window
+    else:
+        start_idx = 0
+
+    if idx + window >= article_size:
         end_idx = article_size
     else:
-	end_idx= idx + window + 1
+        end_idx = idx + window + 1
 
     concordance_words = []
     for word in article.words[start_idx:end_idx]:
-	concordance_words.append(query_utils.preprocess_word(word, prep_type))
-    return (keyword,concordance_words)
-    
+        concordance_words.append(query_utils.preprocess_word(
+            word, preprocess_type))
+    return (keyword, concordance_words)
