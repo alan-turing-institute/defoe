@@ -7,6 +7,7 @@ General:
 * [Count total number of documents](./total_documents.md)
 * [Count total number of pages](./total_pages.md)
 * [Count total number of words](./total_words.md)
+* [Get measure of OCR quality for each page and group by year](./ocr_quality_by_year.md)
 * [Normalize](./normalize.md) - count total number of documents, pages and words per year.
 
 Keyword searches:
