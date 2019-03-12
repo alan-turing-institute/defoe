@@ -6,18 +6,16 @@
   - An LDA configuration file, in YAML format:
 
     ```        
-    {
-        keyword: <KEYWORD>,
-        optimizer: online|em,
-        max_iterations: <N>,
-        ntopics: <N>,
-        topic_words: <N>
-    }
+    keyword: <KEYWORD>
+    optimizer: online|em
+    max_iterations: <N>
+    ntopics: <N>
+    topic_words: <N>
     ```
 
   - `<N>` must be >= 1 for each parameter.
   - Examples:
-    - `queries/lda.json`
+    - `queries/lda.yml`
 
 * Result format:
 
@@ -32,7 +30,7 @@ years:[<MIN_YEAR>, <MAX_YEAR>]
 
 ## Sample results
 
-Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml` with `queries/lda.json`:
+Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml` with `queries/lda.yml`:
 
 ```
 '0': ['', london, may, york, light]

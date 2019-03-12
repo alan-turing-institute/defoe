@@ -8,6 +8,18 @@
 
 ---
 
+## Get source code repository
+
+Run:
+
+```bash
+git clone https://github.com/alan-turing-institute/defoe.git
+```
+
+This will clone the source code repository into a `defoe` directory.
+
+---
+
 ## Set up Mac OS X
 
 Run:
@@ -120,7 +132,7 @@ export PATH=~/spark-2.4.0-bin-hadoop2.7/bin:$PATH
 ### Install dependencies
 
 ```bash
-cd <REPOSITORY-DIRECTORY>
+cd defoe
 conda install -c anaconda --file requirements.txt 
 pip freeze | grep azure > azure.txt
 pip uninstall -y -r azure.txt

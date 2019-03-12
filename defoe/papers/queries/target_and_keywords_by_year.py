@@ -29,20 +29,19 @@ def do_query(issues, config_file=None, logger=None):
 
     Returns result of form:
 
-        <YEAR>:
-        - {
-            "target": <WORD>,
-            "words": [<WORD>, <WORD>, ...],
-            "count": <COUNT>
-          }
-        - {
-            "target": <WORD>,
-            "words": [<WORD>, <WORD>, ...],
-            "count": <COUNT>
-          }
-        - ...
-        <YEAR>:
-        ...
+        {
+          <YEAR>:
+          [
+            {
+              "target_word": <WORD>,
+              "words": [<WORD>, <WORD>, ...],
+              "count": <COUNT>
+            },
+            ...
+          ],
+          <YEAR>:
+          ...
+        }
 
     :param issues: RDD of defoe.papers.issue.Issue
     :type issues: pyspark.rdd.PipelinedRDD

@@ -13,8 +13,8 @@ def do_query(archives, config_file=None, logger=None):
     Returns result of form:
 
         {
-            "num_documents": num_documents,
-            "num_pages": num_pages
+          "num_documents": num_documents,
+          "num_pages": num_pages
         }
 
     :param archives: RDD of defoe.alto.archive.Archive

@@ -8,7 +8,6 @@ Count total number of issues, articles and words per year. This can be useful if
 
 ```
 <YEAR>: [<NUM_ISSUES>, <NUM_ARTICLES>, <NUM_WORDS>]
-<YEAR>: [<NUM_ISSUES>, <NUM_ARTICLES>, <NUM_WORDS>]
 ...
 ```
 

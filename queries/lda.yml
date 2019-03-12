@@ -1,0 +1,5 @@
+keyword: princess
+optimizer: em
+max_iterations: 10
+ntopics: 5
+topic_words: 5

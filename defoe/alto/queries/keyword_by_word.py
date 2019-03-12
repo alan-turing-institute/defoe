@@ -19,12 +19,15 @@ def do_query(archives, config_file=None, logger=None):
 
     Returns result of form:
 
-        <WORD>:
-        - [<YEAR>, <NUM_WORDS>]
-        - [<YEAR>, <NUM_WORDS>]
-        - ...
-        <WORD:
-        ...
+        {
+          <WORD>:
+          [
+            [<YEAR>, <NUM_WORDS>],
+            ...
+          ],
+          <WORD>:
+          ...
+        }
 
     :param archives: RDD of defoe.alto.archive.Archive
     :type archives: pyspark.rdd.PipelinedRDD

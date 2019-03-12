@@ -21,18 +21,17 @@ def do_query(issues, config_file=None, logger=None):
 
     Returns result of form:
 
-        <YEAR>:
-        - {
-            "words": [<WORD>, <WORD>, ...],
-            "count": <COUNT>
-          }
-        - {
-            "words": [<WORD>, <WORD>, ...],
-            "count": <COUNT>
-          }
-        - ...
-        <YEAR>:
-        ...
+        {
+          <YEAR>:
+          [
+            {
+              "words": [<WORD>, <WORD>, ...],
+              "count": <COUNT>
+            },
+            ...
+          ],
+          ...
+        }
 
     :param issues: RDD of defoe.papers.issue.Issue
     :type issues: pyspark.rdd.PipelinedRDD
@@ -102,8 +101,8 @@ def word_article_count_list_to_dict(word_counts):
     Dictionary is of form:
 
         {
-            "words": [<WORD>, <WORD>, ...],
-            "count": <COUNT>
+          "words": [<WORD>, <WORD>, ...],
+          "count": <COUNT>
         }
 
     :param word_counts: words and counts

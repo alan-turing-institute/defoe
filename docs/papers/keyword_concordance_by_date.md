@@ -11,18 +11,19 @@
 
 ```
 <DATE>:
-- { "title": <TITLE>,
-    "page_ids": <PAGE_IDS>,
-    "content": <PAGE_CONTENT>,
-    "word": <WORD>,
-    "article_id": <ARTICLE_ID>,
-    "issue_id": <ISSUE_ID>,
-    "filename": <FILENAME>}
-- { ... }
+- title: <TITLE>
+  page_ids: <PAGE_IDS>
+  content: <PAGE_CONTENT>
+  word: <WORD>
+  article_id: <ARTICLE_ID>
+  issue_id: <ISSUE_ID>
+  filename: <FILENAME>
 ...
 <DATE>:
 ...
 ```
+
+**Caution:** as this query returns each article's content, for every match, there is a risk that the query will fail due to lack of memory. This query should only be run with interesting words that are not expected to occur often.
 
 ## Sample results
 
@@ -32,7 +33,7 @@ Query over `0000164- The Courier and Argus/*.xml` with `queries/krakatoa.txt`:
 1901-01-02:
 - article_id: 0000164_19010102_0005-063
   content: "THE EARTH...",
-  filename: .../xmls/0000164- The Courier and Argus/0000164_19010102.xml
+  filename: .../0000164- The Courier and Argus/0000164_19010102.xml
   issue_id: BSNP0164
   page_ids: ['0005']
   title: THE EARTH AND ITS HEAT
@@ -40,7 +41,7 @@ Query over `0000164- The Courier and Argus/*.xml` with `queries/krakatoa.txt`:
 1902-03-05:
 - article_id: 0000164_19020305_0007-106
   content: "EARTHQUAKE TERRORS...",
-  filename: .../xmls/0000164- The Courier and Argus/0000164_19020305.xml
+  filename: .../0000164- The Courier and Argus/0000164_19020305.xml
   issue_id: BSNP0164
   page_ids: ['0007']
   title: EARTHQUAKE TERRORS.

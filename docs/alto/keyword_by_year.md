@@ -10,11 +10,10 @@
 * Result format:
 
 ```
-<YEAR>
-- [<WORD>, <NUM_WORDS>]
+<YEAR>:
 - [<WORD>, <NUM_WORDS>]
 - ...
-<YEAR>
+<YEAR>:
 ...
 ```
 
