@@ -143,17 +143,32 @@ Each XML file is expected to contain one issue of a newspaper:
   - bl_ncnp_issue_apex.dtd (BLN)
 * Each XML file contains an `issue` element with one or more `article` elements, corresponding to articles.
 
-An `Issue` object reads the XML file and extracts information about the issue: ID, date, page count, daty of week. The `Issue` object also caches the raw XML as a collection of Python [lxml](https://lxml.de/) objects.
+An `Issue` object reads the XML file and extracts information about the issue: ID, date, page count, day of week. The `Issue` object also caches the raw XML as a collection of Python [lxml](https://lxml.de/) objects.
 
 The `Issue` object also creates one `Article` object for each `article` element within the XML file.
 
 The `Issue` object uses conditionals and XPath queries to pull out the ID, issue metadata, and articles. These allow for both the TDA and BLN XML Schema to be handled.
 
-An `Article` object extracts from an `article` element information about the article: OD, title, OCR quality, page IDs. It also extracts any preamble and the words within the article. The `Article` object also caches its XML fragment as a collection of Python `lxml` objects
+An `Article` object extracts from an `article` element information about the article: ID, title, OCR quality, page IDs. It also extracts any preamble and the words within the article. The `Article` object also caches its XML fragment as a collection of Python `lxml` objects
 
 The `Article` object uses conditionals and pattern matching to pull out the page IDs. These allow for both the TDA and BLN XML Schema to be handled.
 
 British Library Newspapers XML files may be grouped into directories, one per newspaper e.g. `0000164- The Courier and Argus`, `0000187- The Bath Chronicle` etc. The code is agnostic to this.
+
+## `nzpp` model
+
+The list of file to run the query over is expected to be a list of XML files.
+
+Each XML file is expected to contain one issue of a newspaper:
+
+* Each XML file is compliant with either:
+  - GALENP.dtd schema (TDA)
+  - bl_ncnp_issue_apex.dtd (BLN)
+* Each XML file contains an `issue` element with one or more `article` elements, corresponding to articles.
+
+An `Articles` object reads the XML file and extracts information about one or more articles within the XML file, and creates one `Article` object for each `result` element within the XML file.
+
+An `Article` object extracts from an `article` element information about the article: title, date, enclosing newspaper name, article type and content. The `Article` object also caches its XML fragment as a collection of Python `lxml` objects.
 
 ## `xml` model
 
