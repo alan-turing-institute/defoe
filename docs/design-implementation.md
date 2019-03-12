@@ -13,13 +13,15 @@ The object model to use is specified by the user, depending upon the files they 
 * `books`: for British Library Books (BLB)
 * `fmp`: for ALTO-compliant subset of Find My Past newspapers (FMP)
 * `papers`: for British Library Newspapers (BLN) or Times Digital Archive (TDA)
+* `xml`: for arbitrary XML documents
 
 BLB and the ALTO-compliant subset of FMP both conform to the [ALTO](https://www.loc.gov/standards/alto/) format. An abstract object model, `alto`, which is a parent of both the `books` and `fmp` object models represents the commonality between these models.
 
 The query selected by the user is also object model-specific:
 
 * `defoe.alto.queries` package contains queries for `books` and `fmp`.
-* `defoe.papers.queries` package contains queries for `papers.
+* `defoe.papers.queries` package contains queries for `papers`.
+* `defoe.xml.queries` package contains queries for `xml.
 
 ## `alto` abstract parent model
 
@@ -134,7 +136,7 @@ All other aspects of this object model are as for `alto`.
 
 The list of file to run the query over is expected to be a list of XML files.
 
-Eacj XML file is expected to contain one issue of a newspaper:
+Each XML file is expected to contain one issue of a newspaper:
 
 * Each XML file is compliant with either:
   - GALENP.dtd schema (TDA)
@@ -152,6 +154,10 @@ An `Article` object extracts from an `article` element information about the art
 The `Article` object uses conditionals and pattern matching to pull out the page IDs. These allow for both the TDA and BLN XML Schema to be handled.
 
 British Library Newspapers XML files may be grouped into directories, one per newspaper e.g. `0000164- The Courier and Argus`, `0000187- The Bath Chronicle` etc. The code is agnostic to this.
+
+## `xml` model
+
+The list of file to run the query over is expected to be a list of XML files.
 
 ## Limitations
 
