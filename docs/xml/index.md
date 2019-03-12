@@ -5,7 +5,7 @@ General:
 * [Gets metadata about an XML document](#Gets-metadata-about-an-XML-document)
 * [Gets metadata about an XML document and counts frequences of each type of metadata](#Gets-metadata-about-an-XML-document-and-counts-frequences-of-each-type-of-metadata)
 * [Counts total number of documents](#Counts-total-number-of-documents)
-* [Finds every unique document type (DOCTYPE) and its frequency](#Finds every-unique-document-type-(DOCTYPE)-and-its-frequency)
+* [Finds every unique document type and its frequency](#Finds every-unique-document-type-and-its-frequency)
 * [Finds every unique namespace and its frequency](#Finds-every-unique-namespace-and-its-frequency)
 * [Finds every unique root element and its frequency](#Finds-every-unique-root-element-and-its-frequency)
 * [Counts total size of document files in bytes](#Counts-total-size-of-document-files-in-bytes)
@@ -70,7 +70,7 @@ num_documents: <NUM_DOCUMENTS>
 
 ---
 
-## Finds every unique document type (DOCTYPE) and its frequency
+## Finds every unique document type and its frequency
 
 * Query module: `defoe.xml.queries.doc_types`
 * Configuration file: None
