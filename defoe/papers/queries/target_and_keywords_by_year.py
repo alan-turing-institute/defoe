@@ -11,6 +11,17 @@ from defoe.papers.query_utils import article_contains_word
 from defoe.papers.query_utils import get_article_keywords
 
 
+PREPROCESS = PreprocessWordType.Normalize
+"""
+Default word pre-processing type. Other options are:
+
+PreprocessWordType.NORMALIZE: Normalize word
+PreprocessWordType.STEM: Normalize and stem word
+PreprocessWordType.LEMMATIZE: Normalize and lemmatize word
+PreprocessWordType.NONE: Apply no preprocessing
+"""
+
+
 def do_query(issues, config_file=None, logger=None):
     """
     Counts number of articles containing both a target word and one or
@@ -50,8 +61,7 @@ def do_query(issues, config_file=None, logger=None):
     """
     keywords = []
     with open(config_file, "r") as f:
-        keywords = [query_utils.preprocess_word(word,
-                                                PreprocessWordType.Normalize)
+        keywords = [query_utils.preprocess_word(word, PREPROCESS)
                     for word in list(f)]
 
     target_word = keywords[0]
