@@ -13,10 +13,10 @@ def do_query(documents, config_file=None, logger=None):
             <FILENAME>:
             {
                 doctype: <DOCTYPE>,
-                namespaces: {TAG: URL, TAG: URL, ...},
+                namespaces: {<TAG>: <URL>, <TAG>: <URL>, ...},
                 no_ns_schema_location: <URL> | None,
                 root: <ROOT_ELEMENT>,
-                schema_locations: [URL, URL, ...] | None,
+                schema_locations: [<URL>, <URL>, ...] | None,
                 size: <FILE_SIZE>
             },
             ...

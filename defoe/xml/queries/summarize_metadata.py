@@ -1,5 +1,6 @@
 """
-Gets metadata about an XML document.
+Gets metadata about an XML document and counts frequences of each type
+of metadata.
 """
 
 from operator import add
@@ -7,7 +8,9 @@ from operator import add
 
 def do_query(documents, config_file=None, logger=None):
     """
-    Gets metadata about an XML document.
+    Gets metadata about an XML document and counts frequences of each
+    type of metadata.
+
     Returns result of form:
 
         {
