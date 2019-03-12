@@ -25,13 +25,8 @@ def do_query(documents, config_file=None, logger=None):
     :return: unique namespaces and frequencies
     :rtype: dict
     """
-    # [(namespace, 1), (namespace, 1), ...]
     namespaces = documents.flatMap(lambda document:
                                    get_namespaces(document))
-
-    # [(namespace, 1), (namespace, 1), ...]
-    # =>
-    # [(namespace, count), (namespace, count), ...]
     namespace_counts = namespaces. \
         reduceByKey(add). \
         collect()

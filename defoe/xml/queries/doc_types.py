@@ -25,13 +25,8 @@ def do_query(documents, config_file=None, logger=None):
     :return: unique document types and frequencies
     :rtype: dict
     """
-    # [(doc_type, 1), (doc_type, 1), ...]
     doc_types = documents.map(lambda document:
                               (document.doc_type, 1))
-
-    # [(doc_type, 1), (doc_type, 1), ...]
-    # =>
-    # [(doc_type, count), (doc_type, count), ...]
     doc_type_counts = doc_types. \
         reduceByKey(add). \
         collect()

@@ -40,6 +40,8 @@ class Document(object):
             SCHEMA_LOCATION.text)
         if self.schema_locations is not None:
             self.schema_locations = self.schema_locations.split(" ")
+        else:
+            self.schema_locations = []
         self.no_ns_schema_location = self.root_element.get(
             NO_NS_SCHEMA_LOCATION.text)
 
