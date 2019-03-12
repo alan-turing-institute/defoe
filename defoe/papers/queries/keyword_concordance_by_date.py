@@ -18,18 +18,23 @@ def do_query(issues, config_file=None, logger=None):
 
     Returns result of form:
 
-        <DATE>:
-        - { "title": <TITLE>,
-            "page_ids": <PAGE_IDS>,
-            "content": <PAGE_CONTENT>,
-            "word": <WORD>,
-            "article_id": <ARTICLE_ID>,
-            "issue_id": <ISSUE_ID>,
-            "filename": <FILENAME>}
-        - { ... }
-        ...
-        <DATE>:
-        ...
+        {
+          <DATE>:
+          [
+            {
+              "title": <TITLE>,
+              "page_ids": <PAGE_IDS>,
+              "content": <PAGE_CONTENT>,
+              "word": <WORD>,
+              "article_id": <ARTICLE_ID>,
+              "issue_id": <ISSUE_ID>,
+              "filename": <FILENAME>
+            },
+            ...
+          ],
+          <DATE>:
+          ...
+        }
 
     :param issues: RDD of defoe.alto.issue.Issue
     :type issues: pyspark.rdd.PipelinedRDD

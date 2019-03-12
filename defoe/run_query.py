@@ -10,7 +10,7 @@ Run Spark text query job.
     positional arguments:
       data_file             Data file listing data files to query
       model_name            Data model to which data files conform:
-      ['books', 'papers', 'fmp']
+      ['books', 'papers', 'fmp','nzpp', 'xml']
       query_name            Query module name
       query_config_file     Query-specific configuration file
 
@@ -69,7 +69,7 @@ def main():
     """
     root_module = "defoe"
     setup_module = "setup"
-    models = ["books", "papers", "fmp"]
+    models = ["books", "papers", "fmp", "nzpp", "xml"]
 
     parser = ArgumentParser(description="Run Spark text analysis job")
     parser.add_argument("data_file",
@@ -147,17 +147,16 @@ def main():
     error_data = data \
         .filter(lambda obj_file_err: obj_file_err[1] is not None) \
         .map(lambda obj_file_err: (obj_file_err[0], obj_file_err[1]))
-
-    results = do_query(ok_data, query_config_file, log)
+    # Collect and record problematic files before attempting query.
     errors = error_data.collect()
-
-    with open(results_file, "w") as f:
-        f.write(yaml.safe_dump(dict(results)))
-
     errors = list(errors)
     if errors:
         with open(errors_file, "w") as f:
             f.write(yaml.safe_dump(list(errors)))
+
+    results = do_query(ok_data, query_config_file, log)
+    with open(results_file, "w") as f:
+        f.write(yaml.safe_dump(dict(results)))
 
 
 if __name__ == "__main__":

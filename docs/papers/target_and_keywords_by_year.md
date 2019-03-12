@@ -11,19 +11,12 @@
 
 ```
 <YEAR>:
-- {
-    "target": <WORD>,
-    "words": [<WORD>, <WORD>, ...],
-    "count": <COUNT>
-  }
-- {
-    "target": <WORD>,
-    "words": [<WORD>, <WORD>, ...],
-    "count": <COUNT>
-  }
+- count: <COUNT>
+  target_word: <WORD>
+  words: [<WORD>, <WORD>, ...]
 - ...
-<YEAR>:
 ...
+<YEAR>:
 ...
 ```
 
