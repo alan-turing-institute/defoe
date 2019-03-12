@@ -113,3 +113,9 @@ find "<NEWSPAPERS>/xmls/0000164- The Courier and Argus/" -name "*.xml" > data.tx
 ```bash
 find "/mnt/lustre/<project>/<project>/<username>/blpaper/xmls/0000164- The Courier and Argus/" -name "*.xml" > data.txt
 ```
+
+## Arbitrary XML documents
+
+To run queries over arbitrary XML documents, the file needs a list of the paths to the XML files.
+
+This can be created as for the British Library Newspapers dataset above.
