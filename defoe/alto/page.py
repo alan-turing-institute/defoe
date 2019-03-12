@@ -42,6 +42,7 @@ class Page(object):
         self.page_tree = self.single_query(Page.PAGE_XPATH)
         self.width = int(self.page_tree.get("WIDTH"))
         self.height = int(self.page_tree.get("HEIGHT"))
+        self.pc = self.page_tree.get("PC")
         self.page_words = None
         self.page_strings = None
         self.page_images = None
