@@ -159,6 +159,8 @@ British Library Newspapers XML files may be grouped into directories, one per ne
 
 The list of file to run the query over is expected to be a list of XML files.
 
+Unlike in the other models, strict XML parsing, using [lxml.etree.XMLParser](https://lxml.de/api/lxml.etree.XMLParser-class.html), is used. XMLParser's `recover` option is disabled, meaning no attempt to parse broken XML is made,
+
 ## Limitations
 
 The limitations of the code and the object model are as follows.
@@ -176,6 +178,21 @@ No caching of the RDDs is done. Every time a query is run the files are reread, 
 No preprocessing of the text prior to running a query is done.
 
 Normalization of words, to remove any non-`a-z|A-Z` characters (for both data and search terms provided by the user) is the responsibility of individual query implementations (a `defoe.query_utils.normalize` helper function is provided for this purpose).
+
+For the generic `xml` model:
+
+* Namespace extraction is done solely on from the document's root element's `nsmap`. If namespaces are defined in sub-elements then there will be a need to traverse the XML e.g. by traversing elements using [Tree iteration](https://lxml.de/tutorial.html#tree-iteration).
+* Shema locations are accessed from a root element as an attribute. An alternative is to run an XPath query e.g.
+
+```
+namespaces = {u'xsi': u"http://www.w3.org/2001/XMLSchema-instance"}
+query = "//@xsi:schemaLocation"
+result = document_tree.getroot().xpath(query, namespaces=namespaces)
+result = [str(r) for r in result]
+query = "//@xsi:noNamespaceSchemaLocation"
+result = document_tree.getroot().xpath(query, namespaces=namespaces)
+result = [str(r) for r in result]
+```
 
 ## Notes
 
