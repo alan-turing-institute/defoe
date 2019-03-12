@@ -80,7 +80,7 @@ sshfs -o intr,large_read,auto_cache,workaround=all -oPort=22222 <your-datastore-
 Create directory on Lustre:
 
 ```bash
-mkdir -p /mnt/lustre/<project>/<project>/<username>/nz-papers-past
+mkdir -p /mnt/lustre/<project>/<project>/<username>/NZPP
 ```
 
 Set file permissions so that no other user can access your data:
@@ -92,7 +92,7 @@ chmod -R go+rwx /mnt/lustre/<project>/<project>/<username>
 Copy dataset to Lustre, by running in your home directory:
 
 ```bash
-cp ~/dch/LBORO/PP_XMLs\ \(via\ api\)/*xml /mnt/lustre/<project>/<project>/<username>/nz-papers-past
+cp ~/dch/LBORO/PP_XMLs\ \(via\ api\)/*xml /mnt/lustre/<project>/<project>/<username>/NZPP
 ```
 
 ## Important
