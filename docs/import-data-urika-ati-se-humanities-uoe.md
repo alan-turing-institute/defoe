@@ -14,7 +14,7 @@ sshfs -o intr,large_read,auto_cache,workaround=all -oPort=22222 <your-datastore-
 Create directory on Lustre:
 
 ```bash
-mkdir -p /mnt/lustre/<project>/<project>/<username>/dch
+mkdir -p /mnt/lustre/<project>/<project>/<username>/BLB
 ```
 
 Set file permissions so that no other user can access your data:
@@ -26,13 +26,13 @@ chmod -R go+rwx /mnt/lustre/<project>/<project>/<username>
 Copy dataset to Lustre, by running in your home directory:
 
 ```bash
-source scripts/copy_bl_books.sh ~/dch/BritishLibraryBooks/ /mnt/lustre/<project>/<project>/<username>/dch/BritishLibraryBooks
+source scripts/copy_bl_books.sh ~/dch/BritishLibraryBooks/ /mnt/lustre/<project>/<project>/<username>/BLB
 ```
 
 Set file permissions so you can read the data:
 
 ```bash
-chmod -R u+rx /mnt/lustre/<project>/<project>/<username>/dch/*/*.zip
+chmod -R u+rx /mnt/lustre/<project>/<project>/<username>/BLB/*/*.zip
 ```
 
 ## Mount British Library Newspapers dataset
@@ -47,7 +47,7 @@ sshfs -o intr,large_read,auto_cache,workaround=all -oPort=22222 <your-datastore-
 Create directory on Lustre:
 
 ```bash
-mkdir -p /mnt/lustre/<project>/<project>/<username>/blpaper/xmls
+mkdir -p /mnt/lustre/<project>/<project>/<username>/BLN
 ```
 
 Set file permissions so that no other user can access your data:
@@ -59,13 +59,13 @@ chmod -R go+rwx /mnt/lustre/<project>/<project>/<username>
 Copy dataset to Lustre, by running in your home directory:
 
 ```bash
-source deploy/copy_bl_papers.sh ~/blpaper/xmls/ /mnt/lustre/<project>/<project>/<username>/blpaper/xmls
+source deploy/copy_bl_papers.sh ~/blpaper/xmls/ /mnt/lustre/<project>/<project>/<username>/BLN
 ```
 
 Set file permissions so you can read the data:
 
 ```bash
-chmod -R u+rx /mnt/lustre/<project>/<project>/<username>/blpaper/*/*.xml
+chmod -R u+rx /mnt/lustre/<project>/<project>/<username>/BLN/*/*.xml
 ```
 
 ## Mount Papers Past New Zealand and Pacific newspapers dataset
