@@ -74,7 +74,7 @@ class Document(object):
         """
         try:
             date_pattern = re.compile("(1[6-9]\d{2}(-|/)(0[1-9]|1[0-2])(-|/)(0[1-9]|[12]\d|3[01]))")
-            if (date_pattern.match(text)):
+            if date_pattern.match(text):
                 return [int(text[0:4])]
             long_pattern = re.compile("(1[6-9]\d\d)")
             short_pattern = re.compile("\d\d")

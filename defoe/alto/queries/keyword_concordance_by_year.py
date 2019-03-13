@@ -21,7 +21,7 @@ def do_query(archives, config_file=None, logger=None):
         {
           <YEAR>:
           [
-            { 
+            {
               "title": <TITLE>,
               "place": <PLACE>,
               "publisher": <PUBLISHER>,
