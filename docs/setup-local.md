@@ -131,6 +131,7 @@ export PATH=~/spark-2.4.0-bin-hadoop2.7/bin:$PATH
 
 ### Install dependencies
 
+Ins
 ```bash
 cd defoe
 conda install -c anaconda --file requirements.txt 
@@ -139,3 +140,17 @@ pip uninstall -y -r azure.txt
 rm azure.txt
 conda install -c conda-forge azure
 ```
+
+### Install NLTK data
+
+Certain queries require the NLTK corpora data to be installed.
+
+```bash
+bash scripts/download_ntlk_corpus.sh
+```
+
+This is installed to `<HOME>/nltk_data`
+
+**Caution:** the NLTK data requires ~3GB of space.
+
+For more information, see [Installing NLTK Data](https://www.nltk.org/data.html)
