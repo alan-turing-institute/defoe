@@ -10,7 +10,7 @@ from defoe.query_utils import PreprocessWordType
 
 def get_article_matches(issue,
                         keywords,
-                        preprocess_type=PreprocessWordType.NORMALIZE):
+                        preprocess_type=PreprocessWordType.LEMMATIZE):
     """
     Get articles within an issue that include one or more keywords.
     For each article that includes a specific keyword, add a tuple of
@@ -53,7 +53,7 @@ def get_article_matches(issue,
 
 def get_article_keywords(article,
                          keywords,
-                         preprocess_type=PreprocessWordType.NORMALIZE):
+                         preprocess_type=PreprocessWordType.LEMMATIZE):
     """
     Get list of keywords occuring within an article.
 
@@ -69,7 +69,8 @@ def get_article_keywords(article,
     """
     matches = set()
     for word in article.words:
-        preprocessed_word = query_utils.preprocess_word(word, preprocess_type)
+        preprocessed_word = query_utils.preprocess_word(word,
+                                                        preprocess_type)
         if preprocessed_word in keywords:
             matches.add(preprocessed_word)
     return sorted(list(matches))
@@ -77,7 +78,7 @@ def get_article_keywords(article,
 
 def article_contains_word(article,
                           keyword,
-                          preprocess_type=PreprocessWordType.NORMALIZE):
+                          preprocess_type=PreprocessWordType.LEMMATIZE):
     """
     Check if a keyword occurs within an article.
 
@@ -92,14 +93,15 @@ def article_contains_word(article,
     :rtype: bool
     """
     for word in article.words:
-        preprocessed_word = query_utils.preprocess_word(word, preprocess_type)
+        preprocessed_word = query_utils.preprocess_word(word,
+                                                        preprocess_type)
         if keyword == preprocessed_word:
             return True
     return False
 
 
 def article_stop_words_removal(article,
-                               preprocess_type=PreprocessWordType.NORMALIZE):
+                               preprocess_type=PreprocessWordType.LEMMATIZE):
     """
     Remove the stop words of an article.
 
@@ -121,7 +123,7 @@ def article_stop_words_removal(article,
 
 
 def get_article_as_string(article,
-                          preprocess_type=PreprocessWordType.NORMALIZE):
+                          preprocess_type=PreprocessWordType.LEMMATIZE):
     """
     Return an article as a single string.
 
@@ -164,11 +166,9 @@ def get_sentences_list_matches(text, keysentence):
 
 def get_article_idx(article,
                     keywords,
-                    preprocess_type=PreprocessWordType.NORMALIZE):
+                    preprocess_type=PreprocessWordType.LEMMATIZE):
     """
     Gets a list of keywords (and their indices) within an article.
-
-    Article words are preprocessed.
 
     :param article: Article
     :type article: defoe.papers.article.Article
@@ -194,7 +194,7 @@ def get_article_idx(article,
 def get_concordance(article,
                     match,
                     window,
-                    preprocess_type=PreprocessWordType.NORMALIZE):
+                    preprocess_type=PreprocessWordType.LEMMATIZE):
     """
     For a given keyword (and its position in an article), return
     the concordance of words (before and after) using a window.
