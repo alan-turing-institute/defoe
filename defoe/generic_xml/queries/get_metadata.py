@@ -22,7 +22,7 @@ def do_query(documents, config_file=None, logger=None):
             ...
         ]
 
-    :param documents: RDD of defoe.xml.document.Document
+    :param documents: RDD of defoe.generic_xml.document.Document
     :type documents: pyspark.rdd.PipelinedRDD
     :param config_file: query configuration file (unused)
     :type config_file: str or unicode

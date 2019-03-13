@@ -14,7 +14,7 @@ General:
 
 ## Gets metadata about an XML document
 
-* Query module: `defoe.xml.queries.get_metadata`
+* Query module: `defoe.generic_xml.queries.get_metadata`
 * Configuration file: None
 * Result format:
 
@@ -34,7 +34,7 @@ General:
 
 ## Gets metadata about an XML document and counts frequences of each type of metadata
 
-* Query module: `defoe.xml.queries.summarize_metadata`
+* Query module: `defoe.generic_xml.queries.summarize_metadata`
 * Configuration file: None
 * Result format:
 
@@ -60,7 +60,7 @@ noNsSchemaLocation
 
 ## Counts total number of documents
 
-* Query module: `defoe.xml.queries.total_documents`
+* Query module: `defoe.generic_xml.queries.total_documents`
 * Configuration file: None
 * Result format:
 
@@ -72,7 +72,7 @@ num_documents: <NUM_DOCUMENTS>
 
 ## Finds every unique document type and its frequency
 
-* Query module: `defoe.xml.queries.doc_types`
+* Query module: `defoe.generic_xml.queries.doc_types`
 * Configuration file: None
 * Result format:
 
@@ -86,7 +86,7 @@ num_documents: <NUM_DOCUMENTS>
 
 ## Finds every unique namespace and its frequency
 
-* Query module: `defoe.xml.queries.namespaces`
+* Query module: `defoe.generic_xml.queries.namespaces`
 * Configuration file: None
 * Result format:
 
@@ -100,7 +100,7 @@ num_documents: <NUM_DOCUMENTS>
 
 ## Finds every unique root element and its frequency
 
-* Query module: `defoe.xml.queries.root_elements`
+* Query module: `defoe.generic_xml.queries.root_elements`
 * Configuration file: None
 * Result format:
 
@@ -114,7 +114,7 @@ num_documents: <NUM_DOCUMENTS>
 
 ## Counts total size of document files in bytes
 
-* Query module: `defoe.xml.queries.total_size`
+* Query module: `defoe.generic_xml.queries.total_size`
 * Configuration file: None
 * Result format:
 

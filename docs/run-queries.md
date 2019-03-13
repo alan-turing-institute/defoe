@@ -22,7 +22,7 @@ where:
   - `papers`: British Library Newspapers
   - `fmp`: Find My Past Newspapers
   - `nzpp`: Papers Past New Zealand and Pacific newspapers
-  - `xml`: Arbitrary XML documents
+  - `generic_xml`: Arbitrary XML documents
   - For example, `books` tells the code that the data files listed in `data.txt` are books so should be parsed into a books data model.
 * `<QUERY_NAME>` is the name of a Python module implementing the query to run, for example `defoe.alto.queries.find_words_group_by_word` or `defoe.papers.queries.articles_containing_words`. The query must be compatible with the chosen model.
 * `<QUERY_CONFIG_FILE>` is a query-specific configuration file. This is optional and depends on the query implementation.
