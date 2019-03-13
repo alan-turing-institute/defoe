@@ -2,8 +2,8 @@
 Counts number of articles in which they are occurences of keysentences
 and groups them by year.
 
-Words in articles and keysentences may be normalized and stemmed or
-normalized and lemmatized.
+Words in articles and keysentences can be normalized, normalized and
+stemmed or normalized and lemmatized.
 """
 
 from operator import add
