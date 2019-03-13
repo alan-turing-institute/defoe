@@ -5,6 +5,23 @@ Gets concordance and collocation for keywords selecting only the articles which 
 from defoe import query_utils
 from defoe.papers.query_utils import article_contains_word, get_article_idx, get_concordance
 
+
+
+from defoe.query_utils import PreprocessWordType
+
+
+PREPROCESS = PreprocessWordType.STEM
+"""
+Default word pre-processing type. Other options are:
+
+PreprocessWordType.NORMALIZE: Normalize word
+PreprocessWordType.STEM: Normalize and stem word
+PreprocessWordType.LEMMATIZE: Normalize and lemmatize word
+PreprocessWordType.NONE: Apply no preprocessing
+"""
+
+
+
 """
 PREPROCESSING OPTIONS:
 prep_type: integer variable, which indicates the type of preprocess treatment

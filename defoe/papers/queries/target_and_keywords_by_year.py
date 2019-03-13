@@ -1,6 +1,8 @@
 """
-Counts number of articles containing both a target word and one or
-more keywords and groups by year.
+Counts number of articles containing both a target word (or its
+normalized and stemmed or normalized and lemmatized versions) and one
+or more keywords (or their normalized and stemmed or normalized and
+lemmatized versions) and groups by year
 """
 
 from operator import add
@@ -11,9 +13,9 @@ from defoe.papers.query_utils import article_contains_word
 from defoe.papers.query_utils import get_article_keywords
 
 
-PREPROCESS = PreprocessWordType.Normalize
+PREPROCESS_TYPE = PreprocessWordType.Normalize
 """
-Default word pre-processing type. Other options are:
+Default word preprocessing type. Options are:
 
 PreprocessWordType.NORMALIZE: Normalize word
 PreprocessWordType.STEM: Normalize and stem word
@@ -30,9 +32,6 @@ def do_query(issues, config_file=None, logger=None):
     config_file must be the path to a configuration file with a target
     word and a list of one or more keywords to search for, one per
     line.
-
-    Target word, keywords and words in documents are normalized, by
-    removing all non-'a-z|A-Z' characters.
 
     Returns result of form:
 
@@ -61,7 +60,7 @@ def do_query(issues, config_file=None, logger=None):
     """
     keywords = []
     with open(config_file, "r") as f:
-        keywords = [query_utils.preprocess_word(word, PREPROCESS)
+        keywords = [query_utils.preprocess_word(word, PREPROCESS_TYPE)
                     for word in list(f)]
 
     target_word = keywords[0]
@@ -74,12 +73,14 @@ def do_query(issues, config_file=None, logger=None):
     # [(year, article), ...]
     target_articles = articles.filter(
         lambda year_article: article_contains_word(
-            year_article[1], target_word))
+            year_article[1], target_word, PREPROCESS_TYPE))
     # [((year, [word, word, ...]), 1), ...]
     words = target_articles.map(
         lambda year_article: (
             (year_article[0],
-             get_article_keywords(year_article[1], keywords)),
+             get_article_keywords(year_article[1],
+                                  keywords,
+                                  PREPROCESS_TYPE)),
             1))
     # [((year, [word, word, ...]), 1), ...]
     match_words = words.filter(
