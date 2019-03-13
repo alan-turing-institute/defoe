@@ -3,7 +3,7 @@ Counts number of articles in which they are occurences of keysentences
 and groups them by year.
 
 Words in articles and keysentences can be normalized, normalized and
-stemmed or normalized and lemmatized.
+stemmed, or normalized and lemmatized (default).
 """
 
 from operator import add
@@ -14,15 +14,8 @@ from defoe.papers.query_utils import get_sentences_list_matches
 from defoe.query_utils import PreprocessWordType
 
 
-PREPROCESS_TYPE = PreprocessWordType.NORMALIZE
-"""
-Default word pre-processing type. Options are:
-
-PreprocessWordType.NORMALIZE: Normalize word
-PreprocessWordType.STEM: Normalize and stem word
-PreprocessWordType.LEMMATIZE: Normalize and lemmatize word
-PreprocessWordType.NONE: Apply no preprocessing
-"""
+PREPROCESS_TYPE = PreprocessWordType.LEMMATIZE
+""" Default word pre-processing type """
 
 
 def do_query(issues, config_file=None, logger=None):
@@ -30,8 +23,8 @@ def do_query(issues, config_file=None, logger=None):
     Counts number of articles in which they are occurences of
     keysentences and groups them by year.
 
-    Words in articles and keysentences may be normalized and stemmed
-    or normalized and lemmatized.
+    Words in articles and keysentences can be normalized, normalized
+    and stemmed, or normalized and lemmatized (default).
 
     config_file must be the path to a configuration file with a list
     of the keysentences to search for, one per line.

@@ -1,8 +1,9 @@
 """
-Counts number of articles containing both a target word (or its
-normalized and stemmed or normalized and lemmatized versions) and one
-or more keywords (or their normalized and stemmed or normalized and
-lemmatized versions) and groups by year
+Counts number of articles containing both a target word and one or
+more keywords and groups by year.
+
+Words in articles, target words and keywords can be normalized,
+normalized and stemmed, or normalized and lemmatized (default).
 """
 
 from operator import add
@@ -13,21 +14,17 @@ from defoe.papers.query_utils import article_contains_word
 from defoe.papers.query_utils import get_article_keywords
 
 
-PREPROCESS_TYPE = PreprocessWordType.Normalize
-"""
-Default word preprocessing type. Options are:
-
-PreprocessWordType.NORMALIZE: Normalize word
-PreprocessWordType.STEM: Normalize and stem word
-PreprocessWordType.LEMMATIZE: Normalize and lemmatize word
-PreprocessWordType.NONE: Apply no preprocessing
-"""
+PREPROCESS_TYPE = PreprocessWordType.LEMMATIZE
+""" Default word preprocessing type """
 
 
 def do_query(issues, config_file=None, logger=None):
     """
     Counts number of articles containing both a target word and one or
     more keywords and groups by year.
+
+    Words in articles, target words and keywords can be normalized,
+    normalized and stemmed, or normalized and lemmatized (default).
 
     config_file must be the path to a configuration file with a target
     word and a list of one or more keywords to search for, one per
