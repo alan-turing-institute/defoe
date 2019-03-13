@@ -1,8 +1,9 @@
 """
-Counts number of times that each keyword (or its normalized and
-stemmed or normalized and lemmatized versions) appear for every
-article that has the target word (or its stemmed/lemmatized version)
-in it
+Counts number of times that each keyword appears for every article
+that has a target word in it.
+
+Words in articles, target words and keywords can be normalized,
+normalized and stemmed, or normalized and lemmatized (default).
 """
 
 from operator import add
@@ -12,23 +13,17 @@ from defoe.papers.query_utils import article_contains_word
 from defoe.query_utils import PreprocessWordType
 
 
-PREPROCESS_TYPE = PreprocessWordType.STEM
-"""
-Default word pre-processing type. Options are:
-
-PreprocessWordType.NORMALIZE: Normalize word
-PreprocessWordType.STEM: Normalize and stem word
-PreprocessWordType.LEMMATIZE: Normalize and lemmatize word
-PreprocessWordType.NONE: Apply no preprocessing
-"""
+PREPROCESS_TYPE = PreprocessWordType.LEMMATIZE
+""" Default word pre-processing type """
 
 
 def do_query(issues, config_file=None, logger=None):
     """
-    Counts number of times that each keyword (or its normalized and
-    stemmed or normalized and lemmatized versions) appear for every
-    article that has the target word (or its stemmed/lemmatized
-    version) in it.
+    Counts number of times that each keyword appears for every article
+    that has a target word in it.
+
+    Words in articles, target words and keywords can be normalized,
+    normalized and stemmed, or normalized and lemmatized (default).
 
     config_file must be the path to a configuration file with a target
     word and a list of one or more keywords to search for, one per

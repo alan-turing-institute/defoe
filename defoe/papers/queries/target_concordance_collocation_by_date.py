@@ -3,7 +3,7 @@ Gets concordance and collocation for keywords occurring in articles
 which have a target word and groups the results by date.
 
 Words in articles, target words and keywords can be normalized,
-normalized and stemmed or normalized and lemmatized.
+normalized and stemmed, or normalized and lemmatized (default).
 """
 
 from defoe import query_utils
@@ -14,14 +14,8 @@ from defoe.query_utils import PreprocessWordType
 
 
 PREPROCESS_TYPE = PreprocessWordType.LEMMATIZE
-"""
-Default word pre-processing type. Options are:
+""" Default word pre-processing type """
 
-PreprocessWordType.NORMALIZE: Normalize word
-PreprocessWordType.STEM: Normalize and stem word
-PreprocessWordType.LEMMATIZE: Normalize and lemmatize word
-PreprocessWordType.NONE: Apply no preprocessing
-"""
 
 WINDOW_SIZE = 5
 """ Default window size for concordance """
@@ -33,7 +27,7 @@ def do_query(issues, config_file=None, logger=None):
     articles which have a target word and groups the results by date.
 
     Words in articles, target words and keywords can be normalized,
-    normalized and stemmed or normalized and lemmatized.
+    normalized and stemmed, or normalized and lemmatized (default).
 
     config_file must be the path to a configuration file with a list
     of the keywords to search for, one per line. The first word
