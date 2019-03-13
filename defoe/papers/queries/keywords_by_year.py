@@ -6,6 +6,7 @@ from operator import add
 
 from defoe import query_utils
 from defoe.papers.query_utils import get_article_keywords
+from defoe.papers.query_utils import PreprocessWordType
 
 
 def do_query(issues, config_file=None, logger=None):
@@ -53,7 +54,9 @@ def do_query(issues, config_file=None, logger=None):
     words = articles.map(
         lambda year_article: (
             (year_article[0],
-             get_article_keywords(year_article[1], keywords)),
+             get_article_keywords(year_article[1],
+                                  keywords,
+                                  PreprocessWordType.NORMALIZE)),
             1))
     # [((year, [word, word, ...]), 1), ...]
     match_words = words.filter(
