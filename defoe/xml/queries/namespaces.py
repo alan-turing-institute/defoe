@@ -43,4 +43,4 @@ def get_namespaces(document):
     document
     :rtype: list(tuple(str or unicode, 1))
     """
-    return [(tag_url[1], 1) for tag_url in document.namespaces.items()]
+    return [(tag_url[1], 1) for tag_url in list(document.namespaces.items())]

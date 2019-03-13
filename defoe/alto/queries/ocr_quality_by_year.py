@@ -25,8 +25,6 @@ def do_query(archives, config_file=None, logger=None):
     :return: OCR quality of article grouped by year
     :rtype: dict
     """
-
-
     # [(year, document), ...]
     documents = archives.flatMap(
         lambda archive: [(document.year, document) for document in list(archive)])
@@ -38,4 +36,3 @@ def do_query(archives, config_file=None, logger=None):
         .reduceByKey(concat) \
         .collect()
     return result
-

@@ -12,7 +12,7 @@ from pyspark.sql import Row, SparkSession
 
 from defoe import query_utils
 from defoe.papers.query_utils import article_contains_word
-from defoe.papers.query_utils import PreprocessWordType.NORMALIZE
+from defoe.papers.query_utils import PreprocessWordType
 
 
 def do_query(issues, config_file=None, logger=None):
