@@ -4,6 +4,7 @@ Gets concordance for keywords and groups by date.
 
 from defoe import query_utils
 from defoe.papers.query_utils import get_article_matches
+from defoe.papers.query_utils import PreprocessWordType
 
 
 def do_query(issues, config_file=None, logger=None):
@@ -53,7 +54,8 @@ def do_query(issues, config_file=None, logger=None):
     # [(date, issue, article, word), ...]
     filtered_words = issues.flatMap(
         lambda issue: get_article_matches(issue,
-                                          keywords))
+                                          keywords,
+                                          PreprocessWordType.NORMALIZE))
 
     # [(date, issue, article, word), ...]
     # =>

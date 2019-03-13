@@ -12,6 +12,7 @@ from pyspark.sql import Row, SparkSession
 
 from defoe import query_utils
 from defoe.papers.query_utils import article_contains_word
+from defoe.papers.query_utils import PreprocessWordType.NORMALIZE
 
 
 def do_query(issues, config_file=None, logger=None):
@@ -91,7 +92,9 @@ def do_query(issues, config_file=None, logger=None):
     # [Row, Row, ...]
     articles_rdd = issues.flatMap(lambda issue: issue.articles) \
         .filter(lambda article:
-                article_contains_word(article, keyword)) \
+                article_contains_word(article,
+                                      keyword,
+                                      PreprocessWordType.NORMALIZE)) \
         .zipWithIndex() \
         .map(article_idx_to_words_row)
 
