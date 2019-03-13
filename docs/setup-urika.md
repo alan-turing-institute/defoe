@@ -49,6 +49,20 @@ cd defoe
 conda install -c anaconda --file requirements.txt
 ```
 
+### Install NLTK data
+
+Certain queries require the NLTK corpora data to be installed.
+
+```bash
+bash scripts/download_ntlk_corpus.sh
+```
+
+This is installed to `<HOME>/nltk_data`
+
+**Caution:** the NLTK data requires ~3GB of space.
+
+For more information, see [Installing NLTK Data](https://www.nltk.org/data.html)
+
 ---
 
 ## Subsequent Urika sessions
