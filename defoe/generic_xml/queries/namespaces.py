@@ -16,7 +16,7 @@ def do_query(documents, config_file=None, logger=None):
           ...
         }
 
-    :param documents: RDD of defoe.xml.document.Document
+    :param documents: RDD of defoe.generic_xml.document.Document
     :type documents: pyspark.rdd.PipelinedRDD
     :param config_file: query configuration file (unused)
     :type config_file: str or unicode
@@ -37,8 +37,8 @@ def get_namespaces(document):
     """
     Extract namespaces from a document.
 
-    :param document: defoe.xml.document.Document
-    :type document: defoe.xml.document.Document
+    :param document: defoe.generic_xml.document.Document
+    :type document: defoe.generic_xml.document.Document
     :return: list of (URL, 1) for each namespace URL in the
     document
     :rtype: list(tuple(str or unicode, 1))

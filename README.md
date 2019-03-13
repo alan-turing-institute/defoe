@@ -63,7 +63,7 @@ Available queries:
 * [ALTO documents](./docs/alto/index.md) (British Library Books and Find My Past Newspapers datasets)
 * [British Library Newspapers](./docs/papers/index.md) (these can also be run on the Times Digital Archive)
 * [Papers Past New Zealand and Pacific newspapers](./docs/nzpp/index.md)
-* [Generic XML document queries](./docs/xml/index.md) (these can be run on arbitrary XML documents)
+* [Generic XML document queries](./docs/generic_xml/index.md) (these can be run on arbitrary XML documents)
 
 Developers:
 

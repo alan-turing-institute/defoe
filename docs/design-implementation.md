@@ -13,7 +13,7 @@ The object model to use is specified by the user, depending upon the files they 
 * `books`: for British Library Books (BLB)
 * `fmp`: for ALTO-compliant subset of Find My Past newspapers (FMP)
 * `papers`: for British Library Newspapers (BLN) or Times Digital Archive (TDA)
-* `xml`: for arbitrary XML documents
+* `generic_xml`: for arbitrary XML documents
 
 BLB and the ALTO-compliant subset of FMP both conform to the [ALTO](https://www.loc.gov/standards/alto/) format. An abstract object model, `alto`, which is a parent of both the `books` and `fmp` object models represents the commonality between these models.
 
@@ -21,7 +21,7 @@ The query selected by the user is also object model-specific:
 
 * `defoe.alto.queries` package contains queries for `books` and `fmp`.
 * `defoe.papers.queries` package contains queries for `papers`.
-* `defoe.xml.queries` package contains queries for `xml.
+* `defoe.generic_xml.queries` package contains queries for `generic_xml`.
 
 ## `alto` abstract parent model
 
@@ -170,7 +170,7 @@ An `Articles` object reads the XML file and extracts information about one or mo
 
 An `Article` object extracts from an `article` element information about the article: title, date, enclosing newspaper name, article type and content. The `Article` object also caches its XML fragment as a collection of Python `lxml` objects.
 
-## `xml` model
+## `generic_xml` model
 
 The list of file to run the query over is expected to be a list of XML files.
 
@@ -194,7 +194,7 @@ No preprocessing of the text prior to running a query is done.
 
 Normalization of words, to remove any non-`a-z|A-Z` characters (for both data and search terms provided by the user) is the responsibility of individual query implementations (a `defoe.query_utils.normalize` helper function is provided for this purpose).
 
-For the generic `xml` model:
+For the `generic_xml` model:
 
 * Namespace extraction is done solely on from the document's root element's `nsmap`. If namespaces are defined in sub-elements then there will be a need to traverse the XML e.g. by traversing elements using [Tree iteration](https://lxml.de/tutorial.html#tree-iteration).
 * Shema locations are accessed from a root element as an attribute. An alternative is to run an XPath query e.g.
