@@ -145,23 +145,23 @@ def get_article_as_string(article,
     return article_string
 
 
-def get_sentences_list_matches(text, keysentence):
+def get_sentences_list_matches(text, keysentences):
     """
     Check which key-sentences from occurs within a string
     and return the list of matches.
 
     :param text: text
     :type text: str or unicode
-    :param keysentence: sentences
+    :param keysentences: sentences
     :type: list(str or uniocde)
-    :return: Set of sentences
+    :return: set of matching sentences
     :rtype: set(str or unicode)
     """
-    match = set()
-    for sentence in keysentence:
-        if sentence in text:
-            match.add(sentence)
-    sorted(list(match))
+    matches = set()
+    for keysentence in keysentences:
+        if keysentence in text:
+            matches.add(keysentence)
+    return sorted(list(matches))
 
 
 def get_article_idx(article,
