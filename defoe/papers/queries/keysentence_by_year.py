@@ -51,10 +51,10 @@ def do_query(issues, config_file=None, logger=None):
     :return: number of occurrences of keysentences grouped by year
     :rtype: dict
     """
-    keysentence = []
+    keysentences = []
     with open(config_file, "r") as f:
-        for k_sentence in list(f):
-            k_split = k_sentence.split()
+        for keysentence in list(f):
+            k_split = keysentence.split()
             sentence_word = [query_utils.preprocess_word(
                 word, PREPROCESS_TYPE) for word in k_split]
             sentence_norm = ''
@@ -63,7 +63,7 @@ def do_query(issues, config_file=None, logger=None):
                     sentence_norm = word
                 else:
                     sentence_norm += " " + word
-            keysentence.append(sentence_norm)
+            keysentences.append(sentence_norm)
     # [(year, article_string)
     articles = issues.flatMap(
         lambda issue: [(issue.date.year, get_article_as_string(
@@ -71,25 +71,26 @@ def do_query(issues, config_file=None, logger=None):
 
     # [(year, article_string)
     filter_articles = articles.filter(
-        lambda year_count: any(
-            k_sentence in year_count[1] for k_sentence in keysentence))
+        lambda year_article: any(
+            keysentence in year_article[1] for keysentence in keysentences))
 
-    # [(year, [k_sentence, k_sentence]), ...]
+    # [(year, [keysentence, keysentence]), ...]
     matching_articles = filter_articles.map(
-        lambda year_article: (year_article[0], get_sentences_list_matches(
-            year_article[1], keysentence)))
+        lambda year_article: (year_article[0],
+                              get_sentences_list_matches(
+                                  year_article[1],
+                                  keysentences)))
 
-    # [[(year, k_sentence), 1) ((year, k_sentence),1) ] ...]
+    # [[(year, keysentence), 1) ((year, keysentence), 1) ] ...]
     matching_sentences = matching_articles.flatMap(
-        lambda year_sentence: [
-            ((year_sentence[0], sentence), 1)
-            for sentence in year_sentence[1]])
+        lambda year_sentence: [((year_sentence[0], sentence), 1)
+                               for sentence in year_sentence[1]])
 
-    # [((year, k_sentence), num_k_sentences), ...]
+    # [((year, keysentence), num_keysentences), ...]
     # =>
-    # [(year, (k_sentence, num_k_sentences)), ...]
+    # [(year, (keysentence, num_keysentences)), ...]
     # =>
-    # [(year, [k_sentence, num_k_sentences]), ...]
+    # [(year, [keysentence, num_keysentences]), ...]
     result = matching_sentences\
         .reduceByKey(add)\
         .map(lambda yearsentence_count:
