@@ -17,10 +17,12 @@ Keyword searches:
 * [Get concordance for keywords and group by date](./keyword_concordance_by_date.md)
 * [Count number of articles containing two or more keywords and group by year](./keywords_by_year.md)
 * [Count number of articles containing both a target word and one or more keywords and groups by year](./target_and_keywords_by_year.md)
+* [Count number of times that each keyword appears for every article that has a target word in it](./target_and_keywords_count_by_year.md)
 
 Colocated word searches:
 
 * [Get colocated words and group by year](./colocates_by_year.md)
+* [Get concordance and collocation for keywords occurring in articles which have a target word and groups the results by date](./target_concordance_collocation_by_date.md)
 
 Others:
 
