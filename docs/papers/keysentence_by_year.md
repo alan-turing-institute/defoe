@@ -19,8 +19,28 @@
 
 ## Sample results
 
-Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml` with `queries/ladyprincessqueen.txt`:
+Query over `0000164- The Courier and Argus/*.xml` with `queries/emigration_societies.txt`:
 
+```
+1901:
+- [emigration scheme, 2]
+- [british woman emigration association, 2]
+- [emigrant information office, 2]
+- [girl friendly society, 4]
+- [emigration agent, 2]
+1902:
+- [british woman emigration association, 2]
+- [emigration agent, 2]
+- [girl friendly society, 10]
+...
+1925:
+- [emigration agent, 3]
+- [girl friendly society, 15]
+- [emigration scheme, 1]
+1926:
+- [emigration scheme, 1]
+- [girl friendly society, 5]
+```
 
 Query over all British Library Newspapers with `queries/emigration_societies.txt`:
 
