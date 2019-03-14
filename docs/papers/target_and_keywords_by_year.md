@@ -1,4 +1,4 @@
-# Count number of articles containing both a target word and one or more keywords and groups by year
+# Count number of articles containing both a target word and one or more keywords and group by year
 
 * Both keywords and words in documents are normalized, by removing all non-'a-z|A-Z' characters. They are then lemmatized - a lexical knowledge base is used to get the correct base form of each word (e.g. the base form of "ran" is "run"). Lemmatization is done using the NLTK [WordNet Lemmatizer](https://www.nltk.org/api/nltk.stem.html#module-nltk.stem.wordnet).
 * Query module: `defoe.papers.queries.target_and_keywords_by_year`

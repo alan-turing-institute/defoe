@@ -1,4 +1,4 @@
-# Get concordance and collocation for keywords occurring in articles which have a target word and groups the results by date
+# Get concordance and collocation for keywords occurring in articles which have a target word and group results by date
 
 * Both keywords and words in documents are normalized, by removing all non-'a-z|A-Z' characters. They are then lemmatized - a lexical knowledge base is used to get the correct base form of each word (e.g. the base form of "ran" is "run"). Lemmatization is done using the NLTK [WordNet Lemmatizer](https://www.nltk.org/api/nltk.stem.html#module-nltk.stem.wordnet).
 * The concordance includes the matching word plus 5 words either side.
