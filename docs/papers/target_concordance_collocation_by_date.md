@@ -22,34 +22,9 @@
 
 ## Sample results
 
-Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml` with `queries/ladyprincessqueen.txt`:
+Query over `Part 1/0000164- The Courier and Argus/1907/0000164_19070603/0000164_19070603.xml` and `Part 1/0000164- The Courier and Argus/1915/0000164_19151123/0000164_19151123.xml` with `queries/gender.txt`:
 
 ```
-1907:
-- - lady
-  - [ner, r, servant, elderly, for, lady, and, jv, ajfsfpsjr, vk, q]
-- - lady
-  - [switzerland, sir, walter, scott, '', lady, of, the, lake, country, each]
-- - lady
-  - [specially, de, signed, for, stout, lady, highclass, corset, to, suit, all]
-- - lady
-  - [mewen, '', co, specialist, in, lady, dress, department, specialized, jighestclass,
-...
-1915:
-...
-- - lady
-  - [my, friend, referring, to, two, lady, in, court, are, here, but]
-- - lady
-  - [stall, next, to, a, charming, lady, of, middle, age, she, said]
-- - lady
-  - [of, his, op, portunities, the, lady, frowned, he, wont, put, any]
-```
-
-Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml` with `queries/gender.txt`:
-
-```
-
-
 1907:
 - - alexander
   - [of, redliall, kincardineshire, pish, salesman, alexander, craig, fish, merchant,
@@ -67,25 +42,22 @@ Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- T
   - [the, same, condition, a, wage, it, wa, clearly, part, of, claimant]
 ```
 
-Query over all British Library Newspapers with `queries/emigration_taxonomy.txt`:
+Query over `Part 1/0000164- The Courier and Argus/*/*/*.xml`:
 
 ```
-1763:
-- - colony
-  - [the, in, habitant, of, this, colony, inferted, in, the, ivth, article]
-- - colony
-  - [treaty, '', and, the, portuguefe, colony, which, may, have, been, conquered]
+1901:
 - - emigration
-  - [ie, term, limited, for, this, emigration, fhall, be, nxeu, to, the]
+  - [enter, taining, reading, '', the, emigration, of, woman, is, the, title]
 - - emigration
-  - [without, being, retrained, in, then, emigration, under, any, pretence, whatsoever,
-    except]
+  - [chamberla, '', is, a, counter, emigration, '', c, '', c, signed]
 ...
-1950:
+1926:
 - - emigration
-  - [from, our, file, of, '', emigration, of, the, middle, class, we]
+  - [printed, form, of, contract, canadian, emigration, the, scheme, under, which,
+    the]
 - - emigration
-  - [our, population, by, whole, sale, emigration, there, is, rfcally, little, alternative]
-- - service
-  - [the, use, of, the, fighting, service, we, do, have, however, some]
+  - [financial, assistance, to, secure, the, emigration, to, canada, of, farm, worker]
+- - emigration
+  - [rt, i, '', euro, pan, emigration, '', '', '', pro, '']
+...
 ```

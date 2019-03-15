@@ -27,13 +27,13 @@
 
 ## Sample results
 
-Query over `0000164- The Courier and Argus/*.xml` with `queries/krakatoa.txt`:
+Query over `Part 1/0000164- The Courier and Argus/*/*/*.xml` with `queries/krakatoa.txt`:
 
 ```
 1901-01-02:
 - article_id: 0000164_19010102_0005-063
   content: "THE EARTH...",
-  filename: .../0000164- The Courier and Argus/0000164_19010102.xml
+  filename: .../Part 1/0000164- The Courier and Argus/1901/0000164_19010102/0000164_19010102.xml
   issue_id: BSNP0164
   page_ids: ['0005']
   title: THE EARTH AND ITS HEAT
@@ -41,7 +41,7 @@ Query over `0000164- The Courier and Argus/*.xml` with `queries/krakatoa.txt`:
 1902-03-05:
 - article_id: 0000164_19020305_0007-106
   content: "EARTHQUAKE TERRORS...",
-  filename: .../0000164- The Courier and Argus/0000164_19020305.xml
+  filename: .../Part 1/0000164- The Courier and Argus/1902/0000164_19020305/0000164_19020305.xml
   issue_id: BSNP0164
   page_ids: ['0007']
   title: EARTHQUAKE TERRORS.
