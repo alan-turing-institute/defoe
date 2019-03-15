@@ -23,7 +23,7 @@
 
 ## Sample results
 
-Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml` with `queries/ladyprincessqueen.txt`:
+Query over `Part 1/0000164- The Courier and Argus/1907/0000164_19070603/0000164_19070603.xml` and `Part 1/0000164- The Courier and Argus/1915/0000164_19151123/0000164_19151123.xml` with `queries/ladyprincessqueen.txt`:
 
 ```
 1907:
@@ -35,7 +35,7 @@ Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- T
   words: [queen]
 ```
 
-Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml` with `queries/gender.txt`:
+Query over `Part 1/0000164- The Courier and Argus/1907/0000164_19070603/0000164_19070603.xml` and `Part 1/0000164- The Courier and Argus/1915/0000164_19151123/0000164_19151123.xml` with `queries/gender.txt`:
 
 ```
 1907:
@@ -65,20 +65,24 @@ they]
   words: [her, his, it, itself, man, she, them, themselves, they]
 ```
 
-Query over all British Library Newspapers with `queries/emigration_taxonomy.txt`:
+Query over `Part 1/0000164- The Courier and Argus/*/*/*.xml` with `queries/emigration_taxonomy.txt`:
 
 ```
-1763:
+1901:
 - count: 1
   target_word: emigration
-  words: [colony, empire]
-1784:
+  words: [bookkeeping, empire, engagement, governess, guardian, loan, maid, marriage,
+    matron, mother, respectable, servant, service, success, suitable, teacher,training]
 - count: 1
   target_word: emigration
-  words: [maid]
+  words: [colonial, colony, daughter, happiness, training]
 ...
-1950:
+1926:
 - count: 1
   target_word: emigration
-  words: [service]
+  words: [daughter, servant]
+- count: 1
+  target_word: emigration
+  words: [colony, engagement, loan, maid, matron, mother, respectable, service, success,
+    suitable]
 ```

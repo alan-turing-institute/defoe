@@ -21,7 +21,7 @@
 
 ## Sample results
 
-Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml` with `queries/ladyprincessqueen.txt`:
+Query over `Part 1/0000164- The Courier and Argus/1907/0000164_19070603/0000164_19070603.xml` and `Part 1/0000164- The Courier and Argus/1915/0000164_19151123/0000164_19151123.xml` with `queries/ladyqueenprincess.txt`:
 
 ```
 1907:
@@ -32,7 +32,7 @@ Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- T
 - [lady, 32]
 ```
 
-Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml` with `queries/gender.txt`:
+Query over `Part 1/0000164- The Courier and Argus/1907/0000164_19070603/0000164_19070603.xml` and `Part 1/0000164- The Courier and Argus/1915/0000164_19151123/0000164_19151123.xml` with `queries/gender.txt`:
 
 ```
 1907:
@@ -49,18 +49,21 @@ Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- T
 - [girl, 19]
 ```
 
-Query over all British Library Newspapers with `queries/emigration_taxonomy.txt`:
+Query over `Part 1/0000164- The Courier and Argus/*/*/*.xml` with `queries/emigration_taxonomy.txt`:
 
 ```
-1763:
-- [empire, 2]
-- [colony, 2]
-- [emigration, 3]
-1784:
-- [emigration, 1]
-- [maid, 1]
+1901:
+- [alien, 2]
+- [bookkeeping, 23]
+- [suitable, 166]
+- [colonial, 16]
+- [empire, 26]
 ...
-1950:
-- [service, 1]
-- [emigration, 2]
+- [colonial, 19]
+- [daughter, 17]
+1926:
+- [matron, 2]
+- [engagement, 1]
+- [success, 1]
+...
 ```

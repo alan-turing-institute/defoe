@@ -19,18 +19,19 @@
 
 ## Sample results
 
-Query over `0000164- The Courier and Argus/*.xml` with `queries/emigration_societies.txt`:
+Query over `Part 1/0000164- The Courier and Argus/*/*/*.xml` with `queries/emigration_societies.txt`:
 
 ```
 1901:
 - [emigration scheme, 2]
-- [british woman emigration association, 2]
-- [emigrant information office, 2]
+- [emigration agent, 2]
 - [girl friendly society, 4]
-- [emigration agent, 2]
-1902:
+- [emigrant information office, 2]
 - [british woman emigration association, 2]
+1902:
+- [governess benevolent institution, 1]
 - [emigration agent, 2]
+- [british woman emigration association, 2]
 - [girl friendly society, 10]
 ...
 1925:
@@ -40,22 +41,4 @@ Query over `0000164- The Courier and Argus/*.xml` with `queries/emigration_socie
 1926:
 - [emigration scheme, 1]
 - [girl friendly society, 5]
-```
-
-Query over all British Library Newspapers with `queries/emigration_societies.txt`:
-
-```
-1826:
-- [emigration committee, 1]
-1827:
-- [emigration committee, 5]
-1828:
-- [emigration committee, 2]
-- [emigration scheme, 1]
-...
-1949:
-- [recruitment office, 2]
-- [girl friendly society, 8]
-1950:
-- [girl friendly society, 9]
 ```

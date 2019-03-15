@@ -34,12 +34,12 @@
 
 ## Sample results
 
-Query over `0000164- The Courier and Argus/*.xml` with `queries/stranger_danger.yml`:
+Query over `Part 1/0000164- The Courier and Argus/*/*/*.xml` with `queries/stranger_danger.yml`:
 
 ```
 1907:
 - article_id: 0000164_19070502_0003-032
-  filename: .../0000164- The Courier and Argus/0000164_19070502.xml
+  filename: .../Part 1/0000164- The Courier and Argus/1907/0000164_19070502/0000164_19070502.xml
   issue_id: BSNP0164
   matches:
   - [stranger, 'on', the, road, did, not, know, the, extent, of, the, danger]
@@ -47,15 +47,16 @@ Query over `0000164- The Courier and Argus/*.xml` with `queries/stranger_danger.
   title: PERTHSHIRE NARROW ROADS.
 1921:
 - article_id: 0000164_19210530_0007-096
-  filename: .../0000164- The Courier and Argus/0000164_19210530.xml
+  filename: .../Part 1/0000164- The Courier and Argus/1921/0000164_19210530/0000164_19210530.xml
   issue_id: BSNP0164
   matches:
-  - [stranger, to, you, and, i, heartily, thank, you, for, warning, me, of, my, danger]
+  - [stranger, to, you, and, i, heartily, thank, you, for, warning, me, of, my,
+ danger]
   page_ids: ['0007']
   title: MADEMOISELLE OF MONTE CARLO
 1925:
 - article_id: 0000164_19251012_0005-127
-  filename: .../0000164- The Courier and Argus/0000164_19251012.xml
+  filename: .../Part 1/0000164- The Courier and Argus/1925/0000164_19251012/0000164_19251012.xml
   issue_id: BSNP0164
   matches:
   - [stranger, is, now, out, of, danger]

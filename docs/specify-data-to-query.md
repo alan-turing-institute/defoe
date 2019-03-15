@@ -29,7 +29,7 @@ If running on Urika, your file would be as follows:
 
 You can write these files by hand.
 
-Alternatively, you can use the bash `find` command, to search for the files. For example, suppose you want to run a query over all the books, you can create a file with the paths to all the books files as follows:
+Alternatively, you can use the bash `find` command, to create a list of all available files:
 
 * On a local machine:
 
@@ -43,18 +43,10 @@ find <BLB> -name "*.zip" > data.txt
 find /mnt/lustre/<project>/<project>/<username>/BLB -name "*.zip" > data.txt
 ```
 
-Suppose you want to run a query over all the books in the folder `1510_1699`. You can create a file with the paths to these books files as follows:
-
-* On a local machine:
+You can then filter this file to select subsets of data e.g. to select books in the folder `1510_1699` you can run:
 
 ```bash
-find <BLB>/1510_1699/ -name "*.zip" > data.txt
-```
-
-* On Urika:
-
-```bash
-find /mnt/lustre/<project>/<project>/<username>/BLB/1510_1699 -name "*.zip" > data.txt
+grep 1510_1699 data.txt > data_1510_1699.txt
 ```
 
 ---
@@ -73,20 +65,20 @@ For example, suppose you want to run a query over two newspapers:
 If running on your local machine, your file would be as follows, where `<BLN>` is the path to the directory in your home directory, where you have the data:
 
 ```
-<BLN>/0000164- The Courier and Argus/0000164_19070603.xml
-<BLN>/0000164- The Courier and Argus/0000164_19151123.xml
+<BLN>/Part 1/0000164- The Courier and Argus/1907/0000164_19070603/0000164_19070603.xml
+<BLN>/Part 1/0000164- The Courier and Argus/1915/0000164_19151123/0000164_19151123.xml
 ```
 
 If running on Urika, your file would be as follows:
 
 ```
-/mnt/lustre/<project>/<project>/<username>/BLN/0000164- The Courier and Argus/0000164_19070603.xml
-/mnt/lustre/<project>/<project>/<username>/BLN/0000164- The Courier and Argus/0000164_19151123.xml
+/mnt/lustre/<project>/<project>/<username>/BLN/Part 1/0000164- The Courier and Argus/1907/0000164_19070603/0000164_19070603.xml
+/mnt/lustre/<project>/<project>/<username>/BLN/Part 1/0000164- The Courier and Argus/1915/0000164_19151123/0000164_19151123.xml
 ```
 
 You can write these files by hand.
 
-Alternatively, you can use the bash `find` command, to search for the files. For example, suppose you want to run a query over all the newspapers, you can create a file with the paths to all the newspapers files as follows:
+Alternatively, you can use the bash `find` command, to create a list of all available files:
 
 * On a local machine:
 
@@ -100,18 +92,10 @@ find <BLN> -name "*.xml" > data.txt
 find /mnt/lustre/<project>/<project>/<username>/BLN -name "*.xml" > data.txt
 ```
 
-Suppose you want to run a query over all the newspapers in the folder `0000164- The Courier and Argus/`. You can create a file with the paths to these newspapers files as follows:
-
-* On a local machine:
+You can then filter this file to select subsets of data e.g. to select papers in the folder `0000164- The Courier and Argus/`, you can run:
 
 ```bash
-find "<BLN>/0000164- The Courier and Argus/" -name "*.xml" > data.txt
-```
-
-* On Urika:
-
-```bash
-find "/mnt/lustre/<project>/<project>/<username>/BLN/0000164- The Courier and Argus/" -name "*.xml" > data.txt
+grep "0000164-\ The\ Courier\ and\ Argus" data.txt > data.courier.txt
 ```
 
 ---
@@ -143,7 +127,7 @@ If running on Urika, your file would be as follows:
 
 You can write these files by hand.
 
-Alternatively, you can use the bash `find` command, to search for the files. For example, suppose you want to run a query over all the newspapers, you can create a file with the paths to all the newspapers files as follows:
+Alternatively, you can use the bash `find` command, to create a list of all available files:
 
 * On a local machine:
 
@@ -186,7 +170,7 @@ If running on Urika, your file would be as follows:
 
 You can write these files by hand.
 
-Alternatively, you can use the bash `find` command, to search for the files. For example, suppose you want to run a query over all the documents, you can create a file with the paths to all the document files as follows:
+Alternatively, you can use the bash `find` command, to create a list of all available files:
 
 * On a local machine:
 

@@ -20,7 +20,7 @@
 
 ## Sample results
 
-Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml` with `queries/gender.txt`:
+Query over `Part 1/0000164- The Courier and Argus/1907/0000164_19070603/0000164_19070603.xml` and `Part 1/0000164- The Courier and Argus/1915/0000164_19151123/0000164_19151123.xml` with `queries/gender.txt`:
 
 ```
 1907:
@@ -32,7 +32,7 @@ Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- T
 ...
 ```
 
-Query over `0000164- The Courier and Argus/*.xml` with `queries/krakatoa.txt`:
+Query over `Part 1/0000164- The Courier and Argus/*/*/*.xml` with `queries/krakatoa.txt`:
 
 ```
 1901:

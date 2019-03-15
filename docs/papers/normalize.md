@@ -15,7 +15,7 @@ Count total number of issues, articles and words per year. This can be useful if
   - The number of issues for a year should be equal to the number of XML documents over which the query was run for that year. This can be validated as follows, for example, for XML documents in `0000164- The Courier and Argus`, published in 1901:
 
 ```
-ls 0000164-\ The\ Courier\ and\ Argus/0000164_1901*xml | wc -l
+ls Part\ 1/0000164-\ The\ Courier\ and\ Argus/1901/*/*xml | wc -l
 ```
 ```
 313
@@ -24,7 +24,7 @@ ls 0000164-\ The\ Courier\ and\ Argus/0000164_1901*xml | wc -l
   - The number of articles should be equal to the number of `<article>` elements in each XML file. This can be validated as follows, for example, for XML documents in `0000164- The Courier and Argus`, published in 1901:
 
 ```
-grep \<article 0000164-\ The\ Courier\ and\ Argus/0000164_1901*xml | wc -l
+grep \<article Part\ 1/0000164-\ The\ Courier\ and\ Argus/1901/*/*xml | wc -l
 ```
 ```
 41625
@@ -33,7 +33,7 @@ grep \<article 0000164-\ The\ Courier\ and\ Argus/0000164_1901*xml | wc -l
   - The number of words should be equal to the number of `<wd>` elements in each XML file. This can be validated as follows, for example, for XML documents in `0000164- The Courier and Argus`, published in 1901:
 
 ```
-grep \<wd 0000164-\ The\ Courier\ and\ Argus/0000164_1901*xml | wc -l
+grep \<wd Part\ 1/0000164-\ The\ Courier\ and\ Argus/1901/*/*xml | wc -l
 ```
 ```
 22502099
@@ -41,14 +41,14 @@ grep \<wd 0000164-\ The\ Courier\ and\ Argus/0000164_1901*xml | wc -l
 
 ## Sample results
 
-Query over `0000164- The Courier and Argus/0000164_19070603.xml` and `0000164- The Courier and Argus/0000164_19151123.xml`:
+Query over `Part 1/0000164- The Courier and Argus/1907/0000164_19070603/0000164_19070603.xml` and `Part 1/0000164- The Courier and Argus/1915/0000164_19151123/0000164_19151123.xml`:
 
 ```
 1907: [1, 143, 70965]
 1915: [1, 144, 61601]
 ```
 
-Query over `0000164- The Courier and Argus/*.xml`:
+Query over `Part 1/0000164- The Courier and Argus/*/*/*.xml`:
 
 ```
 1901: [313, 41625, 22502099]
