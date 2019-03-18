@@ -59,7 +59,7 @@ def do_query(issues, config_file=None, logger=None):
         keyword = config['keyword']
         optimizer = config['optimizer']
         if optimizer != 'online' and optimizer != 'em':
-            raise ValueError("Optmizer must be 'online' or 'em' but is '{}'"
+            raise ValueError("optmizer must be 'online' or 'em' but is '{}'"
                              .format(optimizer))
         max_iterations = config['max_iterations']
         if max_iterations < 1:
