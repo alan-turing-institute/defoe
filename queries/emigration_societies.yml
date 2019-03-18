@@ -1,0 +1,2 @@
+preprocess: lemmatize
+data: emigration_societies.txt

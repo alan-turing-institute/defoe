@@ -7,15 +7,12 @@ stemmed, or normalized and lemmatized (default).
 """
 
 from operator import add
+import os.path
+import yaml
 
 from defoe import query_utils
 from defoe.papers.query_utils import get_article_as_string
 from defoe.papers.query_utils import get_sentences_list_matches
-from defoe.query_utils import PreprocessWordType
-
-
-PREPROCESS_TYPE = PreprocessWordType.LEMMATIZE
-""" Default word pre-processing type """
 
 
 def do_query(issues, config_file=None, logger=None):
@@ -26,8 +23,15 @@ def do_query(issues, config_file=None, logger=None):
     Words in articles and keysentences can be normalized, normalized
     and stemmed, or normalized and lemmatized (default).
 
-    config_file must be the path to a configuration file with a list
-    of the keysentences to search for, one per line.
+    config_file must be the path to a configuration file of form:
+
+        preprocess: none|normalize|stem|lemmatize # Optional
+        data: <DATA_FILE>
+
+    <DATA_FILE> must be the path to a plain-text data file with a list
+    of the keysentences to search for, one per line. If <DATA_FILE> is
+    a relative path then it is assumed to be relative to the directory
+    in which config_file resides.
 
     Returns result of form:
 
@@ -51,12 +55,17 @@ def do_query(issues, config_file=None, logger=None):
     :return: number of occurrences of keysentences grouped by year
     :rtype: dict
     """
-    keysentences = []
     with open(config_file, "r") as f:
+        config = yaml.load(f)
+    preprocess_type = query_utils.extract_preprocess_word_type(config)
+    data_file = query_utils.extract_data_file(config,
+                                              os.path.dirname(config_file))
+    keysentences = []
+    with open(data_file, 'r') as f:
         for keysentence in list(f):
             k_split = keysentence.split()
             sentence_word = [query_utils.preprocess_word(
-                word, PREPROCESS_TYPE) for word in k_split]
+                word, preprocess_type) for word in k_split]
             sentence_norm = ''
             for word in sentence_word:
                 if sentence_norm == '':
@@ -67,7 +76,7 @@ def do_query(issues, config_file=None, logger=None):
     # [(year, article_string)
     articles = issues.flatMap(
         lambda issue: [(issue.date.year, get_article_as_string(
-            article, PREPROCESS_TYPE)) for article in issue.articles])
+            article, preprocess_type)) for article in issue.articles])
 
     # [(year, article_string)
     filter_articles = articles.filter(

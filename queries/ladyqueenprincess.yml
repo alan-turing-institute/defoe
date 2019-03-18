@@ -1,0 +1,2 @@
+preprocess: lemmatize
+data: ladyqueenprincess.txt
