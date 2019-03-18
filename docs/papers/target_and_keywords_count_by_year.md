@@ -1,5 +1,6 @@
 # Count number of times that each keyword appears for every article that has a target word in it and group by year
 
+* Query module: `defoe.papers.queries.target_and_keywords_count_by_year`
 * Configuration file:
   - A configuration file in YAML format:
 

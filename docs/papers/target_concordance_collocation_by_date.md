@@ -1,5 +1,6 @@
 # Get concordance and collocation for keywords occurring in articles which have a target word and group results by date
 
+* Query module: `defoe.papers.queries.target_concordance_collocation_by_date`
 * Configuration file:
   - A configuration file in YAML format:
 
