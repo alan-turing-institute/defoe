@@ -6,6 +6,12 @@ The XML document can conform to the following schemas:
 
 * British Library Newspapers
 * Times Digital Archive
+
+Or newspapers conforming to the following DTDs:
+
+* bl_ncnp_issue_apex.dtd
+* GALENP.dtd
+* nccoissue.dtd
 """
 
 from datetime import datetime
@@ -48,17 +54,10 @@ class Issue(object):
         if not has_issue:
             raise Exception("Missing 'issue' element")
 
-        try:
-            # GALENP: /GALENP/Newspaper/issue/page/article/text/*/p/wd
-            self.issue = self.single_query('.//issue')
-        except IndexError:
-            # BLN: /issue/article/text/*/p/wd
-            self.issue = self.single_query('/issue')
+        self.issue = self.single_query('/issue')
 
-        # GALENP: /GALEN/Newspaper/issue/metadatainfo/newspaperID
         newspaper_id = self.single_query('//newspaperID/text()')
         if newspaper_id is None:
-            # BLN: /issue/newspaperId
             newspaper_id = self.single_query('//newspaperId/text()')
         if newspaper_id is not None:
             self.newspaper_id = newspaper_id
@@ -67,6 +66,8 @@ class Issue(object):
                          for article in self.query('.//article')]
 
         raw_date = self.single_query('//pf/text()')
+        if raw_date is None:
+            raw_date = self.single_query('//da/searchableDateStart/text()')
         if raw_date:
             self.date = datetime.strptime(raw_date, '%Y%m%d')
         else:
@@ -77,7 +78,6 @@ class Issue(object):
         except Exception:
             pass
 
-        self.day_of_week = self.single_query('//dw/text()')
 
     def query(self, query):
         """

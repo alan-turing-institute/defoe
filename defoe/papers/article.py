@@ -6,6 +6,12 @@ The XML document can conform to the following schemas:
 
 * British Library Newspapers
 * Times Digital Archive
+
+Or newspapers conforming to the following DTDs:
+
+* bl_ncnp_issue_apex.dtd
+* GALENP.dtd
+* nccoissue.dtd
 """
 
 
@@ -46,10 +52,8 @@ class Article(object):
         splitter = None
         if pi_text:
             if "_" in pi_text[0]:
-                # BLN
                 splitter = "_"
             elif "-" in pi_text[0]:
-                # GALENP
                 splitter = "-"
             if splitter:
                 for page_id in pi_text:

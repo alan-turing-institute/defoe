@@ -4,24 +4,13 @@ defoe.papers.article.Article tests.
 
 from unittest import TestCase
 
-from defoe.papers.issue import Issue
-from defoe.file_utils import get_path
-from defoe.test.papers import fixtures
-
 
 class TestArticle(TestCase):
     """
     defoe.papers.article.Article tests.
     """
 
-    def setUp(self):
-        """
-        Creates Issue from test file fixtures/1912_11_10.xml then
-        retrieves first Article.
-        """
-        self.filename = get_path(fixtures, '1912_11_10.xml')
-        issue = Issue(self.filename)
-        self.article = issue.articles[0]
+    __test__ = False
 
     def test_filename(self):
         """
@@ -33,8 +22,7 @@ class TestArticle(TestCase):
         """
         Tests Article.article_id attribute holds the expected article ID>
         """
-        self.assertEqual('NID123-1912-1110-0001-001',
-                         self.article.article_id)
+        self.assertEqual(self.article_id, self.article.article_id)
 
     def test_quality(self):
         """
