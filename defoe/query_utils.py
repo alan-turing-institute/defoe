@@ -2,6 +2,7 @@
 Query-related utility functions and types.
 """
 
+import os
 import re
 import enum
 from nltk.stem import PorterStemmer, WordNetLemmatizer
@@ -21,6 +22,91 @@ class PreprocessWordType(enum.Enum):
     """ Normalize and lemmatize word """
     NONE = 4
     """ Apply no preprocessing """
+
+
+def parse_preprocess_word_type(type_str):
+    """
+    Parse a string into a PreprocessWordType.
+
+    :param type_str: One of none|normalize|stem|lemmatize
+    :type type_str: str or unicode
+    :return: word preprocessing type
+    :rtype: PreprocessingWordType
+    :raises: ValueError if "preprocess" is not one of the expected
+    values
+    """
+    try:
+        preprocess_type = PreprocessWordType[type_str.upper()]
+    except KeyError:
+        raise KeyError("preprocess must be one of {} but is '{}'"
+                       .format([k.lower() for k in list(
+                           PreprocessWordType.__members__.keys())],
+                               type_str))
+    return preprocess_type
+
+
+def extract_preprocess_word_type(config,
+                                 default=PreprocessWordType.LEMMATIZE):
+    """
+    Extract PreprocessWordType from "preprocess" dictionary value in
+    query configuration.
+
+    :param config: config
+    :type config: dict
+    :param default: default value if "preprocess" is not found
+    :type default: PreprocessingWordType
+    :return: word preprocessing type
+    :rtype: PreprocessingWordType
+    :raises: ValueError if "preprocess" is not one of
+    none|normalize|stem|lemmatize
+    """
+    if "preprocess" not in config:
+        preprocess_type = default
+    else:
+        preprocess_type = parse_preprocess_word_type(config["preprocess"])
+    return preprocess_type
+
+
+def extract_data_file(config, default_path):
+    """
+    Extract data file path from "data" dictionary value in query
+    configuration.
+
+    :param config: config
+    :type config: dict
+    :param default_path: default path to prepend to data file path if
+    data file path is a relative path
+    :type default_path: str or unicode
+    :return: file path
+    :rtype: str or unicode
+    :raises: KeyError if "data" is not in config
+    """
+    data_file = config["data"]
+    if not os.path.isabs(data_file):
+        data_file = os.path.join(default_path, data_file)
+    return data_file
+
+
+def extract_window_size(config, default=10):
+    """
+    Extract window size from "window" dictionary value in query
+    configuration.
+
+    :param config: config
+    :type config: dict
+    :param default: default value if "window" is not found
+    :type default: int
+    :return: window size
+    :rtype: int
+    :raises: ValueError if "window" is >= 1
+    """
+    if "window" not in config:
+        window = default
+    else:
+        window = config["window"]
+    if window < 1:
+        raise ValueError('window must be at least 1')
+    return window
 
 
 def normalize(word):

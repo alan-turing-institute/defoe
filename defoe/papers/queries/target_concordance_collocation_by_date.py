@@ -6,19 +6,13 @@ Words in articles, target words and keywords can be normalized,
 normalized and stemmed, or normalized and lemmatized (default).
 """
 
+import os.path
+import yaml
+
 from defoe import query_utils
 from defoe.papers.query_utils import article_contains_word
 from defoe.papers.query_utils import get_article_idx
 from defoe.papers.query_utils import get_concordance
-from defoe.query_utils import PreprocessWordType
-
-
-PREPROCESS_TYPE = PreprocessWordType.LEMMATIZE
-""" Default word pre-processing type """
-
-
-WINDOW_SIZE = 5
-""" Default window size for concordance """
 
 
 def do_query(issues, config_file=None, logger=None):
@@ -28,6 +22,21 @@ def do_query(issues, config_file=None, logger=None):
 
     Words in articles, target words and keywords can be normalized,
     normalized and stemmed, or normalized and lemmatized (default).
+
+    A window size (default 10) determines the size of the concordance
+    returned.
+
+    config_file must be the path to a configuration file of form:
+
+        preprocess: none|normalize|stem|lemmatize # Optional
+        window: <WINDOW_SIZE> # Optional
+        data: <DATA_FILE>
+
+    <DATA_FILE> must be the path to a plain-text data file with a list
+    of keywords to search for, one per line. The first word is assumed
+    to be the target word. If <DATA_FILE> is a relative path then it
+    is assumed to be relative to the directory in which config_file
+    resides.
 
     config_file must be the path to a configuration file with a list
     of the keywords to search for, one per line. The first word
@@ -56,11 +65,16 @@ def do_query(issues, config_file=None, logger=None):
     by year
     :rtype: dict
     """
-    window = WINDOW_SIZE
-    keywords = []
     with open(config_file, "r") as f:
+        config = yaml.load(f)
+    preprocess_type = query_utils.extract_preprocess_word_type(config)
+    data_file = query_utils.extract_data_file(config,
+                                              os.path.dirname(config_file))
+    window = query_utils.extract_window_size(config)
+    keywords = []
+    with open(data_file, 'r') as f:
         keywords = [query_utils.preprocess_word(
-            word, PREPROCESS_TYPE) for word in list(f)]
+            word, preprocess_type) for word in list(f)]
     target_word = keywords[0]
 
     # [(year, article), ...]
@@ -71,13 +85,13 @@ def do_query(issues, config_file=None, logger=None):
     # [(year, article), ...]
     target_articles = articles.filter(
         lambda year_article: article_contains_word(
-            year_article[1], target_word, PREPROCESS_TYPE))
+            year_article[1], target_word, preprocess_type))
 
     # [(year, (article, [(word, idx), (word, idx) ...]), ...]
     matching_idx = target_articles.map(
         lambda year_article: (
             (year_article[0],
-             get_article_idx(year_article[1], keywords, PREPROCESS_TYPE))))
+             get_article_idx(year_article[1], keywords, preprocess_type))))
 
     # [(year, (word, corcondance), (word, concordance) ...), ...]
     concordance_words = matching_idx.flatMap(
@@ -86,7 +100,7 @@ def do_query(issues, config_file=None, logger=None):
              get_concordance(target_article[1][0],
                              match,
                              window,
-                             PREPROCESS_TYPE))
+                             preprocess_type))
             for match in target_article[1][1]])
 
     # [(year, [word, concodance], [word, concordance]), ...]
