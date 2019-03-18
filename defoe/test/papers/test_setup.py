@@ -20,7 +20,7 @@ class TestSetup(TestCase):
         Tests filename_to_object with valid XML file results in a
         tuple with an Issue.
         """
-        filename = get_path(fixtures, '1912_11_10.xml')
+        filename = get_path(fixtures, '1912_11_10_bl.xml')
         result = filename_to_object(filename)
         self.assertTrue(result[0] is not None)
         self.assertTrue(isinstance(result[0], Issue))
