@@ -22,7 +22,7 @@ sshfs -o intr,large_read,auto_cache,workaround=all -oPort=22222 <your-datastore-
 Copy XML files only and set permissions in copy to be user-readable only:
 
 ```bash
-nohup rsync -rq --include "*/" --include "0*.zip" --exclude "*" --chmod=Du=rwx,Dgo=,Fu=rwx,Fgo= dch/BritishLibraryBooks/1* /mnt/lustre/<project>/<project>/<username>/XXXBLB &
+nohup rsync -rq --include "*/" --include "0*.zip" --exclude "*" --chmod=Du=rwx,Dgo=,Fu=rwx,Fgo= dch/BritishLibraryBooks/1* /mnt/lustre/<project>/<project>/<username>/BLB &
 ```
 
 You can optionally validate the transfer as follows:
