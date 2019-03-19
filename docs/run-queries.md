@@ -71,6 +71,21 @@ To submit a job to Spark as a background process, meaning you can do other thing
 nohup spark-submit --py-files defoe.zip defoe/run_query.py <DATA_FILE> <MODEL_NAME> <QUERY_NAME> <QUERY_CONFIG_FILE> [-r <RESULTS_FILE>] [-n <NUM_CORES>] > log.txt &
 ```
 
+You can expect to see at least one `python` and one `java` process:
+
+```bash
+ps
+```
+```
+   PID TTY          TIME CMD
+...
+ 92250 pts/1    00:00:02 java
+ 92368 pts/1    00:00:00 python
+...
+```
+
+**Caution:** If you see `<RESULTS_FILE>` then do not assume that the query has completed and prematurely copy or otherwise try to use that file. If there are many query results then it may take a while for these to be written to the file after it is opened. Check that the background job has completed before using `<RESULTS_FILE>`. 
+
 ---
 
 ## Check if any data files were skipped due to errors
