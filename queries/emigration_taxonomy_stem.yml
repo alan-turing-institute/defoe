@@ -1,0 +1,2 @@
+preprocess: stem
+data: emigration_taxonomy.txt
