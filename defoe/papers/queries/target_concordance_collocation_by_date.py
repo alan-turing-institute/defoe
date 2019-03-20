@@ -27,8 +27,8 @@ def do_query(issues, config_file=None, logger=None):
 
     Returns result of form:
         <YEAR>:
-        - [<WORD>, <CONCORDANCE>]
-        - [<WORD>, <CONCORDANCE>]
+        - [<FILENAME>, <WORD>, <CONCORDANCE>]
+        - [<FILENAME>, <WORD>, <CONCORDANCE>]
 
     :param issues: RDD of defoe.alto.issue.Issue
     :type issues: pyspark.rdd.PipelinedRDD
@@ -41,34 +41,36 @@ def do_query(issues, config_file=None, logger=None):
     :rtype: dict
     """
     
-    window = 5
+    window = 10
     keywords = []
     with open(config_file, "r") as f:
         keywords = [query_utils.preprocess_word(word, prep_type) for word in list(f)]
     target_word = keywords[0]
-    # [(year, article), ...]
+    # [(year, issue, article, ocr), ...]
     articles = issues.flatMap(
-        lambda issue: [(issue.date.year, article)
+        lambda issue: [(issue.date.year, issue.filename, article, article.quality)
                        for article in issue.articles])
-    # [(year, article), ...]
+    # [(year, filename, article, ocr), ...]
     target_articles = articles.filter(
         lambda year_article: article_contains_word(
-            year_article[1], target_word))
+             year_article[2], target_word))
 
 
-    # [(year, (article, [(word, idx), (word, idx) ...]), ...]
+    # [(year, (article, filename, ocr [(word, idx), (word, idx) ...]), ...]
     matching_idx = target_articles.map(
         lambda year_article: (
             (year_article[0],
-             get_article_idx(year_article[1], keywords))
+             get_article_idx(year_article[1],year_article[2], keywords, year_article[3]))
             ))
-   # [(year, (word, corcondance), (word, concordance) ...), ...]
+
+   # [(year, (filename, word, corcondance, ocr), (filename, word, concordance, ocr) ...), ...]
     concordance_words = matching_idx.flatMap(
         lambda target_article: [
-            (target_article[0], get_concordance(target_article[1][0], match, window))
-            for match in target_article[1][1]])
+            (target_article[0], get_concordance(target_article[1][0],target_article[1][1], match, window, target_article[1][3]))
+            for match in target_article[1][2]])
     
-    # [(year, [word, concodance], [word, concordance]), ...]
+    
+    # [(year, [filename, word, concodance, ocr], [filename, word, concordance, ocr]), ...]
 
     result = concordance_words.groupByKey() \
              .map(lambda year_wordcount:
