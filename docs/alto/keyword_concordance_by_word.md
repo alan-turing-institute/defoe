@@ -11,18 +11,20 @@
 
 ```
 <WORD>:
-- { "title": <TITLE>,
-    "place": <PLACE>,
-    "publisher": <PUBLISHER>,
-    "page_number": <PAGE_NUMBER>,
-    "content": <PAGE_CONTENT>,
-    "year": <YEAR>,
-    "document_id": <DOCUMENT_ID>,
-    "filename": <FILENAME>}
-- { ... }
-<WORD>
+- { title: <TITLE>,
+    place: <PLACE>,
+    publisher: <PUBLISHER>,
+    page_number: <PAGE_NUMBER>,
+    content: <PAGE_CONTENT>,
+    year: <YEAR>,
+    document_id: <DOCUMENT_ID>,
+    filename: <FILENAME>}
+- ...
+<WORD>:
 ...
 ```
+
+**Caution:** as this query returns each page's content, for every match, there is a risk that the query will fail due to lack of memory. This query should only be run with interesting words that are not expected to occur often.
 
 ## Sample results
 

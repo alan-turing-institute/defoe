@@ -54,14 +54,18 @@ class Document(object):
         """
         Parse text to extract years of form 16xx to 19xx.
 
-        Any date of form NN folloing a year of form CCYY to CCYY
+        Any date of form NN following a year of form CCYY to CCYY
         is used to derive a date CCNN.
+
+        As an exception to this rule, single years are parsed
+        from dates precisely matching the format YYYY-MM-DD.
 
         For example:
 
         * "1862, [1861]" returns [1861, 1862]
         * "1847 [1846, 47]" returns [1846, 1847]
         * "1873-80" returns [1873, 1880]
+        * "1870-09-01" returns [1870]
 
         :param text: text to parse
         :type text: str or unicode
@@ -69,6 +73,9 @@ class Document(object):
         :rtype: set(int)
         """
         try:
+            date_pattern = re.compile("(1[6-9]\d{2}(-|/)(0[1-9]|1[0-2])(-|/)(0[1-9]|[12]\d|3[01]))")
+            if date_pattern.match(text):
+                return [int(text[0:4])]
             long_pattern = re.compile("(1[6-9]\d\d)")
             short_pattern = re.compile("\d\d")
             results = []

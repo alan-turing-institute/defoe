@@ -3,15 +3,12 @@ Query-related utility functions.
 """
 
 from defoe import query_utils
-"""
-prep_type: integer variable, which indicates the type of preprocess treatment
-to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); (other value) original word. 
-
-"""
-prep_type= 1
+from defoe.query_utils import PreprocessWordType
 
 
-def get_page_matches(document, keywords):
+def get_page_matches(document,
+                     keywords,
+                     preprocess_type=PreprocessWordType.NORMALIZE):
     """
     Get pages within a document that include one or more keywords.
     For each page that includes a specific keyword, add a tuple of
@@ -28,6 +25,9 @@ def get_page_matches(document, keywords):
     :type document: defoe.alto.document.Document
     :param keywords: keywords
     :type keywords: list(str or unicode:
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :type preprocess_type: defoe.query_utils.PreprocessWordType
     :return: list of tuples
     :rtype: list(tuple)
     """
@@ -36,7 +36,8 @@ def get_page_matches(document, keywords):
         for page in document:
             match = None
             for word in page.words:
-                preprocessed_word = query_utils.preprocess_word(word, prep_type)
+                preprocessed_word = query_utils.preprocess_word(
+                    word, preprocess_type)
                 if preprocessed_word == keyword:
                     match = (document.year, document, page, keyword)
                     break
@@ -45,30 +46,36 @@ def get_page_matches(document, keywords):
                 continue  # move to next page
     return matches
 
-def get_document_keywords(document, keywords):
+
+def get_document_keywords(document,
+                          keywords,
+                          preprocess_type=PreprocessWordType.NORMALIZE):
     """
     Gets list of keywords occuring within an document.
-
-    Article words are normalized, by removing all non-'a-z|A-Z'
-    characters.
 
     :param article: Article
     :type article: defoe.papers.article.Article
     :param keywords: keywords
     :type keywords: list(str or unicode)
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :type preprocess_type: defoe.query_utils.PreprocessWordType
     :return: sorted list of keywords that occur within article
     :rtype: list(str or unicode)
     """
     matches = set()
     for page in document:
-       for word in page.words:
-            preprocessed_word = query_utils.preprocess_word(word, prep_type)
+        for word in page.words:
+            preprocessed_word = query_utils.preprocess_word(word,
+                                                            preprocess_type)
             if preprocessed_word in keywords:
                 matches.add(preprocessed_word)
     return sorted(list(matches))
 
 
-def document_contains_word(document, keyword):
+def document_contains_word(document,
+                           keyword,
+                           preprocess_type=PreprocessWordType.NORMALIZE):
     """
     Checks if a keyword occurs within an article.
 
@@ -76,12 +83,16 @@ def document_contains_word(document, keyword):
     :type article: defoe.papers.article.Article
     :param keywords: keyword
     :type keywords: str or unicode
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :type preprocess_type: defoe.query_utils.PreprocessWordType
     :return: True if the article contains the word, false otherwise
     :rtype: bool
     """
     for page in document:
         for word in page.words:
-            preprocessed_word = query_utils.preprocess_word(word, prep_type)
+            preprocessed_word = query_utils.preprocess_word(word,
+                                                            preprocess_type)
             if keyword == preprocessed_word:
                 return True
     return False

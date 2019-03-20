@@ -12,6 +12,7 @@ from pyspark.sql import Row, SparkSession
 
 from defoe import query_utils
 from defoe.papers.query_utils import article_contains_word
+from defoe.papers.query_utils import PreprocessWordType
 
 
 def do_query(issues, config_file=None, logger=None):
@@ -22,13 +23,11 @@ def do_query(issues, config_file=None, logger=None):
     config_file must be the path to a LDA configuration file in YAML
     format. For example:
 
-        {
-            keyword: <KEYWORD>,
-            optimizer: online|em,
-            max_iterations: <N>,
-            ntopics: <N>,
-            topic_words: <N>
-        }
+        keyword: <KEYWORD>
+        optimizer: online|em
+        max_iterations: <N>
+        ntopics: <N>
+        topic_words: <N>
 
     <N> must be >= 1 for each parameter.
 
@@ -37,12 +36,14 @@ def do_query(issues, config_file=None, logger=None):
 
     Returns result of form:
 
-        <0>: [<WORD_0>, ..., <WORD_topicwords>]
-        <1>: [<WORD_0>, ..., <WORD_topicwords>]
-        <2>: [<WORD_0>, ..., <WORD_topicwords>]
-
-        <ntopics>: [<WORD_0>, ..., <WORD_topicwords>]
-        years:[<MIN_YEAR>, <MAX_YEAR>]
+        {
+          <0>: [<WORD_0>, ..., <WORD_topicwords>],
+          <1>: [<WORD_0>, ..., <WORD_topicwords>],
+          <2>: [<WORD_0>, ..., <WORD_topicwords>],
+          ...
+          <ntopics>: [<WORD_0>, ..., <WORD_topicwords>],
+          years:[<MIN_YEAR>, <MAX_YEAR>]
+        }
 
     :param issues: RDD of defoe.papers.issue.Issue
     :type issues: pyspark.rdd.PipelinedRDD
@@ -91,7 +92,9 @@ def do_query(issues, config_file=None, logger=None):
     # [Row, Row, ...]
     articles_rdd = issues.flatMap(lambda issue: issue.articles) \
         .filter(lambda article:
-                article_contains_word(article, keyword)) \
+                article_contains_word(article,
+                                      keyword,
+                                      PreprocessWordType.NORMALIZE)) \
         .zipWithIndex() \
         .map(article_idx_to_words_row)
 

@@ -6,6 +6,7 @@ from operator import add
 
 from defoe import query_utils
 from defoe.papers.query_utils import get_article_keywords
+from defoe.papers.query_utils import PreprocessWordType
 
 
 def do_query(issues, config_file=None, logger=None):
@@ -21,18 +22,17 @@ def do_query(issues, config_file=None, logger=None):
 
     Returns result of form:
 
-        <YEAR>:
-        - {
-            "words": [<WORD>, <WORD>, ...],
-            "count": <COUNT>
-          }
-        - {
-            "words": [<WORD>, <WORD>, ...],
-            "count": <COUNT>
-          }
-        - ...
-        <YEAR>:
-        ...
+        {
+          <YEAR>:
+          [
+            {
+              "words": [<WORD>, <WORD>, ...],
+              "count": <COUNT>
+            },
+            ...
+          ],
+          ...
+        }
 
     :param issues: RDD of defoe.papers.issue.Issue
     :type issues: pyspark.rdd.PipelinedRDD
@@ -54,7 +54,9 @@ def do_query(issues, config_file=None, logger=None):
     words = articles.map(
         lambda year_article: (
             (year_article[0],
-             get_article_keywords(year_article[1], keywords)),
+             get_article_keywords(year_article[1],
+                                  keywords,
+                                  PreprocessWordType.NORMALIZE)),
             1))
     # [((year, [word, word, ...]), 1), ...]
     match_words = words.filter(
@@ -102,8 +104,8 @@ def word_article_count_list_to_dict(word_counts):
     Dictionary is of form:
 
         {
-            "words": [<WORD>, <WORD>, ...],
-            "count": <COUNT>
+          "words": [<WORD>, <WORD>, ...],
+          "count": <COUNT>
         }
 
     :param word_counts: words and counts

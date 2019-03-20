@@ -8,7 +8,6 @@ Count total number of documents, pages and words per year. This can be useful if
 
 ```
 <YEAR>: [<NUM_DOCUMENTS>, <NUM_PAGES>, <NUM_WORDS>]
-<YEAR>: [<NUM_DOCUMENTS>, <NUM_PAGES>, <NUM_WORDS>]
 ...
 ```
 

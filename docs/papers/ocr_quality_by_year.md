@@ -6,7 +6,6 @@
 
 ```
 <YEAR>: [<QUALITY>, ...]
-<YEAR>: [<QUALITY>, ...]
 ...
 ```
 

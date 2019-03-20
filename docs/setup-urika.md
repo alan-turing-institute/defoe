@@ -1,5 +1,17 @@
 # Set up Urika environment
 
+## Get source code repository
+
+Run:
+
+```bash
+git clone https://github.com/alan-turing-institute/defoe.git
+```
+
+This will clone the source code repository into a `defoe` directory.
+
+---
+
 ## Set up Python environment
 
 Create `urika-py27` environment:
@@ -28,14 +40,20 @@ urika-py27            *  /home/users/<your-urika-username>/.conda/envs/urika-py2
 ...
 ```
 
-Install dependencies:
+---
+
+## Install dependencies
 
 ```bash
-cd <REPOSITORY-DIRECTORY>
+cd defoe
 conda install -c anaconda --file requirements.txt
 ```
 
-**Note**:  After creating the `py27` environment, for your subsequent Urika sessions you just need to type:
+---
+
+## Subsequent Urika sessions
+
+After creating the `py27` environment, for your subsequent Urika sessions you just need to type:
 
 ```bash
 module load anaconda3/4.1.1

@@ -30,9 +30,8 @@ def do_query(issues, config_file=None, logger=None):
     Returns result of form:
 
         {
-            <WORD>: <COUNT>,
-            <WORD>: <COUNT>,
-            ...
+          <WORD>: <COUNT>,
+          ...
         }
 
     :param issues: RDD of defoe.papers.issue.Issue

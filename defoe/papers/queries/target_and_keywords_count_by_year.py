@@ -1,39 +1,46 @@
 """
-Counts number of times that each keyword (or its pre-processed versions -> stemming/lemmatization ) 
-appear for every article that has the target word (or its stemming/lemmatization version) in it.
+Counts number of times that each keyword appears for every article
+that has a target word in it.
+
+Words in articles, target words and keywords can be normalized,
+normalized and stemmed, or normalized and lemmatized (default).
 """
 
 from operator import add
 
 from defoe import query_utils
 from defoe.papers.query_utils import article_contains_word
-from defoe.papers.query_utils import get_article_keywords
+from defoe.query_utils import PreprocessWordType
 
-"""
-PREPROCESSING OPTIONS:
-prep_type: integer variable, which indicates the type of preprocess treatment
-to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); original word (3). 
-"""
-prep_type= 2
+
+PREPROCESS_TYPE = PreprocessWordType.LEMMATIZE
+""" Default word pre-processing type """
+
 
 def do_query(issues, config_file=None, logger=None):
     """
-    Counts number of times that each term (or their pre-processed versions -> stemming/lemmatization ) 
-    appear for every article that has the target word (or its stemming/lemmatization version) in it.
+    Counts number of times that each keyword appears for every article
+    that has a target word in it.
+
+    Words in articles, target words and keywords can be normalized,
+    normalized and stemmed, or normalized and lemmatized (default).
 
     config_file must be the path to a configuration file with a target
     word and a list of one or more keywords to search for, one per
     line.
 
-    Target word, keywords and words in documents are preprocessed, using one of the above options.
-
     Returns result of form:
-        <YEAR>:
-        - [<WORD>, <NUM_WORDS>]
-        - [<WORD>, <NUM_WORDS>]
-        - ...
-        <YEAR>:
 
+        {
+            <YEAR>:
+            [
+                [<WORD>, <NUM_WORDS>],
+                [<WORD>, <NUM_WORDS>],
+                ...
+            ],
+            <YEAR>:
+            ...
+        }
 
     :param issues: RDD of defoe.papers.issue.Issue
     :type issues: pyspark.rdd.PipelinedRDD
@@ -46,8 +53,9 @@ def do_query(issues, config_file=None, logger=None):
     """
     keywords = []
     with open(config_file, "r") as f:
-        keywords = [query_utils.preprocess_word(word, prep_type) for word in list(f)]
-     
+        keywords = [query_utils.preprocess_word(
+            word, PREPROCESS_TYPE) for word in list(f)]
+
     target_word = keywords[0]
     # [(year, article), ...]
     articles = issues.flatMap(
@@ -56,15 +64,16 @@ def do_query(issues, config_file=None, logger=None):
     # [(year, article), ...]
     target_articles = articles.filter(
         lambda year_article: article_contains_word(
-            year_article[1], target_word))
-   
+            year_article[1], target_word, PREPROCESS_TYPE))
+
     # [((year, word), 1), ...]
     words = target_articles.flatMap(
         lambda target_article: [
-            ((target_article[0], query_utils.preprocess_word(word,prep_type)), 1)
+            ((target_article[0],
+              query_utils.preprocess_word(word, PREPROCESS_TYPE)), 1)
             for word in target_article[1].words
         ])
-    
+
     # [((year, word), 1), ...]
     matching_words = words.filter(
         lambda yearword_count: yearword_count[0][1] in keywords)
