@@ -142,9 +142,9 @@ def get_sentences_list_matches(article_string, keysentence):
     for sentence in keysentence:
         if sentence in article_string:
                     match.add(sentence)
-    sorted(list(match))
+    return sorted(list(match))
 
-def get_article_idx(article, keywords):
+def get_article_idx(filename, article, keywords, ocr):
     """
     Gets a list of keywords (and their indices) within an article.
 
@@ -164,13 +164,12 @@ def get_article_idx(article, keywords):
         if preprocessed_word in keywords:
             match=(preprocessed_word, idx)
             matches.add(match)
-    return article, sorted(list(matches))
+    return article, filename, sorted(list(matches)),ocr
 
 
-def get_concordance(article, match, window):
+def get_concordance(article, filename, match, window, ocr):
     """
     For a given keyword (and its position in an article), it returns the concordance of words (before and after) using a window.
-
     :param article: Article
     :type article: defoe.papers.article.Article
     :parm match: keyword and its position inside the article list
@@ -197,5 +196,5 @@ def get_concordance(article, match, window):
     concordance_words = []
     for word in article.words[start_idx:end_idx]:
 	concordance_words.append(query_utils.preprocess_word(word, prep_type))
-    return (keyword,concordance_words)
+    return (filename, keyword,concordance_words, ocr)
     
