@@ -145,42 +145,48 @@ def get_article_as_string(article,
     return article_string
 
 
-def get_sentences_list_matches(text, keysentences):
+def get_sentences_list_matches(text, keysentence):
     """
     Check which key-sentences from occurs within a string
     and return the list of matches.
 
     :param text: text
     :type text: str or unicode
-    :param keysentences: sentences
+    :param keysentence: sentences
     :type: list(str or uniocde)
-    :return: set of matching sentences
+    :return: Set of sentences
     :rtype: set(str or unicode)
     """
-    matches = set()
-    for keysentence in keysentences:
-        if keysentence in text:
-            matches.add(keysentence)
-    return sorted(list(matches))
+    match = set()
+    for sentence in keysentence:
+        if sentence in article_string:
+                    match.add(sentence)
+    return sorted(list(match))
 
 
 def get_article_idx(article,
+                    filename,
                     keywords,
+                    ocr,
                     preprocess_type=PreprocessWordType.LEMMATIZE):
     """
     Gets a list of keywords (and their indices) within an article.
 
     :param article: Article
     :type article: defoe.papers.article.Article
+    :param filename: filename 
+    :type filename: string 
     :param keywords: keywords
     :type keywords: list(str or unicode)
+    :param ocr: quality of the paper
+    :type ocr: real
     :param preprocess_type: how words should be preprocessed
     (normalize, normalize and stem, normalize and lemmatize, none)
     :type preprocess_type: defoe.query_utils.PreprocessWordType
     :return: article
     :rtype article: defoe.papers.article.Article
     :return: sorted list of keywords and indices hat occur within article
-    :rtype: list(str or unicode)
+    :rtype: four elements (filename, str or unicode, list(str or unicode), ocr)
     """
     matches = set()
     for idx, word in enumerate(article.words):
@@ -188,12 +194,14 @@ def get_article_idx(article,
         if preprocessed_word in keywords:
             match = (preprocessed_word, idx)
             matches.add(match)
-    return (article, sorted(list(matches)))
+    return article, filename, sorted(list(matches)),ocr
 
 
 def get_concordance(article,
+                    filename,
                     match,
                     window,
+                    ocr,
                     preprocess_type=PreprocessWordType.LEMMATIZE):
     """
     For a given keyword (and its position in an article), return
@@ -201,15 +209,19 @@ def get_concordance(article,
 
     :param article: Article
     :type article: defoe.papers.article.Article
+    :param filename: filename 
+    :type filename: string 
     :parm match: keyword and its position inside the article list
     :type: list(str or unicode, int)
     :window: number of words to the right and left
     :type: int
+    :param ocr: quality of the paper
+    :type ocr: real
     :param preprocess_type: how words should be preprocessed
     (normalize, normalize and stem, normalize and lemmatize, none)
     :type preprocess_type: defoe.query_utils.PreprocessWordType
     :return: keyword and its concordance
-    :rtype: tuple(str or unicode, list(str or unicode))
+    :rtype: four elements (filename, str or unicode, list(str or unicode), ocr)
     """
     keyword = match[0]
     idx = match[1]
@@ -227,6 +239,5 @@ def get_concordance(article,
 
     concordance_words = []
     for word in article.words[start_idx:end_idx]:
-        concordance_words.append(query_utils.preprocess_word(
-            word, preprocess_type))
-    return (keyword, concordance_words)
+	concordance_words.append(query_utils.preprocess_word(word, preprocess_type))
+    return (filename, keyword,concordance_words, ocr)
