@@ -10,7 +10,7 @@ PREPROCESSING OPTIONS:
 prep_type: integer variable, which indicates the type of preprocess treatment
 to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); (other value) original word. 
 """
-prep_type= 0
+prep_type= 2
 
 def do_query(archives, config_file=None, logger=None):
     """
@@ -40,7 +40,7 @@ def do_query(archives, config_file=None, logger=None):
     keywords = []
     window = 10
     with open(config_file, "r") as f:
-        keywords = [query_utils.normalize(word) for word in list(f)]
+        keywords = [query_utils.preprocess(word,prep_type) for word in list(f)]
     target_word = []
     target_word.append(keywords[0])
     # [document, ...]
