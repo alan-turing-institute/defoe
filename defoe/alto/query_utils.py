@@ -58,7 +58,7 @@ def get_page_idx(page, keywords):
     """
     matches = set()
     for idx, word in enumerate(page.words):
-        preprocessed_word = query_utils.preprocess_word(word, prep_type)
+        preprocessed_word = query_utils.normalize(word)
         if preprocessed_word in keywords:
             match=(preprocessed_word, idx)
             matches.add(match)
