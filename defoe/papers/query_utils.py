@@ -159,7 +159,7 @@ def get_sentences_list_matches(text, keysentence):
     """
     match = set()
     for sentence in keysentence:
-        if sentence in article_string:
+        if sentence in text:
                     match.add(sentence)
     return sorted(list(match))
 
