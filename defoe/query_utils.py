@@ -27,7 +27,6 @@ class PreprocessWordType(enum.Enum):
 def parse_preprocess_word_type(type_str):
     """
     Parse a string into a PreprocessWordType.
-
     :param type_str: One of none|normalize|stem|lemmatize
     :type type_str: str or unicode
     :return: word preprocessing type
@@ -50,7 +49,6 @@ def extract_preprocess_word_type(config,
     """
     Extract PreprocessWordType from "preprocess" dictionary value in
     query configuration.
-
     :param config: config
     :type config: dict
     :param default: default value if "preprocess" is not found
@@ -71,7 +69,6 @@ def extract_data_file(config, default_path):
     """
     Extract data file path from "data" dictionary value in query
     configuration.
-
     :param config: config
     :type config: dict
     :param default_path: default path to prepend to data file path if
@@ -91,7 +88,6 @@ def extract_window_size(config, default=10):
     """
     Extract window size from "window" dictionary value in query
     configuration.
-
     :param config: config
     :type config: dict
     :param default: default value if "window" is not found
@@ -113,7 +109,6 @@ def normalize(word):
     """
     Normalize a word by converting it to lower-case and removing all
     characters that are not 'a',...,'z'.
-
     :param word: Word to normalize
     :type word: str or unicode
     :return: normalized word
@@ -126,17 +121,14 @@ def stem(word):
     """
     Reducing word to its word stem, base or root form (for example,
     books - book, looked - look). The main two algorithms are:
-
     - Porter stemming algorithm: removes common morphological and
       inflexional endings from words, used here
       (nltk.stem.PorterStemmer).
     - Lancaster stemming algorithm: a more aggressive stemming
       algorithm.
-
     Like lemmatization, stemming reduces inflectional forms to a
     common base form. As opposed to lemmatization, stemming simply
     chops off inflections.
-
     :param word: Word to stemm
     :type word: str or unicode
     :return: normalized word
@@ -150,12 +142,10 @@ def lemmatize(word):
     """
     Lemmatize a word, using a lexical knowledge bases to get the
     correct base forms of a word.
-
     Like stemming, lemmatization reduces inflectional forms to a
     common base form. As opposed to stemming, lemmatization does not
     simply chop off inflections. Instead it uses lexical knowledge
     bases to get the correct base forms of words.
-
     :param word: Word to normalize
     :type word: str or unicode
     :return: normalized word
@@ -169,7 +159,6 @@ def preprocess_word(word, preprocess_type=PreprocessWordType.NONE):
     """
     Preprocess a word by applying different treatments
     e.g. normalization, stemming, lemmatization.
-
     :param word: word
     :type word: string or unicode
     :param preprocess_type: normalize, normalize and stem, normalize
@@ -189,4 +178,4 @@ def preprocess_word(word, preprocess_type=PreprocessWordType.NONE):
         preprocessed_word = lemmatize(normalized_word)
     else:  # PreprocessWordType.NONE or unknown
         preprocessed_word = word
-    return preprocessed_word
+return preprocessed_word
