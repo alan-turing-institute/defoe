@@ -4,13 +4,7 @@ Gets concordance and collocation for keywords selecting only the pages which hav
 
 from defoe import query_utils
 from defoe.alto.query_utils import get_page_matches, get_page_idx, get_concordance
-
-"""
-PREPROCESSING OPTIONS:
-prep_type: integer variable, which indicates the type of preprocess treatment
-to appy to each word. normalize(0); normalize + stemming (1); normalize + lemmatization (2); (other value) original word. 
-"""
-prep_type= 2
+from defoe.alto.query_utils import PreprocessWordType
 
 def do_query(archives, config_file=None, logger=None):
     """
@@ -40,7 +34,7 @@ def do_query(archives, config_file=None, logger=None):
     keywords = []
     window = 10
     with open(config_file, "r") as f:
-        keywords = [query_utils.preprocess(word,prep_type) for word in list(f)]
+        keywords = [query_utils.normalize(word) for word in list(f)]
     target_word = []
     target_word.append(keywords[0])
     # [document, ...]
@@ -50,7 +44,8 @@ def do_query(archives, config_file=None, logger=None):
     # [(year, document, page, word), ...]
     filtered_words = documents.flatMap(
         lambda document: get_page_matches(document,
-                                           target_word))
+                                           target_word,
+                                           PreprocessWordType))
 
     # [(year, document, page, word), ...]
     # =>
@@ -63,12 +58,12 @@ def do_query(archives, config_file=None, logger=None):
     matching_idx = target_docs.map(
         lambda year_doc: (
             (year_doc[0],
-             get_page_idx(year_doc[1], keywords))))
+             get_page_idx(year_doc[1], keywords, PreprocessWordType))))
 
     # [(year, (word, corcondance), (word, concordance) ...), ...]
     concordance_words = matching_idx.flatMap(
         lambda target_doc: [
-            (target_doc[0], get_concordance(target_doc[1][0], match, window))
+            (target_doc[0], get_concordance(target_doc[1][0], match, window, PreprocessWordType))
             for match in target_doc[1][1]])
     
     # [(year, [word, concodance], [word, concordance]), ...]
