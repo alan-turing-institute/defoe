@@ -100,7 +100,7 @@ def document_contains_word(document,
 
 def get_page_idx(page, 
                  keywords,
-                 preprocess_type=PreprocessWordType.NORMALIZE):):
+                 preprocess_type=PreprocessWordType.NORMALIZE):
     """
     Gets a list of keywords (and their indices) within an page.
     Page words are preprocessed. 
@@ -128,7 +128,7 @@ def get_page_idx(page,
 def get_concordance(page, 
                     match, 
                     window,
-                    preprocess_type=PreprocessWordType.NORMALIZE)
+                    preprocess_type=PreprocessWordType.NORMALIZE):
     """
     For a given keyword (and its position in an page), it returns the concordance of words (before and after) using a window.
     :param page: Page
