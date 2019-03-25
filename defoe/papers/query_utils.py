@@ -160,7 +160,7 @@ def get_sentences_list_matches(text, keysentence):
     match = set()
     for sentence in keysentence:
         if sentence in text:
-                    match.add(sentence)
+            match.add(sentence)
     return sorted(list(match))
 
 
@@ -174,11 +174,11 @@ def get_article_idx(article,
 
     :param article: Article
     :type article: defoe.papers.article.Article
-    :param filename: filename 
-    :type filename: string 
+    :param filename: filename
+    :type filename: str or unicode
     :param keywords: keywords
     :type keywords: list(str or unicode)
-    :param ocr: quality of the paper
+    :param ocr: OCR quality of the paper
     :type ocr: real
     :param preprocess_type: how words should be preprocessed
     (normalize, normalize and stem, normalize and lemmatize, none)
@@ -194,7 +194,7 @@ def get_article_idx(article,
         if preprocessed_word in keywords:
             match = (preprocessed_word, idx)
             matches.add(match)
-    return article, filename, sorted(list(matches)),ocr
+    return article, filename, sorted(list(matches)), ocr
 
 
 def get_concordance(article,
@@ -209,13 +209,13 @@ def get_concordance(article,
 
     :param article: Article
     :type article: defoe.papers.article.Article
-    :param filename: filename 
-    :type filename: string 
+    :param filename: filename
+    :type filename: str or unicode
     :parm match: keyword and its position inside the article list
     :type: list(str or unicode, int)
     :window: number of words to the right and left
     :type: int
-    :param ocr: quality of the paper
+    :param ocr: OCR quality of the paper
     :type ocr: real
     :param preprocess_type: how words should be preprocessed
     (normalize, normalize and stem, normalize and lemmatize, none)
@@ -239,5 +239,6 @@ def get_concordance(article,
 
     concordance_words = []
     for word in article.words[start_idx:end_idx]:
-	concordance_words.append(query_utils.preprocess_word(word, preprocess_type))
-    return (filename, keyword,concordance_words, ocr)
+        concordance_words.append(
+            query_utils.preprocess_word(word, preprocess_type))
+    return (filename, keyword, concordance_words, ocr)
