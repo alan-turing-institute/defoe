@@ -42,9 +42,6 @@ def do_query(archives, config_file=None, logger=None):
         keywords = [query_utils.preprocess_word(word, PreprocessWordType.NORMALIZE) for word in list(f)]
     target_word =[]
     target_word.append(keywords[0])
-    print("TARGET: %s" % target_word)
-    for i in keywords:
-        print("!!! Keyword %s" % i)
     # [document, ...]
     documents = archives.flatMap(
         lambda archive: [document for document in list(archive)])
@@ -52,8 +49,7 @@ def do_query(archives, config_file=None, logger=None):
     # [(year, document, page, word), ...]
     filtered_words = documents.flatMap(
         lambda document: get_page_matches(document,
-                                           target_word,
-                                           PreprocessWordType))
+                                           target_word))
     # [(year, document, page, word), ...]
     # =>
     # [(year, pace.content), ...]
@@ -61,18 +57,17 @@ def do_query(archives, config_file=None, logger=None):
         lambda year_document_page_word:
         (year_document_page_word[0], year_document_page_word[2]))
     
-    filtered_2=target_docs.take(2)
 
     # [(year, (page, [(word, idx), (word, idx) ...]), ...]
     matching_idx = target_docs.map(
         lambda year_doc: (
             (year_doc[0],
-             get_page_idx(year_doc[1], keywords, PreprocessWordType))))
+             get_page_idx(year_doc[1], keywords))))
 
     # [(year, (word, corcondance), (word, concordance) ...), ...]
     concordance_words = matching_idx.flatMap(
         lambda target_doc: [
-            (target_doc[0], get_concordance(target_doc[1][0], match, window, PreprocessWordType))
+            (target_doc[0], get_concordance(target_doc[1][0], match, window))
             for match in target_doc[1][1]])
     
     # [(year, [word, concodance], [word, concordance]), ...]

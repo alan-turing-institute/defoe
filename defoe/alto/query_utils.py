@@ -154,9 +154,15 @@ def get_concordance(page,
         end_idx = page_size
     else:
 	end_idx= idx + window + 1
-
-    concordance_words = []
-    for word in page.words[start_idx:end_idx]:
-	concordance_words.append(query_utils.preprocess_word(word, preprocess_type))
-    return (keyword,concordance_words)
+    
+    prep_types =[]
+    prep_t=["NORMALIZE", "STEM", "LEMMATIZE", "NONE"]
+    for i in prep_t:
+        concordance_words = []
+        preprocess_type = PreprocessWordType[i]
+        concordance_words.append("Preprocess Type: "+ str(preprocess_type))
+        for word in page.words[start_idx:end_idx]:
+	    concordance_words.append(query_utils.preprocess_word(word, preprocess_type))
+        prep_types.append(concordance_words)
+    return (keyword,prep_types)
 
