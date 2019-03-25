@@ -5,6 +5,7 @@ which have a target word and groups the results by date.
 Words in articles, target words and keywords can be normalized,
 normalized and stemmed, or normalized and lemmatized (default).
 """
+
 import os.path
 import yaml
 
@@ -23,28 +24,33 @@ def do_query(issues, config_file=None, logger=None):
     A window size (default 10) determines the size of the concordance
     returned.
     config_file must be the path to a configuration file of form:
+
         preprocess: none|normalize|stem|lemmatize # Optional
         window: <WINDOW_SIZE> # Optional
         data: <DATA_FILE>
+
     <DATA_FILE> must be the path to a plain-text data file with a list
     of keywords to search for, one per line. The first word is assumed
     to be the target word. If <DATA_FILE> is a relative path then it
     is assumed to be relative to the directory in which config_file
     resides.
+
     config_file must be the path to a configuration file with a list
     of the keywords to search for, one per line. The first word
     is assumed to be the target word.
     Returns result of form:
+
         {
             <YEAR>:
             [
-                [<FILENAME>,<WORD>, <CONCORDANCE>,<OCR>],
-                [<FILENAME>,<WORD>, <CONCORDANCE>,<OCR>],
+                [<FILENAME>, <WORD>, <CONCORDANCE>, <OCR>],
+                [<FILENAME>, <WORD>, <CONCORDANCE>, <OCR>],
                 ...
             ],
             <YEAR>:
             ...
         }
+
     :param issues: RDD of defoe.alto.issue.Issue
     :type issues: pyspark.rdd.PipelinedRDD
     :param config_file: query configuration file
@@ -66,40 +72,47 @@ def do_query(issues, config_file=None, logger=None):
         keywords = [query_utils.preprocess_word(
             word, preprocess_type) for word in list(f)]
     target_word = keywords[0]
+
     # [(year, article, filename, ocr), ...]
     articles = issues.flatMap(
-        lambda issue: [(issue.date.year, article, issue.filename, article.quality)
+        lambda issue: [(issue.date.year,
+                        article,
+                        issue.filename,
+                        article.quality)
                        for article in issue.articles])
     # [(year, article,filename, ocr), ...]
     target_articles = articles.filter(
         lambda year_article: article_contains_word(
             year_article[1], target_word, preprocess_type))
-    
 
     # [(year, (article, filename, [(word, idx), (word, idx) ...], ocr), ...]
     matching_idx = target_articles.map(
         lambda year_article: (
             (year_article[0],
-             get_article_idx(year_article[1],year_article[2], keywords, year_article[3], preprocess_type))
+             get_article_idx(year_article[1],
+                             year_article[2],
+                             keywords,
+                             year_article[3],
+                             preprocess_type))
             ))
-    
 
-    # [(year, (filename, word, corcondance, ocr), (filename, word, concordance, ocr) ...), ...]
+    # [(year, [(filename, word, corcondance, ocr),
+    #          (filename, word, concordance, ocr), ...]), ...]
     concordance_words = matching_idx.flatMap(
         lambda target_article: [
-            (target_article[0], 
+            (target_article[0],
              get_concordance(target_article[1][0],
                              target_article[1][1],
-                             match, 
+                             match,
                              window,
                              target_article[1][3],
                              preprocess_type))
             for match in target_article[1][2]])
-    
-    
-    # [(year,(filename, [word, concodance], ocr), (filename,[word, concordance], ocr), ...]
+
+    # [(year, [(filename, word, corcondance, ocr),
+    #          (filename, word, concordance, ocr), ...]), ...]
     result = concordance_words.groupByKey() \
-        .map(lambda year_wordcount:
-             (year_wordcount[0], list(year_wordcount[1]))) \
+        .map(lambda year_match:
+             (year_match[0], list(year_match[1]))) \
         .collect()
     return result
