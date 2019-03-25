@@ -96,3 +96,68 @@ def document_contains_word(document,
             if keyword == preprocessed_word:
                 return True
     return False
+
+
+def get_page_idx(page, 
+                 keywords,
+                 preprocess_type=PreprocessWordType.NORMALIZE):):
+    """
+    Gets a list of keywords (and their indices) within an page.
+    Page words are preprocessed. 
+    :param page: Page
+    :type page: defoe.alto.page.Page
+    :param keywords: keywords
+    :type keywords: list(str or unicode)
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :return: page
+    :rtype page: defoe.papers.page.Page
+    :return: sorted list of keywords and indices hat occur within page
+    :rtype: list(str or unicode)
+    """
+    matches = set()
+    for idx, word in enumerate(page.words):
+        preprocessed_word = query_utils.normalize(word,
+                                                  preprocess_type)
+        if preprocessed_word in keywords:
+            match=(preprocessed_word, idx)
+            matches.add(match)
+    return page, sorted(list(matches))
+
+
+def get_concordance(page, 
+                    match, 
+                    window,
+                    preprocess_type=PreprocessWordType.NORMALIZE)
+    """
+    For a given keyword (and its position in an page), it returns the concordance of words (before and after) using a window.
+    :param page: Page
+    :type page: defoe.alto.page.Page
+    :parm match: keyword and its position inside the page list
+    :type: list
+    :window: number of words to the right and left
+    :type: integer
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :return: keyword and its concordance
+    :rtype: list
+    """
+    keyword = match[0]
+    idx = match[1]
+    page_size= len(page.words)
+     
+    if idx >=window: 
+        start_idx= idx-window
+    else: 
+        start_idx=0
+
+    if idx + window >=page_size:
+        end_idx = page_size
+    else:
+	end_idx= idx + window + 1
+
+    concordance_words = []
+    for word in page.words[start_idx:end_idx]:
+	concordance_words.append(query_utils.preprocess_word(word, preprocess_type))
+    return (keyword,concordance_words)
+

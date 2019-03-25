@@ -249,3 +249,4 @@ class Document(object):
         """
         for _, image in self.scan_images():
             yield image
+
