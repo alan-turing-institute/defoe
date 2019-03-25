@@ -178,4 +178,4 @@ def preprocess_word(word, preprocess_type=PreprocessWordType.NONE):
         preprocessed_word = lemmatize(normalized_word)
     else:  # PreprocessWordType.NONE or unknown
         preprocessed_word = word
-return preprocessed_word
+    return preprocessed_word
