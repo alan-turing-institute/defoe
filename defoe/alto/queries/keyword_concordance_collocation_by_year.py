@@ -1,7 +1,8 @@
 """
 Gets concordance and collocation for keywords selecting only the pages which have occurences of the target word,  and groups the results by date.
 """
-
+import os.path
+import yaml
 from defoe import query_utils
 from defoe.alto.query_utils import get_page_matches, get_page_idx, get_concordance
 from defoe.alto.query_utils import PreprocessWordType
@@ -31,12 +32,19 @@ def do_query(archives, config_file=None, logger=None):
     by year
     :rtype: dict
     """
-    keywords = []
-    window = 10
     with open(config_file, "r") as f:
-        keywords = [query_utils.normalize(word) for word in list(f)]
-    target_word = []
+        config = yaml.load(f)
+    preprocess_type = query_utils.extract_preprocess_word_type(config)
+    data_file = query_utils.extract_data_file(config,
+                                              os.path.dirname(config_file))
+    window = query_utils.extract_window_size(config)
+    with open(data_file, "r") as f:
+        keywords = [query_utils.preprocess_word(word, PreprocessWordType.NORMALIZE) for word in list(f)]
+    target_word =[]
     target_word.append(keywords[0])
+    print("TARGET: %s" % target_word)
+    for i in keywords:
+        print("!!! Keyword %s" % i)
     # [document, ...]
     documents = archives.flatMap(
         lambda archive: [document for document in list(archive)])
@@ -46,13 +54,14 @@ def do_query(archives, config_file=None, logger=None):
         lambda document: get_page_matches(document,
                                            target_word,
                                            PreprocessWordType))
-
     # [(year, document, page, word), ...]
     # =>
     # [(year, pace.content), ...]
     target_docs = filtered_words.map(
         lambda year_document_page_word:
         (year_document_page_word[0], year_document_page_word[2]))
+    
+    filtered_2=target_docs.take(2)
 
     # [(year, (page, [(word, idx), (word, idx) ...]), ...]
     matching_idx = target_docs.map(
