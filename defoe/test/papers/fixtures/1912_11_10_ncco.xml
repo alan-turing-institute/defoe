@@ -4,6 +4,7 @@
     <metadatainfo>
         <newspaperID>NID123</newspaperID>
         <ocr>12.34</ocr>
+        <PSMID>NID123-1912-NOV10</PSMID>
         <da>
             <year>1912</year>
             <month>November</month>
@@ -15,9 +16,9 @@
     </metadatainfo>
     <page>
         <article type="Article">
-            <id>NID123-1912-NOV10-0001-001</id>
+            <id>NID123-1912-NOV10-001-001</id>
             <ocr>0</ocr>
-            <pi pgref="1">NID123-1912-NOV10-0001</pi>
+            <pi pgref="1">NID123-1912-NOV10-001</pi>
             <text>
                 <text.title>
                     <p>
@@ -41,9 +42,9 @@
             </text>
         </article>
         <article type="article">
-            <id>NID123-1912-NOV10-0001-002</id>
+            <id>NID123-1912-NOV10-001-002</id>
             <ocr relevant="no">0</ocr>
-            <pi pgref="1">NID123-1912-NOV10-0001</pi>
+            <pi pgref="1">NID123-1912-NOV10-001</pi>
             <text>
                 <text.title>
                     <p>
@@ -67,9 +68,9 @@
             </text>
         </article>
         <article type="article">
-            <id>NID123-1912-NOV10-0001-003</id>
+            <id>NID123-1912-NOV10-001-003</id>
             <ocr relevant="no">0</ocr>
-            <pi pgref="1">NID123-1912-NOV10-0001</pi>
+            <pi pgref="1">NID123-1912-NOV10-001</pi>
             <text>
                 <text.title>
                     <p>

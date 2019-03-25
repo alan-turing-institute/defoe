@@ -34,7 +34,7 @@ Query over `Part 1/0000164- The Courier and Argus/*/*/*.xml` with `queries/kraka
 - article_id: 0000164_19010102_0005-063
   content: "THE EARTH...",
   filename: .../Part 1/0000164- The Courier and Argus/1901/0000164_19010102/0000164_19010102.xml
-  issue_id: BSNP0164
+  issue_id: 0000164_19010102
   page_ids: ['0005']
   title: THE EARTH AND ITS HEAT
   word: krakatoa
@@ -42,11 +42,12 @@ Query over `Part 1/0000164- The Courier and Argus/*/*/*.xml` with `queries/kraka
 - article_id: 0000164_19020305_0007-106
   content: "EARTHQUAKE TERRORS...",
   filename: .../Part 1/0000164- The Courier and Argus/1902/0000164_19020305/0000164_19020305.xml
-  issue_id: BSNP0164
+  issue_id: 0000164_19020305
   page_ids: ['0007']
   title: EARTHQUAKE TERRORS.
   word: krakatoa
 1902-05-14:
 - article_id: 0000164_19020514_0007-110
+  issue_id: 0000164_19020514
   ...
 ```
