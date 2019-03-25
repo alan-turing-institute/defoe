@@ -5,6 +5,7 @@ Gets concordance for keywords and groups by word.
 from defoe import query_utils
 from defoe.alto.query_utils import get_page_matches
 
+prep_type= 2
 
 def do_query(archives, config_file=None, logger=None):
     """
@@ -48,7 +49,7 @@ def do_query(archives, config_file=None, logger=None):
     """
     keywords = []
     with open(config_file, "r") as f:
-        keywords = [query_utils.normalize(word) for word in list(f)]
+        keywords = [query_utils.preprocess_word(word, prep_type) for word in list(f)]
     # [document, ...]
     documents = archives.flatMap(
         lambda archive: [document for document in list(archive)])
