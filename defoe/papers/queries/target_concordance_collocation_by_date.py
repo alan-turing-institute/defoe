@@ -11,7 +11,7 @@ import yaml
 
 from defoe import query_utils
 from defoe.papers.query_utils import article_contains_word
-from defoe.papers.query_utils import get_article_idx
+from defoe.papers.query_utils import get_article_keyword_idx
 from defoe.papers.query_utils import get_concordance
 
 
@@ -80,34 +80,35 @@ def do_query(issues, config_file=None, logger=None):
                         issue.filename,
                         article.quality)
                        for article in issue.articles])
-    # [(year, article,filename, ocr), ...]
+    # [(year, article, filename, ocr), ...]
     target_articles = articles.filter(
-        lambda year_article: article_contains_word(
-            year_article[1], target_word, preprocess_type))
-
-    # [(year, (article, filename, [(word, idx), (word, idx) ...], ocr), ...]
+        lambda year_article_file_ocr: article_contains_word(
+            year_article_file_ocr[1], target_word, preprocess_type))
+    # [(year, article, filename, [(word, idx), (word, idx) ...], ocr), ...]
     matching_idx = target_articles.map(
-        lambda year_article: (
-            (year_article[0],
-             get_article_idx(year_article[1],
-                             year_article[2],
-                             keywords,
-                             year_article[3],
-                             preprocess_type))
-            ))
-
-    # [(year, [(filename, word, corcondance, ocr),
-    #          (filename, word, concordance, ocr), ...]), ...]
+        lambda year_article_file_ocr: (
+            (year_article_file_ocr[0],
+             year_article_file_ocr[1],
+             year_article_file_ocr[2],
+             get_article_keyword_idx(year_article_file_ocr[1],
+                                     keywords,
+                                     preprocess_type),
+             year_article_file_ocr[3])
+        )
+    )
+    # [(year, [(filename, word, [concordance, ...], ocr), ...])]
     concordance_words = matching_idx.flatMap(
-        lambda target_article: [
-            (target_article[0],
-             get_concordance(target_article[1][0],
-                             target_article[1][1],
-                             match,
-                             window,
-                             target_article[1][3],
-                             preprocess_type))
-            for match in target_article[1][2]])
+        lambda year_article_file_matches_ocr: [
+            (year_article_file_matches_ocr[0],
+             (year_article_file_matches_ocr[2],
+              word_idx[0],
+              get_concordance(year_article_file_matches_ocr[1],
+                              word_idx[0],
+                              word_idx[1],
+                              window,
+                              preprocess_type),
+              year_article_file_matches_ocr[4]))
+            for word_idx in year_article_file_matches_ocr[3]])
 
     # [(year, [(filename, word, corcondance, ocr),
     #          (filename, word, concordance, ocr), ...]), ...]
