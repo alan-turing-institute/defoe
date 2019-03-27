@@ -166,3 +166,62 @@ def get_concordance(page,
         prep_types.append(concordance_words)
     return (keyword,prep_types)
 
+def get_page_sentences(page, 
+                 keywords,
+                 preprocess_type=PreprocessWordType.NORMALIZE):
+    """
+    Gets a list of keywords (and their indices) within an page.
+    Page words are preprocessed. 
+    :param page: Page
+    :type page: defoe.alto.page.Page
+    :param keywords: keywords
+    :type keywords: list(str or unicode)
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :return: page
+    :rtype page: defoe.papers.page.Page
+    :return: sorted list of keywords and indices hat occur within page
+    :rtype: list(str or unicode)
+    """
+    matches = set()
+    page_string=""
+    for word in page.words:
+        page_string=page_string + " " + word
+    page_sentences= query_utils.sentence_spliter(page_string)
+    for sentence in page_sentences:
+        try:
+            sentence_token=query_utils.word_to_token(sentence)
+            for token in sentence_token:
+                preprocess_word=query_utils.preprocess_word(token,PreprocessWordType.NORMALIZE)
+                if preprocess_word in keywords:
+                    match=(preprocess_word, sentence)
+                    matches.add(match)
+        except:
+            pass
+    return page, sorted(list(matches))
+
+
+def get_sentence_concordance(match, 
+                    preprocess_type=PreprocessWordType.NORMALIZE):
+    """
+    For a given keyword (and its position in an page), it returns the concordance of words (before and after) using a window.
+    :parm match: keyword and sentencet
+    :type: list
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :return: keyword and its concordance
+    :rtype: list
+    """
+    keyword = match[0]
+    prep_types =[]
+    prep_t=["NORMALIZE", "STEM", "LEMMATIZE", "NONE"]
+    for i in prep_t:
+        concordance_words = []
+        preprocess_type = PreprocessWordType[i]
+        concordance_words.append("Preprocess Type: "+ str(preprocess_type))
+        sentence_token=query_utils.word_to_token(match[1])
+        for word in sentence_token:
+	    concordance_words.append(query_utils.preprocess_word(word, preprocess_type))
+        prep_types.append(concordance_words)
+    return (keyword,prep_types)
+

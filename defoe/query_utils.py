@@ -6,6 +6,7 @@ import os
 import re
 import enum
 from nltk.stem import PorterStemmer, WordNetLemmatizer
+from nltk.tokenize import sent_tokenize, word_tokenize
 
 NON_AZ_REGEXP = re.compile('[^a-z]')
 
@@ -179,3 +180,10 @@ def preprocess_word(word, preprocess_type=PreprocessWordType.NONE):
     else:  # PreprocessWordType.NONE or unknown
         preprocessed_word = word
     return preprocessed_word
+
+def sentence_spliter(sentences):
+    return sent_tokenize(sentences)
+
+def word_to_token(word):
+   return word_tokenize(word)
+
