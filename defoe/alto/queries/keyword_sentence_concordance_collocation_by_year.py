@@ -1,5 +1,6 @@
 """
 Gets concordance and collocation for keywords selecting only the pages which have occurences of the target word,  and groups the results by date.
+This query detects also the sentences in which keywords appear, and preprocess each word of each sentence with different methods. 
 """
 import os.path
 import yaml
@@ -12,7 +13,6 @@ def do_query(archives, config_file=None, logger=None):
     """
     Gets concordance and collocation analysis for keywords giving a target word,  and it groups the results by date.
     The window variable can be used for specifying the number of words to the right and left to take. 
-    (e.g. 5 words to the left and right, including sentence boundaries).
   
  
     config_file must be the path to a configuration file with a list
@@ -38,7 +38,6 @@ def do_query(archives, config_file=None, logger=None):
     preprocess_type = query_utils.extract_preprocess_word_type(config)
     data_file = query_utils.extract_data_file(config,
                                               os.path.dirname(config_file))
-    window = query_utils.extract_window_size(config)
     with open(data_file, "r") as f:
         keywords = [query_utils.preprocess_word(word, PreprocessWordType.NORMALIZE) for word in list(f)]
     target_word =[]
