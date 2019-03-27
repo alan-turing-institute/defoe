@@ -7,6 +7,8 @@ import re
 import enum
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk import pos_tag
+from nltk.chunk import ne_chunk
 
 NON_AZ_REGEXP = re.compile('[^a-z]')
 
@@ -181,9 +183,30 @@ def preprocess_word(word, preprocess_type=PreprocessWordType.NONE):
         preprocessed_word = word
     return preprocessed_word
 
-def sentence_spliter(sentences):
-    return sent_tokenize(sentences)
+def sentence_spliter(sentences_string):
+    """
+    Receives a string with several sentences, and split them in sentences.
+    Returning each sentence as an element in a list
+    """
+    return sent_tokenize(sentences_string)
 
-def word_to_token(word):
-   return word_tokenize(word)
+def word_to_token(sentence_string):
+    """
+    Receives a string with a sentence .
+    Returns a list with each token/word as as an element
+    """
+    return word_tokenize(sentence_string)
 
+def part_of_speech(sentence_list):
+    """
+    Receives a list with each token/word as an element .
+    Returns a list with each token/word (plus pos_tag) as as an element
+    """
+    return pos_tag(sentence_list)
+
+def entity_recognition(sentence_list):
+    """
+    Receives a list with each token/word as an element .
+    Returns a list with each token/word (plus ENTITY Reconition of the element) as as an element
+    """
+    return ne_chunk(sentence_list)
