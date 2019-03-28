@@ -214,8 +214,12 @@ def get_sentence_concordance(match,
     """
     keyword = match[0]
     prep_types =[]
+    concordance_words = []
+    concordance_words.append("Preprocess Type: ORIGINAL STRING")
+    concordance_words.append(match[1])
     prep_t=["NORMALIZE", "STEM", "LEMMATIZE"]
     sentence_token=query_utils.word_to_token(match[1])
+    prep_types.append(concordance_words)
     for i in prep_t:
         concordance_words = []
         preprocess_type = PreprocessWordType[i]
@@ -223,16 +227,12 @@ def get_sentence_concordance(match,
         for word in sentence_token:
 	    concordance_words.append(query_utils.preprocess_word(word, preprocess_type))
         prep_types.append(concordance_words)
-    concordance_words = []
-    concordance_words.append("Preprocess Type: ORIGINAL STRING")
-    concordance_words.append(match[1])
-    prep_types.append(concordance_words)
-    concordance_words = []
     pos_tag=query_utils.part_of_speech(sentence_token) 
-    concordance_words.append("Preprocess Type: POS")
-    concordance_words.append(pos_tag)
-    prep_types.append(concordance_words)
-    #concordance_words.append("Preprocess Type: Entity Recgonition")
+    pos_words = []
+    pos_words.append("Preprocess Type: POS")
+    for token in pos_tag:
+       pos_words.append(token)
+    prep_types.append(pos_words)
     #er=query_utils.entity_recognition(pos_tag)
     #concordance_words.append(er)
     return (keyword,prep_types)
