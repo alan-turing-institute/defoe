@@ -12,6 +12,8 @@ Do **not** mount DataStore directories directly onto Lustre.
 
 ## Copy British Library Books dataset
 
+Space required: ~224 GB
+
 Mount CAHSS Digital Cultural Heritage DataStore directory into your home directory on Urika:
 
 ```bash
@@ -61,6 +63,8 @@ cmp blb-files.txt mount-blb-files.txt
 ---
 
 ## Copy British Library Newspapers dataset
+
+Space required: ~424 GB
 
 Mount Library British Library Newspapers DataStore directory into your home directory on Urika:
 
@@ -143,6 +147,8 @@ cmp bln-files.txt  mount-bln-files.txt
 
 ## Copy Times Digital Archive dataset
 
+Space required: ~362 GB
+
 Mount CAHSS Digital Cultural Heritage DataStore directory into your home directory on Urika:
 
 ```bash
@@ -192,6 +198,8 @@ cmp tda-files.txt mount-tda-files.txt
 ---
 
 ## Copy Papers Past New Zealand and Pacific newspapers dataset
+
+Space required: ~4 GB
 
 Mount CAHSS Digital Cultural Heritage DataStore directory into your home directory on Urika:
 
