@@ -235,8 +235,9 @@ def get_sentence_concordance(match,
     prep_types.append(pos_words)
     er_words=[]
     er=query_utils.entity_recognition(pos_tag)
-    er.append("Preprocess Type: ER")
-    prep_types.append(er)
+    er_words.append("Preprocess Type: ER")
+    er_words.append(er)
+    prep_types.append(er_words)
     
     return (keyword,prep_types)
 
