@@ -8,7 +8,10 @@ import enum
 from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk import pos_tag
+import nltk
+from nltk.tree import Tree
 from nltk.chunk import ne_chunk
+from nltk.chunk import conlltags2tree, tree2conlltags
 
 NON_AZ_REGEXP = re.compile('[^a-z]')
 
@@ -204,9 +207,26 @@ def part_of_speech(sentence_list):
     """
     return pos_tag(sentence_list)
 
+def tree2dict(tree):
+    return {tree.node: [tree2dict(t)  if isinstance(t, Tree) else t for t in tree]}
+ 
+
+
 def entity_recognition(sentence_list):
     """
     Receives a list with each token/word as an element .
     Returns a list with each token/word (plus ENTITY Reconition of the element) as as an element
     """
-    return ne_chunk(sentence_list)
+    pattern = 'NP: {<DT>?<JJ>*<NN>}'
+    cp = nltk.RegexpParser(pattern)
+    cs = cp.parse(sentence_list)
+    parse_cs = ' '.join(str(cs).split()) 
+    #parse_cs = str(cs) 
+    return parse_cs
+
+
+def nltk_preprocess(doc):
+    sentences = sentence_spliter(doc)
+    sentences = [word_to_token(sent) for sent in sentences]
+    sentences = [part_of_speech(sent) for sent in sentences]
+    return sentences
