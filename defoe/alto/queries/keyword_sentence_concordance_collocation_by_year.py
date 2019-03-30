@@ -66,10 +66,8 @@ def do_query(archives, config_file=None, logger=None):
     # [(year, (word, corcondance), (word, concordance) ...), ...]
     concordance_words = matching_sentences.flatMap(
         lambda target_doc: [
-            (target_doc[0], get_sentence_concordance(match))
+            (target_doc[0], get_sentence_preprocessed(match))
             for match in target_doc[1][1]])
-    
-    print("!!!!! importante  -page concordance %s\n", concordance_words.take(1))
     
     # [(year, [word, concodance], [word, concordance]), ...]
     result = concordance_words.groupByKey() \

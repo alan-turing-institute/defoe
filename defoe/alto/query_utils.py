@@ -201,7 +201,7 @@ def get_page_sentences(page,
     return page, sorted(list(matches))
 
 
-def get_sentence_concordance(match, 
+def get_sentence_preprocessed(match, 
                     preprocess_type=PreprocessWordType.NORMALIZE):
     """
     For a given keyword (and its position in an page), it returns the concordance of words (before and after) using a window.
