@@ -214,30 +214,34 @@ def get_sentence_preprocessed(match,
     """
     keyword = match[0]
     prep_types =[]
-    concordance_words = []
-    concordance_words.append("Preprocess Type: ORIGINAL STRING")
-    concordance_words.append(match[1])
+    preprocessed_words = []
+    preprocessed_words.append("Preprocess Type: ORIGINAL STRING")
+    preprocessed_words.append(match[1])
     prep_t=["NORMALIZE", "STEM", "LEMMATIZE"]
+    #splits the sentence into tokens
     sentence_token=query_utils.word_to_token(match[1])
-    prep_types.append(concordance_words)
+    prep_types.append(preprocessed_words)
+    #applies 3 different preprocessing treatments (normalize,stem, lemmatize) to each token 
     for i in prep_t:
-        concordance_words = []
+        preprocessed_words = []
         preprocess_type = PreprocessWordType[i]
-        concordance_words.append("Preprocess Type: "+ str(preprocess_type))
+        preprocessed_words.append("Preprocess Type: "+ str(preprocess_type))
         for word in sentence_token:
-	    concordance_words.append(query_utils.preprocess_word(word, preprocess_type))
-        prep_types.append(concordance_words)
+	    preprocessed_words.append(query_utils.preprocess_word(word, preprocess_type))
+        prep_types.append(preprocessed_words)
+    #labels each token with part-of-speach using the original string
     pos_tag=query_utils.part_of_speech(sentence_token) 
-    pos_words = []
-    pos_words.append("Preprocess Type: POS")
+    pos_tokens = []
+    pos_tokens.append("Preprocess Type: POS")
     for token in pos_tag:
-       pos_words.append(token)
-    prep_types.append(pos_words)
-    er_words=[]
+       pos_tokens.append(token)
+    prep_types.append(pos_tokens)
+    #entity recognition using the part-of-speach list  
+    er_tokens=[]
     er=query_utils.entity_recognition(pos_tag)
-    er_words.append("Preprocess Type: ER")
-    er_words.append(er)
-    prep_types.append(er_words)
+    er_tokens.append("Preprocess Type: ER")
+    er_tokens.append(er)
+    prep_types.append(er_tokens)
     
     return (keyword,prep_types)
 
