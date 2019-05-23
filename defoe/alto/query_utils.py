@@ -4,7 +4,7 @@ Query-related utility functions.
 
 from defoe import query_utils
 from defoe.query_utils import PreprocessWordType
-
+from nltk.corpus import words
 
 def get_page_matches(document,
                      keywords,
@@ -96,3 +96,32 @@ def document_contains_word(document,
             if keyword == preprocessed_word:
                 return True
     return False
+
+
+def calculate_words_within_dictionary(page, 
+                   preprocess_type=PreprocessWordType.NORMALIZE):
+    """
+    Calculates the % of page words within a dictionary and also returns the page quality (pc)
+    Page words are normalized. 
+    :param page: Page
+    :type page: defoe.alto.page.Page
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :return: matches
+    :rtype: list(str or unicode)
+    """
+    dictionary = words.words()
+    counter= 0
+    total_words= 0
+    for word in page.words:
+         preprocessed_word = query_utils.preprocess_word(word, preprocess_type)
+         if preprocessed_word!="":
+            total_words += 1
+            if  preprocessed_word in dictionary:
+               counter +=  1
+    try:
+       calculate_pc = str(counter*100/total_words)
+    except:
+       calculate_pc = "0" 
+    return calculate_pc
+
