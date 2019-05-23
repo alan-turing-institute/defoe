@@ -7,7 +7,7 @@ from defoe.alto.query_utils import calculate_words_within_dictionary
 
 def do_query(archives, config_file=None, logger=None):
     """
-    Gets measure of OCR quality for each page and groups by year.
+    Gets measure of OCR quality (PC), and calculates the number of words found in a dictionary for each page and groups by year.
 
     Returns result of form:
 
@@ -22,7 +22,7 @@ def do_query(archives, config_file=None, logger=None):
     :type config_file: str or unicode
     :param logger: logger (unused)
     :type logger: py4j.java_gateway.JavaObject
-    :return: OCR quality of article grouped by year
+    :return: OCR quality and percentage of words found  of article grouped by year
     :rtype: dict
     """
     # [(year, document), ...]
