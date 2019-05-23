@@ -24,7 +24,7 @@ The code can also handle the [Times Digital Archive](https://www.gale.com/uk/c/t
 
 This dataset is available, under licence, from [Gale](https://www.gale.com), a division of [CENGAGE](https://www.cengage.com/).
 
-The code was used with papers from 1785-1848.
+The code was used with papers from 1785-2009.
 
 ### Find My Past Newspapers
 

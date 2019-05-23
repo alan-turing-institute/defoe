@@ -26,3 +26,4 @@ class TestArticleGalen(TestArticle):
         issue = Issue(self.filename)
         self.article = issue.articles[0]
         self.article_id = 'NID123-1912-1110-0001-001'
+        self.page_id = '0001'

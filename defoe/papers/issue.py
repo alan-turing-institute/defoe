@@ -12,6 +12,7 @@ Or newspapers conforming to the following DTDs:
 * bl_ncnp_issue_apex.dtd
 * GALENP.dtd
 * nccoissue.dtd
+* LTO_issue.md
 """
 
 from datetime import datetime
@@ -54,19 +55,23 @@ class Issue(object):
         if not has_issue:
             raise Exception("Missing 'issue' element")
 
-        self.issue = self.single_query('/issue')
+        self.issue = self.single_query('.//issue')
 
-        newspaper_id = self.single_query('//newspaperID/text()')
+        # bl_ncnp_issue_apex.dtd, GALENP.dtd, nccoissue.dtd
+        newspaper_id = self.single_query('//issue/id/text()')
         if newspaper_id is None:
-            newspaper_id = self.single_query('//newspaperId/text()')
+            # LTO_issue.md
+            newspaper_id = self.single_query('//issue/metadatainfo/PSMID/text()')
         if newspaper_id is not None:
             self.newspaper_id = newspaper_id
 
         self.articles = [Article(article, self.filename)
                          for article in self.query('.//article')]
 
+        # bl_ncnp_issue_apex.dtd, GALENP.dtd, LTO_issue.dtd
         raw_date = self.single_query('//pf/text()')
         if raw_date is None:
+            # nccoissue.dtd
             raw_date = self.single_query('//da/searchableDateStart/text()')
         if raw_date:
             self.date = datetime.strptime(raw_date, '%Y%m%d')
@@ -77,7 +82,6 @@ class Issue(object):
             self.page_count = int(self.single_query('//ip/text()'))
         except Exception:
             pass
-
 
     def query(self, query):
         """

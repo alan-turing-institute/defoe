@@ -1,29 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE issue SYSTEM "bl_ncnp_issue_apex.dtd">
-<issue xmlns:dc="http://purl.org/dc/elements/1.1/">
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE issue SYSTEM "LTO_issue.dtd">
+<issue>
+    <id>NID123-1912-NOV10</id>
+    <is>1</is>
+    <da>November 10, 1912</da>
     <pf>19121110</pf>
-    <dw>Monday</dw>
     <ip>1</ip>
-    <newspaperId>NID123</newspaperId>
-    <id>NID123_19121110</id>
     <article>
-        <id>NID123_19121110_0001-001</id>
-        <ocr relevant="no">0</ocr>
-        <pi pgref="1">NID123_19121110_0001</pi>
+        <id>NID123-1912-NOV10-001-001</id>
+        <ocr>0</ocr>
+        <pi pgref="1">NID123-1912-NOV10-001</pi>
         <text>
             <text.title>
                 <p>
                     <wd>Article 1 Title</wd>
                 </p>
             </text.title>
-            <text.preamble>
+            <text.cr>
                 <p>
-                    <wd>A</wd>
+                     <wd>A</wd>
+                </p>
+                <p>
                     <wd>B</wd>
                     <wd>C</wd>
                 </p>
-            </text.preamble>
-            <text.cr>
                 <p>
                     <wd>D</wd>
                     <wd>E</wd>
@@ -32,10 +32,10 @@
             </text.cr>
         </text>
     </article>
-    <article type="article">
-        <id>NID123-19121110_0001-002</id>
-        <ocr relevant="no">0</ocr>
-        <pi pgref="1">NID123-19121110_0001</pi>
+    <article>
+        <id>NID123-1912-NOV10-001-002</id>
+        <ocr>0</ocr>
+        <pi pgref="1">NID123-1912-NOV10-001</pi>
         <text>
             <text.title>
                 <p>
@@ -58,10 +58,10 @@
             </text.cr>
         </text>
     </article>
-    <article type="article">
-        <id>NID123-19121110_0001-003</id>
-        <ocr relevant="no">0</ocr>
-        <pi pgref="1">NID123-19121110_0001</pi>
+    <article>
+        <id>NID123-1912-NOV10-001-003</id>
+        <ocr>0</ocr>
+        <pi pgref="1">NID123-1912-NOV10-001</pi>
         <text>
             <text.title>
                 <p>

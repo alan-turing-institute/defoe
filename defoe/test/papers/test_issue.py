@@ -23,7 +23,7 @@ class TestIssue(TestCase):
         Tests Issue.newspaper_id attribute holds expected newspaper
         ID.
         """
-        self.assertEqual('NID123', self.issue.newspaper_id)
+        self.assertEqual(self.issue_id, self.issue.newspaper_id)
 
     def test_date(self):
         """

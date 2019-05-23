@@ -160,33 +160,26 @@ def get_sentences_list_matches(text, keysentence):
     match = set()
     for sentence in keysentence:
         if sentence in text:
-                    match.add(sentence)
+            match.add(sentence)
     return sorted(list(match))
 
 
-def get_article_idx(article,
-                    filename,
-                    keywords,
-                    ocr,
-                    preprocess_type=PreprocessWordType.LEMMATIZE):
+def get_article_keyword_idx(article,
+                            keywords,
+                            preprocess_type=PreprocessWordType.LEMMATIZE):
     """
-    Gets a list of keywords (and their indices) within an article.
+    Gets a list of keywords (and their position indices) within an
+    article.
 
     :param article: Article
     :type article: defoe.papers.article.Article
-    :param filename: filename 
-    :type filename: string 
     :param keywords: keywords
     :type keywords: list(str or unicode)
-    :param ocr: quality of the paper
-    :type ocr: real
     :param preprocess_type: how words should be preprocessed
     (normalize, normalize and stem, normalize and lemmatize, none)
     :type preprocess_type: defoe.query_utils.PreprocessWordType
-    :return: article
-    :rtype article: defoe.papers.article.Article
-    :return: sorted list of keywords and indices hat occur within article
-    :rtype: four elements (filename, str or unicode, list(str or unicode), ocr)
+    :return: sorted list of keywords and their indices
+    :rtype: list(tuple(str or unicode, int))
     """
     matches = set()
     for idx, word in enumerate(article.words):
@@ -194,14 +187,13 @@ def get_article_idx(article,
         if preprocessed_word in keywords:
             match = (preprocessed_word, idx)
             matches.add(match)
-    return article, filename, sorted(list(matches)),ocr
+    return sorted(list(matches))
 
 
 def get_concordance(article,
-                    filename,
-                    match,
+                    keyword,
+                    idx,
                     window,
-                    ocr,
                     preprocess_type=PreprocessWordType.LEMMATIZE):
     """
     For a given keyword (and its position in an article), return
@@ -209,22 +201,18 @@ def get_concordance(article,
 
     :param article: Article
     :type article: defoe.papers.article.Article
-    :param filename: filename 
-    :type filename: string 
-    :parm match: keyword and its position inside the article list
-    :type: list(str or unicode, int)
+    :param keyword: keyword
+    :type keyword: str or unicode
+    :param idx: keyword index (position) in list of article's words
+    :type idx: int
     :window: number of words to the right and left
     :type: int
-    :param ocr: quality of the paper
-    :type ocr: real
     :param preprocess_type: how words should be preprocessed
     (normalize, normalize and stem, normalize and lemmatize, none)
     :type preprocess_type: defoe.query_utils.PreprocessWordType
-    :return: keyword and its concordance
-    :rtype: four elements (filename, str or unicode, list(str or unicode), ocr)
+    :return: concordance
+    :rtype: list(str or unicode)
     """
-    keyword = match[0]
-    idx = match[1]
     article_size = len(article.words)
 
     if idx >= window:
@@ -239,5 +227,6 @@ def get_concordance(article,
 
     concordance_words = []
     for word in article.words[start_idx:end_idx]:
-	concordance_words.append(query_utils.preprocess_word(word, preprocess_type))
-    return (filename, keyword,concordance_words, ocr)
+        concordance_words.append(
+            query_utils.preprocess_word(word, preprocess_type))
+    return concordance_words
