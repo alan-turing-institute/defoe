@@ -1,11 +1,16 @@
-"""
-Query-related utility functions.
-"""
-
+from __future__ import unicode_literals
+import spacy
+import sys 
+from spacy import displacy
+import nltk
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk import pos_tag, tag
+import spacy
+import enum
 from defoe import query_utils
 from defoe.query_utils import PreprocessWordType
-
-
+from nltk.corpus import words
+from nltk.parse.util import taggedsent_to_conll
 def get_page_matches(document,
                      keywords,
                      preprocess_type=PreprocessWordType.NORMALIZE):
@@ -244,4 +249,172 @@ def get_sentence_preprocessed(match,
     prep_types.append(er_tokens)
     
     return (keyword,prep_types)
+
+def get_page_words(document,
+                     preprocess_type=PreprocessWordType.NORMALIZE):
+    """
+    Get pages within a document and preprocessed them.
+    For each page that includes, add a tuple of
+    form:
+
+        (<YEAR>, <DOCUMENT>, <PAGE>)
+
+
+    :param document: document
+    :type document: defoe.alto.document.Document
+    :param keywords: keywords
+    :type keywords: list(str or unicode:
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :type preprocess_type: defoe.query_utils.PreprocessWordType
+    :return: list of tuples
+    :rtype: list(tuple)
+    """
+    matches = []
+    for page in document:
+        match = None
+        for word in page.words:
+            preprocessed_word = query_utils.preprocess_word(word, preprocess_type)
+            match = (document.year, document, page, preprocessed_word)
+            matches.append(match)
+    return matches
+
+
+def extract_sentences(document):
+    """
+    Gets the words  within an page, and returns the sentences without any type of preprocessing treatment to the words.
+    :param page: Document
+    :type page: defoe.alto.document
+    :return: matches
+    :rtype list: 
+    :return: year and sentences 
+    """
+    matches = []
+    page_string=""
+    for page in document:
+       for word in page.words:
+          page_string=page_string + " " + word
+       page_sentences= query_utils.sentence_spliter(page_string)
+       for sentence in page_sentences:
+          match = None
+          match = (document.year, sentence)
+          matches.append(match)
+    return matches 
+
+
+def get_page_text_preprocessed(raw_sentence, 
+                    preprocess_type=PreprocessWordType.NORMALIZE):
+    """
+    For a given year and sentence (raw_sentence), it returns the sentence preprocessed 
+    :parm raw_sentence: year and sentence
+    :type: list
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :rtype: match: year, preprocessed sentence 
+    """
+   
+    year= raw_sentence[0]
+    sentence = raw_sentence[1]
+    prep_types= []
+    preprocessed_words = []
+    preprocessed_words.append("Preprocess Type: ORIGINAL STRING")
+    preprocessed_words.append(sentence)
+    prep_t=["NORMALIZE", "STEM", "LEMMATIZE"]
+    #splits the sentence into tokens
+    sentence_token=query_utils.word_to_token(sentence)
+    prep_types.append(preprocessed_words)
+    #applies 3 different preprocessing treatments (normalize,stem, lemmatize) to each token 
+    for i in prep_t:
+        preprocessed_words = []
+        preprocess_type = PreprocessWordType[i]
+        preprocessed_words.append("Preprocess Type: "+ str(preprocess_type))
+        for word in sentence_token:
+	    preprocessed_words.append(query_utils.preprocess_word(word, preprocess_type))
+        prep_types.append(preprocessed_words)
+    #labels each token with part-of-speach using the original string
+    pos_tag=query_utils.part_of_speech(sentence_token) 
+    pos_tokens = []
+    pos_tokens.append("Preprocess Type: POS")
+    for token in pos_tag:
+       pos_tokens.append(token)
+    prep_types.append(pos_tokens)
+    #entity recognition using the part-of-speach list  
+    er_tokens=[]
+    er=query_utils.entity_recognition(pos_tag)
+    er_tokens.append("Preprocess Type: ER")
+    er_tokens.append(er)
+    prep_types.append(er_tokens)
+    match=(year, prep_types)
+    return match
+
+
+
+
+def calculate_words_within_dictionary(page):
+    """
+    Calculates the % of page words within a dictionary and also returns the page quality (pc)
+    Page words are normalized. 
+    :param page: Page
+    :type page: defoe.alto.page.Page
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :return: matches
+    :rtype: list(str or unicode)
+    """
+    dictionary = words.words()
+    preprocess_type=PreprocessWordType.NORMALIZE
+    counter= 0
+    total_words= 0
+    for word in page.words:
+         preprocessed_word = query_utils.preprocess_word(word, preprocess_type)
+         if preprocessed_word!="":
+            total_words += 1
+            if  preprocessed_word in dictionary:
+               counter +=  1
+    #calculate_pc = str((counter *100/len(page.words)))
+    calculate_pc = str(counter *100/total_words)
+    return calculate_pc
+
+
+def nltkConll(setence_text):
+    output_total=[]
+    doc=query_utils.word_to_token(setence_text)
+    for i, word in enumerate(doc):
+       word_normalized= query_utils.preprocess_word(word, PreprocessWordType.NORMALIZE)
+       word_lema= query_utils.lemmatize(word_nornmalized)
+       word_stem= query_utils.stem(word_normalized)
+       pos_tag= list(tag.pos_tag([word])[0])[1]
+       ner_tag= nltk.ne_chunk(tag.pos_tag([word]))
+       output="%d\t%s\t%s\t%s\t%s\t%s\t%s\t"%( i+1, word, word_lemma, word_stem, pos_tag, ner_tag)
+       output_total.append[output]
+    return output_total
+
+
+def spacyConll(sentence_text):
+    nlp = spacy.load('en')
+    doc = nlp(sentence_text)
+    output_total=[]
+    for i, word in enumerate(doc):
+        word_normalized= query_utils.preprocess_word(word, PreprocessWordType.NORMALIZE)
+        output="%d\t%s\t%s\t%s\t%s\t%s\t%s"%( i+1, word, word_normalized, word.lemma_, word.tag_, word.ent_type)
+        output_total.append(output)
+    return output_total
+
+def total_preprocessed(raw_sentence,
+                    preprocess_type=PreprocessWordType.NORMALIZE):
+    """
+    For a given year and sentence (raw_sentence), it returns the sentence preprocessed 
+    :parm raw_sentence: year and sentence
+    :type: list
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :rtype: match: year, preprocessed sentence 
+    """
+    year = raw_sentence[0]
+    sentence = raw_sentence[1]
+    prep_types= []
+    prep_types.append(nltkConll(sentence))
+    #prep_types.append(spacyConll(sentence))
+    match=(year, prep_types)
+    return match
 
