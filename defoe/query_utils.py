@@ -9,6 +9,7 @@ from nltk.stem import PorterStemmer, WordNetLemmatizer
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk import pos_tag
 import nltk
+import spacy
 
 NON_AZ_REGEXP = re.compile('[^a-z]')
 
@@ -137,7 +138,9 @@ def stem(word):
     :return: normalized word
     :rtype word: str or unicode
     """
+
     stemmer = PorterStemmer()
+
     return stemmer.stem(word)
 
 
