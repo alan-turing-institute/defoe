@@ -64,4 +64,4 @@ class TestArticle(TestCase):
         """
         page_ids = self.article.page_ids
         self.assertEqual(1, len(page_ids))
-        self.assertTrue("0001" in page_ids)
+        self.assertTrue(self.page_id in page_ids)

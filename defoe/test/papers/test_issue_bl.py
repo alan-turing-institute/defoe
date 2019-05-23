@@ -23,3 +23,4 @@ class TestIssueBl(TestIssue):
         """
         self.filename = get_path(fixtures, '1912_11_10_bl.xml')
         self.issue = Issue(self.filename)
+        self.issue_id = "NID123_19121110"

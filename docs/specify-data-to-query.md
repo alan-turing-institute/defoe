@@ -34,13 +34,13 @@ Alternatively, you can use the bash `find` command, to create a list of all avai
 * On a local machine:
 
 ```bash
-find <BLB> -name "*.zip" > data.txt
+find <BLB> -name "*.zip" | sort > data.txt
 ```
 
 * On Urika:
 
 ```bash
-find /mnt/lustre/<project>/<project>/<username>/BLB -name "*.zip" > data.txt
+find /mnt/lustre/<project>/<project>/<username>/BLB -name "*.zip" | sort > data.txt
 ```
 
 You can then filter this file to select subsets of data e.g. to select books in the folder `1510_1699` you can run:
@@ -83,13 +83,13 @@ Alternatively, you can use the bash `find` command, to create a list of all avai
 * On a local machine:
 
 ```bash
-find <BLN> -name "*.xml" > data.txt
+find <BLN> -name "*.xml" | sort > data.txt
 ```
 
 * On Urika:
 
 ```bash
-find /mnt/lustre/<project>/<project>/<username>/BLN -name "*.xml" > data.txt
+find /mnt/lustre/<project>/<project>/<username>/BLN -name "*.xml" | sort > data.txt
 ```
 
 You can then filter this file to select subsets of data e.g. to select papers in the folder `0000164- The Courier and Argus/`, you can run:
@@ -114,15 +114,15 @@ For example, suppose you want to run a query over two newspapers:
 If running on your local machine, your file would be as follows, where `<TDA>` is the path to the directory in your home directory, where you have the data:
 
 ```
-<TDA>/0FFO-1785-APR01.xml
-<TDA>/0FFO-1785-APR02.xml
+<TDA>/1785/17850401/0FFO-1785-APR01.xml
+<TDA>/1785/17850402/0FFO-1785-APR02.xml
 ```
 
 If running on Urika, your file would be as follows:
 
 ```
-/mnt/lustre/at01/at01/michaelj/TDA/0FFO-1785-APR01.xml
-/mnt/lustre/at01/at01/michaelj/TDA/0FFO-1785-APR02.xml
+/mnt/lustre/<project>/<project>/<username>/TDA/1785/17850401/0FFO-1785-APR01.xml
+/mnt/lustre/<project>/<project>/<username>/TDA/1785/17850402/0FFO-1785-APR02.xml
 ```
 
 You can write these files by hand.
@@ -132,13 +132,13 @@ Alternatively, you can use the bash `find` command, to create a list of all avai
 * On a local machine:
 
 ```bash
-find <TDA> -name "*.xml" > data.txt
+find <TDA> -name "*.xml" | sort > data.txt
 ```
 
 * On Urika:
 
 ```bash
-find /mnt/lustre/<project>/<project>/<username>/TDA -name "*.xml" > data.txt
+find /mnt/lustre/<project>/<project>/<username>/TDA -name "*.xml" | sort > data.txt
 ```
 
 ---
@@ -175,13 +175,13 @@ Alternatively, you can use the bash `find` command, to create a list of all avai
 * On a local machine:
 
 ```bash
-find <NZPP> -name "*.xml" > data.txt
+find <NZPP> -name "*.xml" | sort > data.txt
 ```
 
 * On Urika:
 
 ```bash
-find /mnt/lustre/<project>/<project>/<username>/NZPP -name "*.xml" > data.txt
+find /mnt/lustre/<project>/<project>/<username>/NZPP -name "*.xml" | sort > data.txt
 ```
 
 ---

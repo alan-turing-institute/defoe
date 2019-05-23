@@ -139,6 +139,8 @@ The list of file to run the query over is expected to be a list of XML files.
 Each XML file is expected to contain one issue of a newspaper:
 
 * Each XML file is compliant with either:
+  - LTO_issue.dtd schema (TDA)
+  - ncco_issue.dtd schema (TDA)
   - GALENP.dtd schema (TDA)
   - bl_ncnp_issue_apex.dtd (BLN)
 * Each XML file contains an `issue` element with one or more `article` elements, corresponding to articles.

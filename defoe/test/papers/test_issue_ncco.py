@@ -23,3 +23,4 @@ class TestIssueNcco(TestIssue):
         """
         self.filename = get_path(fixtures, '1912_11_10_ncco.xml')
         self.issue = Issue(self.filename)
+        self.issue_id = "NID123-1912-NOV10"

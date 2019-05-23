@@ -33,8 +33,8 @@
 
 ```
 <YEAR>:
-- [<WORD>, <CONCORDANCE>]
-- [<WORD>, <CONCORDANCE>]
+- [<FILEMAME>, <WORD>, <CONCORDANCE>, <OCR>]
+- [<FILEMAME>, <WORD>, <CONCORDANCE>, <OCR>]
 ...
 <YEAR>:
 ...
@@ -46,76 +46,89 @@ Query over `Part 1/0000164- The Courier and Argus/1907/0000164_19070603/0000164_
 
 ```
 1907:
-- - lady
+- - .../Part 1/0000164- The Courier and Argus/1907/0000164_19070603/0000164_19070603.xml
+  - lady
   - [f, ou, r, hawk, ll, ner, r, servant, elderly, for, lady, and, jv, ajfsfpsjr,
     vk, q, u, iet, coicfortable, home, applv]
-- - lady
-  - [beauty, of, scotland, the, scottish, switzerland, sir, walter, scott, '',
-lady,
+  - 85.82
+- - .../Part 1/0000164- The Courier and Argus/1907/0000164_19070603/0000164_19070603.xml
+  - lady
+  - [beauty, of, scotland, the, scottish, switzerland, sir, walter, scott, '', lady,
     of, the, lake, country, each, purple, peak, each, flinty, spire]
+  - 85.82
 ...
 1915:
 ...
-- - lady
-  - [the, novelist, eat, in, the, stall, next, to, a, charming, lady, of, middle,
-    age, she, said, at, the, end, of, the]
-- - lady
+- - .../Part 1/0000164- The Courier and Argus/1915/0000164_19151123/0000164_19151123.xml
+  - lady
+  - [f, rade, or, elderly, man, might, suit, able, i, crais, lady, bank, '', r,
+'',
+    li, l, '', fr, hawking, van]
+  - 85.55
+...
+- - .../Part 1/0000164- The Courier and Argus/1915/0000164_19151123/0000164_19151123.xml
+  - lady
   - [spiritless, he, doesnt, make, use, of, his, op, portunities, the, lady, frowned,
     he, wont, put, any, more, spirit, in, it, while]
+  - 92.33
 ```
 
 Query over `Part 1/0000164- The Courier and Argus/1907/0000164_19070603/0000164_19070603.xml` and `Part 1/0000164- The Courier and Argus/1915/0000164_19151123/0000164_19151123.xml` with `queries/gender.yml`:
 
 ```
 1907:
-- - alexander
-  - [being, given, director, john, brown, of, redliall, kincardineshire, pish,
-salesman,
+- - .../Part 1/0000164- The Courier and Argus/1907/0000164_19070603/0000164_19070603.xml
+  - alexander
+  - [being, given, director, john, brown, of, redliall, kincardineshire, pish, salesman,
     alexander, craig, fish, merchant, poynernook, road, aberdeen, david, l, crombie,
     marwger]
-- - alexander
-  - [at, '', forfar, road, dun, dee, belonging, to, mr, jas, alexander, inelud, '',
+  - 85.82
+- - .../Part 1/0000164- The Courier and Argus/1907/0000164_19070603/0000164_19070603.xml
+  - alexander
+  - [at, '', forfar, road, dun, dee, belonging, to, mr, jas, alexander, inelud,
+'',
     cow, pattly, in, full, milk, prime, fat, '']
+  - 85.82
 ...
 1915:
+- - .../Part 1/0000164- The Courier and Argus/1915/0000164_19151123/0000164_19151123.xml
+  - alexander
+  - [november, '', notice, all, party, having, claim, against, the, late, alexander,
+    ilay, farmer, newton, of, kirk, buddo, are, requested, to, lodge]
+  - 85.55
 ...
-- - it
-  - [not, know, what, a, war, bonus, wa, the, claimant, thought, it, wa, a, gift,
-    and, it, amount, depended, 'on', the, number]
-- - it
-  - [bonus, wa, the, claimant, thought, it, wa, a, gift, and, it, amount, depended,
-    'on', the, number, of, shift, he, worked, being]
-- - it
+- - .../Part 1/0000164- The Courier and Argus/1915/0000164_19151123/0000164_19151123.xml
+  - it
   - [bonus, which, depended, 'on', exactly, the, same, condition, a, wage, it, wa,
     clearly, part, of, claimant, wage]
+  - 93.26
 ```
 
 Query over `Part 1/0000164- The Courier and Argus/*/*/*.xml` with `queries/emigration_taxonomy.yml`:
 
 ```
 1901:
-- - emigration
-  - [the, cork, park, race, form, enter, taining, reading, '', the, emigration, of,
-    woman, is, the, title, of, an, able, and, instruc]
-- - emigration
-  - [hii, '', answer, to, mr, chamberla, '', is, a, counter, emigration, '', c, '',
-    c, signed, to, flood, south, a, '']
+- - .../Part 1/0000164- The Courier and Argus/1901/0000164_19010328/0000164_19010328.xml
+  - daughter
+  - [wa, well, a, '', m, they, did, me, good, my, daughter, year, passed, but, the,
+    unpleasant, x, '', w, '', had]
+  - 77.3
+- - .../Part 1/0000164- The Courier and Argus/1901/0000164_19010328/0000164_19010328.xml
+  - emigration
+  - [advice, given, a, '', to, suitability, op, snops, and, good, emigration, to,
+    chillfare, reduced, to, '', s, for, arttracs, agriculturist, wih]
+  - 77.3
 ...
-- - suitable
-  - [facility, especially, light, railway, road, should, also, be, made, more, suitable,
-    for, motor, traffic, and, pier, should, be, improved, there, wa]
 1926:
-- - colony
-  - [mozambique, coast, bri, t, sii, east, africa, t, ttti, kenya, colony, lin, e,
-    '', i, wffiisve, for, further, information, apply, fflce]
-- - emigration
-  - [of, every, description, all, at, inex, pensive, price, our, special, emigration,
-    trunk, guaranteed, '', ply, birch, foundation, covered, brown, waterproof, canvas]
+- - .../Part 1/0000164- The Courier and Argus/1926/0000164_19260105/0000164_19260105.xml
+  - emigration
+  - [of, the, farmer, union, yesterday, in, regard, to, the, government, emigration,
+    policy, public, money, is, devoted, to, subsidising, passage, to, canada]
+  - 93.04
 ...
-- - teacher
-  - [men, teacher, had, increased, by, '', to, '', while, woman, teacher, had, in,
-    creased, by, '', to, '', there, wa, a]
-- - emigration
-  - [taken, five, year, ago, it, had, dropped, to, '', besides, emigration, of, individual,
-    and, of, family, from, dundee, ha, been, and]
+- - .../Part 1/0000164- The Courier and Argus/1926/0000164_19260120/0000164_19260120.xml
+  - failure
+  - [pro, posed, grant, of, '', to, assist, imperial, trade, the, failure, to, carry,
+    into, operation, the, recommendation, of, the, scottish, agricul]
+  - 92.81
 ```

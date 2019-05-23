@@ -12,6 +12,7 @@ Or newspapers conforming to the following DTDs:
 * bl_ncnp_issue_apex.dtd
 * GALENP.dtd
 * nccoissue.dtd
+* LTO_issue.md
 """
 
 

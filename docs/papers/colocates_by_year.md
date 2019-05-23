@@ -40,7 +40,7 @@ Query over `Part 1/0000164- The Courier and Argus/*/*/*.xml` with `queries/stran
 1907:
 - article_id: 0000164_19070502_0003-032
   filename: .../Part 1/0000164- The Courier and Argus/1907/0000164_19070502/0000164_19070502.xml
-  issue_id: BSNP0164
+  issue_id: 0000164_19070502
   matches:
   - [stranger, 'on', the, road, did, not, know, the, extent, of, the, danger]
   page_ids: ['0003']
@@ -48,7 +48,7 @@ Query over `Part 1/0000164- The Courier and Argus/*/*/*.xml` with `queries/stran
 1921:
 - article_id: 0000164_19210530_0007-096
   filename: .../Part 1/0000164- The Courier and Argus/1921/0000164_19210530/0000164_19210530.xml
-  issue_id: BSNP0164
+  issue_id: 0000164_19210530
   matches:
   - [stranger, to, you, and, i, heartily, thank, you, for, warning, me, of, my,
  danger]
@@ -57,7 +57,7 @@ Query over `Part 1/0000164- The Courier and Argus/*/*/*.xml` with `queries/stran
 1925:
 - article_id: 0000164_19251012_0005-127
   filename: .../Part 1/0000164- The Courier and Argus/1925/0000164_19251012/0000164_19251012.xml
-  issue_id: BSNP0164
+  issue_id: 0000164_19251012
   matches:
   - [stranger, is, now, out, of, danger]
   page_ids: ['0005']

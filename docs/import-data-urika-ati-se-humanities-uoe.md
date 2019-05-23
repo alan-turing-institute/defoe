@@ -12,6 +12,8 @@ Do **not** mount DataStore directories directly onto Lustre.
 
 ## Copy British Library Books dataset
 
+Space required: ~224 GB
+
 Mount CAHSS Digital Cultural Heritage DataStore directory into your home directory on Urika:
 
 ```bash
@@ -61,6 +63,8 @@ cmp blb-files.txt mount-blb-files.txt
 ---
 
 ## Copy British Library Newspapers dataset
+
+Space required: ~424 GB
 
 Mount Library British Library Newspapers DataStore directory into your home directory on Urika:
 
@@ -143,6 +147,8 @@ cmp bln-files.txt  mount-bln-files.txt
 
 ## Copy Times Digital Archive dataset
 
+Space required: ~362 GB
+
 Mount CAHSS Digital Cultural Heritage DataStore directory into your home directory on Urika:
 
 ```bash
@@ -153,7 +159,7 @@ sshfs -o intr,large_read,auto_cache,workaround=all -oPort=22222 <your-datastore-
 Copy XML files only and set permissions in copy to be user-readable only:
 
 ```bash
-nohup rsync -mrq --include "*/" --include "*.xml" --exclude "*" --chmod=Du=rwx,Dgo=,Fu=rwx,Fgo= dch/LBORO/TimesDigitalArchive_XMLS/TDAO0001/TDAO0001-C00000/Newspapers/0FFO/ /mnt/lustre/<project>/<project>/<username>/TDA > tdalog.txt &
+nohup rsync -mrq --include "*/" --exclude "gale*.xml" --include "*.xml" --exclude "*" --chmod=Du=rwx,Dgo=,Fu=rwx,Fgo= dch/LBORO/TimesDigitalArchive_XMLS/TDA_GDA_1785-2009/ /mnt/lustre/<project>/<project>/<username>/TDA &
 ```
 
 You can optionally validate the transfer as follows:
@@ -163,22 +169,22 @@ You can optionally validate the transfer as follows:
 ```bash
 cd /mnt/lustre/<project>/<project>/<username>
 find TDA/ -name "*.xml" > tda.txt
-cut -d "/" -f2 tda.txt | sort > tda-files.txt
+cut -d "/" -f4 tda.txt | sort > tda-files.txt
 wc -l tda-files.txt
 ```
 ```
-19778 tda-files.txt
+69699 tda-files.txt
 ```
 
 * Get file names from DataStore:
 
 ```bash
-find ~/dch/LBORO/TimesDigitalArchive_XMLS/TDAO0001/TDAO0001-C00000/Newspapers/0FFO/ -name "*.xml" > mount-tda.txt 
-cut -d "/" -f12 mount-tda.txt | sort > mount-tda-files.txt
+find ~/dch/LBORO/TimesDigitalArchive_XMLS/TDA_GDA_1785-2009/ -name "*.xml" > mount-tda.txt 
+cut -d "/" -f11 mount-tda.txt | grep -v gale | sort > mount-tda-files.txt
 wc -l mount-tda-files.txt
 ```
 ```
-19778 mount-tda-files.txt
+69699 mount-tda-files.txt
 ```
 
 * Compare:
@@ -192,6 +198,8 @@ cmp tda-files.txt mount-tda-files.txt
 ---
 
 ## Copy Papers Past New Zealand and Pacific newspapers dataset
+
+Space required: ~4 GB
 
 Mount CAHSS Digital Cultural Heritage DataStore directory into your home directory on Urika:
 
