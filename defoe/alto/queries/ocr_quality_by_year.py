@@ -31,19 +31,20 @@ def do_query(archives, config_file=None, logger=None):
     documents = archives.flatMap(
         lambda archive: [(document.year, document) for document in list(archive)])
     
-
+    ###### original implementation
     # [(year, [quality]), ...]
     #qualities = documents.flatMap(
-        #lambda document: [(document[0], [page.pc]) for page in document[1]])
+    #    lambda document: [(document[0], [page.pc]) for page in document[1]])
+    #result = qualities \
+    #    .reduceByKey(concat) \
+    #    .collect()
+    
+    #[(year, [quality, words_found]), ...]
     qualities = documents.flatMap(
         lambda document: [(document[0], [page.pc, calculate_words_within_dictionary(page)]) for page in document[1]])
-    print("results are %s" % qualities.take(3))
     result = qualities \
         .groupByKey() \
         .map(lambda year_q:
              (year_q[0], list(year_q[1]))) \
         .collect()
-    #result = qualities \
-    #    .reduceByKey(concat) \
-    #    .collect()
     return result
