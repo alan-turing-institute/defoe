@@ -3,6 +3,8 @@ Gets measure of OCR quality for each page and groups by year.
 """
 
 from operator import concat
+from operator import add
+from defoe.alto.query_utils import calculate_words_within_dictionary
 
 
 def do_query(archives, config_file=None, logger=None):
@@ -28,11 +30,20 @@ def do_query(archives, config_file=None, logger=None):
     # [(year, document), ...]
     documents = archives.flatMap(
         lambda archive: [(document.year, document) for document in list(archive)])
+    
 
     # [(year, [quality]), ...]
+    #qualities = documents.flatMap(
+        #lambda document: [(document[0], [page.pc]) for page in document[1]])
     qualities = documents.flatMap(
-        lambda document: [(document[0], [page.pc]) for page in document[1]])
+        lambda document: [(document[0], [page.pc, calculate_words_within_dictionary(page)]) for page in document[1]])
+    print("results are %s" % qualities.take(3))
     result = qualities \
-        .reduceByKey(concat) \
+        .groupByKey() \
+        .map(lambda year_q:
+             (year_q[0], list(year_q[1]))) \
         .collect()
+    #result = qualities \
+    #    .reduceByKey(concat) \
+    #    .collect()
     return result
