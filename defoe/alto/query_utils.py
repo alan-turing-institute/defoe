@@ -350,7 +350,8 @@ def get_page_text_preprocessed(raw_sentence,
 
 
 
-def calculate_words_within_dictionary(page):
+def calculate_words_within_dictionary(page, 
+                   preprocess_type=PreprocessWordType.NORMALIZE):
     """
     Calculates the % of page words within a dictionary and also returns the page quality (pc)
     Page words are normalized. 
@@ -362,7 +363,6 @@ def calculate_words_within_dictionary(page):
     :rtype: list(str or unicode)
     """
     dictionary = words.words()
-    preprocess_type=PreprocessWordType.NORMALIZE
     counter= 0
     total_words= 0
     for word in page.words:
@@ -371,12 +371,19 @@ def calculate_words_within_dictionary(page):
             total_words += 1
             if  preprocessed_word in dictionary:
                counter +=  1
-    #calculate_pc = str((counter *100/len(page.words)))
-    calculate_pc = str(counter *100/total_words)
+    try:
+       calculate_pc = str(counter*100/total_words)
+    except:
+       calculate_pc = "0" 
     return calculate_pc
 
 
 def nltkConll(setence_text):
+    """
+    NLTK implementation
+    Receives a sentences, and split them in tokens.
+    Returning each token,normalized token,lemma, stem, POStag and NER  as an element in a list
+    """
     output_total=[]
     doc=query_utils.word_to_token(setence_text)
     for i, word in enumerate(doc):
@@ -391,6 +398,11 @@ def nltkConll(setence_text):
 
 
 def spacyConll(sentence_text):
+    """
+    spaCy implementation
+    Receives a sentences, and split them in tokens.
+    Returning each token,normalized token,lemma, POS, tag and NER  as an element in a list
+    """
     nlp = spacy.load('en')
     doc = nlp(sentence_text)
     output_total=[]
