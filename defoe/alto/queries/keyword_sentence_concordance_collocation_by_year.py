@@ -5,7 +5,7 @@ This query detects also the sentences in which keywords appear, and preprocess e
 import os.path
 import yaml
 from defoe import query_utils
-from defoe.alto.query_utils import get_page_matches, get_sentence_concordance, get_page_sentences
+from defoe.alto.query_utils import get_page_matches, get_sentence_concordance, get_page_sentences, get_sentence_preprocessed
 from defoe.alto.query_utils import PreprocessWordType
 from defoe.query_utils import PreprocessWordType
 
