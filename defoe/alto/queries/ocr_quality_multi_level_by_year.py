@@ -30,7 +30,7 @@ def do_query(archives, config_file=None, logger=None):
     documents = archives.flatMap(
         lambda archive: [(document.year, document) for document in list(archive)])
 
-    # [(year, [quality], [word quality], [charater quality]), ...]
+    # [(year, [page_confidence, average_words_confidence ]), ...]
     qualities = documents.flatMap(
         lambda document: [(document[0], [page.pc, calculate_words_confidence_average(page)]) for page in document[1]])
     result = qualities \
