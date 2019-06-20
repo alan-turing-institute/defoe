@@ -208,6 +208,28 @@ class Document(object):
         for page in self:
             for word in page.words:
                 yield page, word
+    
+    def scan_wc(self):
+        """
+        Iterate over words cualities in pages.
+
+        :return: page and wc
+        :rtype: tuple(defoe.alto.page.Page, str or unicode)
+        """
+        for page in self:
+            for wc in page.wc:
+                yield page, wc
+    
+    def scan_cc(self):
+        """
+        Iterate over characters cualities in pages.
+
+        :return: page and cc
+        :rtype: tuple(defoe.alto.page.Page, str or unicode)
+        """
+        for page in self:
+            for cc in page.cc:
+                yield page, cc
 
     def scan_images(self):
         """
@@ -249,3 +271,23 @@ class Document(object):
         """
         for _, image in self.scan_images():
             yield image
+    
+    def wc(self):
+        """
+        Iterate over words cualities.
+
+        :return: wc
+        :rtype: str or unicode
+        """
+        for _, wc in self.scan_wc():
+            yield wc
+    
+    def cc(self):
+        """
+        Iterate over characters cualities.
+
+        :return: wc
+        :rtype: str or unicode
+        """
+        for _, cc in self.scan_cc():
+            yield cc
