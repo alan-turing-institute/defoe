@@ -125,3 +125,25 @@ def calculate_words_within_dictionary(page,
        calculate_pc = "0" 
     return calculate_pc
 
+def calculate_words_confidence_average(page):
+    """
+    Calculates the average of "words confidence (wc)"  within a page.
+    Page words are normalized. 
+    :param page: Page
+    :type page: defoe.alto.page.Page
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :return: matches
+    :rtype: list(str or unicode)
+    """
+    dictionary = words.words()
+    counter= 0
+    total_wc= 0
+    for wc in page.wc:
+               total_wc += float(wc)
+    try:
+       calculate_wc = str(total_wc/len(page.wc))
+    except:
+       calculate_wc = "0" 
+    return calculate_wc
+
