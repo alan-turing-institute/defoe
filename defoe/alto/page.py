@@ -21,6 +21,10 @@ class Page(object):
     """ XPath query for Graphical Element """
     PAGE_XPATH = etree.XPath('//Page')
     """ XPath query for Page """
+    WC_XPATH = etree.XPath('//String/@WC')
+    """ XPath query for Word Confidence  content """
+    CC_XPATH = etree.XPath('//String/@CC')
+    """ XPath query for Caracther Confidence content """
 
     def __init__(self, document, code, source=None):
         """
@@ -46,6 +50,8 @@ class Page(object):
         self.page_words = None
         self.page_strings = None
         self.page_images = None
+        self.page_wc = None
+        self.page_cc = None
 
     def query(self, xpath_query):
         """
@@ -84,6 +90,34 @@ class Page(object):
         if not self.page_words:
             self.page_words = list(map(unicode, self.query(Page.WORDS_XPATH)))
         return self.page_words
+    
+    @property
+    def wc(self):
+        """
+        Gets all word confidences (wc)  in page. These are then saved in an attribute,
+        so the wc are only retrieved once.
+
+        :return: wc
+        :rtype: list(str)
+        """
+        if not self.page_wc:
+            self.page_wc = list(self.query(Page.WC_XPATH))
+
+        return self.page_wc
+    
+    @property
+    def cc(self):
+        """
+        Gets all character confidences (cc)  in page. These are then saved in an attribute,
+        so the cc are only retrieved once.
+
+        :return: cc
+        :rtype: list(str)
+        """
+        if not self.page_cc:
+            self.page_cc = list(self.query(Page.CC_XPATH))
+
+        return self.page_cc
 
     @property
     def strings(self):
