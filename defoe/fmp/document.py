@@ -238,7 +238,7 @@ class Document(object):
 
     @property
     def articles(self):
-        #{'art0001': {'pa0001001': ['RECT', '1220,5,2893,221'], 'pa0001003': ['RECT', '2934,14,3709,211'], ...]}, 'art0025': {'pa0004044': ['RECT', '5334,2088,5584,2121'], ..}, ..}
+       #{'art0001': {'pa0001001': ['RECT', '1220,5,2893,221'], 'pa0001003': ['RECT', '2934,14,3709,211'], ...]}, 'art0025': {'pa0004044': ['RECT', '5334,2088,5584,2121'], ..}, ..}
        self.articlesInfo=articles_info(self.articlesId, self.articlesParts, self.partsCoord)
        for page in self:
           for tb in page.tb:
@@ -247,7 +247,7 @@ class Document(object):
                         if partsId == tb.texblock_id:
                             self.articleInfo[articleId][partId].append(tb)
         
-        return self.articleInfo   
+       return self.articleInfo   
                   
     
     def scan_cc(self):
