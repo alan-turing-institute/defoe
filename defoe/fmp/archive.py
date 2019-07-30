@@ -21,7 +21,7 @@ where:
 * <FILE_CODE> is [0-9_]*
 """
 
-from defoe.alto.archive import AltoArchive
+from defoe.fmp.alto_archive import AltoArchive
 
 
 class Archive(AltoArchive):
