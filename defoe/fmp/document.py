@@ -24,12 +24,12 @@ class Document(object):
         """
         self.namespaces = {
             "mods": 'http://www.loc.gov/mods/v3',
-            "mets": 'http://www.loc.gov/METS/'
+            "mets": 'http://www.loc.gov/METS/',
             "xsi": "http://www.w3.org/2001/XMLSchema-instance",
             "premis": "info:lc/xmlns/premis-v2",
             "dcterms": "http://purl.org/dc/terms/",
             "fits": "http://hul.harvard.edu/ois/xml/ns/fits/fits_output",
-             "xlink": "http://www.w3.org/1999/xlink",
+             "xlink": "http://www.w3.org/1999/xlink"
         }
         self.archive = archive
         self.code = code
