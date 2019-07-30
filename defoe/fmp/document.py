@@ -53,11 +53,11 @@ class Document(object):
             self.year = None
 
         #[art0001, art0002, art0003]
-        self.articlesId=parse_structMap_Logical(self.metadata_tree)
+        self.articlesId=self.parse_structMap_Logical()
         #{'#art0001':['#pa0001001', '#pa0001002', '#pa0001003', '#pa0001004', '#pa0001005', '#pa0001006', '#pa0001007'], '#art0002': ['#pa0001008', '#pa0001009' ..]}
-        self.articlesParts=parse_structLink(self.metadata_tree)
+        self.articlesParts=self.parse_structLink()
         #{'pa0001001': ['RECT', '1220,5,2893,221'], 'pa0001003': ['RECT', '2934,14,3709,211'], 'pa0004044': ['RECT', '5334,2088,5584,2121']}
-        self.partsCoord=parse_structMap_Physical(self.metadata_tree)
+        self.partsCoord=self.parse_structMap_Physical()
         self.num_articles=len(self.articlesId)
 
     @staticmethod
@@ -239,7 +239,7 @@ class Document(object):
     @property
     def articles(self):
        #{'art0001': {'pa0001001': ['RECT', '1220,5,2893,221'], 'pa0001003': ['RECT', '2934,14,3709,211'], ...]}, 'art0025': {'pa0004044': ['RECT', '5334,2088,5584,2121'], ..}, ..}
-       self.articlesInfo=articles_info(self.articlesId, self.articlesParts, self.partsCoord)
+       self.articlesInfo=self.articles_info()
        for page in self:
           for tb in page.tb:
                for articleId, parts in self.articlesInfo.iteritems():
@@ -324,10 +324,10 @@ class Document(object):
         for _, cc in self.scan_cc():
             yield cc
 
-    def parse_structMap_Physical(tree):
+    def parse_structMap_Physical(self):
         # Parse structMap
         partsCoord = dict()
-        elem = tree.find('mets:structMap[@TYPE="PHYSICAL"]', self.namespaces)
+        elem = self.metadata_tree.find('mets:structMap[@TYPE="PHYSICAL"]', self.namespaces)
         for physic in elem:
             parts = physic.findall('mets:div[@TYPE="page"]', self.namespaces)
             for part in parts:
@@ -338,20 +338,20 @@ class Document(object):
                        partsCoord[metadata.values()[0]] =[fp.values()[1], fp.values()[2]]
         return partsCoord
 
-    def parse_structMap_Logical(tree):
+    def parse_structMap_Logical(self):
         # Parse structMap
         articlesId=[]
-        elem = tree.find('mets:structMap[@TYPE="LOGICAL"]', self.namespaces)
+        elem = self.metadata_tree.find('mets:structMap[@TYPE="LOGICAL"]', self.namespaces)
         for logic in elem:
             articles = logic.findall('mets:div[@TYPE="ARTICLE"]', self.namespaces)
             for article in articles:
                 articlesId.append(article.values()[0])
         return articlesId
 
-    def parse_structLink(tree):
+    def parse_structLink(self):
         # Parse structLink
         articlesParts = dict()
-        elem = tree.findall('mets:structLink', self.namespaces)
+        elem = self.metadata_tree.findall('mets:structLink', self.namespaces)
         for smlinkgrp in elem:
             parts = smlinkgrp.findall('mets:smLinkGrp', self.namespaces)
             for linklocator in smlinkgrp:
@@ -364,13 +364,13 @@ class Document(object):
         return articlesParts     
 
 
-    def articles_info(articlesId, articlesParts, partsCoord):
+    def articles_info(self):
         # Get the coords for each of the parts of each the articles
         #Example: {'art0001': {'pa0001001': ['RECT', '1220,5,2893,221'], 'pa0001003': ['RECT', '2934,14,3709,211'], ...]}, 'art0025': {'pa0004044': ['RECT', '5334,2088,5584,2121'], ..}, ..}
         articlesInfo = dict()
-        for a_id in articlesId:
+        for a_id in self.articlesId:
             articlesInfo[a_id]= dict()
-            for p_id in articlesParts[a_id]:
-                articlesInfo[a_id][p_id] = partsCoord[p_id]
+            for p_id in self.articlesParts[a_id]:
+                articlesInfo[a_id][p_id] = self.partsCoord[p_id]
         return articlesInfo
             
