@@ -3,9 +3,7 @@ Object model representation of a document represented as a collection
 of XML files in METS/MODS format.
 """
 import re
-
 from lxml import etree
-
 from defoe.fmp.page import Page
 
 
@@ -60,6 +58,7 @@ class Document(object):
         self.articlesParts=parse_structLink(self.metadata_tree)
         #{'pa0001001': ['RECT', '1220,5,2893,221'], 'pa0001003': ['RECT', '2934,14,3709,211'], 'pa0004044': ['RECT', '5334,2088,5584,2121']}
         self.partsCoord=parse_structMap_Physical(self.metadata_tree)
+        self.num_articles=len(self.articlesId)
 
     @staticmethod
     def parse_year(text):
