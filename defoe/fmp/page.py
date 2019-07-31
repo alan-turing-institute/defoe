@@ -59,7 +59,7 @@ class Page(object):
         self.page_wc = None
         self.page_cc = None
         self.page_blocks_id= None
-        self.tb = [TextBlock(tb) for tb in self.query(PAGE.TB_XPATH)]
+        self.tb = [TextBlock(tb) for tb in self.query(Page.TB_XPATH)]
     
 
     def query(self, xpath_query):

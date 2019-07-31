@@ -51,7 +51,6 @@ class Document(object):
             self.year = self.years[0]
         else:
             self.year = None
-
         #[art0001, art0002, art0003]
         self.articlesId=self.parse_structMap_Logical()
         #{'#art0001':['#pa0001001', '#pa0001002', '#pa0001003', '#pa0001004', '#pa0001005', '#pa0001006', '#pa0001007'], '#art0002': ['#pa0001008', '#pa0001009' ..]}
@@ -238,16 +237,20 @@ class Document(object):
 
     @property
     def articles(self):
+       self.document_articles = {}
        #{'art0001': {'pa0001001': ['RECT', '1220,5,2893,221'], 'pa0001003': ['RECT', '2934,14,3709,211'], ...]}, 'art0025': {'pa0004044': ['RECT', '5334,2088,5584,2121'], ..}, ..}
-       self.articlesInfo=self.articles_info()
+       articlesInfo=self.articles_info()
        for page in self:
           for tb in page.tb:
-               for articleId, parts in self.articlesInfo.iteritems():
+               for articleId, parts in articlesInfo.iteritems():
+                    self.document_articles[articleId]=[]
                     for partId, in articlesInfo[articleId]:
                         if partsId == tb.texblock_id:
-                            self.articleInfo[articleId][partId].append(tb)
-        
-       return self.articleInfo   
+                            tb.textblock_shape=articleInfo[articleId][partId][0]
+                            tb.textblock_coords=articleInfo[articleId][partId][1]
+                            self.document_articles[articleId].append(tb)
+       print("PRUEBA self.articleInfo %s" %self.articles)
+       return self.document_articles  
                   
     
     def scan_cc(self):
