@@ -1,5 +1,5 @@
 """
-Object model representation of a page represented as an XML file in
+Object model representation of a textblock represented as an XML file in
 METS/MODS format.
 """
 
@@ -9,7 +9,7 @@ from lxml import etree
 
 class TextBlock(object):
     """
-    Object model representation of a page represented as an XML file
+    Object model representation of a textblock represented as an XML file
     in METS/MODS format.
     """
 
@@ -38,7 +38,7 @@ class TextBlock(object):
         self.textblock_cc = None
         self.textblock_shape = None
         self.textblock_coords = None
-        self.textblock_page_area = None
+        self.textblock_textblock_area = None
         self.textblock_id = self.textblock_tree.get("ID")
 
 
@@ -70,75 +70,75 @@ class TextBlock(object):
     @property
     def words(self):
         """
-        Gets all words in page. These are then saved in an attribute,
+        Gets all words in textblock. These are then saved in an attribute,
         so the words are only retrieved once.
 
         :return: words
         :rtype: list(str or unicode)
         """
-        if not self.page_words:
-            self.page_words = list(map(unicode, self.query(TextBlock.WORDS_XPATH)))
-        return self.page_words
+        if not self.textblock_words:
+            self.textblock_words = list(map(unicode, self.query(TextBlock.WORDS_XPATH)))
+        return self.textblock_words
     
     @property
     def wc(self):
         """
-        Gets all word confidences (wc)  in page. These are then saved in an attribute,
+        Gets all word confidences (wc)  in textblock. These are then saved in an attribute,
         so the wc are only retrieved once.
 
         :return: wc
         :rtype: list(str)
         """
-        if not self.page_wc:
-            self.page_wc = list(self.query(TextBlock.WC_XPATH))
+        if not self.textblock_wc:
+            self.textblock_wc = list(self.query(TextBlock.WC_XPATH))
 
-        return self.page_wc
+        return self.textblock_wc
     
     @property
     def cc(self):
         """
-        Gets all character confidences (cc)  in page. These are then saved in an attribute,
+        Gets all character confidences (cc)  in textblock. These are then saved in an attribute,
         so the cc are only retrieved once.
 
         :return: cc
         :rtype: list(str)
         """
-        if not self.page_cc:
-            self.page_cc = list(self.query(TextBlock.CC_XPATH))
+        if not self.textblock_cc:
+            self.textblock_cc = list(self.query(TextBlock.CC_XPATH))
 
-        return self.page_cc
+        return self.textblock_cc
 
     @property
     def strings(self):
         """
-        Gets all strings in page. These are then saved in an attribute,
+        Gets all strings in textblock. These are then saved in an attribute,
         so the strings are only retrieved once.
 
         :return: strings
         :rtype: list(lxml.etree._ElementStringResult)
         """
-        if not self.page_strings:
-            self.page_strings =self.query(TextBlock.STRINGS_XPATH)
-        return self.page_strings
+        if not self.textblock_strings:
+            self.textblock_strings =self.query(TextBlock.STRINGS_XPATH)
+        return self.textblock_strings
     
 
     @property
     def images(self):
         """
-        Gets all images in page. These are then saved in an attribute,
+        Gets all images in textblock. These are then saved in an attribute,
         so the images are only retrieved once.
 
         :return: images
         :rtype: list(lxml.etree._Element)
         """
-        if not self.page_images:
-            self.page_images = self.query(TextBlock.IMAGES_XPATH)
-        return self.page_images
+        if not self.textblock_images:
+            self.textblock_images = self.query(TextBlock.IMAGES_XPATH)
+        return self.textblock_images
 
     @property
     def content(self):
         """
-        Gets all words in page and contatenates together using ' ' as
+        Gets all words in textblock and contatenates together using ' ' as
         delimiter.
 
         :return: content
