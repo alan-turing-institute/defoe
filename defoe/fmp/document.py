@@ -209,6 +209,19 @@ class Document(object):
         for page in self:
             for string in page.strings:
                 yield page, string
+    
+    def scan_tb(self):
+        """
+        Iterate over strings in pages.
+
+        :return: page and string
+        :rtype: tuple(defoe.alto.page.Page, str or unicode)
+        """
+        for page in self:
+            for tb in page.tb:
+                yield page, tb
+
+
 
     def scan_words(self):
         """
@@ -241,16 +254,17 @@ class Document(object):
        #{'art0001': {'pa0001001': ['RECT', '1220,5,2893,221'], 'pa0001003': ['RECT', '2934,14,3709,211'], ...]}, 'art0025': {'pa0004044': ['RECT', '5334,2088,5584,2121'], ..}, ..}
        articlesInfo=self.articles_info()
        for page in self:
-          for tb in page.tb:
-               for articleId, parts in articlesInfo.iteritems():
-                    self.document_articles[articleId]=[]
-                    for partId, in articlesInfo[articleId]:
-                        if partsId == tb.texblock_id:
-                            tb.textblock_shape=articleInfo[articleId][partId][0]
-                            tb.textblock_coords=articleInfo[articleId][partId][1]
+           for tb in page.tb:
+               for articleId in articlesInfo:
+                    for partId in articlesInfo[articleId]:
+                        if partId == tb.textblock_id:
+                            if articleId not in self.document_articles:
+                                self.document_articles[articleId] = []
+                            tb.textblock_shape=articlesInfo[articleId][partId][0]
+                            tb.textblock_coords=articlesInfo[articleId][partId][1]
                             self.document_articles[articleId].append(tb)
-       print("PRUEBA self.articleInfo %s" %self.articles)
-       return self.document_articles  
+
+       return self.document_articles
                   
     
     def scan_cc(self):
@@ -284,6 +298,16 @@ class Document(object):
         """
         for _, string in self.scan_strings():
             yield string
+    
+    def tb(self):
+        """
+        Iterate over strings.
+
+        :return: string
+        :rtype: str or unicode
+        """
+        for _, tb in self.scan_tb():
+            yield tb
     
 
     def words(self):
