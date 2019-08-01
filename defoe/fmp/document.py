@@ -54,8 +54,9 @@ class Document(object):
         #[art0001, art0002, art0003]
         self.articlesId=self.parse_structMap_Logical()
         #{'#art0001':['#pa0001001', '#pa0001002', '#pa0001003', '#pa0001004', '#pa0001005', '#pa0001006', '#pa0001007'], '#art0002': ['#pa0001008', '#pa0001009' ..]}
-        self.articlesParts=self.parse_structLink()
+        self.articlesParts, self.partsPage=self.parse_structLink()
         #{'pa0001001': ['RECT', '1220,5,2893,221'], 'pa0001003': ['RECT', '2934,14,3709,211'], 'pa0004044': ['RECT', '5334,2088,5584,2121']}
+        #{'pa0001001': 'page1 area1', 'pa0001003': 'page1 area3'}
         self.partsCoord=self.parse_structMap_Physical()
         self.num_articles=len(self.articlesId)
 
@@ -262,6 +263,7 @@ class Document(object):
                                 self.document_articles[articleId] = []
                             tb.textblock_shape=articlesInfo[articleId][partId][0]
                             tb.textblock_coords=articlesInfo[articleId][partId][1]
+                            tb.textblock_page_area=articlesInfo[articleId][partId][2]
                             self.document_articles[articleId].append(tb)
 
        return self.document_articles
@@ -378,6 +380,7 @@ class Document(object):
     def parse_structLink(self):
         # Parse structLink
         articlesParts = dict()
+        partsPage= dict()
         elem = self.metadata_tree.findall('mets:structLink', self.namespaces)
         for smlinkgrp in elem:
             parts = smlinkgrp.findall('mets:smLinkGrp', self.namespaces)
@@ -385,19 +388,22 @@ class Document(object):
                 linkl = linklocator.findall('mets:smLocatorLink', self.namespaces)
                 article_parts=[]
                 for link in linkl:
-                    linkValue=link.values()[0]
-                    article_parts.append(re.sub('[^A-Za-z0-9]+', '', linkValue))
+                    mystring=link.values()[0]
+                    partId=re.sub('[^A-Za-z0-9]+', '', mystring)
+                    article_parts.append(partId)
+                    partsPage[partId]=link.values()[1]
                 articlesParts[article_parts[0]]=article_parts[1:]
-        return articlesParts     
+        return articlesParts,partsPage     
 
 
     def articles_info(self):
         # Get the coords for each of the parts of each the articles
-        #Example: {'art0001': {'pa0001001': ['RECT', '1220,5,2893,221'], 'pa0001003': ['RECT', '2934,14,3709,211'], ...]}, 'art0025': {'pa0004044': ['RECT', '5334,2088,5584,2121'], ..}, ..}
+        #Example: art0001 {'pa0001001': ['RECT', '1220,5,2893,221', 'page1 area1'], 'pa0001003': ['RECT', '2934,14,3709,211', 'page1 area3'], ....}
         articlesInfo = dict()
         for a_id in self.articlesId:
             articlesInfo[a_id]= dict()
             for p_id in self.articlesParts[a_id]:
+                self.partsCoord[p_id].append(self.partsPage[p_id])
                 articlesInfo[a_id][p_id] = self.partsCoord[p_id]
         return articlesInfo
             

@@ -38,6 +38,7 @@ class TextBlock(object):
         self.textblock_cc = None
         self.textblock_shape = None
         self.textblock_coords = None
+        self.textblock_page_area = None
         self.textblock_id = self.textblock_tree.get("ID")
 
 
