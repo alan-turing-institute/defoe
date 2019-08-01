@@ -51,7 +51,7 @@ class TextBlock(object):
         :return: list of query results or None if none
         :rtype: list(lxml.etree.<MODULE>) (depends on query)
         """
-        return xpath_query(self.tree)
+        return xpath_query(self.textblock_tree)
 
     def single_query(self, xpath_query):
         """
