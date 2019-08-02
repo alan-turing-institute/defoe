@@ -54,9 +54,9 @@ class Document(object):
         #[art0001, art0002, art0003]
         self.articlesId=self.parse_structMap_Logical()
         #{'#art0001':['#pa0001001', '#pa0001002', '#pa0001003', '#pa0001004', '#pa0001005', '#pa0001006', '#pa0001007'], '#art0002': ['#pa0001008', '#pa0001009' ..]}
+        #{'pa0001001': 'page1 area1', 'pa0001003': 'page1 area3'}
         self.articlesParts, self.partsPage=self.parse_structLink()
         #{'pa0001001': ['RECT', '1220,5,2893,221'], 'pa0001003': ['RECT', '2934,14,3709,211'], 'pa0004044': ['RECT', '5334,2088,5584,2121']}
-        #{'pa0001001': 'page1 area1', 'pa0001003': 'page1 area3'}
         self.partsCoord=self.parse_structMap_Physical()
         self.num_articles=len(self.articlesId)
 
@@ -393,7 +393,7 @@ class Document(object):
                     article_parts.append(partId)
                     partsPage[partId]=link.values()[1]
                 articlesParts[article_parts[0]]=article_parts[1:]
-        return articlesParts,partsPage     
+        return articlesParts, partsPage     
 
 
     def articles_info(self):
@@ -403,7 +403,7 @@ class Document(object):
         for a_id in self.articlesId:
             articlesInfo[a_id]= dict()
             for p_id in self.articlesParts[a_id]:
-                self.partsCoord[p_id].append(self.partsPage[p_id])
-                articlesInfo[a_id][p_id] = self.partsCoord[p_id]
-        return articlesInfo
-            
+                if p_id in self.partsCoord:
+                   self.partsCoord[p_id].append(self.partsPage[p_id])
+                   articlesInfo[a_id][p_id] = self.partsCoord[p_id]
+        return articlesInfo       
