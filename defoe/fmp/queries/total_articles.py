@@ -4,7 +4,6 @@ Counts total number of pages.
 
 from operator import add
 
-
 def do_query(archives, config_file=None, logger=None):
     """
     Iterate through archives and count total number of documents
@@ -30,7 +29,7 @@ def do_query(archives, config_file=None, logger=None):
     documents = archives.flatMap(lambda archive: list(archive))
     # [num_articles, num_articles, ...]
     num_articles = documents.map(lambda document: document.num_articles)
-   
+    print("num documents %s" %documents.count()) 
     result = [documents.count(), num_articles.reduce(add)]
     return {"num_documents": result[0],
             "num_articles": result[1]}
