@@ -145,3 +145,4 @@ class TextBlock(object):
         :rtype: str or unicode
         """
         return ' '.join(self.words)
+
