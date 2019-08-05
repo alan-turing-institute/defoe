@@ -48,7 +48,7 @@ def get_page_matches(document,
 
 
 
-def get_article_matches(document_articles,
+def get_article_matches(document,
                      keywords,
                      preprocess_type=PreprocessWordType.NORMALIZE):
     """
@@ -72,14 +72,16 @@ def get_article_matches(document_articles,
     """
     #article_info[0]['art0079'][0].textblock_words
     matches = []
+    #document_articles=document.articles()
+    document_articles=document.articles
     for keyword in keywords:
-          for article in document_articles: 
+       for article in document_articles:
 	     for tb in document_articles[article]:
                  match = None
                  for word in tb.words:
                      preprocessed_word = query_utils.preprocess_word(word, preprocess_type)
                      if preprocessed_word == keyword:
-                         match = (article, tb.textblock_coords, tb.textblock_page_area, keyword)
+                         match = (document.year, document, article, tb.textblock_coords, tb.textblock_page_area, keyword)
                          break
                  if match:
                      matches.append(match)
