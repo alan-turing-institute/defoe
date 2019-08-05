@@ -66,11 +66,10 @@ def do_query(archives, config_file=None, logger=None):
         (year_document_page_word[5],
          {"title": year_document_page_word[1].title,
           "place": year_document_page_word[1].place,
-          "publisher": year_document_page_word[1].publisher,
           "article": year_document_page_word[2],
           "coord": year_document_page_word[3],
           "page_area": year_document_page_word[4],
-           "filename": year_document_page_word[1].archive.filename}))
+          "filename": year_document_page_word[1].archive.filename}))
 
 
     # [(word, {"title": title, ...}), ...]
