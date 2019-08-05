@@ -51,19 +51,27 @@ def do_query(archives, config_file=None, logger=None):
     # [document, ...]
     documents = archives.flatMap(
         lambda archive: [document for document in list(archive)])
-    documents_articles = documents.map(lambda document: document.articles)
-   
-    filtered_words = documents_articles.flatMap(
-        lambda document_articles: get_article_matches(document_articles , keywords))
-    # [(year, document, page, word), ...]
-    print("PRUEBA %s" % filtered_words.take(1))
+
+
+    #documents_articles = documents.map(lambda document: document.articles)
+  
+ 
+    filtered_words = documents.flatMap(
+        lambda document: get_article_matches(document , keywords))
+    #[(year, document, article, textblock_coords, textblock_page_area, keyword), ....]
+    # =>
+    # [(word, {"title": title, ...}), ...]
     matching_docs = filtered_words.map(
         lambda year_document_page_word:
-        (year_document_page_word[3],
-         {"article": year_document_page_word[0],
-          "coord": year_document_page_word[1],
-          "page_area": year_document_page_word[2]
-          }))
+        (year_document_page_word[5],
+         {"title": year_document_page_word[1].title,
+          "place": year_document_page_word[1].place,
+          "publisher": year_document_page_word[1].publisher,
+          "article": year_document_page_word[2],
+          "coord": year_document_page_word[3],
+          "page_area": year_document_page_word[4],
+           "filename": year_document_page_word[1].archive.filename}))
+
 
     # [(word, {"title": title, ...}), ...]
     # =>
