@@ -49,8 +49,8 @@ def get_page_matches(document,
 
 
 def get_article_matches(document,
-                     keywords,
-                     preprocess_type=PreprocessWordType.NORMALIZE):
+                        keywords,
+                        preprocess_type=PreprocessWordType.LEMMATIZE):
     """
 
         (<YEAR>, <DOCUMENT>, <COORDS>, <PAGE_AREA> <KEYWORD>)

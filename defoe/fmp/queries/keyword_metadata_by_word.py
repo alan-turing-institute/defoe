@@ -4,6 +4,9 @@ Gets concordance for keywords and groups by word.
 
 from defoe import query_utils
 from defoe.fmp.query_utils import get_article_matches
+from defoe.fmp.query_utils import PreprocessWordType
+import yaml
+import os
 
 
 def do_query(archives, config_file=None, logger=None):
@@ -45,9 +48,17 @@ def do_query(archives, config_file=None, logger=None):
     by word
     :rtype: dict
     """
-    keywords = []
     with open(config_file, "r") as f:
-        keywords = [query_utils.normalize(word) for word in list(f)]
+        config = yaml.load(f)
+    preprocess_type = query_utils.extract_preprocess_word_type(config)
+    data_file = query_utils.extract_data_file(config,
+                                              os.path.dirname(config_file))
+    
+    keywords = []
+    with open(data_file, 'r') as f:
+        keywords = [query_utils.preprocess_word(word, preprocess_type)
+                    for word in list(f)]
+
     # [document, ...]
     documents = archives.flatMap(
         lambda archive: [document for document in list(archive)])
@@ -57,7 +68,7 @@ def do_query(archives, config_file=None, logger=None):
   
  
     filtered_words = documents.flatMap(
-        lambda document: get_article_matches(document , keywords))
+        lambda document: get_article_matches(document , keywords, preprocess_type))
     #[(year, document, article, textblock_coords, textblock_page_area, keyword), ....]
     # =>
     # [(word, {"title": title, ...}), ...]
