@@ -1,0 +1,7 @@
+accident
+machine
+crush
+smash
+disaster
+collision
+incident
