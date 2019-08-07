@@ -59,8 +59,8 @@ class Page(object):
         self.page_wc = None
         self.page_cc = None
         self.page_blocks_id= None
-        self.tb = [TextBlock(tb) for tb in self.query(Page.TB_XPATH)]
-    
+        self.tb = [TextBlock(tb) for tb in self.query(Page.TB_XPATH)] 
+        #self.page_tb = None
 
     def query(self, xpath_query):
         """
@@ -99,7 +99,7 @@ class Page(object):
         if not self.page_words:
             self.page_words = list(map(unicode, self.query(Page.WORDS_XPATH)))
         return self.page_words
-    
+
     @property
     def wc(self):
         """
