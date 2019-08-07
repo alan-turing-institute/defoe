@@ -13,24 +13,21 @@ class TextBlock(object):
     in METS/MODS format.
     """
 
-    WORDS_XPATH = etree.XPath('//String/@CONTENT')
-    """ XPath query for String content """
-    STRINGS_XPATH = etree.XPath('//String')
-    """ XPath query for String elements """
-    IMAGES_XPATH = etree.XPath('//GraphicalElement')
-    """ XPath query for Graphical Element """
-    WC_XPATH = etree.XPath('//String/@WC')
-    """ XPath query for Word Confidence  content """
-    CC_XPATH = etree.XPath('//String/@CC')
-    """ XPath query for Caracther Confidence content """
-   
+    STRINGS_XPATH = 'TextLine/String'
+    """ Query for String elements """
+    WC_XPATH = 'TextLine/String/@WC'
+    """ Query for Word Confidence  content """
+    CC_XPATH = 'TextLine/String/@CC'
+    """ query for Caracther Confidence content """
+    WORDS_XPATH = 'TextLine/String/@CONTENT'
+    """ query for word content """
 
     def __init__(self, textblock_tree):
         """
         Constructor.
 
         """
-	self.textblock_tree = textblock_tree
+        self.textblock_tree = textblock_tree
         self.textblock_words = None
         self.textblock_strings = None
         self.textblock_images = None
@@ -42,31 +39,6 @@ class TextBlock(object):
         self.textblock_id = self.textblock_tree.get("ID")
 
 
-    def query(self, xpath_query):
-        """
-        Run XPath query.
-
-        :param xpath_query: XPath query
-        :type xpath_query: lxml.etree.XPath
-        :return: list of query results or None if none
-        :rtype: list(lxml.etree.<MODULE>) (depends on query)
-        """
-        return xpath_query(self.textblock_tree)
-
-    def single_query(self, xpath_query):
-        """
-        Run XPath query and return first result.
-
-        :param xpath_query: XPath query
-        :type xpath_query: lxml.etree.XPath
-        :return: query result or None if none
-        :rtype: lxml.etree.<MODULE> (depends on query)
-        """
-        result = self.query(xpath_query)
-        if not result:
-            return None
-        return result[0]
-
     @property
     def words(self):
         """
@@ -77,7 +49,7 @@ class TextBlock(object):
         :rtype: list(str or unicode)
         """
         if not self.textblock_words:
-            self.textblock_words = list(map(unicode, self.query(TextBlock.WORDS_XPATH)))
+            self.textblock_words = list(map(unicode, self.textblock_tree.xpath(TextBlock.WORDS_XPATH)))
         return self.textblock_words
     
     @property
@@ -90,8 +62,7 @@ class TextBlock(object):
         :rtype: list(str)
         """
         if not self.textblock_wc:
-            self.textblock_wc = list(self.query(TextBlock.WC_XPATH))
-
+            self.textblock_wc = list(self.textblock_tree.xpath(TextBlock.WC_XPATH))
         return self.textblock_wc
     
     @property
@@ -104,7 +75,7 @@ class TextBlock(object):
         :rtype: list(str)
         """
         if not self.textblock_cc:
-            self.textblock_cc = list(self.query(TextBlock.CC_XPATH))
+            self.textblock_cc = list(self.textblock_tree.xpath(TextBlock.CC_XPATH))
 
         return self.textblock_cc
 
@@ -118,22 +89,9 @@ class TextBlock(object):
         :rtype: list(lxml.etree._ElementStringResult)
         """
         if not self.textblock_strings:
-            self.textblock_strings =self.query(TextBlock.STRINGS_XPATH)
+            self.textblock_strings =self.textblock_tree.xpath(TextBlock.STRINGS_XPATH)
         return self.textblock_strings
     
-
-    @property
-    def images(self):
-        """
-        Gets all images in textblock. These are then saved in an attribute,
-        so the images are only retrieved once.
-
-        :return: images
-        :rtype: list(lxml.etree._Element)
-        """
-        if not self.textblock_images:
-            self.textblock_images = self.query(TextBlock.IMAGES_XPATH)
-        return self.textblock_images
 
     @property
     def content(self):
