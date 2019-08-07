@@ -81,7 +81,7 @@ def get_article_matches(document,
                  for word in tb.words:
                      preprocessed_word = query_utils.preprocess_word(word, preprocess_type)
                      if preprocessed_word == keyword:
-                         match = (document.year, document, article, tb.textblock_coords, tb.textblock_page_area, keyword)
+                         match = (document.year, document, article, tb.textblock_id, tb.textblock_coords, tb.textblock_page_area, tb.words, keyword)
                          break
                  if match:
                      matches.append(match)

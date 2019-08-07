@@ -69,17 +69,20 @@ def do_query(archives, config_file=None, logger=None):
  
     filtered_words = documents.flatMap(
         lambda document: get_article_matches(document , keywords, preprocess_type))
-    #[(year, document, article, textblock_coords, textblock_page_area, keyword), ....]
+    #[(year, document, article, textblock_id, textblock_coords, textblock_page_area, words, keyword), ....]
     # =>
     # [(word, {"title": title, ...}), ...]
     matching_docs = filtered_words.map(
         lambda year_document_page_word:
-        (year_document_page_word[5],
+        (year_document_page_word[7],
          {"title": year_document_page_word[1].title,
           "place": year_document_page_word[1].place,
           "article": year_document_page_word[2],
-          "coord": year_document_page_word[3],
-          "page_area": year_document_page_word[4],
+          "texblock_id": year_document_page_word[3], 
+          "coord": year_document_page_word[4],
+          "page_area": year_document_page_word[5],
+          "year": year_document_page_word[0],
+          "words":  year_document_page_word[6],
           "filename": year_document_page_word[1].archive.filename}))
 
 
