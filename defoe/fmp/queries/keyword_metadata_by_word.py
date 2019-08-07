@@ -63,27 +63,24 @@ def do_query(archives, config_file=None, logger=None):
     documents = archives.flatMap(
         lambda archive: [document for document in list(archive)])
 
-
-    #documents_articles = documents.map(lambda document: document.articles)
-  
- 
     filtered_words = documents.flatMap(
         lambda document: get_article_matches(document , keywords, preprocess_type))
-    #[(year, document, article, textblock_id, textblock_coords, textblock_page_area, words, keyword), ....]
+    #[(year, document, article, textblock_id, textblock_coords, textblock_page_area, words, page_name, keyword), ....]
     # =>
     # [(word, {"title": title, ...}), ...]
     matching_docs = filtered_words.map(
         lambda year_document_page_word:
-        (year_document_page_word[7],
+        (year_document_page_word[8],
          {"title": year_document_page_word[1].title,
           "place": year_document_page_word[1].place,
-          "article": year_document_page_word[2],
+          "article_id": year_document_page_word[2],
           "texblock_id": year_document_page_word[3], 
           "coord": year_document_page_word[4],
           "page_area": year_document_page_word[5],
           "year": year_document_page_word[0],
           "words":  year_document_page_word[6],
-          "filename": year_document_page_word[1].archive.filename}))
+          "page_filename":  year_document_page_word[7],
+          "issue_filename": year_document_page_word[1].archive.filename}))
 
 
     # [(word, {"title": title, ...}), ...]
@@ -91,7 +88,7 @@ def do_query(archives, config_file=None, logger=None):
     # [(word, [{"title": title, ...], {...}), ...)]
     result = matching_docs \
         .groupByKey() \
-        .map(lambda year_context:
-             (year_context[0], list(year_context[1]))) \
+        .map(lambda word_context:
+             (word_context[0], list(word_context[1]))) \
         .collect()
     return result

@@ -22,7 +22,7 @@ class TextBlock(object):
     WORDS_XPATH = 'TextLine/String/@CONTENT'
     """ query for word content """
 
-    def __init__(self, textblock_tree):
+    def __init__(self, textblock_tree, document_code, page_code):
         """
         Constructor.
 
@@ -37,6 +37,7 @@ class TextBlock(object):
         self.textblock_coords = None
         self.textblock_page_area = None
         self.textblock_id = self.textblock_tree.get("ID")
+        self.page_name = document_code + '_' + page_code + '.xml'
 
 
     @property
