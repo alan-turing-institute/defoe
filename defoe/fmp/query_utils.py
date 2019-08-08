@@ -116,9 +116,10 @@ def segment_image(coords, page_name, issue_path, year, keyword):
        
     coords_list=coords.split(",")
     c_set = tuple([int(s) for s in coords_list])
+    coords_name=coords.replace(",", "_")
 
     fname = Path(image).stem
-    out_file = "/home/users/rfilguei2/LwM/defoe/OUTPUT/crop_" +fname + "_"+ str(year) + "_" + keyword + "_"+ coords +".jpg"
+    out_file = "/home/users/rfilguei2/LwM/defoe/OUTPUT/crop_" +fname + "_"+ str(year) + "_" + keyword + "_"+ coords_name +".jpg"
     im = Image.open(image)
     crop = im.crop(c_set)
     crop.save(out_file, quality=80, optimize=True)
