@@ -83,10 +83,12 @@ def do_query(archives, config_file=None, logger=None):
           "year": document_article_word[0],
           "words":  document_article_word[6],
           "page_filename":  document_article_word[7],
+          "issue_id": document_article_word[1].documentId,
           "issue_filename": document_article_word[1].archive.filename}))
 
+
     segmented_images = filtered_words.map(lambda document_article_word: 
-               segment_image(document_article_word[4], document_article_word[7], document_article_word[1].archive.filename)) 
+               segment_image(document_article_word[4], document_article_word[7], document_article_word[1].archive.filename, document_article_word[0], document_article_word[8])) 
 
     segmented_images.collect()
     # [(word, {"article_id": article_id, ...}), ...]
