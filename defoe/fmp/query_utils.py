@@ -5,6 +5,9 @@ Query-related utility functions.
 from defoe import query_utils
 from defoe.query_utils import PreprocessWordType
 from nltk.corpus import words
+from PIL import Image
+from pathlib import Path
+import os
 
 def get_page_matches(document,
                      keywords,
@@ -88,6 +91,23 @@ def get_article_matches(document,
                      continue  # move to next article
     return matches
 
+
+
+def segment_image(coords, page_name, issue_path):
+       
+       image_path=os.path.split(issue_path)[0]
+       image_name=page_name.split(".")[0]
+       image=image_path+"/"+image_name+".jp2"
+       
+       coords_list=coords.split(",")
+       c_set = tuple([int(s) for s in coords_list])
+
+       fname = Path(image).stem
+       out_file = "/home/users/rfilguei2/LwM/defoe/OUTPUT/crop_" + fname + ".jpg"
+       im = Image.open(image)
+       crop = im.crop(c_set)
+       crop.save(out_file, quality=80, optimize=True)
+       return out_file
 
 
 
