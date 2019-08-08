@@ -3,7 +3,7 @@ Gets concordance for keywords and groups by word.
 """
 
 from defoe import query_utils
-from defoe.fmp.query_utils import get_article_matches
+from defoe.fmp.query_utils import get_article_matches, segment_image
 from defoe.fmp.query_utils import PreprocessWordType
 import yaml
 import os
@@ -24,13 +24,16 @@ def do_query(archives, config_file=None, logger=None):
         {
           <WORD>:
           [
-            { "title": <TITLE>,
+            { "article_id": <ARTICLE ID>,
+              "issue_filename": <ISSUE.ZIP>, 
+              "coord": <COORDENATES>, 
+              "page_area": <PAGE AREA>,
+              "page_filename": < PAGE FILENAME>,
               "place": <PLACE>,
-              "publisher": <PUBLISHER>,
-              "page_number": <PAGE_NUMBER>,
+              "textblock_id": <TEXTBLOCK ID>,
+              "title": <TITLER>,
+              "words": <WORDS>
               "year": <YEAR>,
-              "document_id": <DOCUMENT_ID>,
-              "filename": <FILENAME>
             },
             ...
           ],
@@ -69,18 +72,18 @@ def do_query(archives, config_file=None, logger=None):
     # =>
     # [(word, {"article_id": article_id, ...}), ...]
     matching_docs = filtered_words.map(
-        lambda year_document_page_word:
-        (year_document_page_word[8],
-         {"title": year_document_page_word[1].title,
-          "place": year_document_page_word[1].place,
-          "article_id": year_document_page_word[2],
-          "texblock_id": year_document_page_word[3], 
-          "coord": year_document_page_word[4],
-          "page_area": year_document_page_word[5],
-          "year": year_document_page_word[0],
-          "words":  year_document_page_word[6],
-          "page_filename":  year_document_page_word[7],
-          "issue_filename": year_document_page_word[1].archive.filename}))
+        lambda document_article_word:
+        (document_article_word[8],
+         {"title": document_article_word[1].title,
+          "place": document_article_word[1].place,
+          "article_id": document_article_word[2],
+          "textblock_id": document_article_word[3], 
+          "coord": document_article_word[4],
+          "page_area": document_article_word[5],
+          "year": document_article_word[0],
+          "words":  document_article_word[6],
+          "page_filename":  document_article_word[7],
+          "issue_filename": document_article_word[1].archive.filename}))
 
 
     # [(word, {"article_id": article_id, ...}), ...]
