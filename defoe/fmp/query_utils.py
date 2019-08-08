@@ -93,7 +93,22 @@ def get_article_matches(document,
 
 
 
-def segment_image(coords, page_name, issue_path):
+def segment_image(coords, page_name, issue_path, year, keyword):
+    """
+    Segments texblock articles given coordenates and page path
+
+    :param coords: coordenates of an image
+    :type coords: string
+    :param page_name: name of the page XML which the texblock has been extracted from.
+    :type page_name: string
+    :param issue_path: path of the ZIPPED archive/issue
+    :type issue_path: string
+    :param year: year of the publication
+    :type year: integer
+    :param keyword: word for which the textblock has been selected/filtered 
+    :type keyword: string
+    :return: list of images cropped/segmented
+    """
        
        image_path=os.path.split(issue_path)[0]
        image_name=page_name.split(".")[0]
@@ -103,7 +118,7 @@ def segment_image(coords, page_name, issue_path):
        c_set = tuple([int(s) for s in coords_list])
 
        fname = Path(image).stem
-       out_file = "/home/users/rfilguei2/LwM/defoe/OUTPUT/crop_" + fname + ".jpg"
+       out_file = "/home/users/rfilguei2/LwM/defoe/OUTPUT/crop_" +fname + "_"+ str(year) + "_" + keyword + "_"+ coords".jpg"
        im = Image.open(image)
        crop = im.crop(c_set)
        crop.save(out_file, quality=80, optimize=True)
