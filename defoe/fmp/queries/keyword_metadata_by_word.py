@@ -67,7 +67,7 @@ def do_query(archives, config_file=None, logger=None):
         lambda document: get_article_matches(document , keywords, preprocess_type))
     #[(year, document, article, textblock_id, textblock_coords, textblock_page_area, words, page_name, keyword), ....]
     # =>
-    # [(word, {"title": title, ...}), ...]
+    # [(word, {"article_id": article_id, ...}), ...]
     matching_docs = filtered_words.map(
         lambda year_document_page_word:
         (year_document_page_word[8],
@@ -83,9 +83,9 @@ def do_query(archives, config_file=None, logger=None):
           "issue_filename": year_document_page_word[1].archive.filename}))
 
 
-    # [(word, {"title": title, ...}), ...]
+    # [(word, {"article_id": article_id, ...}), ...]
     # =>
-    # [(word, [{"title": title, ...], {...}), ...)]
+    # [(word, [{"article_id": article_id, ...], {...}), ...)]
     result = matching_docs \
         .groupByKey() \
         .map(lambda word_context:
