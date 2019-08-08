@@ -110,19 +110,19 @@ def segment_image(coords, page_name, issue_path, year, keyword):
     :return: list of images cropped/segmented
     """
        
-       image_path=os.path.split(issue_path)[0]
-       image_name=page_name.split(".")[0]
-       image=image_path+"/"+image_name+".jp2"
+    image_path=os.path.split(issue_path)[0]
+    image_name=page_name.split(".")[0]
+    image=image_path+"/"+image_name+".jp2"
        
-       coords_list=coords.split(",")
-       c_set = tuple([int(s) for s in coords_list])
+    coords_list=coords.split(",")
+    c_set = tuple([int(s) for s in coords_list])
 
-       fname = Path(image).stem
-       out_file = "/home/users/rfilguei2/LwM/defoe/OUTPUT/crop_" +fname + "_"+ str(year) + "_" + keyword + "_"+ coords".jpg"
-       im = Image.open(image)
-       crop = im.crop(c_set)
-       crop.save(out_file, quality=80, optimize=True)
-       return out_file
+    fname = Path(image).stem
+    out_file = "/home/users/rfilguei2/LwM/defoe/OUTPUT/crop_" +fname + "_"+ str(year) + "_" + keyword + "_"+ coords".jpg"
+    im = Image.open(image)
+    crop = im.crop(c_set)
+    crop.save(out_file, quality=80, optimize=True)
+    return out_file
 
 
 
