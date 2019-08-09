@@ -93,7 +93,7 @@ def get_article_matches(document,
 
 
 
-def segment_image(coords, page_name, issue_path, year, keyword):
+def segment_image(coords, page_name, issue_path, keyword):
     """
     Segments texblock articles given coordenates and page path
 
@@ -119,7 +119,7 @@ def segment_image(coords, page_name, issue_path, year, keyword):
     coords_name=coords.replace(",", "_")
 
     fname = Path(image).stem
-    out_file = "/home/users/rfilguei2/LwM/defoe/OUTPUT/crop_" +fname + "_"+ str(year) + "_" + keyword + "_"+ coords_name +".jpg"
+    out_file = "/home/users/rfilguei2/LwM/defoe/OUTPUT/crop_" +fname + "_" + keyword + "_"+ coords_name +".jpg"
     im = Image.open(image)
     crop = im.crop(c_set)
     crop.save(out_file, quality=80, optimize=True)
