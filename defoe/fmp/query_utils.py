@@ -81,10 +81,13 @@ def get_article_matches(document,
        for article in document_articles:
 	     for tb in document_articles[article]:
                  match = None
+                 tb_preprocessed_words=[]
                  for word in tb.words:
                      preprocessed_word = query_utils.preprocess_word(word, preprocess_type)
+                     tb_preprocessed_words.append(preprocessed_word)
+                 for preprocessed_word in tb_preprocessed_words:
                      if preprocessed_word == keyword:
-                         match = (document.year, document, article, tb.textblock_id, tb.textblock_coords, tb.textblock_page_area, tb.words, tb.page_name, keyword)
+                         match = (document.year, document, article, tb.textblock_id, tb.textblock_coords, tb.textblock_page_area, tb.words, tb_preprocessed_words, tb.page_name, keyword)
                          break
                  if match:
                      matches.append(match)
