@@ -70,12 +70,12 @@ def do_query(archives, config_file=None, logger=None):
         lambda document: get_article_matches(document , keywords, preprocess_type))
 
 
-    #[(year, document, article, textblock_id, textblock_coords, textblock_page_area, words, page_name, keyword), ....]
+    #[(year, document, article, textblock_id, textblock_coords, textblock_page_area, words, preprocessed_words, page_name, keyword), ....]
     # =>
     # [(word, {"article_id": article_id, ...}), ...]
     matching_docs = filtered_words.map(
         lambda document_article_word:
-        (document_article_word[8],
+        (document_article_word[9],
          {"title": document_article_word[1].title,
           "place": document_article_word[1].place,
           "article_id": document_article_word[2],
@@ -84,10 +84,11 @@ def do_query(archives, config_file=None, logger=None):
           "page_area": document_article_word[5],
           "year": document_article_word[0],
           "words":  document_article_word[6],
-          "page_filename":  document_article_word[7],
+          "preprocessed_words":  document_article_word[7],
+          "page_filename":  document_article_word[8],
           "issue_id": document_article_word[1].documentId,
           "issue_filename": document_article_word[1].archive.filename,
-          "cropped_image": segment_image(document_article_word[4], document_article_word[7], document_article_word[1].archive.filename, document_article_word[8])
+          "cropped_image": segment_image(document_article_word[4], document_article_word[8], document_article_word[1].archive.filename, document_article_word[9])
          }))
 
 
