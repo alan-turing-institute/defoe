@@ -1,4 +1,4 @@
-accident
+accidents
 machine
 crush
 smash
