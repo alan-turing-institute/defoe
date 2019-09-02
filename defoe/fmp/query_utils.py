@@ -73,9 +73,7 @@ def get_article_matches(document,
     :return: list of tuples
     :rtype: list(tuple)
     """
-    #article_info[0]['art0079'][0].textblock_words
     matches = []
-    #document_articles=document.articles()
     document_articles=document.articles
     for keyword in keywords:
        for article in document_articles:
@@ -96,7 +94,7 @@ def get_article_matches(document,
 
 
 
-def segment_image(coords, page_name, issue_path, keyword):
+def segment_image(coords, page_name, issue_path, keyword, output_path):
     """
     Segments texblock articles given coordenates and page path
 
@@ -122,7 +120,7 @@ def segment_image(coords, page_name, issue_path, keyword):
     coords_name=coords.replace(",", "_")
 
     fname = Path(image).stem
-    out_file = "/home/users/rfilguei2/LwM/defoe/OUTPUT/crop_" +fname + "_" + keyword + "_"+ coords_name +".jpg"
+    out_file = output_path+"crop_" +fname + "_" + keyword + "_"+ coords_name +".jpg"
     im = Image.open(image)
     crop = im.crop(c_set)
     crop.save(out_file, quality=80, optimize=True)

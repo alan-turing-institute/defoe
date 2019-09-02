@@ -129,6 +129,29 @@ def extract_years_filter(config):
         year_max=years.split("-")[1]
     return year_min, year_max
 
+
+def extract_output_path(config):
+    """
+    Extract output path from "output_path" dictionary value the query
+    configuration. 
+    
+    output_path: "/home/users/rfilguei2/LwM/defoe/OUTPUT/"
+
+    :param config: config
+    :type config: dict
+    :return: out_file
+    :rtype: string
+    """
+
+    if "output_path" not in config:
+        output_path="."
+    else:
+	output_path= config["output_path"]
+
+    return output_path
+
+
+
 def normalize(word):
     """
     Normalize a word by converting it to lower-case and removing all

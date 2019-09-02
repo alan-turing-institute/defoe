@@ -1,3 +1,4 @@
 preprocess: lemmatize
 data: accident.txt
 years_filter: 1780-1918
+output_path: /home/users/rfilguei2/LwM/defoe/OUTPUT/
