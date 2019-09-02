@@ -47,10 +47,12 @@ class Document(object):
         # place may often have a year in.
         self.years += Document.parse_year(self.place)
         self.years = sorted(self.years)
+        self.documentId= self.single_query('//mods:identifier/text()')
         if self.years:
             self.year = self.years[0]
         else:
             self.year = None
+        self.date = self.single_query('//mods:dateIssued/text()')
 
         #### New ############
         #[art0001, art0002, art0003]
