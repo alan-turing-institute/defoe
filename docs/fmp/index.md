@@ -1,6 +1,6 @@
-# ALTO document queries
+# FMP document queries
 
-British Library Books dataset and Find My Past dataset.
+Find My Past dataset.
 
 General:
 
