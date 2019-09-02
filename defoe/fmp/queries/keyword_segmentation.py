@@ -18,6 +18,7 @@ def do_query(archives, config_file=None, logger=None):
 	* data: TXT file with a list of the keywords to search for, one per line. 
                 This should be in the same path at the configuration file.
 	*years_filter: Min and Max years to filter the data. Separeted by "-"
+        *output_path: The path to store the cropped images.
 
     Returns result of form:
 
@@ -60,6 +61,7 @@ def do_query(archives, config_file=None, logger=None):
     data_file = query_utils.extract_data_file(config,
                                               os.path.dirname(config_file))
     year_min, year_max=query_utils.extract_years_filter(config)
+    output_path = query_utils.extract_output_path(config)
     keywords = []
     with open(data_file, 'r') as f:
         keywords = [query_utils.preprocess_word(word, preprocess_type)
@@ -92,7 +94,7 @@ def do_query(archives, config_file=None, logger=None):
           "page_filename":  document_article_word[8],
           "issue_id": document_article_word[1].documentId,
           "issue_filename": document_article_word[1].archive.filename,
-          "cropped_image": segment_image(document_article_word[4], document_article_word[8], document_article_word[1].archive.filename, document_article_word[9])
+          "cropped_image": segment_image(document_article_word[4], document_article_word[8], document_article_word[1].archive.filename, document_article_word[9], output_path)
          }))
 
 
