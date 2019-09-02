@@ -1,2 +1,3 @@
 preprocess: lemmatize
 data: accident.txt
+years_filter: 1780-1918
