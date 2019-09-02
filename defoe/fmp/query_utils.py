@@ -56,7 +56,7 @@ def get_article_matches(document,
                         preprocess_type=PreprocessWordType.LEMMATIZE):
     """
 
-        (<YEAR>, <DOCUMENT>, <COORDS>, <PAGE_AREA> <KEYWORD>)
+        (<YEAR>, <DOCUMENT>, <ARTICLE>, <BLOCK_ID>, <COORDENATES>, <PAGE_AREA>, <ORIGINAL_WORDS>,<PREPROCESSED_WORDS>, <PAGE_NAME>, <KEYWORDS> )
 
     If a keyword occurs more than once on a page, there will be only
     one tuple for the page for that keyword.

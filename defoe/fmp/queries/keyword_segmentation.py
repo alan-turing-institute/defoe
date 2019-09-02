@@ -84,6 +84,7 @@ def do_query(archives, config_file=None, logger=None):
           "page_area": document_article_word[5],
           "year": document_article_word[0],
           "words":  document_article_word[6],
+          "date":  document_article_word[1].date,
           "preprocessed_words":  document_article_word[7],
           "page_filename":  document_article_word[8],
           "issue_id": document_article_word[1].documentId,
