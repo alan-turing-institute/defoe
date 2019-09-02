@@ -4,7 +4,6 @@ Segementation of images for keywords and groups by word.
 
 from defoe import query_utils
 from defoe.fmp.query_utils import get_article_matches, segment_image
-from defoe.fmp.query_utils import PreprocessWordType
 import yaml
 import os
 
