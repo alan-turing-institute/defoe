@@ -13,11 +13,11 @@ def do_query(archives, config_file=None, logger=None):
     """
     Crops articles' images for keywords and groups by word.
 
-    config_file must be the path to a configuration file with a list
-    of the keywords to search for, one per line.
-
-    Both keywords and words in documents are normalized, by removing
-    all non-'a-z|A-Z' characters.
+    Config_file must a yml file that has the following values:
+        * preprocess: Treatment to use for preprocessing the words. Options: [normalize|stem|lemmatize|none]
+	* data: TXT file with a list of the keywords to search for, one per line. 
+                This should be in the same path at the configuration file.
+	*years_filter: Min and Max years to filter the data. Separeted by "-"
 
     Returns result of form:
 
