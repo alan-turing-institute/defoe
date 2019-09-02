@@ -26,21 +26,24 @@ def do_query(archives, config_file=None, logger=None):
           [
             { "article_id": <ARTICLE ID>,
               "issue_filename": <ISSUE.ZIP>, 
-              "coord": <COORDENATES>, 
+              "issue_id": <ISSUE ID>
+              "coord": <COORDENATES>,
+              "cropped_image": <IMAGE.JPG> 
               "page_area": <PAGE AREA>,
               "page_filename": < PAGE FILENAME>,
               "place": <PLACE>,
               "textblock_id": <TEXTBLOCK ID>,
               "title": <TITLER>,
-              "words": <WORDS>
+              "words": <WORDS>,
+	      "preprocessed_words": <PREPROCESSED WORDS> 
               "year": <YEAR>,
+              "date" <DATE>
             },
             ...
           ],
           <WORD>:
           ...
         }
-
     :param archives: RDD of defoe.alto.archive.Archive
     :type archives: pyspark.rdd.PipelinedRDD
     :param config_file: query configuration file
