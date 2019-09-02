@@ -37,7 +37,7 @@ def do_query(archives, config_file=None, logger=None):
               "words": <WORDS>,
 	      "preprocessed_words": <PREPROCESSED WORDS> 
               "year": <YEAR>,
-              "date" <DATE>
+              "date": <DATE>
             },
             ...
           ],
