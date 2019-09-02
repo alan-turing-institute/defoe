@@ -135,7 +135,7 @@ def extract_output_path(config):
     Extract output path from "output_path" dictionary value the query
     configuration. 
     
-    output_path: "/home/users/rfilguei2/LwM/defoe/OUTPUT/"
+    output_path: /home/users/rfilguei2/LwM/defoe/OUTPUT/
 
     :param config: config
     :type config: dict
