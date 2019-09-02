@@ -60,9 +60,6 @@ def do_query(archives, config_file=None, logger=None):
     data_file = query_utils.extract_data_file(config,
                                               os.path.dirname(config_file))
     year_min, year_max=query_utils.extract_years_filter(config)
-    #year_min=1780
-    #year_max=1918
-   
     keywords = []
     with open(data_file, 'r') as f:
         keywords = [query_utils.preprocess_word(word, preprocess_type)
