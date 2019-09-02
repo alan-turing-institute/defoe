@@ -28,7 +28,7 @@ The code was used with papers from 1785-2009.
 
 ### Find My Past Newspapers
 
-This dataset is available, under licence, from [Find My Past](https://www.findmypast.co.uk/). The code can run on ALTO-compliant subsets of this data.
+This dataset is available, under licence, from [Find My Past](https://www.findmypast.co.uk/). 
 
 ### Papers Past New Zealand and Pacific newspapers
 
@@ -60,8 +60,9 @@ Run queries:
 
 Available queries:
 
-* [ALTO documents](./docs/alto/index.md) (British Library Books and Find My Past Newspapers datasets)
+* [ALTO documents](./docs/alto/index.md) (British Library Books)
 * [British Library Newspapers](./docs/papers/index.md) (these can also be run on the Times Digital Archive)
+* [FMP newspapers](./docs/fmp/index.md) (Find My Past Newspapers datasets)
 * [Papers Past New Zealand and Pacific newspapers](./docs/nzpp/index.md)
 * [Generic XML document queries](./docs/generic_xml/index.md) (these can be run on arbitrary XML documents)
 
