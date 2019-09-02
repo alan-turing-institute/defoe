@@ -28,7 +28,9 @@ The code was used with papers from 1785-2009.
 
 ### Find My Past Newspapers
 
-This dataset is available, under licence, from [Find My Past](https://www.findmypast.co.uk/). 
+This dataset is available, under licence, from [Find My Past](https://www.findmypast.co.uk/). To run queries with this dataset we can chose either to use:
+* ALTO model: for running queries at page level. These are the same queries for the BL books.
+* FMP model: for running queries at article level.  
 
 ### Papers Past New Zealand and Pacific newspapers
 
@@ -60,9 +62,9 @@ Run queries:
 
 Available queries:
 
-* [ALTO documents](./docs/alto/index.md) (British Library Books)
+* [ALTO documents](./docs/alto/index.md) (British Library Books and Find My Past Newspapers (at page level))
 * [British Library Newspapers](./docs/papers/index.md) (these can also be run on the Times Digital Archive)
-* [FMP newspapers](./docs/fmp/index.md) (Find My Past Newspapers datasets)
+* [FMP newspapers](./docs/fmp/index.md) (Find My Past Newspapers datasets at article level)
 * [Papers Past New Zealand and Pacific newspapers](./docs/nzpp/index.md)
 * [Generic XML document queries](./docs/generic_xml/index.md) (these can be run on arbitrary XML documents)
 
