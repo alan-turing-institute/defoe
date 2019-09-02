@@ -108,6 +108,8 @@ def segment_image(coords, page_name, issue_path, keyword, output_path):
     :type year: integer
     :param keyword: word for which the textblock has been selected/filtered 
     :type keyword: string
+    :param output_path: path to store the cropped image
+    :type output_path: string
     :return: list of images cropped/segmented
     """
        
