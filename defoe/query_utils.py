@@ -108,6 +108,26 @@ def extract_window_size(config, default=10):
         raise ValueError('window must be at least 1')
     return window
 
+def extract_years_filter(config):
+    """
+    Extract min and max years to filter data from "years_filter" dictionary value the query
+    configuration. The years will be splited by the "-" character.
+    
+    years_filter: 1780-1918
+
+    :param config: config
+    :type config: dict
+    :return: min_year, max_year
+    :rtype: int, int
+    """
+    
+    if "years_filter" not in config:
+        raise ValueError('years_filter value not found in the config file')
+    else:
+	years= config["years_filter"]
+        year_min=years.split("-")[0]
+        year_max=years.split("-")[1]
+    return year_min, year_max
 
 def normalize(word):
     """
