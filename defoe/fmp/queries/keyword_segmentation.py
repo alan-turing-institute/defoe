@@ -56,7 +56,10 @@ def do_query(archives, config_file=None, logger=None):
     preprocess_type = query_utils.extract_preprocess_word_type(config)
     data_file = query_utils.extract_data_file(config,
                                               os.path.dirname(config_file))
-    
+    year_min, year_max=query_utils.extract_years_filter(config)
+    #year_min=1780
+    #year_max=1918
+   
     keywords = []
     with open(data_file, 'r') as f:
         keywords = [query_utils.preprocess_word(word, preprocess_type)
@@ -64,7 +67,7 @@ def do_query(archives, config_file=None, logger=None):
 
     # [document, ...]
     documents = archives.flatMap(
-        lambda archive: [document for document in list(archive)])
+        lambda archive: [document for document in list(archive) if document.year >= int(year_min) and document.year <= int(year_max) ])
 
     filtered_words = documents.flatMap(
         lambda document: get_article_matches(document , keywords, preprocess_type))
