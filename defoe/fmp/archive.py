@@ -1,10 +1,10 @@
 """
-Object model representation of ZIP archive of files in
+Object model representation of a ZIP or UNZIP archive of files in
 Find My Past Newspapers-compliant ALTO format.
 
-A ZIP archive corresponds to a document and each file to a page.
+A archive corresponds to a document and each file to a page.
 
-The ZIP archive is assumed to hold the following files:
+The archive is assumed to hold the following files:
 
     <METADATA_CODE>_mets.xml
     <METADATA_CODE>_<FILE_CODE>.xml
