@@ -15,7 +15,7 @@ from os.path import isfile, join
 
 class AltoArchive(object):
     """
-    Abstract base class for object model representation of ZIP archive
+    Abstract base class for object model representation of ZIP|UNZIP archive
     of files in ALTO format.
     """
     __metaclass__ = abc.ABCMeta
