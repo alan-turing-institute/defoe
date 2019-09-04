@@ -67,6 +67,8 @@ def do_query(archives, config_file=None, logger=None):
                     for word in list(f)]
 
     # [document, ...]
+
+
     documents = archives.flatMap(
         lambda archive: [document for document in list(archive) if document.year >= int(year_min) and document.year <= int(year_max) ])
 
@@ -92,7 +94,7 @@ def do_query(archives, config_file=None, logger=None):
           "preprocessed_words":  document_article_word[7],
           "page_filename":  document_article_word[8],
           "issue_id": document_article_word[1].documentId,
-          "issue_filename": document_article_word[1].archive.filename,
+          "issue_dirname": document_article_word[1].archive.filename,
           "cropped_image": segment_image(document_article_word[4], document_article_word[8], document_article_word[1].archive.filename, document_article_word[9], output_path)
          }))
 
