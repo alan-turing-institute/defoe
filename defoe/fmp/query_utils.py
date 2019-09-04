@@ -112,8 +112,11 @@ def segment_image(coords, page_name, issue_path, keyword, output_path):
     :type output_path: string
     :return: list of images cropped/segmented
     """
-       
-    image_path=os.path.split(issue_path)[0]
+    
+    if ".zip" in issue_path:  
+       image_path=os.path.split(issue_path)[0]
+    else:
+       image_path=issue_path
     image_name=page_name.split(".")[0]
     image=image_path+"/"+image_name+".jp2"
        
