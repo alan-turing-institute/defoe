@@ -21,12 +21,13 @@ where:
 * <FILE_CODE> is [0-9_]*
 """
 
-from defoe.fmp.archive_alto import AltoArchive
+from defoe.fmp.archive_combine import AltoArchive
+from defoe.spark_utils import open_stream
 
 
 class Archive(AltoArchive):
     """
-    Object model representation of ZIP archive of files in
+    Object model representation of archive of files in
     Find My Past Newspapers-compliant ALTO format.
     """
 
@@ -67,7 +68,10 @@ class Archive(AltoArchive):
         :return: information
         :rtype: zipfile.ZipInfo
         """
-        return self.zip.getinfo(document_code + '_mets.xml')
+        if ".zip" in self.filename:
+            return self.zip.getinfo(document_code + '_mets.xml')
+        else:
+            return
 
     def get_page_info(self, document_code, page_code):
         """
@@ -80,7 +84,10 @@ class Archive(AltoArchive):
         :return: information
         :rtype: zipfile.ZipInfo
         """
-        return self.zip.getinfo(document_code + '_' + page_code + '.xml')
+        if ".zip" in self.filename:
+            return self.zip.getinfo(document_code + '_' + page_code + '.xml')
+        else:
+            return
 
     def open_document(self, document_code):
         """
@@ -89,9 +96,11 @@ class Archive(AltoArchive):
         :param document_code: document file code
         :type document_code: str or unicode
         :return: stream
-        :rtype: zipfile.ZipExt
         """
-        return self.zip.open(document_code + '_mets.xml')
+        if ".zip" in self.filename:
+            return self.zip.open(document_code + '_mets.xml')
+        else:
+            return open_stream(self.filename+"/"+document_code + '_mets.xml')
 
     def open_page(self, document_code, page_code):
         """
@@ -104,4 +113,7 @@ class Archive(AltoArchive):
         :return: stream
         :rtype: zipfile.ZipExt
         """
-        return self.zip.open(document_code + '_' + page_code + '.xml')
+        if ".zip" in self.filename:
+            return self.zip.open(document_code + '_' + page_code + '.xml')
+        else:
+            return open_stream(self.filename+"/"+document_code + '_' + page_code + '.xml')
