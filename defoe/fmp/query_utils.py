@@ -49,8 +49,6 @@ def get_page_matches(document,
                 continue  # move to next page
     return matches
 
-
-
 def get_article_matches(document,
                         keywords,
                         preprocess_type=PreprocessWordType.LEMMATIZE):
@@ -90,6 +88,41 @@ def get_article_matches(document,
                  if match:
                      matches.append(match)
                      continue  # move to next article
+    return matches
+
+
+def get_tb_matches(year, document, article, textblock_id, textblock_coords, 
+                        textblock_page_area, words, tb_preprocessed_words, page_name,
+                        keywords):
+    """
+
+        (<YEAR>, <DOCUMENT>, <ARTICLE>, <BLOCK_ID>, <COORDENATES>, <PAGE_AREA>, <ORIGINAL_WORDS>,<PREPROCESSED_WORDS>, <PAGE_NAME>, <KEYWORDS> )
+
+    If a keyword occurs more than once on a page, there will be only
+    one tuple for the page for that keyword.
+    If more than one keyword occurs on a page, there will be one tuple
+    per keyword.
+
+    :param document: document
+    :type document: defoe.alto.document.Document
+    :param keywords: keywords
+    :type keywords: list(str or unicode:
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :type preprocess_type: defoe.query_utils.PreprocessWordType
+    :return: list of tuples
+    :rtype: list(tuple)
+    """
+    matches = []
+    for keyword in keywords:
+        match = None
+        for preprocessed_word in tb_preprocessed_words:
+            if preprocessed_word == keyword:
+                match = (year, document, article, textblock_id, textblock_coords, textblock_page_area, words, tb_preprocessed_words, page_name, keyword)
+                break
+        if match:
+            matches.append(match)
+            continue  # move to next article
     return matches
 
 
