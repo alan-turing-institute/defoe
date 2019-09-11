@@ -93,10 +93,10 @@ def get_article_matches(document,
 
 def get_tb_matches(year, document, article, textblock_id, textblock_coords, 
                         textblock_page_area, words, tb_preprocessed_words, page_name,
-                        keywords):
+                        target, keywords):
     """
 
-        (<YEAR>, <DOCUMENT>, <ARTICLE>, <BLOCK_ID>, <COORDENATES>, <PAGE_AREA>, <ORIGINAL_WORDS>,<PREPROCESSED_WORDS>, <PAGE_NAME>, <KEYWORDS> )
+        (<YEAR>, <DOCUMENT>, <ARTICLE>, <BLOCK_ID>, <COORDENATES>, <PAGE_AREA>, <ORIGINAL_WORDS>,<PREPROCESSED_WORDS>, <PAGE_NAME>, <KEYWORDS> , <TARGETWORD>)
 
     If a keyword occurs more than once on a page, there will be only
     one tuple for the page for that keyword.
@@ -118,7 +118,7 @@ def get_tb_matches(year, document, article, textblock_id, textblock_coords,
         match = None
         for preprocessed_word in tb_preprocessed_words:
             if preprocessed_word == keyword:
-                match = (year, document, article, textblock_id, textblock_coords, textblock_page_area, words, tb_preprocessed_words, page_name, keyword)
+                match = (year, document, article, textblock_id, textblock_coords, textblock_page_area, words, tb_preprocessed_words, page_name, keyword, target)
                 break
         if match:
             matches.append(match)
@@ -127,7 +127,7 @@ def get_tb_matches(year, document, article, textblock_id, textblock_coords,
 
 
 
-def segment_image(coords, page_name, issue_path, keyword, output_path):
+def segment_image(coords, page_name, issue_path, keyword, output_path, target=""):
     """
     Segments texblock articles given coordenates and page path
 
@@ -158,7 +158,11 @@ def segment_image(coords, page_name, issue_path, keyword, output_path):
     coords_name=coords.replace(",", "_")
 
     fname = Path(image).stem
-    out_file = output_path+"crop_" +fname + "_" + keyword + "_"+ coords_name +".jpg"
+    if target!= "":
+        out_file = output_path+"crop_" +fname + "_" + keyword + "_"+ coords_name +".jpg"
+    else:
+        out_file = output_path+"crop_" +fname + "_" + target+ "_"+ keyword + "_"+ coords_name +".jpg"
+
     im = Image.open(image)
     crop = im.crop(c_set)
     crop.save(out_file, quality=80, optimize=True)
