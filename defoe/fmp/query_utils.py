@@ -158,7 +158,7 @@ def segment_image(coords, page_name, issue_path, keyword, output_path, target=""
     coords_name=coords.replace(",", "_")
 
     fname = Path(image).stem
-    if target!= "":
+    if target == "":
         out_file = output_path+"crop_" +fname + "_" + keyword + "_"+ coords_name +".jpg"
     else:
         out_file = output_path+"crop_" +fname + "_" + target+ "_"+ keyword + "_"+ coords_name +".jpg"
