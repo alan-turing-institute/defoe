@@ -79,7 +79,7 @@ def do_query(archives, config_file=None, logger=None):
         lambda document: get_article_matches(document, target_words, preprocess_type))
     
     filtered_words = filtered_tb.flatMap(
-        lambda tb: get_tb_matches(tb[0],tb[1],tb[2],tb[3],tb[4],tb[5], tb[6], tb[7], tb[8], keywords))
+        lambda tb: get_tb_matches(tb[0],tb[1],tb[2],tb[3],tb[4],tb[5], tb[6], tb[7], tb[8], tb[9], keywords))
 
 
     #[(year, document, article, textblock_id, textblock_coords, textblock_page_area, words, preprocessed_words, page_name, keyword), ....]
@@ -101,7 +101,8 @@ def do_query(archives, config_file=None, logger=None):
           "page_filename":  document_article_word[8],
           "issue_id": document_article_word[1].documentId,
           "issue_dirname": document_article_word[1].archive.filename,
-          "cropped_image": segment_image(document_article_word[4], document_article_word[8], document_article_word[1].archive.filename, document_article_word[9], output_path)
+          "target_word": document_article_word[10],
+          "cropped_image": segment_image(document_article_word[4], document_article_word[8], document_article_word[1].archive.filename, document_article_word[9], output_path, document_article_word[10])
          }))
 
 
