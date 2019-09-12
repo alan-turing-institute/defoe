@@ -78,12 +78,9 @@ def do_query(archives, config_file=None, logger=None):
     filtered_tb = documents.flatMap(
         lambda document: get_article_matches(document, target_words, preprocess_type))
     
-    filtered_words = filtered_tb.flatMap(
-        lambda tb: get_tb_matches(tb[0],tb[1],tb[2],tb[3],tb[4],tb[5], tb[6], tb[7], tb[8], tb[9], keywords))
+    filtered_words = filtered_tb.flatMap(lambda tb: get_tb_matches(tb, keywords))
 
-
-    #[(year, document, article, textblock_id, textblock_coords, textblock_page_area, words, preprocessed_words, page_name, keyword), ....]
-    # =>
+    #[(year, document, article, textblock_id, textblock_coords, textblock_page_area, words, preprocessed_words, page_name, keyword,target), ....]
     # [(word, {"article_id": article_id, ...}), ...]
     matching_docs = filtered_words.map(
         lambda document_article_word:

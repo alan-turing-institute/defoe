@@ -16,14 +16,11 @@ def get_page_matches(document,
     Get pages within a document that include one or more keywords.
     For each page that includes a specific keyword, add a tuple of
     form:
-
         (<YEAR>, <DOCUMENT>, <PAGE>, <KEYWORD>)
-
     If a keyword occurs more than once on a page, there will be only
     one tuple for the page for that keyword.
     If more than one keyword occurs on a page, there will be one tuple
     per keyword.
-
     :param document: document
     :type document: defoe.alto.document.Document
     :param keywords: keywords
@@ -53,14 +50,11 @@ def get_article_matches(document,
                         keywords,
                         preprocess_type=PreprocessWordType.LEMMATIZE):
     """
-
         (<YEAR>, <DOCUMENT>, <ARTICLE>, <BLOCK_ID>, <COORDENATES>, <PAGE_AREA>, <ORIGINAL_WORDS>,<PREPROCESSED_WORDS>, <PAGE_NAME>, <KEYWORDS> )
-
     If a keyword occurs more than once on a page, there will be only
     one tuple for the page for that keyword.
     If more than one keyword occurs on a page, there will be one tuple
     per keyword.
-
     :param document: document
     :type document: defoe.alto.document.Document
     :param keywords: keywords
@@ -91,28 +85,18 @@ def get_article_matches(document,
     return matches
 
 
-def get_tb_matches(year, document, article, textblock_id, textblock_coords, 
-                        textblock_page_area, words, tb_preprocessed_words, page_name,
-                        target, keywords):
+def get_tb_matches(target_match,keywords):
     """
-
-        (<YEAR>, <DOCUMENT>, <ARTICLE>, <BLOCK_ID>, <COORDENATES>, <PAGE_AREA>, <ORIGINAL_WORDS>,<PREPROCESSED_WORDS>, <PAGE_NAME>, <KEYWORDS> , <TARGETWORD>)
-
-    If a keyword occurs more than once on a page, there will be only
-    one tuple for the page for that keyword.
-    If more than one keyword occurs on a page, there will be one tuple
-    per keyword.
-
-    :param document: document
-    :type document: defoe.alto.document.Document
+    (target_match=><YEAR>, <DOCUMENT>, <ARTICLE>, <BLOCK_ID>, <COORDENATES>, <PAGE_AREA>, <ORIGINAL_WORDS>,<PREPROCESSED_WORDS>, <PAGE_NAME>, <TARGETWORD>)
+    :param document: target_match
+    :type document: list
     :param keywords: keywords
     :type keywords: list(str or unicode:
-    :param preprocess_type: how words should be preprocessed
-    (normalize, normalize and stem, normalize and lemmatize, none)
-    :type preprocess_type: defoe.query_utils.PreprocessWordType
     :return: list of tuples
     :rtype: list(tuple)
     """
+    
+    year, document, article, textblock_id, textblock_coords, textblock_page_area, words, tb_preprocessed_words, page_name, target = target_match
     matches = []
     for keyword in keywords:
         match = None
@@ -125,12 +109,9 @@ def get_tb_matches(year, document, article, textblock_id, textblock_coords,
             continue  # move to next article
     return matches
 
-
-
 def segment_image(coords, page_name, issue_path, keyword, output_path, target=""):
     """
     Segments texblock articles given coordenates and page path
-
     :param coords: coordenates of an image
     :type coords: string
     :param page_name: name of the page XML which the texblock has been extracted from.
@@ -167,7 +148,6 @@ def segment_image(coords, page_name, issue_path, keyword, output_path, target=""
     crop = im.crop(c_set)
     crop.save(out_file, quality=80, optimize=True)
     return out_file
-
 
 
 def get_document_keywords(document,
