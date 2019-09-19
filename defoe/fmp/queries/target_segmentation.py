@@ -1,5 +1,6 @@
 """
-Segementation of images for keywords and groups by word.
+This query filters articles’ textblocks by selecting the ones that have one of the target word(s) AND any the keywords.
+Later it produces the segmentation/crop or the filtered texblocks. 
 """
 
 from defoe import query_utils
@@ -16,6 +17,9 @@ def do_query(archives, config_file=None, logger=None):
         * preprocess: Treatment to use for preprocessing the words. Options: [normalize|stem|lemmatize|none]
 	* data: TXT file with a list of the keywords to search for, one per line. 
                 This should be in the same path at the configuration file.
+
+		Important!! : The first two words in this list are treated as targetwords.
+
 	*years_filter: Min and Max years to filter the data. Separeted by "-"
         *output_path: The path to store the cropped images.
 
@@ -66,11 +70,16 @@ def do_query(archives, config_file=None, logger=None):
         keywords = [query_utils.preprocess_word(word, preprocess_type)
                     for word in list(f)]
 
-
+    
+    #We can change the following line, if we want to include more or less words as target_words.
+    #In this case, the first two words of the lexicon are selected as target_words
     target_words = keywords[0:2]
+    #The rest of words of the lexicon are selected as keywords
     keywords = keywords[2:]
     # [document, ...]
 
+    # We will select/filter the texblocks that follows this rule: The text contains at least one target words AND one keyword. 
+    
 
     documents = archives.flatMap(
         lambda archive: [document for document in list(archive) if document.year >= int(year_min) and document.year <= int(year_max) ])
