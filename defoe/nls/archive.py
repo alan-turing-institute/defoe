@@ -20,7 +20,7 @@ where:
 """
 
 from defoe.nls.archive_combine import AltoArchive
-
+from defoe.spark_utils import open_stream
 
 class Archive(AltoArchive):
     """
@@ -84,8 +84,10 @@ class Archive(AltoArchive):
         :return: stream
         :rtype: zipfile.ZipExt
         """
-        return self.zip.open(document_code + '-mets.xml')
-
+        if ".zip" in self.filename:
+            return self.zip.open(document_code + '-mets.xml')
+        else:
+            return open_stream(self.filename+"/"+document_code + '-mets.xml')
     def open_page(self, document_code, page_code):
         """
         Opens page file.
@@ -96,4 +98,7 @@ class Archive(AltoArchive):
         :return: stream
         :rtype: zipfile.ZipExt
         """
-        return self.zip.open(page_code)
+        if ".zip" in self.filename:
+             return self.zip.open(page_code)
+        else:
+            return open_stream(self.filename+"/"+page_code)

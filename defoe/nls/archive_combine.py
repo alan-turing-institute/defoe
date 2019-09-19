@@ -28,9 +28,18 @@ class AltoArchive(object):
         :type: filename: str or unicode
         """
         self.filename = filename
-        stream = open_stream(self.filename)
-        self.zip = zipfile.ZipFile(stream)
-        self.filenames = [entry.filename for entry in self.zip.infolist()]
+        if ".zip" in self.filename:
+            stream = open_stream(self.filename)
+            self.zip = zipfile.ZipFile(stream)
+            self.filenames = [entry.filename for entry in self.zip.infolist()]
+        else:
+             self.filenames= []
+             for entry in listdir(self.filename):
+                  if not isfile(join(self.filename, entry)):
+                      for i in listdir(join(self.filename,entry)):
+                          self.filenames.append(entry+"/"+i)
+                  else:
+                      self.filenames.append(entry)
         document_pattern = re.compile(self.get_document_pattern())
         page_pattern = re.compile(self.get_page_pattern())
         document_matches = [
