@@ -48,6 +48,7 @@ class Document(object):
             self.year = self.years[0]
         else:
             self.year = None
+        self.date = self.single_query('//mods:dateIssued/text()')
 
     @staticmethod
     def parse_year(text):
