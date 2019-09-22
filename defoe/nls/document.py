@@ -34,7 +34,7 @@ class Document(object):
         self.metadata = self.archive.open_document(self.code)
         self.metadata_tree = etree.parse(self.metadata)
         self.title = self.single_query('//mods:title/text()')
-        self.page_codes = self.archive.document_codes[self.code]
+        self.page_codes = sorted(self.archive.document_codes[self.code], key=Document.sorter)
         #sorted(self.archive.document_codes[self.code], key=Document.sorter)
         self.num_pages = len(self.page_codes)
         self.years = \
@@ -103,8 +103,7 @@ class Document(object):
         :return: list of page codes
         :rtype: list(int)
         """
-        #codes = list(map(int, page_code.split('_')))
-        codes = list(map(int, page_code.split('.')))
+        codes = list(map(int, page_code.split("/")[1].split(".")[0]))
         return codes
 
     def query(self, query):
@@ -187,6 +186,7 @@ class Document(object):
         :rtype: defoe.alto.page.Page
         """
         for page_code in self.page_codes:
+            print("VAMOSssssss %s" % page_code)
             yield self.page(page_code)
 
     def scan_strings(self):

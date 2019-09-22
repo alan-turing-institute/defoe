@@ -74,7 +74,7 @@ class Archive(AltoArchive):
         :rtype: zipfile.ZipInfo
         """
 
-        return self.zip.getinfo(page_code)
+        return self.zip.getinfo(document_code)
 
     def open_document(self, document_code):
         """
