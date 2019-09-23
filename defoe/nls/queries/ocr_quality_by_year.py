@@ -3,7 +3,7 @@ Gets measure of OCR quality for each page and groups by year.
 """
 
 from operator import concat
-from defoe.alto.query_utils import calculate_words_within_dictionary
+from defoe.nls.query_utils import calculate_words_within_dictionary
 
 def do_query(archives, config_file=None, logger=None):
     """
@@ -16,7 +16,7 @@ def do_query(archives, config_file=None, logger=None):
           ...
         }
 
-    :param archives: RDD of defoe.alto.archive.Archive
+    :param archives: RDD of defoe.nls.archive.Archive
     :type archives: pyspark.rdd.PipelinedRDD
     :param config_file: query configuration file (unused)
     :type config_file: str or unicode

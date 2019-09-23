@@ -52,7 +52,7 @@ def do_query(archives, config_file=None, logger=None):
           ...
         }
 
-    :param archives: RDD of defoe.alto.archive.Archive
+    :param archives: RDD of defoe.nls.archive.Archive
     :type archives: pyspark.rdd.PipelinedRDD
     :param config_file: query configuration file
     :type config_file: str or unicode
@@ -133,7 +133,7 @@ def get_colocates_matches(document, start_word, end_word, window=0):
         }
 
     :param document: document
-    :type document: defoe.alto.document.Document
+    :type document: defoe.nls.document.Document
     :param start_word: start_word colocate
     :type start_word: str or unicode
     :param end_word: end_word colocate

@@ -3,7 +3,7 @@ Gets concordance for keywords and groups by year.
 """
 
 from defoe import query_utils
-from defoe.alto.query_utils import get_page_matches
+from defoe.nls.query_utils import get_page_matches
 
 
 def do_query(archives, config_file=None, logger=None):
@@ -37,7 +37,7 @@ def do_query(archives, config_file=None, logger=None):
           ...
         }
 
-    :param archives: RDD of defoe.alto.archive.Archive
+    :param archives: RDD of defoe.nls.archive.Archive
     :type archives: pyspark.rdd.PipelinedRDD
     :param config_file: query configuration file
     :type config_file: str or unicode
