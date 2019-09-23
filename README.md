@@ -75,6 +75,7 @@ Available queries:
 * [FMP newspapers](./docs/fmp/index.md) (Find My Past Newspapers datasets at article level)
 * [Papers Past New Zealand and Pacific newspapers](./docs/nzpp/index.md)
 * [Generic XML document queries](./docs/generic_xml/index.md) (these can be run on arbitrary XML documents)
+* [NLS queries](./docs/nls/index.md) (these can be run on the Encyclopaedia Britannica dataset)
 
 Developers:
 
