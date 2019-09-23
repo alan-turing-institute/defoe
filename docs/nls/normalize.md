@@ -2,7 +2,7 @@
 
 Count total number of documents, pages and words per year. This can be useful if wanting to see how the average number of documents, pages and words change over time.
 
-* Query module: `defoe.alto.queries.normalize`
+* Query module: `defoe.nls.queries.normalize`
 * Configuration file: None
 * Result format:
 
