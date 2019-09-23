@@ -46,8 +46,8 @@ This dataset is available, under licence, from [Papers Past](http://paperspast.n
 [National Library of Scotland](https://data.nls.uk/data) provide digitised [Encyclopaedia Britanica](https://data.nls.uk/data/digitised-collections/encyclopaedia-britannica/) from the 18th and 20th centuries.
 
 Data can be download from a zip file: 155,388 ALTO XML files; 195 METS files; 155,388 image files.
+See [copyrights restrictions](https://www.nls.uk/copyright)
 
-This dataset is available, see [copyrights restrictions](https://www.nls.uk/copyright)
 ---
 
 # Get started
