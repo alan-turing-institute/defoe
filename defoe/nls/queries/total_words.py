@@ -17,7 +17,7 @@ def do_query(archives, config_file=None, logger=None):
           "num_words": num_words
         }
 
-    :param archives: RDD of defoe.alto.archive.Archive
+    :param archives: RDD of defoe.nls.archive.Archive
     :type archives: pyspark.rdd.PipelinedRDD
     :param config_file: query configuration file (unused)
     :type config_file: str or unicode

@@ -5,8 +5,8 @@ This query detects also the sentences in which keywords appear, and preprocess e
 import os.path
 import yaml
 from defoe import query_utils
-from defoe.alto.query_utils import extract_sentences, total_preprocessed
-from defoe.alto.query_utils import PreprocessWordType
+from defoe.nls.query_utils import extract_sentences, total_preprocessed
+from defoe.nls.query_utils import PreprocessWordType
 from defoe.query_utils import PreprocessWordType
 
 def do_query(archives, config_file=None, logger=None):
@@ -23,7 +23,7 @@ def do_query(archives, config_file=None, logger=None):
         - [<WORD>, <CONCORDANCE>]
         - [<WORD>, <CONCORDANCE>]
 
-    :param archives: RDD of defoe.alto.archive.Archive
+    :param archives: RDD of defoe.nls.archive.Archive
     :type archives: pyspark.rdd.PipelinedRDD
     :param config_file: query configuration file
     :type config_file: str or unicode

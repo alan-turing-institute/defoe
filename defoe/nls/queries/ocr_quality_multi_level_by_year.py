@@ -4,7 +4,7 @@ Gets page and the average of all words confidences for each page and groups by y
 """
 
 from operator import concat, add
-from defoe.alto.query_utils import calculate_words_confidence_average
+from defoe.nls.query_utils import calculate_words_confidence_average
 
 def do_query(archives, config_file=None, logger=None):
     """
@@ -17,7 +17,7 @@ def do_query(archives, config_file=None, logger=None):
           ...
         }
 
-    :param archives: RDD of defoe.alto.archive.Archive
+    :param archives: RDD of defoe.nls.archive.Archive
     :type archives: pyspark.rdd.PipelinedRDD
     :param config_file: query configuration file (unused)
     :type config_file: str or unicode
