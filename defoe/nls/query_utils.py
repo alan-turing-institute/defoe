@@ -22,7 +22,7 @@ def get_page_matches(document,
     per keyword.
 
     :param document: document
-    :type document: defoe.alto.document.Document
+    :type document: defoe.nls.document.Document
     :param keywords: keywords
     :type keywords: list(str or unicode:
     :param preprocess_type: how words should be preprocessed
@@ -104,7 +104,7 @@ def calculate_words_within_dictionary(page,
     Calculates the % of page words within a dictionary and also returns the page quality (pc)
     Page words are normalized. 
     :param page: Page
-    :type page: defoe.alto.page.Page
+    :type page: defoe.nls.page.Page
     :param preprocess_type: how words should be preprocessed
     (normalize, normalize and stem, normalize and lemmatize, none)
     :return: matches
@@ -130,7 +130,7 @@ def calculate_words_confidence_average(page):
     Calculates the average of "words confidence (wc)"  within a page.
     Page words are normalized. 
     :param page: Page
-    :type page: defoe.alto.page.Page
+    :type page: defoe.nls.page.Page
     :param preprocess_type: how words should be preprocessed
     (normalize, normalize and stem, normalize and lemmatize, none)
     :return: matches
