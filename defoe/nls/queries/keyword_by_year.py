@@ -6,6 +6,7 @@ from operator import add
 
 from defoe import query_utils
 
+import yaml, os
 
 def do_query(archives, config_file=None, logger=None):
     """
@@ -38,16 +39,22 @@ def do_query(archives, config_file=None, logger=None):
     :return: number of occurrences of keywords grouped by year
     :rtype: dict
     """
-    keywords = []
     with open(config_file, "r") as f:
-        keywords = [query_utils.normalize(word) for word in list(f)]
+        config = yaml.load(f)
+    preprocess_type = query_utils.extract_preprocess_word_type(config)
+    data_file = query_utils.extract_data_file(config,
+                                              os.path.dirname(config_file))
+    keywords = []
+    with open(data_file, 'r') as f:
+        keywords = [query_utils.preprocess_word(
+            word, preprocess_type) for word in list(f)]
     # [(year, document), ...]
     documents = archives.flatMap(
         lambda archive: [(document.year, document) for document in list(archive)])
     # [((year, word), 1), ...]
     words = documents.flatMap(
         lambda year_document: [
-            ((year_document[0], query_utils.normalize(word)), 1)
+            ((year_document[0], query_utils.preprocess_word(word, preprocess_type)), 1)
             for (_, word) in year_document[1].scan_words()
         ])
     # [((year, word), 1), ...]
