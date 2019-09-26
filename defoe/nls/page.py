@@ -29,6 +29,7 @@ class Page(object):
         """
         if not source:
             source = document.archive.open_page(document.code, code)
+        print("!!!!source is %s" %source)
         self.code = code
         self.tree, self.namespaces = self.alto_parse(source)
         self.page_tree = self.alto_page()
@@ -43,21 +44,33 @@ class Page(object):
 
 
     def alto_parse(self, source):
+        print("!!!!source is %s" %source)
         xml = etree.parse(source)
         xmlns = xml.getroot().tag.split('}')[0].strip('{')
         return xml, xmlns
 
     def alto_page(self):
-        return self.tree.find('//{%s}Page' % self.namespaces)
-
+        try:
+            return self.tree.find('//{%s}Page' % self.namespaces)
+        except:
+            return 0 
     def alto_page_width(self):
-        return int(self.page_tree.attrib.get('WIDTH'))
+        try:
+            return int(self.page_tree.attrib.get('WIDTH'))
+        except:
+            return 0 
 
     def alto_page_height(self):
-        return int(self.page_tree.attrib.get('HEIGHT'))
+        try:
+            return int(self.page_tree.attrib.get('HEIGHT'))
+        except:
+            return 0 
 
     def alto_page_pc(self):
-        return self.page_tree.attrib.get('PC')
+        try:
+            return self.page_tree.attrib.get('PC')
+        except:
+            return '0' 
 
     @property
     def words(self):
@@ -73,41 +86,52 @@ class Page(object):
     @property
     def wc(self):
         if not self.page_wc:
-            for lines in self.tree.iterfind('.//{%s}TextLine' % self.namespaces):
-                for line in lines.findall('{%s}String' % self.namespaces):
-                    text = line.attrib.get('WC')
-                    self.page_wc.append(text)
+            try:
+                for lines in self.tree.iterfind('.//{%s}TextLine' % self.namespaces):
+                    for line in lines.findall('{%s}String' % self.namespaces):
+                        text = line.attrib.get('WC')
+                        self.page_wc.append(text)
+            except:
+                pass
         return self.page_wc
 
     @property
     def cc(self):
          if not self.page_cc:
-             for lines in self.tree.iterfind('.//{%s}TextLine' % self.namespaces):
-                 for line in lines.findall('{%s}String' % self.namespaces):
-                     text = line.attrib.get('CC')
-                     self.page_cc.append(text)
+             try:
+                 for lines in self.tree.iterfind('.//{%s}TextLine' % self.namespaces):
+                     for line in lines.findall('{%s}String' % self.namespaces):
+                         text = line.attrib.get('CC')
+                         self.page_cc.append(text)
+             except:
+                 pass
          return self.page_cc
 
     @property
     def strings(self):
          if not self.page_strings:
-             for lines in self.tree.iterfind('.//{%s}TextLine' % self.namespaces):
-                 for line in lines.findall('{%s}String' % self.namespaces):
-                     self.page_strings.append(line)
+             try:
+                 for lines in self.tree.iterfind('.//{%s}TextLine' % self.namespaces):
+                     for line in lines.findall('{%s}String' % self.namespaces):
+                         self.page_strings.append(line)
+             except:
+                 pass
          return self.page_strings
-
 
     @property
     def images(self):
          if not self.page_images:
-             for graphical in self.tree.iterfind('.//{%s}GraphicalElement' % self.namespaces):
-                 graphical_id = graphical.attrib.get('ID')
-                 graphical_coords = (graphical.attrib.get('HEIGHT') + ','
+             try:
+                 for graphical in self.tree.iterfind('.//{%s}GraphicalElement' % self.namespaces):
+                     graphical_id = graphical.attrib.get('ID')
+                     graphical_coords = (graphical.attrib.get('HEIGHT') + ','
                             + graphical.attrib.get('WIDTH') + ','
                             + graphical.attrib.get('VPOS') + ','
                             + graphical.attrib.get('HPOS'))
-                 graphical_elements = graphical_id + '=' + graphical_coords
-                 self.page_images.append(graphical_elements)
+                     graphical_elements = graphical_id + '=' + graphical_coords
+                     self.page_images.append(graphical_elements)
+             except:
+                 pass
          return self.page_images
 
 
