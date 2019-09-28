@@ -147,3 +147,45 @@ def calculate_words_confidence_average(page):
        calculate_wc = "0" 
     return calculate_wc
 
+def get_page_as_string(page,
+                          preprocess_type=PreprocessWordType.LEMMATIZE):
+    """
+    Return a page as a single string.
+
+    :param page: Page
+    :type page: defoe.nls.Page
+    :param preprocess_type: how words should be preprocessed
+    (normalize, normalize and stem, normalize and lemmatize, none)
+    :type preprocess_type: defoe.query_utils.PreprocessWordType
+    :return: page words as a string
+    :rtype: string or unicode
+    """
+    page_string = ''
+    for word in page.words:
+        preprocessed_word = query_utils.preprocess_word(word,
+                                                         preprocess_type)
+        if page_string == '':
+            page_string = preprocessed_word
+        else:
+            page_string += (' ' + preprocessed_word)
+    return page_string
+
+
+def get_sentences_list_matches(text, keysentence):
+    """
+    Check which key-sentences from occurs within a string
+    and return the list of matches.
+
+    :param text: text
+    :type text: str or unicode
+    :type: list(str or uniocde)
+    :return: Set of sentences
+    :rtype: set(str or unicode)
+    """
+    match = set()
+    for sentence in keysentence:
+        if sentence in text:
+            match.add(sentence)
+    return sorted(list(match))
+
+
