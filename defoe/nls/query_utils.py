@@ -5,6 +5,7 @@ Query-related utility functions.
 from defoe import query_utils
 from defoe.query_utils import PreprocessWordType
 from nltk.corpus import words
+import re
 
 def get_page_matches(document,
                      keywords,
@@ -183,11 +184,11 @@ def get_sentences_list_matches(text, keysentence):
     :rtype: set(str or unicode)
     """
     match = []
+    text_list= text.split()
     for sentence in keysentence:
-        if sentence in text:
-            count = text.count(sentence)
-            for i in range(0, count):
+        pattern = re.compile(r'^%s$'%sentence)
+        for word in text_list:
+            if re.search(pattern, word):
                 match.append(sentence)
     return sorted(match)
-
 
