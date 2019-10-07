@@ -182,10 +182,12 @@ def get_sentences_list_matches(text, keysentence):
     :return: Set of sentences
     :rtype: set(str or unicode)
     """
-    match = set()
+    match = []
     for sentence in keysentence:
         if sentence in text:
-            match.add(sentence)
-    return sorted(list(match))
+            count = text.count(sentence)
+            for i in range(0, count):
+                match.append(sentence)
+    return sorted(match)
 
 
