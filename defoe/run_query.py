@@ -155,8 +155,9 @@ def main():
             f.write(yaml.safe_dump(list(errors)))
 
     results = do_query(ok_data, query_config_file, log)
-    with open(results_file, "w") as f:
-        f.write(yaml.safe_dump(dict(results)))
+    if results!="0":
+        with open(results_file, "w") as f:
+            f.write(yaml.safe_dump(dict(results)))
 
 
 if __name__ == "__main__":
