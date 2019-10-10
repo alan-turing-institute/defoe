@@ -40,7 +40,7 @@ class Document(object):
         self.years = \
             Document.parse_year(self.single_query('//mods:dateIssued/text()'))
         self.publisher = self.single_query('//mods:publisher/text()')
-        self.place = self.single_query('//mods:placeTerm/text()')
+        self.place = self.single_query('//mods:placeTerm[@type=\'text\']/text()')
         # place may often have a year in.
         self.years += Document.parse_year(self.place)
         self.years = sorted(self.years)
@@ -49,6 +49,7 @@ class Document(object):
         else:
             self.year = None
         self.date = self.single_query('//mods:dateIssued/text()')
+        self.document_type = "book"
 
     @staticmethod
     def parse_year(text):

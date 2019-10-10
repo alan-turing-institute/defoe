@@ -46,6 +46,7 @@ class Issue(object):
         self.date = datetime.now()
         self.page_count = 0
         self.day_of_week = ''
+        self.document_type = "newspaper"
         # Attempt to parse the file, even if its XML is invalid e.g:
         # <wd ...>.../wd>
         parser = etree.XMLParser(recover=True)
