@@ -17,7 +17,7 @@ def do_query(archives, config_file=None, logger=None):
     Example:
     ('Encyclopaedia Britannica; or, A dictionary of arts, sciences, and miscellaneous literature', 
       1810, 'Edinburgh', '/mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica/191253839', 
-      'alto/192209952.34.xml', 'Page5', 446, 'book',"none", u"Part III. MORAL PHILOSOPHY.....)
+      'alto/192209952.34.xml', 'Page5', 446, 'book',<PreprocessWordType.NONE:4>, u"Part III. MORAL PHILOSOPHY.....)
     ( .... 'alto/192209965.34.xml', 'Page6', 446, 'book', u'402 1 24\xb0 Belief of immortali- ty, &c. a great fu ,>- port- amidfl trials.)
     
     :param archives: RDD of defoe.nls.archive.Archive
@@ -26,8 +26,8 @@ def do_query(archives, config_file=None, logger=None):
     :type config_file: str or unicode
     :param logger: logger (unused)
     :type logger: py4j.java_gateway.JavaObject
-    :return: number of occurrences of keywords grouped by year
-    :rtype: dict
+    :return: "0"
+    :rtype: string
     """
     # [(year, title, place, publisher, date, document), ...]
     preprocess_type = query_utils.parse_preprocess_word_type("none")
@@ -39,5 +39,5 @@ def do_query(archives, config_file=None, logger=None):
                                     get_page_as_string(page, preprocess_type)) 
                                        for page in year_document[6]])
 
-    pages.saveAsTextFile("hdfs:///user/at003/rosa/text15.txt")
+    pages.saveAsTextFile("hdfs:///user/at003/rosa/text18.txt")
     return "0"
