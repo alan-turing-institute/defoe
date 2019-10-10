@@ -29,18 +29,19 @@ class Page(object):
         """
         if not source:
             source = document.archive.open_page(document.code, code)
-        print("!!!!source is %s" %source)
         self.code = code
         self.tree, self.namespaces = self.alto_parse(source)
         self.page_tree = self.alto_page()
         self.width = self.alto_page_width()
         self.height = self.alto_page_height()
         self.pc = self.alto_page_pc()
+        self.page_id = self.alto_page_id()
         self.page_words = None
         self.page_strings = None
         self.page_images = None
         self.page_wc = None
         self.page_cc = None
+   
 
 
     def alto_parse(self, source):
@@ -58,7 +59,12 @@ class Page(object):
         try:
             return int(self.page_tree.attrib.get('WIDTH'))
         except:
-            return 0 
+            return 0
+     def alto_page_id(self):
+        try:
+            return int(self.page_tree.attrib.get('ID'))
+        except:
+            return 0
 
     def alto_page_height(self):
         try:
