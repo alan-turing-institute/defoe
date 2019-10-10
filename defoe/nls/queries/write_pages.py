@@ -35,7 +35,7 @@ def do_query(archives, config_file=None, logger=None):
         lambda archive: [(document.title, document.year, document.place, document.archive.filename, document.num_pages, document.document_type,  document) for document in list(archive)])
     # [(year, title, place, publisher, date, page_string)
     pages = documents.flatMap(
-        lambda year_document: [(year_document[0],year_document[1], year_document[2], year_document[3], page.code, page.page_id, year_document[4], year_document[5], perprocess_type,   
+        lambda year_document: [(year_document[0],year_document[1], year_document[2], year_document[3], page.code, page.page_id, year_document[4], year_document[5], preprocess_type,   
                                     get_page_as_string(page, preprocess_type)) 
                                        for page in year_document[6]])
 
