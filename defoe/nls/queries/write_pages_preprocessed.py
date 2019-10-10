@@ -15,6 +15,10 @@ def do_query(archives, config_file=None, logger=None):
     Metadata collected: Tittle, year, place, archive filename, page filename, page id, num pages, type of archive, type of preprocess treatment
  
     config_file must be the path to a configuration file with the preoprocessed type to apply to the pages' words
+    Example:
+    ('Encyclopaedia Britannica; or, A dictionary of arts, sciences, and miscellaneous literature', 1810, 'Edinburgh', 
+     '/mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica/191253839', 'alto/192209952.34.xml', 'Page5', 446, 'book', <PreprocessWordType.NORMALIZE: 1>, 
+      u'part iii moral philosophy  unfat isfied defires of exiftence and happi eis motives to ood minds and feme traces of which arc found in the virtue lo we rt are feldom united with proportioned means or v opportunities of exercifing them  fo that the moral faring ....')
 
     :param archives: RDD of defoe.nls.archive.Archive
     :type archives: pyspark.rdd.PipelinedRDD
@@ -22,8 +26,8 @@ def do_query(archives, config_file=None, logger=None):
     :type config_file: str or unicode
     :param logger: logger (unused)
     :type logger: py4j.java_gateway.JavaObject
-    :return: number of occurrences of keywords grouped by year
-    :rtype: dict
+    :return: "0"
+    :rtype: string
     """
     with open(config_file, "r") as f:
         config = yaml.load(f)
@@ -36,5 +40,5 @@ def do_query(archives, config_file=None, logger=None):
                                     get_page_as_string(page, preprocess_type)) 
                                        for page in year_document[6]])
 
-    pages.saveAsTextFile("hdfs:///user/at003/rosa/text16.txt")
+    pages.saveAsTextFile("hdfs:///user/at003/rosa/text17.txt")
     return "0"
