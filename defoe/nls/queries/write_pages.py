@@ -2,9 +2,6 @@
 Counts number of occurrences of keywords or keysentences and groups by year.
 """
 
-from operator import add
-
-from defoe.query_utils import PreprocessWordType
 from defoe.nls.query_utils import get_page_as_string
 
 import yaml, os
