@@ -36,6 +36,7 @@ class Page(object):
         self.height = self.alto_page_height()
         self.pc = self.alto_page_pc()
         self.page_id = self.alto_page_id()
+        self.image_nr = self.alto_image_nr()
         self.page_words = None
         self.page_strings = None
         self.page_images = None
@@ -55,16 +56,24 @@ class Page(object):
             return self.tree.find('//{%s}Page' % self.namespaces)
         except:
             return 0 
+
     def alto_page_width(self):
         try:
             return int(self.page_tree.attrib.get('WIDTH'))
         except:
             return 0
-     def alto_page_id(self):
+
+    def alto_page_id(self):
         try:
-            return int(self.page_tree.attrib.get('ID'))
+            return self.page_tree.attrib.get('ID')
         except:
-            return 0
+            return '0'
+    
+    def alto_image_nr(self):
+        try:
+            return self.page_tree.attrib.get('PHYSICAL_IMG_NR')
+        except:
+            return '0'
 
     def alto_page_height(self):
         try:
