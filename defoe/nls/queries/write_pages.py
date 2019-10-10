@@ -1,33 +1,21 @@
 """
-Counts number of occurrences of keywords or keysentences and groups by year.
+Writes raw pages as string to HDFS textfiles, and some metadata associated with each document.
 """
 
+from defoe import query_utils
 from defoe.nls.query_utils import get_page_as_string
 
 import yaml, os
 
 def do_query(archives, config_file=None, logger=None):
     """
-    Counts number of occurrences of keywords or keysentences and groups by year.
+    Writes raw pages as string to HDFS textfiles, and some metadata associated with each document.
 
-    config_file must be the path to a configuration file with a list
-    of the keywords to search for, one per line.
-
-    Both keywords/keysentences and words in documents are normalized, by removing
-    all non-'a-z|A-Z' characters.
-
-    Returns result of form:
-
-        {
-          <YEAR>:
-          [
-            [<SENTENCE|WORD>, <NUM_SENTENCES|WORDS>],
-            ...
-          ],
-          <YEAR>:
-          ...
-        }
-
+    Non preprocessed steps are applied to the words extracted from pages.
+    Metadata associated: Year (e.g. 1810), title (e.g. Encyclopaedia Britannica; or, A dictionary of arts, sciences, and miscellaneous literature),
+                         place (e.g. stk), publisher (none), date of the document (1810). 
+    And page as string:  'Part III. MORAL PHILOSOPHY. 22,6 Unfat isfied defires of exiftence and happi- \xbbeis. Motives to ^ood minds, and feme traces of which arc found in the Virtue.'
+ 
     :param archives: RDD of defoe.nls.archive.Archive
     :type archives: pyspark.rdd.PipelinedRDD
     :param config_file: query configuration file
@@ -38,7 +26,7 @@ def do_query(archives, config_file=None, logger=None):
     :rtype: dict
     """
     # [(year, title, place, publisher, date, document), ...]
-    preprocess_type=4
+    preprocess_type = query_utils.parse_preprocess_word_type("none")
     documents = archives.flatMap(
         lambda archive: [(document.year, document.title, document.place, document.publisher, document.date, document) for document in list(archive)])
     # [(year, title, place, publisher, date, page_string)
@@ -47,5 +35,5 @@ def do_query(archives, config_file=None, logger=None):
                                     get_page_as_string(page, preprocess_type)) 
                                        for page in year_document[5]])
 
-    pages.saveAsTextFile("hdfs:///user/at003/rosa/text6.txt")
+    #pages.saveAsTextFile("hdfs:///user/at003/rosa/text7.txt")
     return "0"
