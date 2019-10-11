@@ -54,6 +54,7 @@ class Document(object):
             self.year = None
         self.date = self.single_query('//mods:dateIssued/text()')
         self.document_type = "newspaper"
+        self.model = "fmp"
 
         #### New ############
         #[art0001, art0002, art0003]

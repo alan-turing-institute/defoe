@@ -50,6 +50,7 @@ class Document(object):
             self.year = None
         self.date = self.single_query('//mods:dateIssued/text()')
         self.document_type = "book"
+        self.model = "alto"
 
     @staticmethod
     def parse_year(text):
