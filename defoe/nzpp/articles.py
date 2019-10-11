@@ -28,6 +28,8 @@ class Articles(object):
         self.xml_tree = etree.parse(stream, parser)
         self.articles = [Article(article, self.filename)
                          for article in self.query('.//result')]
+        self.document_type = "newspaper"
+        self.model = "nzpp"
 
     def query(self, query):
         """

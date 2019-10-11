@@ -5,7 +5,6 @@ of XML files in METS/MODS format.
 import re
 
 from lxml import etree
-
 from defoe.nls.page import Page
 
 
@@ -50,6 +49,7 @@ class Document(object):
             self.year = None
         self.date = self.single_query('//mods:dateIssued/text()')
         self.document_type = "book"
+        self.model = "nls"
 
     @staticmethod
     def parse_year(text):
@@ -187,7 +187,6 @@ class Document(object):
         :rtype: defoe.alto.page.Page
         """
         for page_code in self.page_codes:
-            print("VAMOSssssss %s" % page_code)
             yield self.page(page_code)
 
     def scan_strings(self):
