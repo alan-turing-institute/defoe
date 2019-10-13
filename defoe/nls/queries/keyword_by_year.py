@@ -11,15 +11,11 @@ import yaml, os
 def do_query(archives, config_file=None, logger=None):
     """
     Counts number of occurrences of keywords and groups by year.
-
     config_file must be the path to a configuration file with a list
     of the keywords to search for, one per line.
-
     Both keywords and words in documents are normalized, by removing
     all non-'a-z|A-Z' characters.
-
     Returns result of form:
-
         {
           <YEAR>:
           [
@@ -29,7 +25,6 @@ def do_query(archives, config_file=None, logger=None):
           <YEAR>:
           ...
         }
-
     :param archives: RDD of defoe.nls.archive.Archive
     :type archives: pyspark.rdd.PipelinedRDD
     :param config_file: query configuration file
@@ -55,7 +50,7 @@ def do_query(archives, config_file=None, logger=None):
     words = documents.flatMap(
         lambda year_document: [
             ((year_document[0], query_utils.preprocess_word(word, preprocess_type)), 1)
-            for (_, word) in year_document[1].scan_words()
+             for page in year_document[1] for word in page.words
         ])
     # [((year, word), 1), ...]
     matching_words = words.filter(
