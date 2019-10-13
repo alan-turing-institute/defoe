@@ -1,1 +1,1 @@
-preprocess: lemmatize
+preprocess: normalize
