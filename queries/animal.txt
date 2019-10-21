@@ -1,0 +1,6 @@
+Cat
+dog
+kitten
+puppy
+goldfish
+parrot
