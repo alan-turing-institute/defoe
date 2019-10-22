@@ -5,7 +5,7 @@ Counts total number of words.
 from operator import add
 
 
-def do_query(all_articles, config_file=None, logger=None):
+def do_query(all_articles, config_file=None, logger=None, context=None):
     """
     Iterate through articles and count total number of articles
     and total number of words.
