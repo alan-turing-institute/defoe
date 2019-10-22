@@ -74,10 +74,14 @@ def do_query(archives, config_file=None, logger=None, context=None):
     # Ignoring the first character '(' and last character ')' of each entry, and spliting by "'," 
     pages = pages_hdfs.map(
        lambda p_string: p_string[1:-1].split("\',")) 
-    
+  
+    # Cleaning the first ' of each element.  
+    pages_clean = pages.map(
+      lambda p_entry: [item.split("\'")[1] for item in p_entry]) 
+
     # Getting the preprocess type from the first entry - position 10.
-    f_entry=pages.take(1) 
-    preprocess_type = str(f_entry[0][10]).split("\'")[1]
+    f_entry=pages_clean.take(1) 
+    preprocess_type = f_entry[0][10]
     
     with open(config_file, "r") as f:
         config = yaml.load(f)
@@ -98,9 +102,8 @@ def do_query(archives, config_file=None, logger=None, context=None):
                     sentence_norm += " " + word
             keysentences.append(sentence_norm)
     
-  
      
-    filter_pages = pages.filter(
+    filter_pages = pages_clean.filter(
         lambda year_page: any(
             keysentence in year_page[11] for keysentence in keysentences))
     
@@ -108,7 +111,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
     # [(year, [keysentence, keysentence]), ...]
     # We also need to convert the string as an integer spliting first the '.
     matching_pages = filter_pages.map(
-        lambda year_page: (int(year_page[2].split("\'")[1]),
+        lambda year_page: (int(year_page[2]),
                               get_sentences_list_matches(
                                   year_page[11],
                                   keysentences)))
