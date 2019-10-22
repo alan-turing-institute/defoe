@@ -9,7 +9,7 @@ from defoe.alto.query_utils import extract_sentences, total_preprocessed
 from defoe.alto.query_utils import PreprocessWordType
 from defoe.query_utils import PreprocessWordType
 
-def do_query(archives, config_file=None, logger=None):
+def do_query(archives, config_file=None, logger=None, context=None):
     """
     Gets concordance and collocation analysis for keywords giving a target word,  and it groups the results by date.
     The window variable can be used for specifying the number of words to the right and left to take. 

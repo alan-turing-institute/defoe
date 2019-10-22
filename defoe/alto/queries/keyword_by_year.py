@@ -7,7 +7,7 @@ from operator import add
 from defoe import query_utils
 
 
-def do_query(archives, config_file=None, logger=None):
+def do_query(archives, config_file=None, logger=None, context=None):
     """
     Counts number of occurrences of keywords and groups by year.
 

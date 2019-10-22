@@ -7,7 +7,7 @@ from defoe.nls.query_utils import get_page_as_string
 
 import yaml, os
 
-def do_query(archives, config_file=None, logger=None):
+def do_query(archives, config_file=None, logger=None, context=None):
     """
     Writes raw pages as string to HDFS textfiles, and some metadata associated with each document.
 

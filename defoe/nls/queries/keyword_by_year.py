@@ -8,7 +8,7 @@ from defoe import query_utils
 
 import yaml, os
 
-def do_query(archives, config_file=None, logger=None):
+def do_query(archives, config_file=None, logger=None, context=None):
     """
     Counts number of occurrences of keywords and groups by year.
     config_file must be the path to a configuration file with a list

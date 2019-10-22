@@ -5,7 +5,7 @@ Counts total number of words.
 from operator import add
 
 
-def do_query(issues, config_file=None, logger=None):
+def do_query(issues, config_file=None, logger=None, context=None):
     """
     Iterate through issues and count total number of issues
     and total number of words.

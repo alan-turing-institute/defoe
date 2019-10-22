@@ -3,7 +3,7 @@ Counts total number of documents.
 """
 
 
-def do_query(archives, config_file=None, logger=None):
+def do_query(archives, config_file=None, logger=None, context=None):
     """
     Iterate through archives and count total number of documents.
     Returns result of form:

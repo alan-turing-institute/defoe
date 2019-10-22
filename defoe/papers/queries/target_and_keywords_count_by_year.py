@@ -14,7 +14,7 @@ from defoe import query_utils
 from defoe.papers.query_utils import article_contains_word
 
 
-def do_query(issues, config_file=None, logger=None):
+def do_query(issues, config_file=None, logger=None, context=None):
     """
     Counts number of times that each keyword appears for every article
     that has a target word in it.

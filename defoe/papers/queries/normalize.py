@@ -6,7 +6,7 @@ issues, articles and words change over time, for example.
 """
 
 
-def do_query(issues, config_file=None, logger=None):
+def do_query(issues, config_file=None, logger=None, context=None):
     """
     Counts total number of issues, articles and words per year.
 

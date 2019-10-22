@@ -10,7 +10,7 @@ from defoe.nls.query_utils import get_sentences_list_matches
 
 import yaml, os
 
-def do_query(archives, config_file=None, logger=None):
+def do_query(archives, config_file=None, logger=None, context=None):
     """
     Counts number of occurrences of keywords or keysentences and groups by year.
 

@@ -15,7 +15,7 @@ from defoe.papers.query_utils import get_article_keyword_idx
 from defoe.papers.query_utils import get_concordance
 
 
-def do_query(issues, config_file=None, logger=None):
+def do_query(issues, config_file=None, logger=None, context=None):
     """
     Gets concordance and collocation for keywords occurring in
     articles which have a target word and groups the results by date.

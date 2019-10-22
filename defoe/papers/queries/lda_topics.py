@@ -15,7 +15,7 @@ from defoe.papers.query_utils import article_contains_word
 from defoe.papers.query_utils import PreprocessWordType
 
 
-def do_query(issues, config_file=None, logger=None):
+def do_query(issues, config_file=None, logger=None, context=None):
     """
     Gets the Latent Dirochelet Allocation (LDA) topics for words
     within articles.

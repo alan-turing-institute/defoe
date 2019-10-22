@@ -3,7 +3,7 @@ Get the editions per year.
 """
 
 
-def do_query(archives, config_file=None, logger=None):
+def do_query(archives, config_file=None, logger=None, context=None):
     """
     Iterate through archives and get the title and editions per year
     Returns result of form:

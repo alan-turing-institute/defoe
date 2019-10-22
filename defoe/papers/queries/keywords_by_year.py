@@ -9,7 +9,7 @@ from defoe.papers.query_utils import get_article_keywords
 from defoe.papers.query_utils import PreprocessWordType
 
 
-def do_query(issues, config_file=None, logger=None):
+def do_query(issues, config_file=None, logger=None, context=None):
     """
     Counts number of articles containing two or more keywords and
     groups by year.

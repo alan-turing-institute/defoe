@@ -5,7 +5,7 @@ Gets measure of OCR quality for each page and groups by year.
 from operator import concat
 from defoe.alto.query_utils import calculate_words_within_dictionary
 
-def do_query(archives, config_file=None, logger=None):
+def do_query(archives, config_file=None, logger=None, context=None):
     """
     Gets measure of OCR quality (PC), and calculates the number of words found in a dictionary for each page and groups by year.
 

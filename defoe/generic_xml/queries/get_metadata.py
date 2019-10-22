@@ -3,7 +3,7 @@ Gets metadata about an XML document.
 """
 
 
-def do_query(documents, config_file=None, logger=None):
+def do_query(documents, config_file=None, logger=None, context=None):
     """
     Gets metadata about an XML document.
 

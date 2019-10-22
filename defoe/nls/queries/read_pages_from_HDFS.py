@@ -1,58 +1,43 @@
 """
-Counts number of articles in which they are occurences of keysentences
-and groups them by year.
-
-Words in articles and keysentences can be normalized, normalized and
-stemmed, or normalized and lemmatized (default).
+Counts number of occurrences of keywords or keysentences and groups by year.
 """
 
 from operator import add
-import os.path
-import yaml
-
 from defoe import query_utils
-from defoe.papers.query_utils import get_article_as_string
-from defoe.papers.query_utils import get_sentences_list_matches
+from defoe.nls.query_utils import get_page_as_string
+from defoe.nls.query_utils import get_sentences_list_matches
 
+import yaml, os
 
-def do_query(issues, config_file=None, logger=None, context=None):
+def do_query(archives, config_file=None, logger=None, context=None):
     """
-    Counts number of articles in which they are occurences of
-    keysentences and groups them by year.
+    Counts number of occurrences of keywords or keysentences and groups by year.
 
-    Words in articles and keysentences can be normalized, normalized
-    and stemmed, or normalized and lemmatized (default).
+    config_file must be the path to a configuration file with a list
+    of the keywords to search for, one per line.
 
-    config_file must be the path to a configuration file of form:
-
-        preprocess: none|normalize|stem|lemmatize # Optional
-        data: <DATA_FILE>
-
-    <DATA_FILE> must be the path to a plain-text data file with a list
-    of the keysentences to search for, one per line. If <DATA_FILE> is
-    a relative path then it is assumed to be relative to the directory
-    in which config_file resides.
+    Both keywords/keysentences and words in documents are normalized, by removing
+    all non-'a-z|A-Z' characters.
 
     Returns result of form:
 
         {
-            <YEAR>:
-            [
-                [<SENTENCE>, <NUM_ARTICLES>],
-                [<SENTENCE>, <NUM_ARTICLES>],
-                ...
-            ],
-            <YEAR>:
+          <YEAR>:
+          [
+            [<SENTENCE|WORD>, <NUM_SENTENCES|WORDS>],
             ...
+          ],
+          <YEAR>:
+          ...
         }
 
-    :param issues: RDD of defoe.papers.issue.Issue
-    :type issues: pyspark.rdd.PipelinedRDD
+    :param archives: RDD of defoe.nls.archive.Archive
+    :type archives: pyspark.rdd.PipelinedRDD
     :param config_file: query configuration file
     :type config_file: str or unicode
     :param logger: logger (unused)
     :type logger: py4j.java_gateway.JavaObject
-    :return: number of occurrences of keysentences grouped by year
+    :return: number of occurrences of keywords grouped by year
     :rtype: dict
     """
     with open(config_file, "r") as f:
@@ -73,27 +58,32 @@ def do_query(issues, config_file=None, logger=None, context=None):
                 else:
                     sentence_norm += " " + word
             keysentences.append(sentence_norm)
-    # [(year, article_string)
-    articles = issues.flatMap(
-        lambda issue: [(issue.date.year, get_article_as_string(
-            article, preprocess_type)) for article in issue.articles])
+    pages = context.textFile("hdfs:///user/at003/rosa/text23.txt") 
+    print("----> Read from HDFS %s" % pages.take(8)) 
+   
+    pages_list = pages.map(
+       lambda p_string: p_string.strip('][').split(', ')) 
 
-    # [(year, article_string)
-    filter_articles = articles.filter(
-        lambda year_article: any(
-            keysentence in year_article[1] for keysentence in keysentences))
-
+    filter_pages = pages_list.filter(
+        lambda year_page: any(
+            keysentence in year_page[13] for keysentence in keysentences))
+    
+    print("----> Filter Pages %s" % filter_pages.take(1))
+    
     # [(year, [keysentence, keysentence]), ...]
-    matching_articles = filter_articles.map(
-        lambda year_article: (year_article[0],
+    matching_pages = filter_pages.map(
+        lambda year_page: (year_page[4],
                               get_sentences_list_matches(
-                                  year_article[1],
+                                  year_page[13],
                                   keysentences)))
+    
+    print("----> Maching Pages %s" % filter_pages.take(1))
 
     # [[(year, keysentence), 1) ((year, keysentence), 1) ] ...]
-    matching_sentences = matching_articles.flatMap(
+    matching_sentences = matching_pages.flatMap(
         lambda year_sentence: [((year_sentence[0], sentence), 1)
                                for sentence in year_sentence[1]])
+
 
     # [((year, keysentence), num_keysentences), ...]
     # =>

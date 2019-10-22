@@ -15,7 +15,7 @@ from defoe.papers.query_utils import get_article_as_string
 from defoe.papers.query_utils import get_sentences_list_matches
 
 
-def do_query(issues, config_file=None, logger=None, context=None):
+def do_query(archives, config_file=None, logger=None, context=None):
     """
     Counts number of articles in which they are occurences of
     keysentences and groups them by year.

@@ -9,7 +9,7 @@ import yaml
 from defoe import query_utils
 
 
-def do_query(issues, config_file=None, logger=None):
+def do_query(issues, config_file=None, logger=None, context=None):
     """
     Finds every unique word and its frequency.
 
