@@ -87,7 +87,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
     
     pages_hdfs = context.textFile("hdfs:///user/at003/rosa/demo_text1.txt") 
   
-    # Ignoring the first character '(' and last character ')' of each entry, and spliting by - ', - 
+    # Ignoring the first character '(' and last character ')' of each entry, and spliting by "'," 
     pages = pages_hdfs.map(
        lambda p_string: p_string[1:-1].split("\',")) 
     
