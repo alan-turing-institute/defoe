@@ -133,27 +133,33 @@ def main():
     # Submit job.
     context = SparkContext(conf=conf)
     log = context._jvm.org.apache.log4j.LogManager.getLogger(__name__)  # pylint: disable=protected-access
-    # [filename,...]
-    rdd_filenames = files_to_rdd(context, num_cores, data_file=data_file)
-    # [(object, None)|(filename, error_message), ...]
-    data = rdd_filenames.map(
-        lambda filename: filename_to_object(filename))
 
-    # [object, ...]
-    ok_data = data \
-        .filter(lambda obj_file_err: obj_file_err[1] is None) \
-        .map(lambda obj_file_err: obj_file_err[0])
-    # [(filename, error_message), ...]
-    error_data = data \
-        .filter(lambda obj_file_err: obj_file_err[1] is not None) \
-        .map(lambda obj_file_err: (obj_file_err[0], obj_file_err[1]))
-    # Collect and record problematic files before attempting query.
-    errors = error_data.collect()
-    errors = list(errors)
-    if errors:
-        with open(errors_file, "w") as f:
-            f.write(yaml.safe_dump(list(errors)))
+    # Check the data_file size, just in case it is empty, which means that we just need to execute the query
+    # because the data has been already preprocessed and saved into HDFS | db. 
 
+    if os.path.getsize(data_file) > 0:
+        # [filename,...]
+        rdd_filenames = files_to_rdd(context, num_cores, data_file=data_file)
+        # [(object, None)|(filename, error_message), ...]
+        data = rdd_filenames.map(
+             lambda filename: filename_to_object(filename))
+
+        # [object, ...]
+        ok_data = data \
+            .filter(lambda obj_file_err: obj_file_err[1] is None) \
+            .map(lambda obj_file_err: obj_file_err[0])
+        # [(filename, error_message), ...]
+        error_data = data \
+            .filter(lambda obj_file_err: obj_file_err[1] is not None) \
+            .map(lambda obj_file_err: (obj_file_err[0], obj_file_err[1]))
+        # Collect and record problematic files before attempting query.
+        errors = error_data.collect()
+        errors = list(errors)
+        if errors:
+            with open(errors_file, "w") as f:
+                 f.write(yaml.safe_dump(list(errors)))
+    else:
+	ok_data=[]
     results = do_query(ok_data, query_config_file, log, context)
     if results!="0":
         with open(results_file, "w") as f:
