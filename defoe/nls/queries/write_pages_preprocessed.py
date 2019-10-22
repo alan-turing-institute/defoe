@@ -12,7 +12,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
     Writes raw pages as string to HDFS textfiles, and some metadata associated with each document.
 
     Preprocessed steps are applied to the words extracted from pages.
-    Metadata collected: tittle, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, type of preprocess treatment
+    Metadata collected: tittle, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, type of preprocess treatment, prep_page_string
  
     config_file must be the path to a configuration file with the preoprocessed type to apply to the pages' words
     Example:
@@ -33,16 +33,16 @@ def do_query(archives, config_file=None, logger=None, context=None):
         config = yaml.load(f)
     preprocess_type = query_utils.extract_preprocess_word_type(config)
     documents = archives.flatMap(
-        lambda archive: [(document.title, document.edition, document.year, \
-                          document.place, document.archive.filename, document.num_pages, \
-                           document.document_type,  document.model, document) for document in list(archive)])
+        lambda archive: [(document.title, document.edition, str(document.year), \
+                          document.place, document.archive.filename, str(document.num_pages), \
+                           document.document_type, document.model, document) for document in list(archive)])
     # [(tittle, edition, year, place, archive filename, page filename, 
     #   page id, num pages, type of archive, type of disribution, model, type of preprocess treatment, page_as_string)]
     pages = documents.flatMap(
         lambda year_document: [(year_document[0], year_document[1], year_document[2],\
                                year_document[3], year_document[4], page.code, page.page_id, \
-                               year_document[5], year_document[6], year_document[7], preprocess_type, \
+                               year_document[5], year_document[6], year_document[7], str(preprocess_type), \
                                get_page_as_string(page, preprocess_type)) for page in year_document[8]])
 
-    pages.saveAsTextFile("hdfs:///user/at003/rosa/text23.txt")
+    pages.saveAsTextFile("hdfs:///user/at003/rosa/demo_text1.txt")
     return "0"
