@@ -5,7 +5,7 @@ Finds every unique document type (DOCTYPE) and its frequency.
 from operator import add
 
 
-def do_query(documents, config_file=None, logger=None):
+def do_query(documents, config_file=None, logger=None, context=None):
     """
     Finds every unique document type (DOCTYPE) and its frequency.
 

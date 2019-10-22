@@ -6,7 +6,7 @@ from defoe import query_utils
 from defoe.alto.query_utils import get_page_matches
 
 
-def do_query(archives, config_file=None, logger=None):
+def do_query(archives, config_file=None, logger=None, context=None):
     """
     Gets concordance for keywords and groups by year.
 

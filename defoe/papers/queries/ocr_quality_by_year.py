@@ -5,7 +5,7 @@ Gets measure of OCR quality for each article and groups by year.
 from operator import concat
 
 
-def do_query(issues, config_file=None, logger=None):
+def do_query(issues, config_file=None, logger=None, context=None):
     """
     Gets measure of OCR quality for each article and groups by year.
 

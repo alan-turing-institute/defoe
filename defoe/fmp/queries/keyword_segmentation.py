@@ -8,7 +8,7 @@ import yaml
 import os
 
 
-def do_query(archives, config_file=None, logger=None):
+def do_query(archives, config_file=None, logger=None, context=None):
     """
     Crops articles' images for keywords and groups by word.
 

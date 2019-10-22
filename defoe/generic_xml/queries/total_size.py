@@ -5,7 +5,7 @@ Counts total size of document files in bytes.
 from operator import add
 
 
-def do_query(documents, config_file=None, logger=None):
+def do_query(documents, config_file=None, logger=None, context=None):
     """
     Iterate through documents and count total size of document files
     in bytes.

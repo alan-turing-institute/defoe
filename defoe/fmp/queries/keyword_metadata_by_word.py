@@ -9,7 +9,7 @@ import yaml
 import os
 
 
-def do_query(archives, config_file=None, logger=None):
+def do_query(archives, config_file=None, logger=None, context=None):
     """
     Gets concordance for keywords and groups by word.
 

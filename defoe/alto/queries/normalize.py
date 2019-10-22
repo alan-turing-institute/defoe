@@ -6,7 +6,7 @@ documents, pages and words change over time, for example.
 """
 
 
-def do_query(archives, config_file=None, logger=None):
+def do_query(archives, config_file=None, logger=None, context=None):
     """
     Iterate through archives and count total number of documents,
     pages and words per year.

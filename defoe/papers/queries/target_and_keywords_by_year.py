@@ -15,7 +15,7 @@ from defoe.papers.query_utils import article_contains_word
 from defoe.papers.query_utils import get_article_keywords
 
 
-def do_query(issues, config_file=None, logger=None):
+def do_query(issues, config_file=None, logger=None, context=None):
     """
     Counts number of articles containing both a target word and one or
     more keywords and groups by year.

@@ -6,7 +6,7 @@ of metadata.
 from operator import add
 
 
-def do_query(documents, config_file=None, logger=None):
+def do_query(documents, config_file=None, logger=None, context=None):
     """
     Gets metadata about an XML document and counts frequences of each
     type of metadata.
