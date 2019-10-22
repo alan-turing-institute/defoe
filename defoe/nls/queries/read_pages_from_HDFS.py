@@ -19,10 +19,24 @@ def do_query(archives, config_file=None, logger=None, context=None):
     
     Example of one entry saved as string. 
     
-    u"('Encyclopaedia Britannica', 'Seventh edition, Volume 13, LAB-Magnetism', '1842', 'Edinburgh', '/mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica/193108323', 'alto/193201394.34.xml', 'Page9', '810', 'book', 'nls', 'PreprocessWordType.NORMALIZE', u'the encyclopaedia britannica dictionary of arts sciences and general literature seventh edition i with preliminary dissertations on the history of the sciences and other extensive improvements and additions including the late supplement a general index and numerous engravings volume xiii adam and charles black edinburgh mdcccxlii')"
+       u"('Encyclopaedia Britannica', 'Seventh edition, Volume 13, LAB-Magnetism', '1842', 'Edinburgh', 
+       '/mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica/193108323', 'alto/193201394.34.xml', 
+       'Page9', '810', 'book', 'nls', 'PreprocessWordType.NORMALIZE', u'the encyclopaedia britannica dictionary of 
+        arts sciences and general literature seventh edition i with preliminary dissertations on the history of the 
+        sciences and other extensive improvements and additions including the late supplement a general index and 
+        numerous engravings volume xiii adam and charles black edinburgh mdcccxlii')"
     
-    Threfore,  we need first to recreate a list per entry by spliting each string. And later, for this query we need to get the year (position 2, and convert it into a integer) 
-    and page (position 11, and remove the last character). 
+     Therefore,  we need first to recreate a list per entry by spliting each string. 
+
+       [u"'Encyclopaedia Britannica", u" 'Seventh edition, Volume 13, LAB-Magnetism", u" '1842", u" 'Edinburgh", 
+       u" '/mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica/193108323", u" 'alto/193201394.34.xml", 
+       u" 'Page9", u" '810", u" 'book", u" 'nls", u" 'PreprocessWordType.NORMALIZE", u" u'the encyclopaedia britannica dictionary of 
+       arts sciences and general literature seventh edition i with preliminary dissertations on the history of the sciences and other extensive improvements 
+       and additions including the late supplement a general index and numerous engravings volume xiii adam and charles black edinburgh mdcccxlii'"]
+   
+    And later, for this query we need to get the year (position 2, and convert it into a integer) 
+    and page (position 11). 
+
 
 
     config_file must be the path to a configuration file with a list
@@ -73,13 +87,13 @@ def do_query(archives, config_file=None, logger=None, context=None):
     
     pages_hdfs = context.textFile("hdfs:///user/at003/rosa/demo_text1.txt") 
   
-    # Ignoring the first character '(' of each entry, striping by ][, and spliting by ', 
+    # Ignoring the first character '(' and last character ')' of each entry, striping by ][, and spliting by ', 
     pages = pages_hdfs.map(
-       lambda p_string: p_string[1:].strip('][').split("\',")) 
+       lambda p_string: p_string[1:-1].strip('][').split("\',")) 
     
     filter_pages = pages.filter(
         lambda year_page: any(
-            keysentence in year_page[11][:-1] for keysentence in keysentences))
+            keysentence in year_page[11] for keysentence in keysentences))
     
     
     # [(year, [keysentence, keysentence]), ...]
@@ -87,7 +101,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
     matching_pages = filter_pages.map(
         lambda year_page: (int(year_page[2].split("\'")[1]),
                               get_sentences_list_matches(
-                                  year_page[11][:-1],
+                                  year_page[11],
                                   keysentences)))
     
 
