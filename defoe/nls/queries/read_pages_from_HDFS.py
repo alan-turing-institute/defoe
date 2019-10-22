@@ -16,7 +16,8 @@ def do_query(archives, config_file=None, logger=None, context=None):
 	- tittle, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, type of preprocess treatment, prep_page_string
 
     Notice, that year is in position "2", and the preprocessed page as an string is in position 11. However, the information per entry has been saved as an string.
-    So, we need first to split the string into elements. And later get the year (position 2) and page (position 11). 
+    So, we need first to recreate a list per entry by spliting the strings. And later get the year (position 2, and convert it into a integer) 
+    and page (position 11, and remove the last character). 
 
 
     config_file must be the path to a configuration file with a list
