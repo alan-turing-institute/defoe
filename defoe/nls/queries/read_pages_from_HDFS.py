@@ -59,21 +59,21 @@ def do_query(archives, config_file=None, logger=None, context=None):
                     sentence_norm += " " + word
             keysentences.append(sentence_norm)
     
-    pages_hdfs = context.textFile("hdfs:///user/at003/rosa/text23.txt") 
+    pages_hdfs = context.textFile("hdfs:///user/at003/rosa/demo_text1.txt") 
    
     pages = pages_hdfs.map(
-       lambda p_string: p_string.strip('][').split(', ')) 
+       lambda p_string: p_string.strip('][').split("\',")) 
 
     filter_pages = pages.filter(
         lambda year_page: any(
-            keysentence in year_page[13] for keysentence in keysentences))
+            keysentence in year_page[11][:-1] for keysentence in keysentences))
     
     
     # [(year, [keysentence, keysentence]), ...]
     matching_pages = filter_pages.map(
-        lambda year_page: (year_page[4],
+        lambda year_page: (int(year_page[2].split("\'")[1]),
                               get_sentences_list_matches(
-                                  year_page[13],
+                                  year_page[11][:-1],
                                   keysentences)))
     
 
