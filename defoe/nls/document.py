@@ -33,6 +33,7 @@ class Document(object):
         self.metadata = self.archive.open_document(self.code)
         self.metadata_tree = etree.parse(self.metadata)
         self.title = self.single_query('//mods:title/text()')
+        self.edition = self.single_query('//mods:partName/text()')
         self.page_codes = sorted(self.archive.document_codes[self.code], key=Document.sorter)
         #sorted(self.archive.document_codes[self.code], key=Document.sorter)
         self.num_pages = len(self.page_codes)
