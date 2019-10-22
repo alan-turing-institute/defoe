@@ -12,6 +12,12 @@ import yaml, os
 def do_query(archives, config_file=None, logger=None, context=None):
     """
     Read from HDFS, and counts number of occurrences of keywords or keysentences and groups by year.
+    We have an entry in the HFDS file with the following information: 
+	- tittle, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, type of preprocess treatment, prep_page_string
+
+    Notice, that year is in position "2", and the preprocessed page as an string is in position 11. However, the information per entry has been saved as an string.
+    So, we need first to split the string into elements. And later get the year (position 2) and page (position 11). 
+
 
     config_file must be the path to a configuration file with a list
     of the keywords to search for, one per line.
