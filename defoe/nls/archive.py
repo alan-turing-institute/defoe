@@ -1,8 +1,8 @@
 """
-Object model representation of ZIP archive of files in
-British Library Books-compliant ALTO format.
-A ZIP archive corresponds to a document and each file to a page.
-The ZIP archive is assumed to hold the following files and
+Object model representation of [ZIP] archive of files in
+ALTO format.
+A [ZIP] archive corresponds to a document and each file to a page.
+The [ZIP] archive is assumed to hold the following files and
 directories:
     <METADATA_CODE>_metadata.xml
     <METADATA_CODE>_metadata.xml
@@ -24,8 +24,8 @@ from defoe.spark_utils import open_stream
 
 class Archive(AltoArchive):
     """
-    Object model representation of ZIP archive of files in
-    British Library Books-compliant ALTO format.
+    Object model representation of [ZIP] archive of files in
+    ALTO format.
     """
 
     def __init__(self, filename):
@@ -82,7 +82,6 @@ class Archive(AltoArchive):
         :param document_code: document file code
         :type document_code: str or unicode
         :return: stream
-        :rtype: zipfile.ZipExt
         """
         if ".zip" in self.filename:
             return self.zip.open(document_code + '-mets.xml')
@@ -96,7 +95,6 @@ class Archive(AltoArchive):
         :param page_code: file code
         :type page_code: str or unicode
         :return: stream
-        :rtype: zipfile.ZipExt
         """
         if ".zip" in self.filename:
              return self.zip.open(page_code)

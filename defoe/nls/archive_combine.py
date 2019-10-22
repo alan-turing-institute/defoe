@@ -1,5 +1,5 @@
 """
-Abstract base class for object model representation of ZIP archive
+Abstract base class for object model representation of [ZIP] archive
 of files in ALTO format.
 """
 
@@ -15,7 +15,7 @@ from os.path import isfile, join
 
 class AltoArchive(object):
     """
-    Abstract base class for object model representation of ZIP archive
+    Abstract base class for object model representation of [ZIP] archive
     of files in ALTO format.
     """
     __metaclass__ = abc.ABCMeta
@@ -74,7 +74,7 @@ class AltoArchive(object):
 
     def __len__(self):
         """
-        Gets number of documents in ZIP archive.
+        Gets number of documents in [ZIP] archive.
 
         :return: number of documents
         :rtype: int
