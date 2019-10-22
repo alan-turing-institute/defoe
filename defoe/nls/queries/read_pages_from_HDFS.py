@@ -1,5 +1,5 @@
 """
-Counts number of occurrences of keywords or keysentences and groups by year.
+Read from HDFS file, and counts number of occurrences of keywords or keysentences and groups by year.
 """
 
 from operator import add
@@ -11,7 +11,7 @@ import yaml, os
 
 def do_query(archives, config_file=None, logger=None, context=None):
     """
-    Counts number of occurrences of keywords or keysentences and groups by year.
+    Read from HDFS, and counts number of occurrences of keywords or keysentences and groups by year.
 
     config_file must be the path to a configuration file with a list
     of the keywords to search for, one per line.
@@ -58,17 +58,16 @@ def do_query(archives, config_file=None, logger=None, context=None):
                 else:
                     sentence_norm += " " + word
             keysentences.append(sentence_norm)
-    pages = context.textFile("hdfs:///user/at003/rosa/text23.txt") 
-    print("----> Read from HDFS %s" % pages.take(8)) 
+    
+    pages_hdfs = context.textFile("hdfs:///user/at003/rosa/text23.txt") 
    
-    pages_list = pages.map(
+    pages = pages_hdfs.map(
        lambda p_string: p_string.strip('][').split(', ')) 
 
-    filter_pages = pages_list.filter(
+    filter_pages = pages.filter(
         lambda year_page: any(
             keysentence in year_page[13] for keysentence in keysentences))
     
-    print("----> Filter Pages %s" % filter_pages.take(1))
     
     # [(year, [keysentence, keysentence]), ...]
     matching_pages = filter_pages.map(
@@ -77,7 +76,6 @@ def do_query(archives, config_file=None, logger=None, context=None):
                                   year_page[13],
                                   keysentences)))
     
-    print("----> Maching Pages %s" % filter_pages.take(1))
 
     # [[(year, keysentence), 1) ((year, keysentence), 1) ] ...]
     matching_sentences = matching_pages.flatMap(
