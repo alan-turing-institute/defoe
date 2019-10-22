@@ -6,7 +6,7 @@ from defoe import query_utils
 from defoe.papers.query_utils import get_article_keywords
 
 
-def do_query(all_articles, config_file=None, logger=None):
+def do_query(all_articles, config_file=None, logger=None, context=None):
     """
     Gets concordance for keywords and groups by date.
 

@@ -5,7 +5,7 @@ Counts total number of articles.
 from operator import add
 
 
-def do_query(all_articles, config_file=None, logger=None):
+def do_query(all_articles, config_file=None, logger=None, context=None):
     """
     Count total number of articles.
 
