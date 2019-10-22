@@ -15,7 +15,8 @@ def do_query(archives, config_file=None, logger=None, context=None):
     We have an entry in the HFDS file with the following information: 
 	- tittle, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, type of preprocess treatment, prep_page_string
 
-    Notice, that year is in position "2", and the preprocessed page as an string is in position 11. However, the information per entry has been saved as an string.
+    Notice, that year is in position "2", preprocess type in poistion "10",
+    and the preprocessed page as an string is in position 11. However, the information per entry has been saved as an string.
     
     Example of one entry saved as string. 
     
@@ -35,7 +36,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
        and additions including the late supplement a general index and numerous engravings volume xiii adam and charles black edinburgh mdcccxlii'"]
    
     And later, for this query we need to get the year (position 2, and convert it into a integer) 
-    and page (position 11). 
+    ,preprocess type (position 10) and page (position 11). 
 
 
 
@@ -66,9 +67,21 @@ def do_query(archives, config_file=None, logger=None, context=None):
     :return: number of occurrences of keywords grouped by year
     :rtype: dict
     """
+    
+    # Reading data from HDFS
+    pages_hdfs = context.textFile("hdfs:///user/at003/rosa/demo_text1.txt") 
+    
+    # Ignoring the first character '(' and last character ')' of each entry, and spliting by "'," 
+    pages = pages_hdfs.map(
+       lambda p_string: p_string[1:-1].split("\',")) 
+    
+    # Getting the preprocess type from the first entry - position 10.
+    f_entry=pages.take(1) 
+    preprocess_type = str(f_entry[0][10]).split("\'")[1]
+    
     with open(config_file, "r") as f:
         config = yaml.load(f)
-    preprocess_type = query_utils.extract_preprocess_word_type(config)
+    
     data_file = query_utils.extract_data_file(config,
                                               os.path.dirname(config_file))
     keysentences = []
@@ -85,12 +98,8 @@ def do_query(archives, config_file=None, logger=None, context=None):
                     sentence_norm += " " + word
             keysentences.append(sentence_norm)
     
-    pages_hdfs = context.textFile("hdfs:///user/at003/rosa/demo_text1.txt") 
   
-    # Ignoring the first character '(' and last character ')' of each entry, and spliting by "'," 
-    pages = pages_hdfs.map(
-       lambda p_string: p_string[1:-1].split("\',")) 
-    
+     
     filter_pages = pages.filter(
         lambda year_page: any(
             keysentence in year_page[11] for keysentence in keysentences))
