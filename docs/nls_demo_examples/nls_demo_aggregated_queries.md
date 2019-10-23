@@ -7,6 +7,26 @@
 >>> find /mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica -maxdepth 1 -type d >& nls_total_demo.txt
 (And delete the first row: '/mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica')
 
+#0.c) Install Spark and Java 8 
+>>> sudo apt install openjdk-8-jdk
+>>> wget http://apache.mirror.anlx.net/spark/spark-2.4.4/spark-2.4.4-bin-hadoop2.7.tgz
+>>> tar xvf spark-2.4.2-bin-hadoop2.7.tgz
+
+#0.d)
+>>> https://github.com/alan-turing-institute/defoe.git
+>>> conda create -n mypy27 python=2.7 anaconda
+>>> conda activate mypy27
+>>> conda update -n base -c defaults conda
+>>> ./requirements.sh
+>>> pip install Pillow==4.0.0
+>>> python
+>>> import nltk
+>>> nltk.download('wordnet')
+
+#0.e) Zip the code:
+        >>cd defoe
+	>>zip -r defoe.zip defoe
+
 ####### List of  Queries [defoe/run_queries.py]
 #Format:spark-submit --py-files defoe.zip defoe/run_queries.py <DATA_FILE> <DATA MODEL> -l <LIST_OF_QUERIES> -n <NUM_CORES>
 
