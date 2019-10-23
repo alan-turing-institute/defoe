@@ -34,7 +34,7 @@
 >>> nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.keysearch_by_year queries/animal.yml -r results_ks_animal -n 324 > log.txt
 
 #4. Getting the inventory per year [title and edition]
->>> nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.total_inventory -r results_inventory_per_year -n 324 > log.txt &
+>>> nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.inventory_per_year -r results_inventory_per_year -n 324 > log.txt &
 
 ############################# Work in Progess ##################################
 ### ATENTION: The following queries might change during the next weeks
