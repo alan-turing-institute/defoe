@@ -4,11 +4,11 @@ Read from HDFS file, and counts number of occurrences of keywords or keysentence
 
 from operator import add
 from defoe import query_utils
-from defoe.hdfs_queries.query_utils import get_sentences_list_matches
+from defoe.hdfs.query_utils import get_sentences_list_matches
 
 import yaml, os
 
-def do_query(archives, config_file=None, logger=None, context=None):
+def do_query(hdfs_data, config_file=None, logger=None, context=None):
     """
     Read from HDFS, and counts number of occurrences of keywords or keysentences and groups by year.
     We have an entry in the HFDS file with the following information: 
@@ -68,7 +68,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
     """
     
     # Reading data from HDFS
-    pages_hdfs = context.textFile("hdfs:///user/at003/rosa/demo_text1.txt") 
+    pages_hdfs = context.textFile(hdfs_data) 
     
     # Ignoring the first character '(' and last character ')' of each entry, and spliting by "'," 
     pages = pages_hdfs.map(
