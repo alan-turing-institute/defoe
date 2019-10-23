@@ -44,5 +44,5 @@ def do_query(archives, config_file=None, logger=None, context=None):
                                year_document[5], year_document[6], year_document[7], str(preprocess_type), \
                                get_page_as_string(page, preprocess_type)) for page in year_document[8]])
 
-    pages.saveAsTextFile("hdfs:///user/at003/rosa/demo_text1.txt")
+    pages.saveAsTextFile("hdfs:///user/at003/rosa/demo_text4.txt")
     return "0"
