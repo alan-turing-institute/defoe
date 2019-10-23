@@ -49,39 +49,39 @@ and it will later run the query. So, each time the data is read, ingested, queri
 
 * Total_documents
 ```bash
- nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.total_documents  -r results_total_documents -n 324 > log.txt &
+  spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.total_documents  -r results_total_documents -n 324 
 
 ```
 * Normalize query- It gets the total of documents, pages, words groupped by year
 ```bash
- nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.normalize  -r results_norm -n 324 > log.txt & 
+  spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.normalize  -r results_norm -n 324  
 ```
 
 * Keysearch by topics [sport, philosophers, cities, animals] - group by year
 
 	* Sports - normalize preprocessing (check queries/sport.yml to see the preprocessing treatments)
 	```bash
- 	nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.keysearch_by_year queries/sport.yml -r results_ks_sports -n 324 > log.txt & 
+ 	 spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.keysearch_by_year queries/sport.yml -r results_ks_sports -n 324  
 	```
 
 	* Scottish Philosophers - normalization and lemmatization (normalization is applied first always if lemmatization or stemming is selected) preprocessing (check queries/sc_philosophers to see the preprocessing treatment)
 
 	```bash
- 	nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.keysearch_by_year queries/sc_philosophers.yml -r results_ks_philosophers -n 324 > log.txt & 
+ 	 spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.keysearch_by_year queries/sc_philosophers.yml -r results_ks_philosophers -n 324  
 	```
 
 	* Cities - normalization and lemmatization (check queries/sc_cities.yml)
 	```bash
- 	nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.keysearch_by_year queries/sc_cities.yml -r results_ks_cities -n 324 > log.txt
+ 	 spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.keysearch_by_year queries/sc_cities.yml -r results_ks_cities -n 324 > log.txt
 	```
 
 	* Animals - normalization and lemmatization(check)
 	```bash
- 	nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.keysearch_by_year queries/animal.yml -r results_ks_animal -n 324 > log.txt
+ 	 spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.keysearch_by_year queries/animal.yml -r results_ks_animal -n 324 > log.txt
 	```
 * Getting the inventory per year [title and edition]
 ```bash
- nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.inventory_per_year -r results_inventory_per_year -n 324 > log.txt &
+  spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.inventory_per_year -r results_inventory_per_year -n 324 
 ```
 
 #### Work in Progess
@@ -93,7 +93,7 @@ ATENTION: The following queries might change during the next weeks
 Note: We have another query, called write_pages_HDFS, that writes "raw" data (without preprocessing them) into HDFS FILE
  
 ```bash
- nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_preprocessed_HDFS queries/preprocess.yml -r results -n 324 > log.txt &
+  spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_preprocessed_HDFS queries/preprocess.yml -r results -n 324 
 ```
 Important  --> We collect the following metadata per page (and also the page as string): tittle, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, type of preprocess treatment, page_preprocessed_as_string
 
@@ -107,7 +107,7 @@ Important  --> We collect the following metadata per page (and also the page as 
 Important: in hdfs_data.txt we have to indicate the HDFS file that we want to read from: --> hdfs:///user/at003/rosa/<NAME OF THE HDFS FILE>.txt
 
 ```bash
- nohup spark-submit --py-files defoe.zip defoe/run_query.py hdfs_data.txt hdfs defoe.hdfs.queries.read_pages_from_HDFS queries/sport.yml  -r results_ks_sports_tiny -n 324 > log.txt &
+  spark-submit --py-files defoe.zip defoe/run_query.py hdfs_data.txt hdfs defoe.hdfs.queries.read_pages_from_HDFS queries/sport.yml  -r results_ks_sports_tiny -n 324 
 ```
 
 ##### Spark in a SHELL - Pyspark 
