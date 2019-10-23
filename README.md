@@ -67,6 +67,7 @@ Run queries:
 * [Specify data to query](./docs/specify-data-to-query.md)
 * [Specify Azure data to query](./docs/specify-data-to-query-azure.md)
 * [Run queries](./docs/run-queries.md)
+* [NEW: Run several queries in once - just one ingestion] (./docs/run-list-of-queries.md)
 
 Available queries:
 
@@ -76,6 +77,7 @@ Available queries:
 * [Papers Past New Zealand and Pacific newspapers](./docs/nzpp/index.md)
 * [Generic XML document queries](./docs/generic_xml/index.md) (these can be run on arbitrary XML documents)
 * [NLS queries](./docs/nls/index.md) (these can be run on the Encyclopaedia Britannica dataset)
+*  Work in progress : HDFS - running queries against HDFS files - for interoperability across models.
 
 Developers:
 
