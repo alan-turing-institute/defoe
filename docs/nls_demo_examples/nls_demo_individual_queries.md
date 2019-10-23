@@ -8,6 +8,8 @@
 (And delete the first row: '/mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica')
 
 ####### Individual Queries [defoe/run_query.py]
+#Format:spark-submit --py-files defoe.zip defoe/run_query.py <DATA_FILE> <MODEL_NAME> <QUERY_NAME> <QUERY_CONFING> -r <RESULTS> -n <NUM_CORES>
+ 
 #Notes:
 #Everytime I run a query (e.g. defoe.nls.queries.total_documents or defoe.nls.queries.normalize), defoe loads read data from files to memory,
 #and it will later run the query. So, each time the data is read, ingested, queried. 
