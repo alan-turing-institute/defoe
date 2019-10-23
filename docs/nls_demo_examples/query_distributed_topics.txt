@@ -1,0 +1,6 @@
+defoe.nls.queries.normalize -r results_nls_normalized
+defoe.nls.queries.keysearch_by_year queries/sc_philosophers.yml -r results_ks_philosophers
+defoe.nls.queries.keysearch_by_year queries/sport.yml -r results_ks_sports_normalize
+defoe.nls.queries.keysearch_by_year queries/sc_cities.yml -r results_ks_cities
+defoe.nls.queries.keysearch_by_year queries/animal.yml -r results_ks_animal
+defoe.nls.queries.total_inventory -r results_inventory_per_year
