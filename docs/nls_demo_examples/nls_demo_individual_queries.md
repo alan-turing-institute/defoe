@@ -1,5 +1,7 @@
 # Demo - Queries for distribition of topics over time
 
+Important: Here, for each query we read the data from files to memory, run the query, and then gets the results.
+
 #### Requirements:
 * Dowload the nls full dataset ( https://data.nls.uk/data/digitised-collections/encyclopaedia-britannica/)
 ```bash

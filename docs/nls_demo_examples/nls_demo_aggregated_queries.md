@@ -1,4 +1,5 @@
 # Demo - Queries for distribition of topics over time
+Important: Here we use a list of queries to be submitted in a single spark job. The data is read and ingested a single time. 
 
 #### Requirements:
 * Dowload the nls full dataset ( https://data.nls.uk/data/digitised-collections/encyclopaedia-britannica/)
