@@ -67,7 +67,7 @@ Run queries:
 * [Specify data to query](./docs/specify-data-to-query.md)
 * [Specify Azure data to query](./docs/specify-data-to-query-azure.md)
 * [Run queries](./docs/run-queries.md)
-* [NEW: Run several queries in once - just one ingestion] (./docs/run-list-of-queries.md)
+* [NEW: Run several queries in once - just one ingestion](./docs/run-list-of-queries.md)
 
 Available queries:
 
