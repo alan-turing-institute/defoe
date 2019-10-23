@@ -47,7 +47,7 @@ Data will be ingested once, and all the queries indicated in a file (e.g. query_
 This way is much efficient, when we know already the list of queries to run. 
 
 ```bash
->> nohup spark-submit --py-files defoe.zip defoe/run_queries.py nls_total_demo.txt nls -l query_distributed_topics.txt -n 324 > log.txt &
+>> spark-submit --py-files defoe.zip defoe/run_queries.py nls_total_demo.txt nls -l query_distributed_topics.txt -n 324 
 ```
 
 Important: In query_distributed_topics.txt I have the following
