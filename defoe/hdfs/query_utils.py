@@ -1,7 +1,7 @@
 """
 Query-related utility functions.
 """
-
+import re
 from defoe import query_utils
 
 def get_sentences_list_matches(text, keysentence):
