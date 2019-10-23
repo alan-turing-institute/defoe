@@ -1,25 +1,24 @@
 # How to replicate the queries for distribition of topics over time
 
-## 0. Requirements:
-## 0.a) Dowload the nls full dataset ( https://data.nls.uk/data/digitised-collections/encyclopaedia-britannica/)
+#### Requirements:
+* Dowload the nls full dataset ( https://data.nls.uk/data/digitised-collections/encyclopaedia-britannica/)
 ```bash
  wget https://nlsfoundry.s3.amazonaws.com/data/nls-data-encyclopaediaBritannica.zip 
 ```
-
-## 0.b) How to generate nls_total_demo.txt
+* How to generate nls_total_demo.txt
 ```bash
  find /mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica -maxdepth 1 -type d >& nls_total_demo.txt
 ```
 (And delete the first row: '/mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica')
 
-##0.c) Install Spark and Java 8 
+* Install Spark and Java 8 
 ```bash
  sudo apt install openjdk-8-jdk
  wget http://apache.mirror.anlx.net/spark/spark-2.4.4/spark-2.4.4-bin-hadoop2.7.tgz
  tar xvf spark-2.4.2-bin-hadoop2.7.tgz
 ```
 
-##0.d)
+* Install defoe
 ```bash
  https://github.com/alan-turing-institute/defoe.git
  conda create -n mypy27 python=2.7 anaconda
@@ -32,7 +31,7 @@
  >> nltk.download('wordnet')
 ```
 
-##0.e) Zip the code:
+* Zip defoe code:
 ```bash
    cd defoe
    zip -r defoe.zip defoe
