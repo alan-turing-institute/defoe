@@ -8,6 +8,8 @@
 (And delete the first row: '/mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica')
 
 ####### List of  Queries [defoe/run_queries.py]
+#Format:spark-submit --py-files defoe.zip defoe/run_queries.py <DATA_FILE> <DATA MODEL> -l <LIST_OF_QUERIES> -n <NUM_CORES>
+
 #Notes:
 # Data will be ingested once, and all the queries indicated in a file (e.g. query_distributed_topics.txt) will be run against the data in memory.
 # This way is much efficient, when we know already the list of queries to run. 
