@@ -20,7 +20,7 @@ defoe.nls.queries.keysearch_by_year queries/sc_philosophers.yml -r results_ks_ph
 defoe.nls.queries.keysearch_by_year queries/sport.ym -r results_ks_sports_normalize
 defoe.nls.queries.keysearch_by_year queries/sc_cities.yml -r results_ks_cities
 defoe.nls.queries.keysearch_by_year queries/animal.yml -r results_ks_animal
-defoe.nls.queries.total_inventory -r results_inventory_per_year
+defoe.nls.queries.inventory_per_year -r results_inventory_per_year
 
 #For each query, I need to specify the full module path (e.g. defoe.nls.queries.normalize)
 #The configuration paramenters if it is needed (e.g. queries/sport.yml)
