@@ -4,7 +4,6 @@ Read from HDFS file, and counts number of occurrences of keywords or keysentence
 
 from operator import add
 from defoe import query_utils
-from defoe.nls.query_utils import get_page_as_string
 from defoe.nls.query_utils import get_sentences_list_matches
 
 import yaml, os
