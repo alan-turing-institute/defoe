@@ -6,6 +6,8 @@ Important: Here we use a list of queries to be submitted in a single spark job. 
 ```bash
  wget https://nlsfoundry.s3.amazonaws.com/data/nls-data-encyclopaediaBritannica.zip 
 ```
+And unzipped it later.
+
 * How to generate nls_total_demo.txt
 ```bash
  find /mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica -maxdepth 1 -type d >& nls_total_demo.txt
