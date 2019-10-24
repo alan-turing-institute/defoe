@@ -7,6 +7,8 @@ Important: Here, for each query we read the data from files to memory, run the q
 ```bash
  wget https://nlsfoundry.s3.amazonaws.com/data/nls-data-encyclopaediaBritannica.zip 
 ```
+And **unzipped** it later.
+
 * How to generate nls_total_demo.txt
 ```bash
  find /mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica -maxdepth 1 -type d >& nls_total_demo.txt
