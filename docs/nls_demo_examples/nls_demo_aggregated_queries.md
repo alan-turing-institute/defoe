@@ -62,8 +62,9 @@ defoe.nls.queries.keysearch_by_year queries/animal.yml -r results_ks_animal
 defoe.nls.queries.inventory_per_year -r results_inventory_per_year
 ```
 
-For each query, I need to specify the full module path (e.g. defoe.nls.queries.normalize)
-The configuration paramenters if it is needed (e.g. queries/sport.yml)
-And the results file (e.g. results_ks_animal) --> by default it will generate a file called results_<NUM_QUERY>.yml if the user doesnt specify one
+For each query, I need to specify:
+* The full module path (e.g. defoe.nls.queries.normalize)
+* The configuration paramenters if they are needed (e.g. queries/sport.yml)
+* The results file (e.g. results_ks_animal). By default it generates a file called results_<NUM_QUERY>.yml
 
 
