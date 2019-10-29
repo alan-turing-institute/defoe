@@ -6,6 +6,8 @@ Important: Here we use a list of queries to be submitted in a single spark job. 
 ```bash
  wget https://nlsfoundry.s3.amazonaws.com/data/nls-data-encyclopaediaBritannica.zip 
 ```
+And **unzipped** it later.
+
 * How to generate nls_total_demo.txt
 ```bash
  find /mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica -maxdepth 1 -type d >& nls_total_demo.txt
@@ -43,8 +45,7 @@ Important: Here we use a list of queries to be submitted in a single spark job. 
 Format:spark-submit --py-files defoe.zip defoe/run_queries.py <DATA_FILE> <DATA MODEL> -l <LIST_OF_QUERIES> -n <NUM_CORES>
  
 Notes:
-Data will be ingested once, and all the queries indicated in a file (e.g. query_distributed_topics.txt) will be run against the data in memory.
-This way is much efficient, when we know already the list of queries to run. 
+Data is ingested once, and all queries indicated in the <LIST_OF_QUERIES> files (e.g. query_distributed_topics.txt) will be run against the data loaded in memory. This way is much efficient, when we know already the list of queries to run. 
 
 ```bash
 >> spark-submit --py-files defoe.zip defoe/run_queries.py nls_total_demo.txt nls -l query_distributed_topics.txt -n 324 
@@ -61,8 +62,9 @@ defoe.nls.queries.keysearch_by_year queries/animal.yml -r results_ks_animal
 defoe.nls.queries.inventory_per_year -r results_inventory_per_year
 ```
 
-For each query, I need to specify the full module path (e.g. defoe.nls.queries.normalize)
-The configuration paramenters if it is needed (e.g. queries/sport.yml)
-And the results file (e.g. results_ks_animal) --> by default it will generate a file called results_<NUM_QUERY>.yml if the user doesnt specify one
+For each query, I need to specify:
+* The full module path (e.g. defoe.nls.queries.normalize)
+* The configuration paramenters if they are needed (e.g. queries/sport.yml)
+* The results file (e.g. results_ks_animal). By default it generates a file called results_<NUM_QUERY>.yml
 
 
