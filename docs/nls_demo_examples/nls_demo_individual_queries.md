@@ -7,6 +7,8 @@ Important: Here, for each query we read the data from files to memory, run the q
 ```bash
  wget https://nlsfoundry.s3.amazonaws.com/data/nls-data-encyclopaediaBritannica.zip 
 ```
+And **unzipped** it later.
+
 * How to generate nls_total_demo.txt
 ```bash
  find /mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica -maxdepth 1 -type d >& nls_total_demo.txt
@@ -44,8 +46,7 @@ Important: Here, for each query we read the data from files to memory, run the q
 Format:spark-submit --py-files defoe.zip defoe/run_query.py <DATA_FILE> <MODEL_NAME> <QUERY_NAME> <QUERY_CONFING> -r <RESULTS> -n <NUM_CORES>
  
 Notes:
-Everytime I run a query (e.g. defoe.nls.queries.total_documents or defoe.nls.queries.normalize), defoe loads read data from files to memory,
-and it will later run the query. So, each time the data is read, ingested, queried. 
+Everytime we run a query (e.g. defoe.nls.queries.total_documents or defoe.nls.queries.normalize), defoe loads/reads data from files into memory, and later the query is run. So, each time the data is read, ingested, queried. 
 
 * Total_documents
 ```bash
