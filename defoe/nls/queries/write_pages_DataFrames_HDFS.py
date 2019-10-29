@@ -45,5 +45,4 @@ def do_query(archives, config_file=None, logger=None, context=None):
     sqlContext = SQLContext(context)
     df = sqlContext.createDataFrame(pages,nlsRow)
     df.write.mode('overwrite').option("header","true").csv("hdfs:///user/at003/rosa/df_text1.csv")
-    #newdf= spark.read.csv("hdfs:///user/at003/rosa/df_text1.csv", header="true")
     return "0"
