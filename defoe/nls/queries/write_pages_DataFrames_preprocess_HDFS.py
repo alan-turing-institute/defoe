@@ -4,6 +4,7 @@
 
 from defoe import query_utils
 from defoe.nls.query_utils import get_page_as_string
+from pyspark.sql import Row, SparkSession, SQLContext
 
 import yaml, os
 
