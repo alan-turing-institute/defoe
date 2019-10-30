@@ -71,8 +71,9 @@ def do_query(hdfs_data, config_file=None, logger=None, context=None):
     # Reading data from HDFS
     sqlContext = SQLContext(context)
     df= sqlContext.read.csv(hdfs_data, header="true")
-    newdf=df.select(df.year, df.preprocess, df.page_string)
-    pages=newdf.rdd 
+    # Filter out the pages that are null, and select only 3 columns.
+    newdf=df.filter(df.page_string.isNotNull()).select(df.year, df.preprocess, df.page_string)
+    pages=newdf.rdd.map(tuple)
     preprocess_type=pages.take(1)[0][1]
     
     with open(config_file, "r") as f:
@@ -96,8 +97,7 @@ def do_query(hdfs_data, config_file=None, logger=None, context=None):
     
 
     filter_pages = pages.filter(
-        lambda year_page: any(
-            keysentence in year_page[2] for keysentence in keysentences))
+        lambda year_page: any( keysentence in year_page[2] for keysentence in keysentences))
    
     
     # [(year, [keysentence, keysentence]), ...]
