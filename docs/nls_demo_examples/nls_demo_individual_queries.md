@@ -85,30 +85,26 @@ Everytime we run a query (e.g. defoe.nls.queries.total_documents or defoe.nls.qu
   spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.inventory_per_year -r results_inventory_per_year -n 324 
 ```
 
-#### Work in Progess
+#### Ingesting and Reading data from/to HDFS - Using dataframes
 
-ATENTION: The following queries might change during the next weeks
-
-* Writing preprocessed pages to HDFS file - we have to indicate the HDFS FILE inside write_preprocessed_HDFS
-
-Note: We have another query, called write_pages_HDFS, that writes "raw" data (without preprocessing them) into HDFS FILE
+* Writing preprocessed pages to HDFS cvs file using dataframes. We have to indicate the HDFS FILE inside **write_pages_DataFrames_preprocess_HDFS.py** (e.g. in this case, "nls_demo.csv")
  
 ```bash
-  spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_preprocessed_HDFS queries/preprocess.yml -r results -n 324 
+ nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_preprocess_HDFS query/preprocess.yml -r results -n 324 > log.txt &
 ```
 Important  --> We collect the following metadata per page (and also the page as string): tittle, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, type of preprocess treatment, page_preprocessed_as_string
 
 * Checking results from HDFS file
 
 ```bash
- hdfs dfs -cat /user/at003/rosa/<NAME OF THE HDFS FILE>.txt/part-00323 > encyclo_prep_norm 
+ hdfs dfs -getmerge /user/at003/rosa/nls_demo.csv nls_demo.csv
 ```
 
 * Read preprocessed pages to HDFS file and do a keysentence search - group by year
 Important: in hdfs_data.txt we have to indicate the HDFS file that we want to read from: --> hdfs:///user/at003/rosa/<NAME OF THE HDFS FILE>.txt
 
 ```bash
-  spark-submit --py-files defoe.zip defoe/run_query.py hdfs_data.txt hdfs defoe.hdfs.queries.read_pages_from_HDFS queries/sport.yml  -r results_ks_sports_tiny -n 324 
+  spark-submit --py-files defoe.zip defoe/run_query.py hdfs_data.txt hdfs defoe.hdfs.queries.read_pages_DF_from_HDFS queries/sport.yml  -r results_ks_sports_tiny -n 324 
 ```
 
 ##### Spark in a SHELL - Pyspark 
