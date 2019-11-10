@@ -28,7 +28,6 @@ def do_query(archives, config_file=None, logger=None, context=None):
     :rtype: list
     """
     newdf=df.filter(df.page_string.isNotNull()).filter(df["year"]!="year").filter(df["model"]=="nls").select(df.year, df.archive_filename,df.num_pages,df.page_string)
-
     archive_df= newdf.groupby("archive_filename", "year","num_pages").count()
     #>>> archive_df.show()
     #	+--------------------+----+---------+-----+
