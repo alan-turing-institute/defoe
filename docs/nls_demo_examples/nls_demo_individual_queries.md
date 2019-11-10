@@ -87,11 +87,18 @@ Everytime we run a query (e.g. defoe.nls.queries.total_documents or defoe.nls.qu
 
 #### Ingesting and Reading data from/to HDFS - Using dataframes (recomended)
 
-* Writing [pages to HDFS cvs file using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_DataFrames_HDFS.py). We have to indicate the HDFS FILE inside **write_pages_DataFrames__HDFS.py** (e.g. in this case, "nls_demo.csv"). The preprocess treatment is indicated inside the file *query/preprocess.yml*. It could be *none*, *normalize*, *stem* and *lemmatize*. Both, stemming and lemmatization, they also include normalization. 
+* Writing [pages to HDFS cvs file using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_DataFrames_HDFS.py). We have to indicate the HDFS FILE inside **write_pages_DataFrames__HDFS.py** (e.g. in this case, "nls_demo.csv"). The preprocess treatment is indicated inside the file *query/preprocess.yml*. It could be *none*, *normalize*, *stem* and *lemmatize*. Both, stemming and lemmatization, they also include normalization.  Also, if the configuration file is not indicated, the query assumes that not preprocess treatment has to be applied to the pages' words.
  
 ```bash
  nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_HDFS.py query/preprocess.yml -r results -n 324 > log.txt &
 ```
+
+or 
+
+```bash
+ nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_HDFS.py  -r results -n 324 > log.txt &
+```
+
 Important  --> We collect the following metadata per page (and also the page as string): tittle, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, type of preprocess treatment, page_preprocessed_as_string
 
 * Checking results from HDFS file
