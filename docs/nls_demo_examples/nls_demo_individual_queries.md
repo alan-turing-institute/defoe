@@ -87,10 +87,10 @@ Everytime we run a query (e.g. defoe.nls.queries.total_documents or defoe.nls.qu
 
 #### Ingesting and Reading data from/to HDFS - Using dataframes (recomended)
 
-* Writing [preprocessed pages to HDFS cvs file using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_DataFrames_preprocess_HDFS.py). We have to indicate the HDFS FILE inside **write_pages_DataFrames_preprocess_HDFS.py** (e.g. in this case, "nls_demo.csv").  If we prefer to write the raw pages, without preprocessing we can use [write_pages_DataFrames_preprocess_HDFS.py](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_DataFrames_HDFS.py)
+* Writing [pages to HDFS cvs file using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_DataFrames_HDFS.py). We have to indicate the HDFS FILE inside **write_pages_DataFrames__HDFS.py** (e.g. in this case, "nls_demo.csv"). The preprocess treatment is indicated inside the file *query/preprocess.yml*. It could be *none*, *normalize*, *stem* and *lemmatize*. Both, stemming and lemmatization, they also include normalization. 
  
 ```bash
- nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_preprocess_HDFS query/preprocess.yml -r results -n 324 > log.txt &
+ nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_HDFS.py query/preprocess.yml -r results -n 324 > log.txt &
 ```
 Important  --> We collect the following metadata per page (and also the page as string): tittle, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, type of preprocess treatment, page_preprocessed_as_string
 
@@ -107,7 +107,7 @@ Important: in hdfs_data.txt we have to indicate the HDFS file that we want to re
   spark-submit --py-files defoe.zip defoe/run_query.py hdfs_data.txt hdfs defoe.hdfs.queries.read_DataFrame_HDFS_keysearch_by_year queries/sport.yml  -r results_ks_sports_tiny -n 324 
 ```
 
-Note, that we also have [write pages as RDD into HDFS](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_HDFS.py), [write preprocess pages as RDD into HDFS](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_preprocess_HDFS.py) and [read RDD pages from HDFS](https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/read_RDD_HDFS_keysearch_by_year.py), in which we use save rdds into HDFS file - we dont recommend to use those, since using dataframes it is the most efficient option. 
+Note, that we also have [write pages as RDD into HDFS](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_RDD_HDFS.py),and [read RDD pages from HDFS](https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/read_RDD_HDFS_keysearch_by_year.py), in which we use save rdds into HDFS file - we dont recommend to use those, since using dataframes it is the most efficient option. 
 
 ##### Spark in a SHELL - Pyspark 
 
