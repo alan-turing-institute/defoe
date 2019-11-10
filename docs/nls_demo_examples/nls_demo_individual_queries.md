@@ -85,9 +85,9 @@ Everytime we run a query (e.g. defoe.nls.queries.total_documents or defoe.nls.qu
   spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.inventory_per_year -r results_inventory_per_year -n 324 
 ```
 
-#### Ingesting and Reading data from/to HDFS - Using dataframes
+#### Ingesting and Reading data from/to HDFS - Using dataframes (recomended)
 
-* Writing preprocessed pages to HDFS cvs file using dataframes. We have to indicate the HDFS FILE inside **write_pages_DataFrames_preprocess_HDFS.py** (e.g. in this case, "nls_demo.csv")
+* Writing [preprocessed pages to HDFS cvs file using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_DataFrames_preprocess_HDFS.py). We have to indicate the HDFS FILE inside **write_pages_DataFrames_preprocess_HDFS.py** (e.g. in this case, "nls_demo.csv").  If we prefer to write the raw pages, without preprocessing we can use [write_pages_DataFrames_preprocess_HDFS.py](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_DataFrames_HDFS.py)
  
 ```bash
  nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_preprocess_HDFS query/preprocess.yml -r results -n 324 > log.txt &
@@ -100,14 +100,30 @@ Important  --> We collect the following metadata per page (and also the page as 
  hdfs dfs -getmerge /user/at003/rosa/nls_demo.csv nls_demo.csv
 ```
 
-* Read preprocessed pages to HDFS file and do a keysentence search - group by year
+* Read [pages to HDFS](https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/read_pages_DF_from_HDFS.py) file and do a keysentence search - group by year
 Important: in hdfs_data.txt we have to indicate the HDFS file that we want to read from: --> hdfs:///user/at003/rosa/<NAME OF THE HDFS FILE>.txt
 
 ```bash
   spark-submit --py-files defoe.zip defoe/run_query.py hdfs_data.txt hdfs defoe.hdfs.queries.read_pages_DF_from_HDFS queries/sport.yml  -r results_ks_sports_tiny -n 324 
 ```
 
+Note, that we also have [write_pages_HDFS](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_HDFS.py),[write_preprocess_HDFS](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_preprocess_HDFS.py) and [read_pages_HDFS](https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/read_pages_from_HDFS.py), in which we use directly the rdds to be saved into HDFS file - we dont recommend to use those, since using dataframes it is the most efficient option. 
+
 ##### Spark in a SHELL - Pyspark 
+
+Reading **dataframes**:
+```bash
+ df sqlContext.read.csv(hdfs_data, header="true")
+ newdf=df.filter(df.page_string.isNotNull()).select(df.year, df.preprocess, df.page_string)
+ pages=newdfrdd.map(tuple)
+ nls_sample=pages.take(8)
+ entry= nls_sample[8]
+ year = entry[0]
+ page_as_string = entry[1]
+ 
+```
+
+Reading **rdds**:
 ```bash
 >> nls_data = sc.textFile("hdfs:///user/at003/rosa/<NAME OF THE HDFS FILE>.txt")
 >> nls_sample = nls_data.take(10)
@@ -116,3 +132,7 @@ Important: in hdfs_data.txt we have to indicate the HDFS file that we want to re
 >> year = int(clean_entry[2])
 >> page_as_string = clean_entry[11]
 ```
+
+
+
+
