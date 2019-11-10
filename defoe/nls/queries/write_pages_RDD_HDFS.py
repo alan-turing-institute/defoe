@@ -1,5 +1,5 @@
 """ 
- preprocessed pages as string to HDFS textfiles, and some metadata associated with each document.
+Pages as string to HDFS textfiles (using RDDs), and some metadata associated with each document.
 """
 
 from defoe import query_utils
@@ -9,11 +9,12 @@ import yaml, os
 
 def do_query(archives, config_file=None, logger=None, context=None):
     """
-    Writes raw pages as string to HDFS textfiles, and some metadata associated with each document.
-    Preprocessed steps are applied to the words extracted from pages.
+    Writes pages (preprocessed or not) as string to HDFS textfiles, and some metadata associated with each document.
+    If we have a config_file indiciating the preprocess treament, it will be to the words extracted from pages. Otherwise, non preprocess treatment will be applied.
     Metadata collected: tittle, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, type of preprocess treatment, prep_page_string
- 
-    config_file must be the path to a configuration file with the preoprocessed type to apply to the pages' words
+
+    Data is saved as RDD into HDFS textfiles 
+
     Example:
     ('Encyclopaedia Britannica; or, A dictionary of arts, sciences, and miscellaneous literature', 'Fourth edition ...', 
       1810, 'Edinburgh', '/mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica/191253839', 
@@ -27,9 +28,12 @@ def do_query(archives, config_file=None, logger=None, context=None):
     :return: "0"
     :rtype: string
     """
-    with open(config_file, "r") as f:
-        config = yaml.load(f)
-    preprocess_type = query_utils.extract_preprocess_word_type(config)
+    if config_file is not None:
+        with open(config_file, "r") as f:
+            config = yaml.load(f)
+    	preprocess_type = query_utils.extract_preprocess_word_type(config)
+    else:
+        preprocess_type = query_utils.parse_preprocess_word_type("none")
     documents = archives.flatMap(
         lambda archive: [(document.title, document.edition, str(document.year), \
                           document.place, document.archive.filename, str(document.num_pages), \
