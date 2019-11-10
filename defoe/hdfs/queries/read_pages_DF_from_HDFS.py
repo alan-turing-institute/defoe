@@ -72,9 +72,9 @@ def do_query(hdfs_data, config_file=None, logger=None, context=None):
     sqlContext = SQLContext(context)
     df= sqlContext.read.csv(hdfs_data, header="true")
     # Filter out the pages that are null, and select only 3 columns.
-    newdf=df.filter(df.page_string.isNotNull()).select(df.year, df.preprocess, df.page_string)
+    newdf=df.filter(df.page_string.isNotNull()).filter(df["year"]!="year").select(df.year, df.preprocess, df.page_string)
     pages=newdf.rdd.map(tuple)
-    preprocess_type=pages.take(1)[0][1]
+    preprocess_type=year_pages.take(1)[0][1]
     
     with open(config_file, "r") as f:
         config = yaml.load(f)
