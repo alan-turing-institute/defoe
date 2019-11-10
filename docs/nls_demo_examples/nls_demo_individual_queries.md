@@ -122,7 +122,7 @@ Note, that we also have [write pages as RDD into HDFS](https://github.com/alan-t
 Reading **dataframes**:
 ```bash
  >> df= sqlContext.read.csv("hdfs:///user/at003/rosa/df_text2.csv", header="true")
- >> newdf=df.filter(df.page_string.isNotNull()).filter(df["year"]!="year").select(df.year, df.preprocess, df.page_string)
+ >> newdf=df.filter(df.page_string.isNotNull()).filter(df["year"]!="year").filter(df["model"]=="nls").select(df.year, df.preprocess, df.page_string)
  >> pages=newdf.rdd.map(tuple)
  >> nls_sample=pages.take(8)
  >> entry= nls_sample[8]
