@@ -99,7 +99,8 @@ or
  nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_HDFS.py  -r results -n 324 > log.txt &
 ```
 
-Important  --> We collect the following metadata per page (and also the page as string): tittle, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, type of preprocess treatment, page_preprocessed_as_string
+Important  --> We collect the following metadata per page (and also the page as string): 
+title,edition,year,place,archive_filename,page_filename,page_id,num_pages,type_archive,model,preprocess,page_string
 
 * Checking results from HDFS file
 
