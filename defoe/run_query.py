@@ -10,7 +10,7 @@ Run Spark text query job.
     positional arguments:
       data_file             Data file listing data files to query
       model_name            Data model to which data files conform:
-      ['books', 'papers', 'fmp','nzpp', 'generic_xml', 'nls', 'hdfs']
+      ['books', 'papers', 'fmp','nzpp', 'generic_xml', 'nls', 'hdfs', 'postgreSQL']
       query_name            Query module name
       query_config_file     Query-specific configuration file
 
@@ -60,7 +60,7 @@ import yaml
 
 from pyspark import SparkContext, SparkConf
 
-from defoe.spark_utils import files_to_rdd
+from defoe.spark_utils import files_to_rdd, files_to_dataframe
 
 
 def main():
@@ -69,7 +69,7 @@ def main():
     """
     root_module = "defoe"
     setup_module = "setup"
-    models = ["books", "papers", "fmp", "nzpp", "generic_xml", "nls", "hdfs"]
+    models = ["books", "papers", "fmp", "nzpp", "generic_xml", "nls", "hdfs", "postgreSQL"]
 
     parser = ArgumentParser(description="Run Spark text analysis job")
     parser.add_argument("data_file",
@@ -137,7 +137,7 @@ def main():
     # Check the data_file size, just in case it is empty, which means that we just need to execute the query
     # because the data has been already preprocessed and saved into HDFS | db. 
 
-    if model_name!= "hdfs":
+    if (model_name!= "hdfs") and (model_name!= "postgreSQL"):
         # [filename,...]
         rdd_filenames = files_to_rdd(context, num_cores, data_file=data_file)
         # [(object, None)|(filename, error_message), ...]
@@ -158,13 +158,16 @@ def main():
         if errors:
             with open(errors_file, "w") as f:
                  f.write(yaml.safe_dump(list(errors)))
+    
     else:
-        
-	ok_data=filename_to_object(data_file)
+	ok_data=filename_to_object(data_file, context)
+    
     results = do_query(ok_data, query_config_file, log, context)
     if results!="0":
         with open(results_file, "w") as f:
             f.write(yaml.safe_dump(dict(results)))
+
+      
 
 
 if __name__ == "__main__":
