@@ -69,7 +69,7 @@ def do_query(df, config_file=None, logger=None, context=None):
     """
     
     # Filter out the pages that are null, and select only 3 columns.
-    newdf=df.filter(df.page_string.isNotNull()).filter(df["year"]!="year").select(df.year, df.preprocess, df.page_string)
+    newdf=df.filter(df.page_string.isNotNull()).filter(df["year"]!="year").filter(df["model"]=="nls").select(df.year, df.preprocess, df.page_string)
     pages=newdf.rdd.map(tuple)
     preprocess_type=pages.take(1)[0][1]
     
