@@ -113,13 +113,14 @@ Note, that we also have [write_pages_HDFS](https://github.com/alan-turing-instit
 
 Reading **dataframes**:
 ```bash
- df= sqlContext.read.csv("hdfs:///user/at003/rosa/df_text2.csv", header="true")
- newdf=df.filter(df.page_string.isNotNull()).select(df.year, df.preprocess, df.page_string)
- pages=newdfrdd.map(tuple)
- nls_sample=pages.take(8)
- entry= nls_sample[8]
- year = entry[0]
- page_as_string = entry[1]
+ >> df= sqlContext.read.csv("hdfs:///user/at003/rosa/df_text2.csv", header="true")
+ >> newdf=df.filter(df.page_string.isNotNull()).select(df.year, df.preprocess, df.page_string)
+ >> pages=newdfrdd.map(tuple)
+ >> nls_sample=pages.take(8)
+ >> entry= nls_sample[8]
+ >> year = entry[0]
+ >> preprocess_type = entry[1]
+ >> page_as_string = entry[2]
  
 ```
 
@@ -130,6 +131,7 @@ Reading **rdds**:
 >> entry=nls_sample[8][1:-1].split("\',")
 >> clean_entry=[item.split("\'")[1] for item in entry]
 >> year = int(clean_entry[2])
+>> preprocess_type = clean_entry[10]
 >> page_as_string = clean_entry[11]
 ```
 
