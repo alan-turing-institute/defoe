@@ -30,6 +30,31 @@ def files_to_rdd(context,
     return rdd_filenames
 
 
+
+def files_to_dataframe(context,
+                 num_cores=1,
+                 data_file="data.txt"):
+    """
+    Populate Spark RDD with file names or URLs over which a query is
+    to be run.
+
+    :param context: Spark Context
+    :type context: pyspark.context.SparkContext
+    :param num_cores: number of cores over which to parallelize Spark
+    job
+    :type num_cores: int
+    :param data_file: name of file with file names or URLs, one per
+    line
+    :type data_file: str or unicode
+    """
+    
+
+    filenames = [filename.strip() for filename in list(open(data_file))]
+    rdd_filenames = context.parallelize(filenames, num_cores)
+    return rdd_filenames
+
+
+
 def open_stream(filename):
     """
     Open a file and return a stream to the file.
