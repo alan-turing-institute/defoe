@@ -2,9 +2,10 @@
 Given a filename create a defoe.books.archive.Archive.
 """
 
+from pyspark.sql import SQLContext
 
 
-def filename_to_object(filename):
+def filename_to_object(filename, context):
     """
     Given a filename create a defoe.books.archive.Archive.  If an error
     arises during its creation this is caught and returned as a
@@ -18,4 +19,6 @@ def filename_to_object(filename):
     """
 
     data=open(filename).readline().rstrip()
-    return data
+    sqlContext = SQLContext(context)
+    df= sqlContext.read.csv(data, header="true")
+    return df

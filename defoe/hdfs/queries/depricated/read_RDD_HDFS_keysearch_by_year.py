@@ -8,7 +8,7 @@ from defoe.hdfs.query_utils import get_sentences_list_matches
 
 import yaml, os
 
-def do_query(hdfs_data, config_file=None, logger=None, context=None):
+def do_query(df, config_file=None, logger=None, context=None):
     """
     Read from HDFS, and counts number of occurrences of keywords or keysentences and groups by year.
     We have an entry in the HFDS file with the following information: 
