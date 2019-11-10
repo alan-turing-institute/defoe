@@ -3,7 +3,7 @@ Writes raw pages as string to HDFS textfiles, and some metadata associated with 
 """
 
 from defoe import query_utils
-from defoe.nls.query_utils import get_page_as_string
+from defoe.nls.query_utils import get_page_as_string, toCSVLine
 
 import yaml, os
 
@@ -41,5 +41,6 @@ def do_query(archives, config_file=None, logger=None, context=None):
                                year_document[5], year_document[6], year_document[7], str(preprocess_type), \
                                get_page_as_string(page, preprocess_type)) for page in year_document[8]])
 
-    pages.saveAsTextFile("hdfs:///user/at003/rosa/demo_text2.txt")
+
+    pages.saveAsTextFile("hdfs:///user/at003/rosa/demo_text4.txt")
     return "0"
