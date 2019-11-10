@@ -1,5 +1,5 @@
 """ 
-ages as string to HDFS CSv textfiles (using dataframes), and some metadata associated with each document.
+Pages as string to HDFS CSv files (using dataframes), and some metadata associated with each document.
 """
 
 from defoe import query_utils
