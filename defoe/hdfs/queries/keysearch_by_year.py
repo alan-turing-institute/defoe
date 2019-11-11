@@ -45,16 +45,25 @@ def do_query(df, config_file=None, logger=None, context=None):
     :rtype: dict
     """
     
-    # Filter out the pages that are null, and select only 3 columns.
-    newdf=df.filter(df.page_string.isNotNull()).filter(df["year"]!="year").filter(df["model"]=="nls").select(df.year, df.preprocess, df.page_string)
-    pages=newdf.rdd.map(tuple)
-    preprocess_type=pages.take(1)[0][1]
-    
     with open(config_file, "r") as f:
         config = yaml.load(f)
-    
+    preprocess_config = config["preprocess"]
+    preprocess_type = query_utils.extract_preprocess_word_type(config)
     data_file = query_utils.extract_data_file(config,
                                               os.path.dirname(config_file))
+    
+    # Filter out the pages that are null, which model is nls, and select only 2 columns: year and the page as string (either raw or preprocessed).
+    if preprocess_config == "normalize":
+        newdf=df.filter(df.page_string_norm.isNotNull()).filter(df["year"]!="year").filter(df["model"]=="nls").select(df.year, df.page_string_norm)
+    elif preprocess_config == "lemmatize":
+        newdf=df.filter(df.page_string_lemmatize.isNotNull()).filter(df["year"]!="year").filter(df["model"]=="nls").select(df.year, df.page_string_lemmatize)
+    elif preprocess_config == "stem":
+        newdf=df.filter(df.page_string_stem.isNotNull()).filter(df["year"]!="year").filter(df["model"]=="nls").select(df.year, df.page_string_stem)
+    else: 
+        newdf=df.filter(df.page_string_raw.isNotNull()).filter(df["year"]!="year").filter(df["model"]=="nls").select(df.year, df.page_string_raw)
+   
+    pages=newdf.rdd.map(tuple)
+
     keysentences = []
     with open(data_file, 'r') as f:
         for keysentence in list(f):
@@ -71,15 +80,14 @@ def do_query(df, config_file=None, logger=None, context=None):
     
 
     filter_pages = pages.filter(
-        lambda year_page: any( keysentence in year_page[2] for keysentence in keysentences))
-   
+        lambda year_page: any( keysentence in year_page[1] for keysentence in keysentences))
     
     # [(year, [keysentence, keysentence]), ...]
     # We also need to convert the string as an integer spliting first the '.
     matching_pages = filter_pages.map(
         lambda year_page: (year_page[0],
                               get_sentences_list_matches(
-                                  year_page[2],
+                                  year_page[1],
                                   keysentences)))
     
 
