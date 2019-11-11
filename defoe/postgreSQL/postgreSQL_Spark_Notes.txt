@@ -15,7 +15,8 @@ CREATE TABLE publication_page (
    type_archive      varchar(80),     --publication type (e.g. book, newpspaer)
    model             varchar(80),    --publication_page model (e.g. nls, alto)
    preprocess        varchar(80),    --publication_page preprocess treatment
-   page_string       text            --publication_page preprocessed page as string
+   page_string       text,           --publication_page preprocessed|raw page as string
+   num_page_words    text            --publication_page num words per page
 );
 
 defoe=# \d+ publication_page
