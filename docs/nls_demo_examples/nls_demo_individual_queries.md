@@ -90,13 +90,13 @@ Everytime we run a query (e.g. defoe.nls.queries.total_documents or defoe.nls.qu
 * Writing [pages to HDFS cvs file using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_DataFrames_HDFS.py). We have to indicate the HDFS FILE inside **write_pages_DataFrames__HDFS.py** (e.g. in this case, "nls_demo.csv"). The preprocess treatment is indicated inside the file *query/preprocess.yml*. It could be *none*, *normalize*, *stem* and *lemmatize*. Both, stemming and lemmatization, they also include normalization.  Also, if the configuration file is not indicated, the query assumes that not preprocess treatment has to be applied to the pages' words.
  
 ```bash
- nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_HDFS.py query/preprocess.yml -r results -n 324 > log.txt &
+ nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_HDFS query/preprocess.yml -r results -n 324 > log.txt &
 ```
 
 or 
 
 ```bash
- nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_HDFS.py  -r results -n 324 > log.txt &
+ nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_HDFS  -r results -n 324 > log.txt &
 ```
 
 Important  --> We collect the following metadata per page (and also the page as string): 
@@ -105,7 +105,8 @@ title,edition,year,place,archive_filename,page_filename,page_id,num_pages,type_a
 * Checking results from HDFS file
 
 ```bash
- hdfs dfs -getmerge /user/at003/rosa/nls_demo.csv nls_demo.csv
+ hdfs dfs -getmerge /user/at003/rosa/nls_demo_raw.csv nls_demo_raw.csv
+  hdfs dfs -getmerge /user/at003/rosa/nls_demo_preprocess..csv nls_demo_preprocess..csv
 ```
 
 * Read pages as Dataframes from HDFS CSV file and do a [keysentence search] https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/keysearch_by_year.py)  - group by year
