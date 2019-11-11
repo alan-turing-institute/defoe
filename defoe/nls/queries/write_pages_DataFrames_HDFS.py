@@ -47,10 +47,14 @@ def do_query(archives, config_file=None, logger=None, context=None):
         lambda year_document: [(year_document[0], year_document[1], year_document[2],\
                                year_document[3], year_document[4], page.code, page.page_id, \
                                year_document[5], year_document[6], year_document[7], str(preprocess_type), \
-                               get_page_as_string(page, preprocess_type)) for page in year_document[8]])
+                               get_page_as_string(page, preprocess_type), len(page.words)) for page in year_document[8]])
 
-    nlsRow=Row("title","edition","year", "place", "archive_filename", "page_filename","page_id","num_pages","type_archive","model","preprocess","page_string")
+
+    nlsRow=Row("title","edition","year", "place", "archive_filename", "page_filename","page_id","num_pages","type_archive","model","preprocess","page_string", "num_page_words")
     sqlContext = SQLContext(context)
     df = sqlContext.createDataFrame(pages,nlsRow)
-    df.write.mode('overwrite').option("header","true").csv("hdfs:///user/at003/rosa/nls_demo.csv")
+    if preprocess_type == query_utils.parse_preprocess_word_type("none"):
+    	df.write.mode('overwrite').option("header","true").csv("hdfs:///user/at003/rosa/nls_demo_raw.csv")
+    else:
+    	df.write.mode('overwrite').option("header","true").csv("hdfs:///user/at003/rosa/nls_demo_prep.csv")
     return "0"
