@@ -90,6 +90,9 @@ Everytime we run a query (e.g. defoe.nls.queries.total_documents or defoe.nls.qu
 * Writing [pages to HDFS cvs file using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_DataFrames_HDFS.py) loads in memory all the pages and their metadata, create a dataframe, store data into the dataframe, and finally save the data into HDFS using a csv file. 
 
 The information stored per page is the following:
+``bash
+title,edition,year,place,archive_filename,page_filename,page_id,num_pages,type_archive,model,preprocess,page_string,num_page_words
+```
 
 We have to indicate the HDFS FILE inside **write_pages_DataFrames__HDFS.py** (e.g. "nls_demo_raw.csv" or "nls_demo_preprocess.csv"). The preprocess treatment is indicated inside the file *query/preprocess.yml*. It could be *none*, *normalize*, *stem* and *lemmatize*. Both, stemming and lemmatization, they also include normalization.  Also, if the configuration file is not indicated, the query assumes that not preprocess treatment has to be applied to the pages' words. 
 
@@ -105,10 +108,8 @@ or
  nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_HDFS  -r results -n 324 > log.txt &
 ```
 
-Important (1) --> We collect the following metadata per page (and also the page as string): 
-title,edition,year,place,archive_filename,page_filename,page_id,num_pages,type_archive,model,preprocess,page_string,num_page_words
 
-Important (2) --> nls_tiny.txt is:
+**Important** --> nls_tiny.txt is:
 ```bash
 xxx/nls-data-encyclopaediaBritannica/193108323
 xxx/nls-data-encyclopaediaBritannica/193696080
