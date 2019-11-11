@@ -142,7 +142,43 @@ queries/sport.yml:
   spark-submit --py-files defoe.zip defoe/run_query.py hdfs_data.txt hdfs defoe.hdfs.queries.keysearch_by_year queries/sport.yml  -r results_ks_sports_tiny -n 324 
 ```
 
+
+```bash
+results_ks_sports_tiny:
+'1771':
+- [bowls, 3]
+'1773':
+- [tennis, 1]
+'1797':
+- [football, 1]
+- [golf, 1]
+- [rugby, 1]
+- [bowls, 1]
+'1810':
+- [tennis, 14]
+- [bowls, 1]
+'1815':
+- [football, 1]
+'1823':
+- [bowls, 2]
+- [tennis, 2]
+'1824':
+- [bowls, 1]
+'1842':
+- [rugby, 1]
+- [football, 2]
+- [bowls, 5]
+'1853':
+- [football, 1]
+- [tennis, 1]
+- [bowls, 4]
+- [rugby, 7]
+```
+
 Note, that we also have [write pages as RDD into HDFS](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/depricated/write_pages_RDD_HDFS.py),and [read RDD pages from HDFS](https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/depricated/read_RDD_HDFS_keysearch_by_year.py), in which we use save rdds into HDFS file - we dont recommend to use those, since using dataframes it is the most efficient option. Plus, this option it wont work for the aggreagated queries, since if the 'hdfs' model is indicated to run a list of queries, it will create a DATAFRAME object to be passed to the rest of the queries.
+
+
+
 
 ##### Spark in a SHELL - Pyspark 
 
