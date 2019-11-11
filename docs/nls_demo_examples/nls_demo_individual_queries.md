@@ -93,7 +93,7 @@ The information stored per page is the following:
 * title, edition, year, place, archive_filename, page_filename, page_id, num_pages, type_archive, model, page_string_norm, page_string_lemmatize, page_string_stem, num_page_words  num_page_words 
 
 
-We have to indicate the HDFS FILE inside **write_pages_DataFrames__HDFS.py** (e.g. "nls_demo_raw.csv" or "nls_demo.csv"). The query applies to the pages' words 4 type of preprocess treatment: *none*, *normalize*, *stem* and *lemmatize*. Both, *stem* and *lemmatize*, they also include normalization.  . 
+We have to indicate the HDFS FILE inside **write_pages_DataFrames__HDFS.py** (e.g. "nls_demo.csv"). The query applies to the pages' words 4 type of preprocess treatment: *none*, *normalize*, *stem* and *lemmatize*. Both, *stem* and *lemmatize*, they also include normalization.  . 
 
   
 
@@ -123,7 +123,7 @@ xxx/nls -data-encyclopaediaBritannica/193916150
 * Checking results from HDFS file
 
 ```bash
- hdfs dfs -getmerge /user/at003/rosa/nls_demo_raw.csv nls_demo.csv
+ hdfs dfs -getmerge /user/at003/rosa/nls_demo.csv nls_demo.csv
 ```
 
 Read pages as Dataframes from HDFS CSV file and do a [keysentence search] https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/keysearch_by_year.py)  - group by year
@@ -147,7 +147,7 @@ Note, that we also have [write pages as RDD into HDFS](https://github.com/alan-t
 
 Reading **dataframes**:
 ```bash
- >> df= sqlContext.read.csv("hdfs:///user/at003/rosa/nls_demo_raw.csv", header="true")
+ >> df= sqlContext.read.csv("hdfs:///user/at003/rosa/nls_demo.csv", header="true")
  >> newdf=df.filter(df.page_string.isNotNull()).filter(df["year"]!="year").filter(df["model"]=="nls").select(df.year, df.preprocess, df.page_string)
  >> pages=newdf.rdd.map(tuple)
  >> nls_sample=pages.take(8)
