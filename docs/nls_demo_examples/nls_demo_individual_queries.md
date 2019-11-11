@@ -94,8 +94,6 @@ The information stored per page is the following:
 We have to indicate the HDFS FILE inside **write_pages_DataFrames__HDFS.py** (e.g. "nls_demo_raw.csv" or "nls_demo_preprocess.csv"). The preprocess treatment is indicated inside the file *query/preprocess.yml*. It could be *none*, *normalize*, *stem* and *lemmatize*. Both, stemming and lemmatization, they also include normalization.  Also, if the configuration file is not indicated, the query assumes that not preprocess treatment has to be applied to the pages' words. 
 
 
-
-
  
 ```bash
  nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_HDFS queries/preprocess.yml -r results -n 324 > log.txt &
@@ -107,8 +105,26 @@ or
  nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_HDFS  -r results -n 324 > log.txt &
 ```
 
-Important  --> We collect the following metadata per page (and also the page as string): 
+Important (1) --> We collect the following metadata per page (and also the page as string): 
 title,edition,year,place,archive_filename,page_filename,page_id,num_pages,type_archive,model,preprocess,page_string,num_page_words
+
+Important (2) --> nls_tiny.txt is:
+```bash
+xxx/nls-data-encyclopaediaBritannica/193108323
+xxx/nls-data-encyclopaediaBritannica/193696080
+xxx/nls-data-encyclopaediaBritannica/144850378
+xxx/nls -data-encyclopaediaBritannica/191253839
+xxx/nls -data-encyclopaediaBritannica/144133902
+xxx/nls -data-encyclopaediaBritannica/144850368
+xxx/nls -data-encyclopaediaBritannica/190273291
+xxx/nls -data-encyclopaediaBritannica/191253819
+xxx/nls -data-encyclopaediaBritannica/191678900
+xxx/nls -data-encyclopaediaBritannica/192984259
+xxx/nls -data-encyclopaediaBritannica/193819047
+xxx/nls -data-encyclopaediaBritannica/191678897
+xxx/nls -data-encyclopaediaBritannica/192547788
+xxx/nls -data-encyclopaediaBritannica/193916150
+```
 
 * Checking results from HDFS file
 
