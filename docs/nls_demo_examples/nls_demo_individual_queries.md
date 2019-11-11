@@ -130,7 +130,7 @@ xxx/nls -data-encyclopaediaBritannica/193916150
 
 ```bash
  hdfs dfs -getmerge /user/at003/rosa/nls_demo_raw.csv nls_demo_raw.csv
-  hdfs dfs -getmerge /user/at003/rosa/nls_demo_preprocess.csv nls_demo_preprocess.csv
+ hdfs dfs -getmerge /user/at003/rosa/nls_demo_preprocess.csv nls_demo_preprocess.csv
 ```
 
 * Read pages as Dataframes from HDFS CSV file and do a [keysentence search] https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/keysearch_by_year.py)  - group by year
