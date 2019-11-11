@@ -123,12 +123,19 @@ xxx/nls -data-encyclopaediaBritannica/193916150
 * Checking results from HDFS file
 
 ```bash
- hdfs dfs -getmerge /user/at003/rosa/nls_demo_raw.csv nls_demo_raw.csv
- hdfs dfs -getmerge /user/at003/rosa/nls_demo_preprocess.csv nls_demo_preprocess.csv
+ hdfs dfs -getmerge /user/at003/rosa/nls_demo_raw.csv nls_demo.csv
 ```
 
 Read pages as Dataframes from HDFS CSV file and do a [keysentence search] https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/keysearch_by_year.py)  - group by year
 Important: in hdfs_data.txt we have to indicate the HDFS file that we want to read from: --> hdfs:///user/at003/rosa/<NAME OF THE HDFS FILE>.txt
+	
+*Important*: In the configuration file (e.g. queries/sport.yml) we have to indicate which preprocess treatment we want to use, so we can select the datafrane columm (e.g. page_string_raw, page_string_normalize, etc.) page as string according to that information. 
+
+```bash
+queries/sport.yml: 
+	preprocess: normalize
+	data: sport.txt
+```
 
 ```bash
   spark-submit --py-files defoe.zip defoe/run_query.py hdfs_data.txt hdfs defoe.hdfs.queries.keysearch_by_year queries/sport.yml  -r results_ks_sports_tiny -n 324 
