@@ -2,7 +2,7 @@
 >> psql defoe
 
 
-CREATE TABLE publication_page (
+CREATE TABLE publication_page_raw (
    id                SERIAL,         --publication_page id ; auto-increment when empty
    title             varchar(80),    --publication_page title
    edition           varchar(80),    --publication_page edition
