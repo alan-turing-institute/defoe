@@ -16,30 +16,32 @@ CREATE TABLE publication_page_raw (
    model             varchar(80),    --publication_page model (e.g. nls, alto)
    preprocess        varchar(80),    --publication_page preprocess treatment
    page_string       text,           --publication_page preprocessed|raw page as string
-   num_page_words    text            --publication_page num words per page
+   num_page_words    int            --publication_page num words per page
 );
 
-defoe=# \d+ publication_page
- Column      |         Type          | Collation | Nullable |                   Default                    | Storage  | Stats target | Description 
-------------------+-----------------------+-----------+----------+----------------------------------------------+----------+--------------+-------------
- id               | integer               |           | not null | nextval('publication_page_id_seq'::regclass) | plain    |              | 
- title            | character varying(80) |           |          |                                              | extended |              | 
- edition          | character varying(80) |           |          |                                              | extended |              | 
- year             | integer               |           |          |                                              | plain    |              | 
- place            | character varying(80) |           |          |                                              | extended |              | 
- archive_filename | character varying(80) |           |          |                                              | extended |              | 
- page_filename    | character varying(80) |           |          |                                              | extended |              | 
- page_id          | character varying(80) |           |          |                                              | extended |              | 
- num_pages        | integer               |           |          |                                              | plain    |              | 
- type_archive     | character varying(80) |           |          |                                              | extended |              | 
- model            | character varying(80) |           |          |                                              | extended |              | 
- preprocess       | character varying(80) |           |          |                                              | extended |              | 
- page_string      | text                  |           |          |                                              | extended |              | 
+defoe=# \d+ publication_page_raw 
+                                                            Table "public.publication_page_raw"
+      Column      |         Type          | Collation | Nullable |                     Default                      | Storage  | Stats target | Description 
+------------------+-----------------------+-----------+----------+--------------------------------------------------+----------+--------------+-------------
+ id               | integer               |           | not null | nextval('publication_page_raw_id_seq'::regclass) | plain    |              | 
+ title            | character varying(80) |           |          |                                                  | extended |              | 
+ edition          | character varying(80) |           |          |                                                  | extended |              | 
+ year             | integer               |           |          |                                                  | plain    |              | 
+ place            | character varying(80) |           |          |                                                  | extended |              | 
+ archive_filename | character varying(80) |           |          |                                                  | extended |              | 
+ page_filename    | character varying(80) |           |          |                                                  | extended |              | 
+ page_id          | character varying(80) |           |          |                                                  | extended |              | 
+ num_pages        | integer               |           |          |                                                  | plain    |              | 
+ type_archive     | character varying(80) |           |          |                                                  | extended |              | 
+ model            | character varying(80) |           |          |                                                  | extended |              | 
+ preprocess       | character varying(80) |           |          |                                                  | extended |              | 
+ page_string      | text                  |           |          |                                                  | extended |              | 
+ num_page_words   | integer               |           |          |                                                  | plain    |              | 
 
 
 
 
-INSERT INTO publication_page (title, edition, year, place, archive_filename, page_filename, page_id, num_pages, type_archive, model, preprocess, page_string) VALUES ('Encyclopaedia Britannica', 'Seventh edition, Volume 13, LAB-Magnetism', 1842, 'Edinburgh', '/mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica/193108323', 'alto/193201394.34.xml', 'Page9', 810, 'book','nls','PreprocessWordType.NONE','THE ENCYCLOPAEDIA BRITANNICA DICTIONARY OF ARTS, SCIENCES, AND GENERAL LITERATURE. SEVENTH EDITION, i WITH PRELIMINARY DISSERTATIONS ON THE HISTORY OF THE SCIENCES, AND OTHER EXTENSIVE IMPROVEMENTS AND ADDITIONS; INCLUDING THE LATE SUPPLEMENT. A GENERAL INDEX, AND NUMEROUS ENGRAVINGS. VOLUME XIII. ADAM AND CHARLES BLACK, EDINBURGH; M.DCCC.XLII.');
+INSERT INTO publication_page_raw (title, edition, year, place, archive_filename, page_filename, page_id, num_pages, type_archive, model, preprocess, page_string, num_page_words) VALUES ('Encyclopaedia Britannica', 'Seventh edition, Volume 13, LAB-Magnetism', 1842, 'Edinburgh', '/mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica/193108323', 'alto/193201394.34.xml', 'Page9', 810, 'book','nls','PreprocessWordType.NONE','THE ENCYCLOPAEDIA BRITANNICA DICTIONARY OF ARTS, SCIENCES, AND GENERAL LITERATURE. SEVENTH EDITION, i WITH PRELIMINARY DISSERTATIONS ON THE HISTORY OF THE SCIENCES, AND OTHER EXTENSIVE IMPROVEMENTS AND ADDITIONS; INCLUDING THE LATE SUPPLEMENT. A GENERAL INDEX, AND NUMEROUS ENGRAVINGS. VOLUME XIII. ADAM AND CHARLES BLACK, EDINBURGH; M.DCCC.XLII.', 46);
 
 \q
 
