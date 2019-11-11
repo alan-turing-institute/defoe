@@ -98,7 +98,7 @@ We have to indicate the HDFS FILE inside **write_pages_DataFrames__HDFS.py** (e.
 
  
 ```bash
- nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_HDFS query/preprocess.yml -r results -n 324 > log.txt &
+ nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_HDFS queries/preprocess.yml -r results -n 324 > log.txt &
 ```
 
 or 
@@ -130,7 +130,7 @@ Note, that we also have [write pages as RDD into HDFS](https://github.com/alan-t
 
 Reading **dataframes**:
 ```bash
- >> df= sqlContext.read.csv("hdfs:///user/at003/rosa/df_text2.csv", header="true")
+ >> df= sqlContext.read.csv("hdfs:///user/at003/rosa/nls_demo_raw.csv", header="true")
  >> newdf=df.filter(df.page_string.isNotNull()).filter(df["year"]!="year").filter(df["model"]=="nls").select(df.year, df.preprocess, df.page_string)
  >> pages=newdf.rdd.map(tuple)
  >> nls_sample=pages.take(8)
