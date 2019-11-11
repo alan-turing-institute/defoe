@@ -108,7 +108,7 @@ or
 ```
 
 Important  --> We collect the following metadata per page (and also the page as string): 
-title,edition,year,place,archive_filename,page_filename,page_id,num_pages,type_archive,model,preprocess,page_string
+title,edition,year,place,archive_filename,page_filename,page_id,num_pages,type_archive,model,preprocess,page_string,num_page_words
 
 * Checking results from HDFS file
 
