@@ -12,7 +12,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
     """
     Ingest NLS pages, applies all 4 preprocess treatments (none, normalize, lemmatize, stem) to each page, and save them to HDFS CSV files, with some metadata associated with each page.
     Metadata collected: tittle, edition, year, place, archive filename, page filename, page id, num pages, 
-    type of archive, model, prep_page_string, page_string_raw, page_string_norm, page_string_lemmatize, page_string_stem, num_page_words
+    type of archive, model, page_string_raw, page_string_norm, page_string_lemmatize, page_string_stem, num_page_words
 
     Data is saved as Dataframes into HDFS CSV files 
 
@@ -40,7 +40,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
                           document.place, document.archive.filename, str(document.num_pages), \
                            document.document_type, document.model, document) for document in list(archive)])
     # [(tittle, edition, year, place, archive filename, page filename, 
-    #   page id, num pages, type of archive, type of disribution, model, page_as_string_raw, page_string_norm, 
+    #   page id, num pages, type of archive, type of disribution, model, page_string_raw, page_string_norm, 
     #   page_string_lemmatize, page_string_stem, num_page_words )]
     pages = documents.flatMap(
         lambda year_document: [(year_document[0], year_document[1], year_document[2],\
