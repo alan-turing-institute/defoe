@@ -43,6 +43,30 @@ defoe=# \d+ publication_page_raw
 
 INSERT INTO publication_page_raw (title, edition, year, place, archive_filename, page_filename, page_id, num_pages, type_archive, model, preprocess, page_string, num_page_words) VALUES ('Encyclopaedia Britannica', 'Seventh edition, Volume 13, LAB-Magnetism', 1842, 'Edinburgh', '/mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica/193108323', 'alto/193201394.34.xml', 'Page9', 810, 'book','nls','PreprocessWordType.NONE','THE ENCYCLOPAEDIA BRITANNICA DICTIONARY OF ARTS, SCIENCES, AND GENERAL LITERATURE. SEVENTH EDITION, i WITH PRELIMINARY DISSERTATIONS ON THE HISTORY OF THE SCIENCES, AND OTHER EXTENSIVE IMPROVEMENTS AND ADDITIONS; INCLUDING THE LATE SUPPLEMENT. A GENERAL INDEX, AND NUMEROUS ENGRAVINGS. VOLUME XIII. ADAM AND CHARLES BLACK, EDINBURGH; M.DCCC.XLII.', 46);
 
+
+
+CREATE TABLE publication_page_prep (
+   id                SERIAL,         --publication_page id ; auto-increment when empty
+   title             varchar(80),    --publication_page title
+   edition           varchar(80),    --publication_page edition
+   year              int,            --publication_page year
+   place             varchar(80),    --publication_page
+   archive_filename  varchar(80),    --publication_page archive directory name
+   page_filename     varchar(80),    --publication_page page filename
+   page_id           varchar(80),    --publication_page id of the page
+   num_pages         int,            --publication_page number of pages of the archive
+   type_archive      varchar(80),     --publication type (e.g. book, newpspaer)
+   model             varchar(80),    --publication_page model (e.g. nls, alto)
+   preprocess        varchar(80),    --publication_page preprocess treatment
+   page_string       text,           --publication_page preprocessed|raw page as string
+   num_page_words    int            --publication_page num words per page
+);
+
+
+
+
+INSERT INTO publication_page_prep (title, edition, year, place, archive_filename, page_filename, page_id, num_pages, type_archive, model, preprocess, page_string, num_page_words) VALUES ('Encyclopaedia Britannica', 'Seventh edition, Volume 13, LAB-Magnetism', 1842, 'Edinburgh', '/mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica/193108323', 'alto/193201394.34.xml', 'Page9', 810, 'book','nls','PreprocessWordType.LEMMATIZE','the encyclopaedia britannica dictionary of art science and general literature seventh edition i with preliminary dissertation on the history of the science and other extensive improvement and addition including the late supplement a general index and numerous engraving volume xiii adam and charles black edinburgh mdcccxlii', 46);
+
 \q
 
 
