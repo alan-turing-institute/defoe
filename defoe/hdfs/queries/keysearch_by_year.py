@@ -13,31 +13,8 @@ def do_query(df, config_file=None, logger=None, context=None):
     """
     Read from HDFS, and counts number of occurrences of keywords or keysentences and groups by year.
     We have an entry in the HFDS file with the following information: 
-	- tittle, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, type of preprocess treatment, prep_page_string
-
-    Notice, that year is in position "2", preprocess type in poistion "10",
-    and the preprocessed page as an string is in position 11. However, the information per entry has been saved as an string.
-    
-    Example of one entry saved as string. 
-    
-       u"('Encyclopaedia Britannica', 'Seventh edition, Volume 13, LAB-Magnetism', '1842', 'Edinburgh', 
-       '/mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica/193108323', 'alto/193201394.34.xml', 
-       'Page9', '810', 'book', 'nls', 'PreprocessWordType.NORMALIZE', u'the encyclopaedia britannica dictionary of 
-        arts sciences and general literature seventh edition i with preliminary dissertations on the history of the 
-        sciences and other extensive improvements and additions including the late supplement a general index and 
-        numerous engravings volume xiii adam and charles black edinburgh mdcccxlii')"
-    
-     Therefore,  we need first to recreate a list per entry by spliting each string. 
-
-       [u"'Encyclopaedia Britannica", u" 'Seventh edition, Volume 13, LAB-Magnetism", u" '1842", u" 'Edinburgh", 
-       u" '/mnt/lustre/at003/at003/rfilguei2/nls-data-encyclopaediaBritannica/193108323", u" 'alto/193201394.34.xml", 
-       u" 'Page9", u" '810", u" 'book", u" 'nls", u" 'PreprocessWordType.NORMALIZE", u" u'the encyclopaedia britannica dictionary of 
-       arts sciences and general literature seventh edition i with preliminary dissertations on the history of the sciences and other extensive improvements 
-       and additions including the late supplement a general index and numerous engravings volume xiii adam and charles black edinburgh mdcccxlii'"]
-   
-    And later, for this query we need to get the year (position 2, and convert it into a integer) 
-    ,preprocess type (position 10) and page (position 11). 
-
+	- tittle, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, 
+        type of preprocess treatment, page_string, num_page_words
 
 
     config_file must be the path to a configuration file with a list
