@@ -126,10 +126,11 @@ xxx/nls -data-encyclopaediaBritannica/193916150
  hdfs dfs -getmerge /user/at003/rosa/nls_demo.csv nls_demo.csv
 ```
 
-Read pages as Dataframes from HDFS CSV file and do a [keysentence search] https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/keysearch_by_year.py)  - group by year
-Important: in hdfs_data.txt we have to indicate the HDFS file that we want to read from: --> hdfs:///user/at003/rosa/<NAME OF THE HDFS FILE>.txt
+Read pages (preprocessed or raw) as Dataframes from HDFS CSV file, and do a [keysentence search] https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/keysearch_by_year.py) groupping results by year.
+
+Important: in hdfs_data.txt we have to indicate the HDFS file that we want to read from (e.g. hdfs:///user/at003/rosa/nls_demo.csv)
 	
-*Important*: In the configuration file (e.g. queries/sport.yml) we have to indicate which preprocess treatment we want to use, so we can select the datafrane columm (e.g. page_string_raw, page_string_normalize, etc.) page as string according to that information. 
+*Important*: In the configuration file (e.g. queries/sport.yml) we have to indicate which preprocess treatment (e.g. none, normalize, etc.) we want to use, so we can select the dataframe's columm (e.g. page_string_raw, page_string_normalize, etc.) according to that. 
 
 ```bash
 queries/sport.yml: 
