@@ -87,7 +87,7 @@ Everytime we run a query (e.g. defoe.nls.queries.total_documents or defoe.nls.qu
 
 # Writing and Reading data from/to HDFS - Using dataframes (recomended)
 
-* Writing [pages to HDFS cvs file using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_DataFrames_HDFS.py) loads in memory all the pages and their metadata, create a dataframe, store data into the dataframe, and finally save the data into HDFS using a csv file. 
+Writing [pages to HDFS cvs file using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_DataFrames_HDFS.py) loads in memory all the pages and their metadata, create a dataframe, store data into the dataframe, and finally save the dataframe into HDFS using a csv file. 
 
 The information stored per page is the following:
 ``bash
@@ -95,7 +95,6 @@ title,edition,year,place,archive_filename,page_filename,page_id,num_pages,type_a
 ```
 
 We have to indicate the HDFS FILE inside **write_pages_DataFrames__HDFS.py** (e.g. "nls_demo_raw.csv" or "nls_demo_preprocess.csv"). The preprocess treatment is indicated inside the file *query/preprocess.yml*. It could be *none*, *normalize*, *stem* and *lemmatize*. Both, stemming and lemmatization, they also include normalization.  Also, if the configuration file is not indicated, the query assumes that not preprocess treatment has to be applied to the pages' words. 
-
 
  
 ```bash
