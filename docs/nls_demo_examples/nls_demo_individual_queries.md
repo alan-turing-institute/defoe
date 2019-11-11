@@ -106,7 +106,7 @@ title,edition,year,place,archive_filename,page_filename,page_id,num_pages,type_a
 
 ```bash
  hdfs dfs -getmerge /user/at003/rosa/nls_demo_raw.csv nls_demo_raw.csv
-  hdfs dfs -getmerge /user/at003/rosa/nls_demo_preprocess..csv nls_demo_preprocess..csv
+  hdfs dfs -getmerge /user/at003/rosa/nls_demo_preprocess.csv nls_demo_preprocess.csv
 ```
 
 * Read pages as Dataframes from HDFS CSV file and do a [keysentence search] https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/keysearch_by_year.py)  - group by year
