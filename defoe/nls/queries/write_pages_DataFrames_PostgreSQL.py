@@ -56,8 +56,12 @@ def do_query(archives, config_file=None, logger=None, context=None):
                 "model","page_string_raw", "page_string_norm", "page_string_lemmatize", "page_string_stem", "num_page_words")
     sqlContext = SQLContext(context)
     df = sqlContext.createDataFrame(pages,nlsRow)
+    
+    with open(config_file, "r") as f:
+        config = yaml.load(f)
+    url = "jdbc:postgresql://ati-nid00006:55555/%s" % config["database"]
+    properties = {"user": config["user"] ,"driver": config["driver"]}
+    
     mode = "overwrite"
-    url = "jdbc:postgresql://ati-nid00006:55555/defoe_db"
-    properties = {"user": "rfilguei2","driver": "org.postgresql.Driver"}
-    df.write.jdbc(url=url, table="publication_page", mode=mode, properties=properties)
+    df.write.jdbc(url=url, table=config["table"], mode=mode, properties=properties)
     return "0"
