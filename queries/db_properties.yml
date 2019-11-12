@@ -1,0 +1,4 @@
+database: defoe_db
+table: publication_page
+user: rfilguei2
+driver: org.postgresql.Driver
