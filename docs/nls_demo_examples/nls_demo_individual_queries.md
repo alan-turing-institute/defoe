@@ -185,11 +185,18 @@ Writing [pages to PostgresSQL database using dataframes](https://github.com/alan
 
 
 ```bash
- nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_PostgreSQL querie/db_properties.yml  -r results -n 324 > log.txt &
+spark-submit --driver-class-path $HOME/postgresql-42.2.8.jar --jars $HOME/postgresql-42.2.8.jar --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_PostgreSQL queries/db_properties.yml  -r results -n 324 
 ```
 
+Important:
+	* You need to have the postgresql driver, or [download it](https://jdbc.postgresql.org/) and indicate it in the spark-submit command (see previous command). 
+	* You need to have previously the postgreSQL database created. However, the table will be created automatically. 
+		```bash
+			createdb -d defoe_db 
+		```
+
 ```bash
-psql -d defoe_db -U rfilguei2 
+psql -d defoe_db 
 
 \d+
                           List of relations
