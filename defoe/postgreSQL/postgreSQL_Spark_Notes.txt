@@ -3,7 +3,6 @@
 
 
 CREATE TABLE publication_page(
-   id                SERIAL,         --publication_page id ; auto-increment when empty
    title             varchar(80),    --publication_page title
    edition           varchar(80),    --publication_page edition
    year              int,            --publication_page year
@@ -24,7 +23,7 @@ CREATE TABLE publication_page(
 defoe=# \d+ publication_page
          Column         |         Type          | Collation | Nullable |                   Default                    | Storage  | Stats target | Description 
 -----------------------+-----------------------+-----------+----------+----------------------------------------------+----------+--------------+-------------
- id                    | integer               |           | not null | nextval('publication_page_id_seq'::regclass) | plain    |              | 
+               | 
  title                 | character varying(80) |           |          |                                              | extended |              | 
  edition               | character varying(80) |           |          |                                              | extended |              | 
  year                  | integer               |           |          |                                              | plain    |              | 
