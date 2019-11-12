@@ -179,6 +179,46 @@ Note, that we also have [write pages as RDD into HDFS](https://github.com/alan-t
 
 
 
+# Writing and Reading data from/to PostgreSQL database - Using dataframes
+
+Writing [pages to PostgresSQL database using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_DataFrames_PostgreSQL.py) loads in memory all the pages and their metadata, applies all type of preprocess treatment ot the pages, create a dataframe, store data into the dataframe, and finally save the dataframe into a database table. Properties of the database to use can be specified by using a config file (e.g. queries/db_properties.yml)
+
+
+```bash
+ nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_PostgreSQL querie/db_properties  -r results -n 324 > log.txt &
+```
+
+```bash
+psql -d defoe_db -U rfilguei2 
+
+\d+
+                          List of relations
+ Schema |       Name       | Type  |   Owner   |  Size  | Description 
+--------+------------------+-------+-----------+--------+-------------
+ public | publication_page | table | rfilguei2 | 138 MB | 
+(1 row)
+
+defoe_db=# \d+ publication_page
+                                     Table "public.publication_page"
+        Column         |  Type  | Collation | Nullable | Default | Storage  | Stats target | Description 
+-----------------------+--------+-----------+----------+---------+----------+--------------+-------------
+ title                 | text   |           |          |         | extended |              | 
+ edition               | text   |           |          |         | extended |              | 
+ year                  | text   |           |          |         | extended |              | 
+ place                 | text   |           |          |         | extended |              | 
+ archive_filename      | text   |           |          |         | extended |              | 
+ page_filename         | text   |           |          |         | extended |              | 
+ page_id               | text   |           |          |         | extended |              | 
+ num_pages             | text   |           |          |         | extended |              | 
+ type_archive          | text   |           |          |         | extended |              | 
+ model                 | text   |           |          |         | extended |              | 
+ page_string_raw       | text   |           |          |         | extended |              | 
+ page_string_norm      | text   |           |          |         | extended |              | 
+ page_string_lemmatize | text   |           |          |         | extended |              | 
+ page_string_stem      | text   |           |          |         | extended |              | 
+ num_page_words        | bigint |           |          |         | plain    |              | 
+```
+
 
 ##### Spark in a SHELL - Pyspark 
 
