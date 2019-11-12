@@ -191,8 +191,7 @@ spark-submit --driver-class-path $HOME/postgresql-42.2.8.jar --jars $HOME/postgr
 Important:
 	* You need to have the postgresql driver, or [download it](https://jdbc.postgresql.org/) and indicate it in the spark-submit command (see previous command). 
 	* You need to have previously the postgreSQL database created. However, the table will be created automatically. 
-		```bash
-			createdb -d defoe_db 
+		```createdb -d defoe_db 
 		```
 
 ```bash
