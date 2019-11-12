@@ -185,7 +185,7 @@ Writing [pages to PostgresSQL database using dataframes](https://github.com/alan
 
 
 ```bash
- nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_PostgreSQL querie/db_properties  -r results -n 324 > log.txt &
+ nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_PostgreSQL querie/db_properties.yml  -r results -n 324 > log.txt &
 ```
 
 ```bash
