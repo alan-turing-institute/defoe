@@ -20,9 +20,6 @@ def filename_to_object(filename, context):
     """
 
     lines=open(filename).readlines()
-    #url=lines[0].rstrip('\n')
-    #properties=lines[1].rstrip('\n')
-    #table=lines[2].rstrip('\n')
     sqlContext = SQLContext(context)
     url='postgresql://ati-nid00006:55555/defoe_db'
     properties={'user': 'rfilguei2', 'driver': 'org.postgresql.Driver'}
