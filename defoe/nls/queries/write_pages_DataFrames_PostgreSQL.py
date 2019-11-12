@@ -59,7 +59,8 @@ def do_query(archives, config_file=None, logger=None, context=None):
     
     with open(config_file, "r") as f:
         config = yaml.load(f)
-    url = "jdbc:postgresql://ati-nid00006:55555/%s" % config["database"]
+    url = "jdbc:postgresql://%s:%s/%s" % (config["host"],config["port"],config["database"])
+    #url = "jdbc:postgresql://ati-nid00006:55555/%s" % (config["host"],config["port"],config["database"])
     properties = {"user": config["user"] ,"driver": config["driver"]}
     
     mode = "overwrite"

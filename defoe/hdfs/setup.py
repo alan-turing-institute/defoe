@@ -1,5 +1,5 @@
 """
-Given a filename create a defoe.books.archive.Archive.
+Given a filename create a dataframe
 """
 
 from pyspark.sql import SQLContext
