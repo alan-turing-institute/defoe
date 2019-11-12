@@ -227,7 +227,7 @@ defoe_db=# \d+ publication_page
 
 
 
-Read pages (preprocessed or raw) as Dataframes from PostgreSQL database, and do a [keysentence search] https://github.com/alan-turing-institute/defoe/blob/master/defoe/postgreSQL/queries/keysearch_by_year.py) groupping results by year.
+Read pages (preprocessed or raw) as Dataframes from PostgreSQL database, and do a [keysentence search](https://github.com/alan-turing-institute/defoe/blob/master/defoe/postgreSQL/queries/keysearch_by_year.py) groupping results by year.
 
 In *db_data.txt* we have to indicate the database and table properties that we want to read from 
 
