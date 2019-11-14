@@ -210,12 +210,12 @@ defoe_db=# \d+ publication_page
 -----------------------+--------+-----------+----------+---------+----------+--------------+-------------
  title                 | text   |           |          |         | extended |              | 
  edition               | text   |           |          |         | extended |              | 
- year                  | text   |           |          |         | extended |              | 
+ year                  | bigint |           |          |         | plain    |              | 
  place                 | text   |           |          |         | extended |              | 
  archive_filename      | text   |           |          |         | extended |              | 
  page_filename         | text   |           |          |         | extended |              | 
  page_id               | text   |           |          |         | extended |              | 
- num_pages             | text   |           |          |         | extended |              | 
+ num_pages             | bigint |           |          |         | plain    |              | 
  type_archive          | text   |           |          |         | extended |              | 
  model                 | text   |           |          |         | extended |              | 
  page_string_raw       | text   |           |          |         | extended |              | 
@@ -247,7 +247,11 @@ ati-nid00006,55555,defoe_db,rfilguei2,org.postgresql.Driver,publication_page
 Reading **dataframes**:
 ```bash
  >> df= sqlContext.read.csv("hdfs:///user/at003/rosa/nls_demo.csv", header="true")
- >> newdf=df.filter(df.page_string_raw.isNotNull()).filter(df["year"]!="year").filter(df["model"]=="nls").select(df.year, df.page_string_raw)
+ >> def blank_as_null(x):
+...     return when(col(x) != "", col(x)).otherwise(None)
+>> fdf = df.withColumn("page_string_norm", blank_as_null("page_string_norm"))
+ 
+ >> newdf=fdf.filter(fdf.page_string_raw.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.page_string_raw)
  >> pages=newdf.rdd.map(tuple)
  >> nls_sample=pages.take(8)
  >> entry= nls_sample[8]
