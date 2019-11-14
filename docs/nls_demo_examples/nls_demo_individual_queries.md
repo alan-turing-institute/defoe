@@ -87,18 +87,18 @@ Everytime we run a query (e.g. defoe.nls.queries.total_documents or defoe.nls.qu
 
 # Writing and Reading data from/to HDFS - Using dataframes (recomended)
 
-Writing [pages to HDFS cvs file using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_df_HDFS.py) loads in memory all the pages and their metadata, applies all type of preprocess treatment ot the pages, create a dataframe, store data into the dataframe, and finally save the dataframe into HDFS using a csv file.  
+Writing [pages to HDFS cvs file using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_df_hdfs.py) loads in memory all the pages and their metadata, applies all type of preprocess treatment ot the pages, create a dataframe, store data into the dataframe, and finally save the dataframe into HDFS using a csv file.  
 
 The information stored per page is the following:
 * title, edition, year, place, archive_filename, page_filename, page_id, num_pages, type_archive, model, page_string_norm, page_string_lemmatize, page_string_stem, num_page_words  num_page_words 
 
 
-We have to indicate the HDFS FILE inside **write_pages_df__HDFS.py** (e.g. "nls_demo.csv"). The query applies to the pages' words 4 type of preprocess treatment: *none*, *normalize*, *stem* and *lemmatize*. Both, *stem* and *lemmatize*, they also include normalization.  . 
+We have to indicate the HDFS FILE inside **write_pages_df__hdfs.py** (e.g. "nls_demo.csv"). The query applies to the pages' words 4 type of preprocess treatment: *none*, *normalize*, *stem* and *lemmatize*. Both, *stem* and *lemmatize*, they also include normalization.  . 
 
   
 
 ```bash
- nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_df_HDFS  -r results -n 324 > log.txt &
+ nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_df_hdfs  -r results -n 324 > log.txt &
 ```
 
 
@@ -185,7 +185,7 @@ Writing [pages to PostgresSQL database using dataframes](https://github.com/alan
 
 
 ```bash
-spark-submit --driver-class-path $HOME/postgresql-42.2.8.jar --jars $HOME/postgresql-42.2.8.jar --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_df_PostgreSQL queries/db_properties.yml  -r results -n 324 
+spark-submit --driver-class-path $HOME/postgresql-42.2.8.jar --jars $HOME/postgresql-42.2.8.jar --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_df_psql queries/db_properties.yml  -r results -n 324 
 ```
 
 Important:
@@ -227,7 +227,7 @@ defoe_db=# \d+ publication_page
 
 
 
-Read pages (preprocessed or raw) as Dataframes from PostgreSQL database, and do a [keysentence search](https://github.com/alan-turing-institute/defoe/blob/master/defoe/postgreSQL/queries/keysearch_by_year.py) groupping results by year.
+Read pages (preprocessed or raw) as Dataframes from PostgreSQL database, and do a [keysentence search](https://github.com/alan-turing-institute/defoe/blob/master/defoe/psql/queries/keysearch_by_year.py) groupping results by year.
 
 In *db_data.txt* we have to indicate the database and table properties that we want to read from 
 
