@@ -22,7 +22,6 @@ def filename_to_object(filename, context):
     lines=open(filename).readlines()
     fields=lines[1].split(",")
     #host,port,database,user,driver,table
-    #ati-nid00006,55555,defoe_db,rfilguei2,org.postgresql.Driver,publication_page
     host=fields[0]
     port=fields[1]
     database=fields[2]
