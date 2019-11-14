@@ -263,7 +263,16 @@ from pyspark.sql import DataFrameReader
 >>> url = 'postgresql://ati-nid00006:55555/defoe_db'
 >>> properties = {'user': 'rfilguei2', 'driver': 'org.postgresql.Driver'}
 >>> df = DataFrameReader(sqlContext).jdbc(url='jdbc:%s' % url, table='publication_page' , properties=properties)
->>> df.show()
+>> def blank_as_null(x):
+...     return when(col(x) != "", col(x)).otherwise(None)
+>> fdf = df.withColumn("page_string_norm", blank_as_null("page_string_norm"))
+ 
+ >> newdf=fdf.filter(fdf.page_string_raw.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.page_string_raw)
+ >> pages=newdf.rdd.map(tuple)
+ >> nls_sample=pages.take(8)
+ >> entry= nls_sample[8]
+ >> year = entry[0]
+ >> page_as_string = entry[1]
  ```
 
 Reading **rdds**:
