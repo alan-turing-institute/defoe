@@ -1,2 +1,2 @@
-#host,port,db_name,user,driver,table_name
+#host,port,database,user,driver,table
 ati-nid00006,55555,defoe_db,rfilguei2,org.postgresql.Driver,publication_page
