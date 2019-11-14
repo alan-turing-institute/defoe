@@ -101,3 +101,33 @@ jdbcDF = spark.read \
     .option("dbtable", "publication_page") \
     .option("user", "rfilguei2") \
     .load()
+
+
+
+>>> newdf=df.filter(df.page_string_norm.isNotNull()).filter(df["model"]=="nls").select(df.year, df.page_string_norm)
+>>> newdf.show()
++----+--------------------+
+|year|    page_string_norm|
++----+--------------------+
+|1810|m w j     r      ...|
+|1810|                    |
+|1810|                   i|
+|1810|                   l|
+|1810|put l culture of ...|
+|1810|a g r i c u cultu...|
+|1810|parti agriculture...|
+|1810|culture of long t...|
+|1810|part i agricultu ...|
+|1810|agriculture praic...|
+|1810|part i a g r i c ...|
+|1810|o agriculture pra...|
+|1810|palt i a g r i c ...|
+|1810|io a g r i c u   ...|
+|1810|part l agricultur...|
+|1810|agriculture cultu...|
+|1810|part i a g r i c ...|
+|1797|                    |
+|1810|culture of partic...|
+|1810|superiority of ca...|
++----+--------------------+
+only showing top 20 rows
