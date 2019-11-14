@@ -37,8 +37,8 @@ def do_query(archives, config_file=None, logger=None, context=None):
     preprocess_lemmatize = query_utils.parse_preprocess_word_type("lemmatize")
     preprocess_stem = query_utils.parse_preprocess_word_type("stem")
     documents = archives.flatMap(
-        lambda archive: [(document.title, document.edition, str(document.year), \
-                          document.place, document.archive.filename, str(document.num_pages), \
+        lambda archive: [(document.title, document.edition, document.year, \
+                          document.place, document.archive.filename, document.num_pages, \
                            document.document_type, document.model, document) for document in list(archive)])
     # [(tittle, edition, year, place, archive filename, page filename, 
     #   page id, num pages, type of archive, type of disribution, model, page_string_raw, page_string_norm, 
@@ -56,11 +56,10 @@ def do_query(archives, config_file=None, logger=None, context=None):
                 "model","page_string_raw", "page_string_norm", "page_string_lemmatize", "page_string_stem", "num_page_words")
     sqlContext = SQLContext(context)
     df = sqlContext.createDataFrame(pages,nlsRow)
-    
+   
     with open(config_file, "r") as f:
         config = yaml.load(f)
     url = "jdbc:postgresql://%s:%s/%s" % (config["host"],config["port"],config["database"])
-    #url = "jdbc:postgresql://ati-nid00006:55555/%s" % (config["host"],config["port"],config["database"])
     properties = {"user": config["user"] ,"driver": config["driver"]}
     
     mode = "overwrite"

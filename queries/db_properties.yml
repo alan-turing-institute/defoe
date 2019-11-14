@@ -1,3 +1,5 @@
+host: ati-nid00006
+port: 55555
 database: defoe_db
 table: publication_page
 user: rfilguei2

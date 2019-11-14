@@ -3,6 +3,7 @@ Query-related utility functions.
 """
 import re
 from defoe import query_utils
+from pyspark.sql.functions import col, when
 
 def get_sentences_list_matches(text, keysentence):
     """
@@ -30,3 +31,5 @@ def get_sentences_list_matches(text, keysentence):
                     match.append(sentence)
     return sorted(match)
 
+def blank_as_null(x):
+    return when(col(x) != "", col(x)).otherwise(None)
