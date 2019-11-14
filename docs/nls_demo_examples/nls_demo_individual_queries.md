@@ -190,7 +190,7 @@ spark-submit --driver-class-path $HOME/postgresql-42.2.8.jar --jars $HOME/postgr
 
 Important:
 	* You need to have the postgresql driver, or [download it](https://jdbc.postgresql.org/) and indicate it in the spark-submit command (see previous command). 
-	* You need to have previously the postgreSQL database created. However, the table will be created automatically. 
+	* You need to have previously the postgreSQL database created- [See extended notes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/psql/postgreSQL_Spark_Notes.txt). However, the table will be created automatically. 
 		```createdb -d defoe_db 
 		```
 
@@ -225,20 +225,15 @@ defoe_db=# \d+ publication_page
  num_page_words        | bigint |           |          |         | plain    |              | 
 ```
 
-
-
 Read pages (preprocessed or raw) as Dataframes from PostgreSQL database, and do a [keysentence search](https://github.com/alan-turing-institute/defoe/blob/master/defoe/psql/queries/keysearch_by_year.py) groupping results by year.
 
-In *db_data.txt* we have to indicate the database and table properties that we want to read from 
-
-	
 In the configuration file (e.g.[queries/sport.yml](https://github.com/alan-turing-institute/defoe/blob/master/queries/sport.yml)) we have to indicate which preprocess treatment (e.g. none, normalize, etc.) we want to use in the query, so we can select the dataframe's columm (e.g. *page_string_raw*, *page_string_normalize*, etc.) according to that. 
 
-
+```bash
 spark-submit --driver-class-path $HOME/postgresql-42.2.8.jar --jars $HOME/postgresql-42.2.8.jar --py-files defoe.zip defoe/run_query.py db_data.txt psql defoe.psql.queries.keysearch_by_year queries/sport.yml  -r results_ks_sports_tiny -n 324
+```
+Important: A file with the database properties has to be specified (e.g.[db_data.txt](https://github.com/alan-turing-institute/defoe/blob/master/db_data.txt)). It has to have the following information (and in this order), separated by comma: 
 
-Important:db_data.txt has to have the following information (and in this order), separated by comma: host,port,db_name,user,driver,table_name
-e.g.
 #host,port,db_name,user,driver,table_name
 ati-nid00006,55555,defoe_db,rfilguei2,org.postgresql.Driver,publication_page
 
