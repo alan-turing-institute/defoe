@@ -81,7 +81,8 @@ Available queries:
 * [Papers Past New Zealand and Pacific newspapers](./docs/nzpp/index.md)
 * [Generic XML document queries](./docs/generic_xml/index.md) (these can be run on arbitrary XML documents)
 * [NLS queries](./docs/nls/index.md) (these can be run on the Encyclopaedia Britannica dataset)
-*  Work in progress : HDFS - running queries against HDFS files - for interoperability across models.
+*  HDFS queries - running queries against HDFS files - for interoperability across models.
+*  PostgreSQL queries - running queries against PostgreSQL database - for interoperability across models.
 
 Developers:
 
