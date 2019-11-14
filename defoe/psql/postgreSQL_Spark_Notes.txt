@@ -102,15 +102,16 @@ jdbcDF = spark.read \
     .option("user", "rfilguei2") \
     .load()
 
+>>> def blank_as_null(x):
+...     return when(col(x) != "", col(x)).otherwise(None)
 
-
->>> newdf=df.filter(df.page_string_norm.isNotNull()).filter(df["model"]=="nls").select(df.year, df.page_string_norm)
+>>> fdf=df.withColumn("page_string_norm", blank_as_null("page_string_norm"))
+>>> newdf=fdf.filter(df.page_string_norm.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.page_string_norm)
 >>> newdf.show()
 +----+--------------------+
 |year|    page_string_norm|
 +----+--------------------+
 |1810|m w j     r      ...|
-|1810|                    |
 |1810|                   i|
 |1810|                   l|
 |1810|put l culture of ...|
@@ -126,8 +127,9 @@ jdbcDF = spark.read \
 |1810|part l agricultur...|
 |1810|agriculture cultu...|
 |1810|part i a g r i c ...|
-|1797|                    |
 |1810|culture of partic...|
 |1810|superiority of ca...|
+|1810|i agriculture cul...|
+|1810|parti agric ultur...|
 +----+--------------------+
 only showing top 20 rows
