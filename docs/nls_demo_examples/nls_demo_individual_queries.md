@@ -237,7 +237,7 @@ ati-nid00006,55555,defoe_db,rfilguei2,org.postgresql.Driver,publication_page
 
 # Spark in a SHELL - Pyspark 
 
-Reading **dataframes**:
+Reading **dataframes** from *HDFS*:
 ```bash
  >> df= sqlContext.read.csv("hdfs:///user/at003/rosa/nls_demo.csv", header="true")
  >> def blank_as_null(x):
@@ -252,6 +252,19 @@ Reading **dataframes**:
  >> page_as_string = entry[1]
  
 ```
+
+
+Reading **dataframes** from *PostgreSQL*:
+```bash
+pyspark --driver-class-path postgresql-42.2.8.jar --jars postgresql-42.2.8.jar
+from pyspark.sql import DataFrameReader
+
+>>> from pyspark.sql import DataFrameReader
+>>> url = 'postgresql://ati-nid00006:55555/defoe_db'
+>>> properties = {'user': 'rfilguei2', 'driver': 'org.postgresql.Driver'}
+>>> df = DataFrameReader(sqlContext).jdbc(url='jdbc:%s' % url, table='publication_page' , properties=properties)
+>>> df.show()
+ ```
 
 Reading **rdds**:
 ```bash
