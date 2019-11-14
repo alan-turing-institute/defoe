@@ -85,12 +85,12 @@ Everytime we run a query (e.g. defoe.nls.queries.total_documents or defoe.nls.qu
   spark-submit --py-files defoe.zip defoe/run_query.py nls_total_demo.txt nls defoe.nls.queries.inventory_per_year -r results_inventory_per_year -n 324 
 ```
 
-# Writing and Reading data from/to HDFS - Using dataframes (recomended)
+# Writing and Reading data from/to HDFS
 
 Writing [pages to HDFS cvs file using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_df_hdfs.py) loads in memory all the pages and their metadata, applies all type of preprocess treatment ot the pages, create a dataframe, store data into the dataframe, and finally save the dataframe into HDFS using a csv file.  
 
 The information stored per page is the following:
-* title, edition, year, place, archive_filename, page_filename, page_id, num_pages, type_archive, model, page_string_norm, page_string_lemmatize, page_string_stem, num_page_words  num_page_words 
+* title, edition, year, place, archive_filename, page_filename, page_id, num_pages, type_archive, model, page_string_norm, page_string_lemmatize, page_string_stem, num_page_words, num_page_words 
 
 
 We have to indicate the HDFS FILE inside **write_pages_df__hdfs.py** (e.g. "nls_demo.csv"). The query applies to the pages' words 4 type of preprocess treatment: *none*, *normalize*, *stem* and *lemmatize*. Both, *stem* and *lemmatize*, they also include normalization.  . 
@@ -175,14 +175,12 @@ results_ks_sports_tiny:
 - [rugby, 7]
 ```
 
-Note, that we also have [write pages as RDD into HDFS](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/depricated/write_pages_RDD_HDFS.py),and [read RDD pages from HDFS](https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/depricated/read_RDD_HDFS_keysearch_by_year.py), in which we use save rdds into HDFS file - we dont recommend to use those, since using dataframes it is the most efficient option. Plus, this option it wont work for the aggreagated queries, since if the 'hdfs' model is indicated to run a list of queries, it will create a DATAFRAME object to be passed to the rest of the queries.
-
-
-
-# Writing and Reading data from/to PostgreSQL database - Using dataframes
+# Writing and Reading data from/to PostgreSQL database 
 
 Writing [pages to PostgresSQL database using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_df_psql.py) loads in memory all the pages and their metadata, applies all type of preprocess treatment ot the pages, create a dataframe, store data into the dataframe, and finally save the dataframe into a database table. Properties of the database to use can be specified by using a config file (e.g. [queries/db_properties.yml](https://github.com/alan-turing-institute/defoe/blob/master/queries/db_properties.yml))
 
+The information stored per page is the following:
+* title, edition, year, place, archive_filename, page_filename, page_id, num_pages, type_archive, model, page_string_norm, page_string_lemmatize, page_string_stem, num_page_words, num_page_words 
 
 ```bash
 spark-submit --driver-class-path $HOME/postgresql-42.2.8.jar --jars $HOME/postgresql-42.2.8.jar --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_df_psql queries/db_properties.yml  -r results -n 324 
