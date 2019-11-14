@@ -69,7 +69,6 @@ def do_query(df, config_file=None, logger=None, context=None):
         newdf=fdf.filter(fdf.page_string_raw.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.page_string_raw)
    
     pages=newdf.rdd.map(tuple)
-    print("---->!!!!!!!! pages%s" %pages.take(1))
     keysentences = []
     with open(data_file, 'r') as f:
         for keysentence in list(f):
