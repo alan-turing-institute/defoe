@@ -235,7 +235,7 @@ Important: A file with the database properties has to be specified (e.g.[db_data
 #host,port,db_name,user,driver,table_name
 ati-nid00006,55555,defoe_db,rfilguei2,org.postgresql.Driver,publication_page
 
-##### Spark in a SHELL - Pyspark 
+# Spark in a SHELL - Pyspark 
 
 Reading **dataframes**:
 ```bash
