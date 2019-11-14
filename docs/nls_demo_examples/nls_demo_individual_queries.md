@@ -235,7 +235,7 @@ In *db_data.txt* we have to indicate the database and table properties that we w
 In the configuration file (e.g.[queries/sport.yml](https://github.com/alan-turing-institute/defoe/blob/master/queries/sport.yml)) we have to indicate which preprocess treatment (e.g. none, normalize, etc.) we want to use in the query, so we can select the dataframe's columm (e.g. *page_string_raw*, *page_string_normalize*, etc.) according to that. 
 
 
-spark-submit --driver-class-path $HOME/postgresql-42.2.8.jar --jars $HOME/postgresql-42.2.8.jar --py-files defoe.zip defoe/run_query.py db_data.txt postgreSQL defoe.postgreSQL.queries.keysearch_by_year queries/sport.yml  -r results_ks_sports_tiny -n 324
+spark-submit --driver-class-path $HOME/postgresql-42.2.8.jar --jars $HOME/postgresql-42.2.8.jar --py-files defoe.zip defoe/run_query.py db_data.txt psql defoe.psql.queries.keysearch_by_year queries/sport.yml  -r results_ks_sports_tiny -n 324
 
 Important:db_data.txt has to have the following information (and in this order), separated by comma: host,port,db_name,user,driver,table_name
 e.g.
