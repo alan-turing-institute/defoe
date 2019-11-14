@@ -87,18 +87,18 @@ Everytime we run a query (e.g. defoe.nls.queries.total_documents or defoe.nls.qu
 
 # Writing and Reading data from/to HDFS - Using dataframes (recomended)
 
-Writing [pages to HDFS cvs file using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_DataFrames_HDFS.py) loads in memory all the pages and their metadata, applies all type of preprocess treatment ot the pages, create a dataframe, store data into the dataframe, and finally save the dataframe into HDFS using a csv file.  
+Writing [pages to HDFS cvs file using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_df_HDFS.py) loads in memory all the pages and their metadata, applies all type of preprocess treatment ot the pages, create a dataframe, store data into the dataframe, and finally save the dataframe into HDFS using a csv file.  
 
 The information stored per page is the following:
 * title, edition, year, place, archive_filename, page_filename, page_id, num_pages, type_archive, model, page_string_norm, page_string_lemmatize, page_string_stem, num_page_words  num_page_words 
 
 
-We have to indicate the HDFS FILE inside **write_pages_DataFrames__HDFS.py** (e.g. "nls_demo.csv"). The query applies to the pages' words 4 type of preprocess treatment: *none*, *normalize*, *stem* and *lemmatize*. Both, *stem* and *lemmatize*, they also include normalization.  . 
+We have to indicate the HDFS FILE inside **write_pages_df__HDFS.py** (e.g. "nls_demo.csv"). The query applies to the pages' words 4 type of preprocess treatment: *none*, *normalize*, *stem* and *lemmatize*. Both, *stem* and *lemmatize*, they also include normalization.  . 
 
   
 
 ```bash
- nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_HDFS  -r results -n 324 > log.txt &
+ nohup spark-submit --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_df_HDFS  -r results -n 324 > log.txt &
 ```
 
 
@@ -181,11 +181,11 @@ Note, that we also have [write pages as RDD into HDFS](https://github.com/alan-t
 
 # Writing and Reading data from/to PostgreSQL database - Using dataframes
 
-Writing [pages to PostgresSQL database using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_DataFrames_PostgreSQL.py) loads in memory all the pages and their metadata, applies all type of preprocess treatment ot the pages, create a dataframe, store data into the dataframe, and finally save the dataframe into a database table. Properties of the database to use can be specified by using a config file (e.g. [queries/db_properties.yml](https://github.com/alan-turing-institute/defoe/blob/master/queries/db_properties.yml))
+Writing [pages to PostgresSQL database using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_df_psql.py) loads in memory all the pages and their metadata, applies all type of preprocess treatment ot the pages, create a dataframe, store data into the dataframe, and finally save the dataframe into a database table. Properties of the database to use can be specified by using a config file (e.g. [queries/db_properties.yml](https://github.com/alan-turing-institute/defoe/blob/master/queries/db_properties.yml))
 
 
 ```bash
-spark-submit --driver-class-path $HOME/postgresql-42.2.8.jar --jars $HOME/postgresql-42.2.8.jar --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_DataFrames_PostgreSQL queries/db_properties.yml  -r results -n 324 
+spark-submit --driver-class-path $HOME/postgresql-42.2.8.jar --jars $HOME/postgresql-42.2.8.jar --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_df_PostgreSQL queries/db_properties.yml  -r results -n 324 
 ```
 
 Important:
@@ -236,6 +236,11 @@ In the configuration file (e.g.[queries/sport.yml](https://github.com/alan-turin
 
 
 spark-submit --driver-class-path $HOME/postgresql-42.2.8.jar --jars $HOME/postgresql-42.2.8.jar --py-files defoe.zip defoe/run_query.py db_data.txt postgreSQL defoe.postgreSQL.queries.keysearch_by_year queries/sport.yml  -r results_ks_sports_tiny -n 324
+
+Important:db_data.txt has to have the following information (and in this order), separated by comma: host,port,db_name,user,driver,table_name
+e.g.
+#host,port,db_name,user,driver,table_name
+ati-nid00006,55555,defoe_db,rfilguei2,org.postgresql.Driver,publication_page
 
 ##### Spark in a SHELL - Pyspark 
 
