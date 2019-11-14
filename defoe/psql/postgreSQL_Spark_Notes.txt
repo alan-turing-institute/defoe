@@ -1,5 +1,5 @@
->> createdb defoe
->> psql defoe
+>> createdb defoe_db
+>> psql defoe_db
 
 
 CREATE TABLE publication_page(
@@ -97,7 +97,7 @@ from pyspark.sql import DataFrameReader
 Another method:
 jdbcDF = spark.read \
     .format("jdbc") \
-    .option("url", "jdbc:postgresql:dbtest") \
-    .option("dbtable", "tabla") \
+    .option("url", "jdbc:postgresql:defoe_db") \
+    .option("dbtable", "publication_page") \
     .option("user", "rfilguei2") \
     .load()
