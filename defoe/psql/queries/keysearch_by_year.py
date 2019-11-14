@@ -4,7 +4,7 @@ Read from HDFS file, and counts number of occurrences of keywords or keysentence
 
 from operator import add
 from defoe import query_utils
-from defoe.postgreSQL.query_utils import get_sentences_list_matches
+from defoe.psql.query_utils import get_sentences_list_matches
 from pyspark.sql import SQLContext
 
 import yaml, os
