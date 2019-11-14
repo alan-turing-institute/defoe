@@ -187,10 +187,10 @@ spark-submit --driver-class-path $HOME/postgresql-42.2.8.jar --jars $HOME/postgr
 ```
 
 Important:
-	* You need to have the postgresql driver, or [download it](https://jdbc.postgresql.org/) and indicate it in the spark-submit command (see previous command). 
-	* You need to have previously the postgreSQL database created- [See extended notes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/psql/postgreSQL_Spark_Notes.txt). However, the table will be created automatically. 
-		```createdb -d defoe_db 
-		```
+* You need to have the postgresql driver, or [download it](https://jdbc.postgresql.org/) and indicate it in the spark-submit command (see previous command). 
+
+* You need to have previously the postgreSQL database created- [See extended notes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/psql/postgreSQL_Spark_Notes.txt). However, the table will be created automatically. 
+
 
 ```bash
 psql -d defoe_db 
