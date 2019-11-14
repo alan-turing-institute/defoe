@@ -21,16 +21,16 @@ def filename_to_object(filename, context):
 
     lines=open(filename).readlines()
     fields=lines[1].split(",")
-    #host,port,db_name,user,driver,table_name
+    #host,port,database,user,driver,table
+    #ati-nid00006,55555,defoe_db,rfilguei2,org.postgresql.Driver,publication_page
     host=fields[0]
     port=fields[1]
-    db_name=fields[2]
+    database=fields[2]
     user=fields[3]
     driver=fields[4]
-    table_name=fields[5]
+    table=fields[5]
     sqlContext = SQLContext(context)
-    url='postgresql://%s:%s/%s'%(host,port,db_name)
-    print("---->URL is %s" %url)
+    url='postgresql://%s:%s/%s'%(host,port,database)
     properties={'user': user, 'driver': driver}
-    df = DataFrameReader(sqlContext).jdbc(url='jdbc:%s' % url, table=table_name , properties=properties)
+    df = DataFrameReader(sqlContext).jdbc(url='jdbc:%s' % url, table=table, properties=properties)
     return df

@@ -202,6 +202,4 @@ def get_sentences_list_matches(text, keysentence):
                     match.append(sentence)
     return sorted(match)
 
-def toCSVLine(data):
 
-  return ','.join(str(d) for d in data)

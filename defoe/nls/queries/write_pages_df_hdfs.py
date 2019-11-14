@@ -36,8 +36,8 @@ def do_query(archives, config_file=None, logger=None, context=None):
     preprocess_lemmatize = query_utils.parse_preprocess_word_type("lemmatize")
     preprocess_stem = query_utils.parse_preprocess_word_type("stem")
     documents = archives.flatMap(
-        lambda archive: [(document.title, document.edition, str(document.year), \
-                          document.place, document.archive.filename, str(document.num_pages), \
+        lambda archive: [(document.title, document.edition, document.year, \
+                          document.place, document.archive.filename, document.num_pages, \
                            document.document_type, document.model, document) for document in list(archive)])
     # [(tittle, edition, year, place, archive filename, page filename, 
     #   page id, num pages, type of archive, type of disribution, model, page_string_raw, page_string_norm, 

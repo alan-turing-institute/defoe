@@ -4,8 +4,10 @@ Read from HDFS file, and counts number of occurrences of keywords or keysentence
 
 from operator import add
 from defoe import query_utils
-from defoe.psql.query_utils import get_sentences_list_matches
+from defoe.psql.query_utils import get_sentences_list_matches, blank_as_null
 from pyspark.sql import SQLContext
+from pyspark.sql.functions import col, when
+
 
 import yaml, os
 
@@ -54,16 +56,20 @@ def do_query(df, config_file=None, logger=None, context=None):
     
     # Filter out the pages that are null, which model is nls, and select only 2 columns: year and the page as string (either raw or preprocessed).
     if preprocess_config == "normalize":
-        newdf=df.filter(df.page_string_norm.isNotNull()).filter(df["year"]!="year").filter(df["model"]=="nls").select(df.year, df.page_string_norm)
+        fdf = df.withColumn("page_string_norm", blank_as_null("page_string_norm"))
+        newdf=fdf.filter(fdf.page_string_norm.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.page_string_norm)
     elif preprocess_config == "lemmatize":
-        newdf=df.filter(df.page_string_lemmatize.isNotNull()).filter(df["year"]!="year").filter(df["model"]=="nls").select(df.year, df.page_string_lemmatize)
+        fdf = df.withColumn("page_string_lemmatize", blank_as_null("page_string_lemmatize"))
+        newdf=fdf.filter(fdf.page_string_lemmatize.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.page_string_lemmatize)
     elif preprocess_config == "stem":
-        newdf=df.filter(df.page_string_stem.isNotNull()).filter(df["year"]!="year").filter(df["model"]=="nls").select(df.year, df.page_string_stem)
+        fdf = df.withColumn("page_string_stem", blank_as_null("page_string_stem"))
+        newdf=fdf.filter(fdf.page_string_stem.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.page_string_stem)
     else: 
-        newdf=df.filter(df.page_string_raw.isNotNull()).filter(df["year"]!="year").filter(df["model"]=="nls").select(df.year, df.page_string_raw)
+        fdf = df.withColumn("page_string_raw", blank_as_null("page_string_raw"))
+        newdf=fdf.filter(fdf.page_string_raw.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.page_string_raw)
    
     pages=newdf.rdd.map(tuple)
-
+    print("---->!!!!!!!! pages%s" %pages.take(1))
     keysentences = []
     with open(data_file, 'r') as f:
         for keysentence in list(f):
