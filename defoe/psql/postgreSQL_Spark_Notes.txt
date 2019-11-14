@@ -63,9 +63,35 @@ pyspark --driver-class-path postgresql-42.2.8.jar --jars postgresql-42.2.8.jar
 from pyspark.sql import DataFrameReader
 
 >>> from pyspark.sql import DataFrameReader
->>> url = 'postgresql://localhost:5432/dbtest'
+>>> url = 'postgresql://ati-nid00006:55555/defoe_db'
 >>> properties = {'user': 'rfilguei2', 'driver': 'org.postgresql.Driver'}
->>> df = DataFrameReader(sqlContext).jdbc(url='jdbc:%s' % url, table='tabla' , properties=properties)
+>>> df = DataFrameReader(sqlContext).jdbc(url='jdbc:%s' % url, table='publication_page' , properties=properties)
+>>> df.show()
++--------------------+--------------------+----+---------+--------------------+--------------------+-------+---------+------------+-----+--------------------+--------------------+---------------------+--------------------+--------------+
+|               title|             edition|year|    place|    archive_filename|       page_filename|page_id|num_pages|type_archive|model|     page_string_raw|    page_string_norm|page_string_lemmatize|    page_string_stem|num_page_words|
++--------------------+--------------------+----+---------+--------------------+--------------------+-------+---------+------------+-----+--------------------+--------------------+---------------------+--------------------+--------------+
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147641.34...|  Page1|      424|        book|  nls|'-•■ ^ ^ 4 ^ *" ^...|m w j     r      ...| m w j     r      ...|m w j     r      ...|           521|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147654.34...|  Page2|      424|        book|  nls|                    |                    |                     |                    |             0|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147667.34...|  Page3|      424|        book|  nls|               1 • i|                   i|                    i|                   i|             3|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147680.34...|  Page4|      424|        book|  nls|                   l|                   l|                    l|                   l|             1|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147693.34...|  Page5|      424|        book|  nls|Put L Culture of ...|put l culture of ...| put l culture of ...|put l cultur of p...|          1221|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147706.34...|  Page6|      424|        book|  nls|402 A G R I C U C...|a g r i c u cultu...| a g r i c u cultu...|a g r i c u cultu...|          1331|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147719.34...|  Page7|      424|        book|  nls|Parti. AGRICULTUR...|parti agriculture...| parti agriculture...|parti agricultur ...|          1278|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147732.34...|  Page8|      424|        book|  nls|4°4 Culture of lo...|culture of long t...| culture of long t...|cultur of long tl...|          1295|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147745.34...|  Page9|      424|        book|  nls|Part I. AGRICULTU...|part i agricultu ...| part i agricultu ...|part i agricultu ...|          1233|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147758.34...| Page10|      424|        book|  nls|4° 6 AGRICULTURE;...|agriculture praic...| agriculture praic...|agricultur praice...|           995|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147771.34...| Page11|      424|        book|  nls|Part I. A G R I C...|part i a g r i c ...| part i a g r i c ...|part i a g r i c ...|          1334|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147784.34...| Page12|      424|        book|  nls|0 4O3 AGRICULTURE...|o agriculture pra...| o agriculture pra...|o agricultur prad...|          1136|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147797.34...| Page13|      424|        book|  nls|Palt I. A G R I C...|palt i a g r i c ...| palt i a g r i c ...|palt i a g r i c ...|          1351|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147810.34...| Page14|      424|        book|  nls|4io A G R I C U ....|io a g r i c u   ...| io a g r i c u   ...|io a g r i c u   ...|          1264|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147823.34...| Page15|      424|        book|  nls|Part L AGRICULTUR...|part l agricultur...| part l agricultur...|part l agricultur...|          1293|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147836.34...| Page16|      424|        book|  nls|412 AGRICULTURE. ...|agriculture cultu...| agriculture cultu...|agricultur cultur...|          1298|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147849.34...| Page17|      424|        book|  nls|Part I, A G R I C...|part i a g r i c ...| part i a g r i c ...|part i a g r i c ...|          1348|
+|Encyclopaedia Bri...|Third edition, Vo...|1797|Edinburgh|/mnt/lustre/at003...|alto/190334009.34...|  Page5|      894|        book|  nls|                    |                    |                     |                    |             0|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147862.34...| Page18|      424|        book|  nls|4 ! 4 Culture of ...|culture of partic...| culture of partic...|cultur of particu...|          1312|
+|Encyclopaedia Bri...|Fourth edition, V...|1810|Edinburgh|/mnt/lustre/at003...|alto/192147875.34...| Page19|      424|        book|  nls|* 345 . Superiori...|superiority of ca...| superiority of ca...|superior of carro...|          1298|
++--------------------+--------------------+----+---------+--------------------+--------------------+-------+---------+------------+-----+--------------------+--------------------+---------------------+--------------------+--------------+
+
 
 
 Another method:
