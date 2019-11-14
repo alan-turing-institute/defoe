@@ -1,7 +1,6 @@
 >> createdb defoe_db
 >> psql defoe_db
 
-
 CREATE TABLE publication_page(
    title             varchar(80),    --publication_page title
    edition           varchar(80),    --publication_page edition
