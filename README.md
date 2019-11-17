@@ -66,8 +66,8 @@ Run queries:
 
 * [Specify data to query](./docs/specify-data-to-query.md)
 * [Specify Azure data to query](./docs/specify-data-to-query-azure.md)
-* [Run queries](./docs/run-queries.md)
-* [NEW: Run several queries in once - just one ingestion](./docs/run-list-of-queries.md)
+* [Run individual queries](./docs/run-queries.md)
+* [NEW: Run multiple queries at once - just one ingestion](./docs/run-list-of-queries.md)
 * [NEW: Extracting, Transforming and Saving RDD objects to HDFS as a dataframe](./docs/nls_demo_examples/nls_demo_individual_queries.md#writing-and-reading-data-fromto-hdfs)
 * [NEW: Loading dataframe from HDFS and performing a query](./docs/nls_demo_examples/nls_demo_individual_queries.md#writing-and-reading-data-fromto-hdfs)
 * [NEW: Extracting, Transforming and Saving RDD objects to PostgreSQL database](./docs/nls_demo_examples/nls_demo_individual_queries.md#writing-and-reading-data-fromto-postgresql-database)
