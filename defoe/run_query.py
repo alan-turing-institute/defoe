@@ -160,7 +160,7 @@ def main():
                  f.write(yaml.safe_dump(list(errors)))
     
     else:
-	ok_data=filename_to_object(data_file, context)
+        ok_data=filename_to_object(data_file, context)
     
     results = do_query(ok_data, query_config_file, log, context)
     if results!="0":
