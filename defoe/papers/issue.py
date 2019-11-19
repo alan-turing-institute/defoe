@@ -118,7 +118,7 @@ class Issue(object):
         try:
             return str(result[0])
         except UnicodeEncodeError:
-            return unicode(result[0])
+            return str(result[0])
 
     def __getitem__(self, index):
         """

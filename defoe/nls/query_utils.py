@@ -8,7 +8,8 @@ from nltk.corpus import words
 import re
 # encoding=utf8
 import sys
-reload(sys)
+import importlib
+importlib.reload(sys)
 sys.setdefaultencoding('utf8')
 
 def get_page_matches(document,
