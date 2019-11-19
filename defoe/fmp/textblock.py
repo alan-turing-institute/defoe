@@ -50,7 +50,7 @@ class TextBlock(object):
         :rtype: list(str or unicode)
         """
         if not self.textblock_words:
-            self.textblock_words = list(map(unicode, self.textblock_tree.xpath(TextBlock.WORDS_XPATH)))
+            self.textblock_words = list(map(str, self.textblock_tree.xpath(TextBlock.WORDS_XPATH)))
         return self.textblock_words
     
     @property

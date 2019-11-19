@@ -65,6 +65,9 @@ ENV/
 # Local Spark testing
 metastore_db/
 
+# Python 2to3
+*.bak
+
 # Miscellaneous
 log.txt
 lwm.zip

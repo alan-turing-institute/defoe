@@ -134,7 +134,7 @@ class Document(object):
         try:
             return str(result[0])
         except UnicodeEncodeError:
-            return unicode(result[0])
+            return str(result[0])
 
     def page(self, code):
         """
