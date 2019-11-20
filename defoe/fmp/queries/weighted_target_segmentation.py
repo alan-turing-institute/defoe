@@ -7,23 +7,37 @@ from defoe import query_utils
 from defoe.fmp.query_utils import segment_image
 import yaml
 import os
-from collections import namedtuple
+from collections import namedtuple, defaultdict
 
 WordLocation = namedtuple('WordLocation', "word position year document article textblock_id textblock_coords textblock_page_area textblock_page_name")
-MatchedWords = namedtuple('MatchedWords', 'target_word keyword textblock distance num_targets num_keywords words preprocessed')
+MatchedWords = namedtuple('MatchedWords', 'target_word keyword textblock distance words preprocessed')
 
 def compute_distance(word1_loc, word2_loc):
     return abs(word1_loc.position - word2_loc.position)
+
+def get_min_distance_to_target(keyword_locations, target_locations):
+    min_distance = None
+    target_loc = None
+    keyword_loc = None
+    for k_loc in keyword_locations:
+        for t_loc in target_locations:
+            d = compute_distance(k_loc, t_loc)
+            if not min_distance or d < min_distance:
+                min_distance = d
+                target_loc = t_loc
+                keyword_loc = k_loc
+    return min_distance, target_loc, keyword_loc
+
 
 def find_words(
         document, target_words, keywords,
         preprocess_type=query_utils.PreprocessWordType.LEMMATIZE):
     """
-        (<YEAR>, <DOCUMENT>, <ARTICLE>, <BLOCK_ID>, <COORDENATES>, <PAGE_AREA>, <ORIGINAL_WORDS>,<PREPROCESSED_WORDS>, <PAGE_NAME>, <KEYWORDS> )
     If a keyword occurs more than once on a page, there will be only
     one tuple for the page for that keyword.
     If more than one keyword occurs on a page, there will be one tuple
     per keyword.
+    The distance between keyword and target word is recorded in the output tuple.
     :param document: document
     :type document: defoe.alto.document.Document
     :param keywords: keywords
@@ -38,7 +52,7 @@ def find_words(
     document_articles=document.articles
     for article in document_articles:
         for tb in document_articles[article]:
-            keys = []
+            keys = defaultdict(lambda: [])
             targets = []
             preprocessed_words = []
             for pos, word in enumerate(tb.words):
@@ -55,32 +69,22 @@ def find_words(
                     textblock_page_name=tb.page_name)
                 preprocessed_words.append(preprocessed_word)
                 if preprocessed_word in keywords:
-                    keys.append(loc)
+                    keys[preprocessed_word].append(loc)
                 if preprocessed_word in target_words:
                     targets.append(loc)
-            min_distance = None
-            target_loc = None
-            keyword_loc = None
-            for k_loc in keys:
-                for t_loc in targets:
-                    d = compute_distance(k_loc, t_loc)
-                    if not min_distance or d < min_distance:
-                        min_distance = d
-                        target_loc = t_loc
-                        keyword_loc = k_loc
-            if min_distance:
-                matches.append(
-                    MatchedWords(
-                        target_word=target_loc.word,
-                        keyword=keyword_loc.word,
-                        textblock=target_loc,
-                        distance=min_distance,
-                        num_targets=len(targets),
-                        num_keywords=len(keys),
-                        words=tb.words,
-                        preprocessed=preprocessed_words
+            for k, l in keys.items():
+                min_distance, target_loc, keyword_loc = get_min_distance_to_target(l, targets)
+                if min_distance:
+                    matches.append(
+                        MatchedWords(
+                            target_word=target_loc.word,
+                            keyword=keyword_loc.word,
+                            textblock=target_loc,
+                            distance=min_distance,
+                            words=tb.words,
+                            preprocessed=preprocessed_words
+                        )
                     )
-                )
 
     return matches
 
@@ -147,8 +151,6 @@ def do_query(archives, config_file=None, logger=None, context=None):
 
     target_words = set([query_utils.preprocess_word(word, preprocess_type) for word in input_words['targets']])
     keywords = set([query_utils.preprocess_word(word, preprocess_type) for word in input_words['keywords']])
-    print(f"TARGET WORDS : {target_words}")
-    print(f"KEYWORDS : {keywords}")
 
     documents = archives.flatMap(
         lambda archive: [document for document in list(archive) if document.year >= int(year_min) and document.year <= int(year_max) ])
@@ -156,7 +158,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
     filtered_words = documents.flatMap(
         lambda document: find_words(document, target_words, keywords, preprocess_type))
     
-    # [MatchedWords(target_word, keyword, textblock_location, distance, num_target_words, num_keywords, words, preprocessed)]
+    # [MatchedWords(target_word, keyword, textblock_location, distance, words, preprocessed)]
     # [(word, {"article_id": article_id, ...}), ...]
     matching_docs = filtered_words.map(
         lambda matched:
@@ -176,9 +178,6 @@ def do_query(archives, config_file=None, logger=None, context=None):
             "issue_dirname": matched.textblock.document.archive.filename,
             "target_word": matched.target_word,
             "distance": matched.distance,
-            "num_targets": matched.num_targets,
-            "num_keywords": matched.num_keywords,
-            "total_words": len(matched.words),
             "cropped_image": segment_image(
                 matched.textblock.textblock_coords, 
                 matched.textblock.textblock_page_name, 
