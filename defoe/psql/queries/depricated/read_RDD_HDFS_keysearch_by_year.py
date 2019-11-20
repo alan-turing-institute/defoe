@@ -12,7 +12,7 @@ def do_query(df, config_file=None, logger=None, context=None):
     """
     Read from HDFS, and counts number of occurrences of keywords or keysentences and groups by year.
     We have an entry in the HFDS file with the following information: 
-	- tittle, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, type of preprocess treatment, prep_page_string
+    - title, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, type of preprocess treatment, prep_page_string
 
     Notice, that year is in position "2", preprocess type in poistion "10",
     and the preprocessed page as an string is in position 11. However, the information per entry has been saved as an string.

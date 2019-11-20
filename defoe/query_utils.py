@@ -124,7 +124,7 @@ def extract_years_filter(config):
     if "years_filter" not in config:
         raise ValueError('years_filter value not found in the config file')
     else:
-	years= config["years_filter"]
+        years= config["years_filter"]
         year_min=years.split("-")[0]
         year_max=years.split("-")[1]
     return year_min, year_max
@@ -146,7 +146,7 @@ def extract_output_path(config):
     if "output_path" not in config:
         output_path="."
     else:
-	output_path= config["output_path"]
+        output_path= config["output_path"]
 
     return output_path
 

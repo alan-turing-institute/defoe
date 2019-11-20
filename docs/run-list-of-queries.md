@@ -26,8 +26,8 @@ where:
   - `nls`: Arbitrary XML documents
   - For example, `books` tells the code that the data files listed in `data.txt` are books so should be parsed into a books data model.
 * `<LIST_OF _QUERIES>` is a file that list the queries to be submitted. Each query is the name of a Python module implementing the query to run, for example `defoe.alto.queries.find_words_group_by_word` or `defoe.papers.queries.articles_containing_words`. The query must be compatible with the chosen model. Each query, can have also the following optional parametesr:
-	* `<QUERY_CONFIG_FILE>` is a query-specific configuration file. This is optional and depends on the query implementation.
-	* `<RESULTS_FILE>` is the query results file, to hold the query results in YAML format. If omitted the default is `results.yml`.
+* `<QUERY_CONFIG_FILE>` is a query-specific configuration file. This is optional and depends on the query implementation.
+* `<RESULTS_FILE>` is the query results file, to hold the query results in YAML format. If omitted the default is `results.yml`.
 
 
 * `<ERRORS_FILE>` is the errors file, to hold information on any errors in YAML format. If omitted the default is `errors.yml`.
