@@ -68,8 +68,8 @@ def get_article_matches(document,
     matches = []
     document_articles=document.articles
     for keyword in keywords:
-       for article in document_articles:
-	     for tb in document_articles[article]:
+        for article in document_articles:
+            for tb in document_articles[article]:
                  match = None
                  tb_preprocessed_words=[]
                  for word in tb.words:

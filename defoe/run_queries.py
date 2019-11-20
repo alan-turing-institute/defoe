@@ -11,7 +11,7 @@ Run Spark several text queries jobs.
       model_name            Data model to which data files conform:
       ['books', 'papers', 'fmp','nzpp', 'generic_xml', 'nls', 'hdfs', 'psql']
       query_list            A file with the queries to run. For each query
-		            we have to indicate: query_module [query_configuration_file] [-r results_file]
+                            we have to indicate: query_module [query_configuration_file] [-r results_file]
        Example:
        defoe.nls.queries.normalize -r results.txt
        defoe.nls.queries.keysearch_by_year queries/sport.yml -r results_sc_sports
@@ -148,7 +148,7 @@ def main():
     else: 
         ok_data=filename_to_object(data_file, context)
  
-	
+
     
    # Lets open the queries list and run each of them: 
     f = open(queries_list, "r")
@@ -158,10 +158,10 @@ def main():
     num_query=0
     for query in queries:
         query_l=query.rstrip()
-	arguments=query_l.split(" ")
+        arguments=query_l.split(" ")
         query_name = arguments[0]
         # Default Values for results and config_file:
-	query_config_file = None
+        query_config_file = None
         results_file = "results_"+str(num_query)+".yml"
   
         if arguments[1]:

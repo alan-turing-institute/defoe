@@ -111,7 +111,6 @@ def open_stream(filename):
         stream = io.BytesIO(blob)
 
     else:
-        from io import StringIO
-        stream = StringIO(open(filename).read())
+        stream = open(filename, 'rb')
 
     return stream

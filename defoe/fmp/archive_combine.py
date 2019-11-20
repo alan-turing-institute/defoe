@@ -13,7 +13,7 @@ from os import listdir
 from os.path import isfile, join
 
 
-class AltoArchive(object, metaclass=abc.ABCMeta):
+class AltoArchive(abc.ABCMeta('ABC', (object,), {})):
     """
     Abstract base class for object model representation of ZIP|UNZIP archive
     of files in ALTO format.

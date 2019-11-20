@@ -15,12 +15,12 @@ def do_query(archives, config_file=None, logger=None, context=None):
 
     Config_file must a yml file that has the following values:
         * preprocess: Treatment to use for preprocessing the words. Options: [normalize|stem|lemmatize|none]
-	* data: TXT file with a list of the keywords to search for, one per line. 
+        * data: TXT file with a list of the keywords to search for, one per line. 
                 This should be in the same path at the configuration file.
 
-		Important!! : The first two words in this list are treated as targetwords.
+        Important!! : The first two words in this list are treated as targetwords.
 
-	*years_filter: Min and Max years to filter the data. Separeted by "-"
+        *years_filter: Min and Max years to filter the data. Separeted by "-"
         *output_path: The path to store the cropped images.
 
     Returns result of form:
@@ -39,7 +39,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
               "textblock_id": <TEXTBLOCK ID>,
               "title": <TITLER>,
               "words": <WORDS>,
-	      "preprocessed_words": <PREPROCESSED WORDS> 
+              "preprocessed_words": <PREPROCESSED WORDS> 
               "year": <YEAR>,
               "date": <DATE>
             },

@@ -15,7 +15,7 @@ def do_query(df, config_file=None, logger=None, context=None):
     """
     Read from HDFS, and counts number of occurrences of keywords or keysentences and groups by year.
     We have an entry in the HFDS file with the following information: 
-	- tittle, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, 
+    - title, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, 
         type of preprocess treatment, page_string, num_page_words
 
 
