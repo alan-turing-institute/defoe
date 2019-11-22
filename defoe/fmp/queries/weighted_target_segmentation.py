@@ -9,7 +9,16 @@ import yaml
 import os
 from collections import namedtuple, defaultdict
 
-WordLocation = namedtuple('WordLocation', "word position year document article textblock_id textblock_coords textblock_page_area textblock_page_name")
+WordLocation = namedtuple('WordLocation',
+                    ("word "
+                    "position "
+                    "year "
+                    "document "
+                    "article "
+                    "textblock_id "
+                    "textblock_coords "
+                    "textblock_page_area "
+                    "textblock_page_name"))
 MatchedWords = namedtuple('MatchedWords', 'target_word keyword textblock distance words preprocessed')
 
 def compute_distance(word1_loc, word2_loc):
@@ -119,8 +128,6 @@ def do_query(archives, config_file=None, logger=None, context=None):
               "year": <YEAR>,
               "date": <DATE>,
               "distance": <DISTANCE BETWEEN TARGET AND KEYWORD>,
-              "num_targets": <NUMBER OF TARGET WORDS FOUND IN TEXTBLOCK>,
-              "num_keywords": <NUMBER OF KEYWORDS FOUND IN TEXTBLOCK>,
               "total_words": <NUMBER OF WORDS IN TEXTBLOCK>
             },
             ...
@@ -152,14 +159,19 @@ def do_query(archives, config_file=None, logger=None, context=None):
     target_words = set([query_utils.preprocess_word(word, preprocess_type) for word in input_words['targets']])
     keywords = set([query_utils.preprocess_word(word, preprocess_type) for word in input_words['keywords']])
 
+    # retrieve the documents from each archive
     documents = archives.flatMap(
-        lambda archive: [document for document in list(archive) if document.year >= int(year_min) and document.year <= int(year_max) ])
+        lambda archive: [document for document in archive if int(year_min) <= document.year <= int(year_max) ])
 
+    # find textblocks that contain pairs of (target word, keyword) and record their distance
     filtered_words = documents.flatMap(
         lambda document: find_words(document, target_words, keywords, preprocess_type))
     
-    # [MatchedWords(target_word, keyword, textblock_location, distance, words, preprocessed)]
-    # [(word, {"article_id": article_id, ...}), ...]
+    # create the output dictionary
+    # mapping from
+    #   [MatchedWords(target_word, keyword, textblock_location, distance, words, preprocessed)]
+    # to
+    #   [(word, {"article_id": article_id, ...}), ...]
     matching_docs = filtered_words.map(
         lambda matched:
         (matched.keyword, {
@@ -188,7 +200,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
             }
         ))
 
-
+    # group by the matched keywords and collect all the articles by keyword
     # [(word, {"article_id": article_id, ...}), ...]
     # =>
     # [(word, [{"article_id": article_id, ...], {...}), ...)]
