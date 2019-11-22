@@ -131,8 +131,9 @@ def segment_image(coords, page_name, issue_path, keyword, output_path, target=""
        image_path=os.path.split(issue_path)[0]
     else:
        image_path=issue_path
-    image_name=page_name.split(".")[0]
-    image=image_path+"/"+image_name+".jp2"
+
+    image_name=Path(page_name).stem
+    image=Path(image_path, image_name+".jp2")
        
     coords_list=coords.split(",")
     c_set = tuple([int(s) for s in coords_list])
