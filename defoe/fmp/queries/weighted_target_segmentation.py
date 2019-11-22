@@ -182,9 +182,9 @@ def do_query(archives, config_file=None, logger=None, context=None):
             "coord": matched.textblock.textblock_coords,
             "page_area": matched.textblock.textblock_page_area,
             "year": matched.textblock.year,
-            "words": matched.words,
             "date":  matched.textblock.document.date,
-            "preprocessed_words":  matched.preprocessed,
+            # "words": matched.words,
+            # "preprocessed_words":  matched.preprocessed,
             "page_filename":  matched.textblock.textblock_page_name,
             "issue_id": matched.textblock.document.documentId,
             "issue_dirname": matched.textblock.document.archive.filename,
@@ -204,9 +204,10 @@ def do_query(archives, config_file=None, logger=None, context=None):
     # [(word, {"article_id": article_id, ...}), ...]
     # =>
     # [(word, [{"article_id": article_id, ...], {...}), ...)]
+    # sorted by distance between target and keyword
     result = matching_docs \
         .groupByKey() \
         .map(lambda word_context:
-             (word_context[0], list(word_context[1]))) \
+             (word_context[0], sorted(list(word_context[1]), key=lambda d: d['distance']))) \
         .collect()
     return result
