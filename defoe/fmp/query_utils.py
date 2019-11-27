@@ -140,11 +140,12 @@ def segment_image(coords, page_name, issue_path, keyword, output_path, target=""
     coords_name=coords.replace(",", "_")
 
     fname = Path(image).stem
-    if target == "":
-        out_file = output_path+"crop_" +fname + "_" + keyword + "_"+ coords_name +".jpg"
+    if target:
+        filename = f'crop_{fname}_{target}_{keyword}_{coords_name}.jpg'
     else:
-        out_file = output_path+"crop_" +fname + "_" + target+ "_"+ keyword + "_"+ coords_name +".jpg"
+        filename = f'crop_{fname}_{keyword}_{coords_name}.jpg'
 
+    out_file = os.path.join(output_path, filename)
     im = Image.open(image)
     crop = im.crop(c_set)
     crop.save(out_file, quality=80, optimize=True)
