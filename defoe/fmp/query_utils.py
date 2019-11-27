@@ -68,8 +68,8 @@ def get_article_matches(document,
     matches = []
     document_articles=document.articles
     for keyword in keywords:
-       for article in document_articles:
-	     for tb in document_articles[article]:
+        for article in document_articles:
+            for tb in document_articles[article]:
                  match = None
                  tb_preprocessed_words=[]
                  for word in tb.words:
@@ -131,19 +131,21 @@ def segment_image(coords, page_name, issue_path, keyword, output_path, target=""
        image_path=os.path.split(issue_path)[0]
     else:
        image_path=issue_path
-    image_name=page_name.split(".")[0]
-    image=image_path+"/"+image_name+".jp2"
+
+    image_name=Path(page_name).stem
+    image=Path(image_path, image_name+".jp2")
        
     coords_list=coords.split(",")
     c_set = tuple([int(s) for s in coords_list])
     coords_name=coords.replace(",", "_")
 
     fname = Path(image).stem
-    if target == "":
-        out_file = output_path+"crop_" +fname + "_" + keyword + "_"+ coords_name +".jpg"
+    if target:
+        filename = f'crop_{fname}_{target}_{keyword}_{coords_name}.jpg'
     else:
-        out_file = output_path+"crop_" +fname + "_" + target+ "_"+ keyword + "_"+ coords_name +".jpg"
+        filename = f'crop_{fname}_{keyword}_{coords_name}.jpg'
 
+    out_file = os.path.join(output_path, filename)
     im = Image.open(image)
     crop = im.crop(c_set)
     crop.save(out_file, quality=80, optimize=True)

@@ -97,7 +97,7 @@ class Page(object):
         :rtype: list(str or unicode)
         """
         if not self.page_words:
-            self.page_words = list(map(unicode, self.query(Page.WORDS_XPATH)))
+            self.page_words = list(map(str, self.query(Page.WORDS_XPATH)))
         return self.page_words
 
     @property

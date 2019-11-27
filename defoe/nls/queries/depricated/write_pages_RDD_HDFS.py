@@ -31,7 +31,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
     if config_file is not None:
         with open(config_file, "r") as f:
             config = yaml.load(f)
-    	preprocess_type = query_utils.extract_preprocess_word_type(config)
+        preprocess_type = query_utils.extract_preprocess_word_type(config)
     else:
         preprocess_type = query_utils.parse_preprocess_word_type("none")
     documents = archives.flatMap(

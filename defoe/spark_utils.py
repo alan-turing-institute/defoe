@@ -86,7 +86,7 @@ def open_stream(filename):
 
     if is_url:
         import requests
-        from cStringIO import StringIO
+        from io import StringIO
 
         stream = requests.get(filename, stream=True).raw
         stream.decode_content = True
@@ -111,7 +111,6 @@ def open_stream(filename):
         stream = io.BytesIO(blob)
 
     else:
-        from cStringIO import StringIO
-        stream = StringIO(open(filename).read())
+        stream = open(filename, 'rb')
 
     return stream

@@ -1,10 +1,11 @@
 lxml>=3.7.3
 nltk>=3.4
 pep8>=1.7.0
+pillow>=4.0.0
 pylint>=1.6.4
 pycodestyle>=2.5.0
 pytest>=3.0.7
 PyYAML>=3.13
 regex>=2018
 requests>=2.14.2
-azure
+#azure

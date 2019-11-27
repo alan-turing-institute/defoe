@@ -6,9 +6,6 @@ from defoe import query_utils
 from defoe.query_utils import PreprocessWordType
 from nltk.corpus import words
 import re
-#import sys
-#reload(sys)
-#sys.setdefaultencoding('utf8')
 
 def get_page_matches(document,
                      keywords,

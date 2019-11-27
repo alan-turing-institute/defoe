@@ -11,12 +11,11 @@ from defoe.alto.document import Document
 from defoe.spark_utils import open_stream
 
 
-class AltoArchive(object):
+class AltoArchive(abc.ABCMeta('ABC', (object,), {})):
     """
     Abstract base class for object model representation of ZIP archive
     of files in ALTO format.
     """
-    __metaclass__ = abc.ABCMeta
 
     def __init__(self, filename):
         """
