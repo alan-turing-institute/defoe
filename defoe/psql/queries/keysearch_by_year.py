@@ -15,8 +15,8 @@ def do_query(df, config_file=None, logger=None, context=None):
     """
     Read from HDFS, and counts number of occurrences of keywords or keysentences and groups by year.
     We have an entry in the HFDS file with the following information: 
-    - title, edition, year, place, archive filename, page filename, page id, num pages, type of archive, model, 
-        type of preprocess treatment, page_string, num_page_words
+
+    nlsRow=Row("title",  "edition", "year", "place", "archive_filename",  "source_text_filename", "text_unit", "text_unit_id", "num_text_unit", "type_archive", "model", "source_text_raw", "source_text_clean", "source_text_norm", "source_text_lemmatize", "source_text_stem", "num_words")
 
 
     config_file must be the path to a configuration file with a list
@@ -56,17 +56,17 @@ def do_query(df, config_file=None, logger=None, context=None):
     
     # Filter out the pages that are null, which model is nls, and select only 2 columns: year and the page as string (either raw or preprocessed).
     if preprocess_config == "normalize":
-        fdf = df.withColumn("page_string_norm", blank_as_null("page_string_norm"))
-        newdf=fdf.filter(fdf.page_string_norm.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.page_string_norm)
+        fdf = df.withColumn("source_text_norm", blank_as_null("source_text_norm"))
+        newdf=fdf.filter(fdf.source_text_norm.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.source_text_norm)
     elif preprocess_config == "lemmatize":
-        fdf = df.withColumn("page_string_lemmatize", blank_as_null("page_string_lemmatize"))
-        newdf=fdf.filter(fdf.page_string_lemmatize.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.page_string_lemmatize)
+        fdf = df.withColumn("source_text_lemmatize", blank_as_null("source_text_lemmatize"))
+        newdf=fdf.filter(fdf.source_text_lemmatize.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.source_text_lemmatize)
     elif preprocess_config == "stem":
-        fdf = df.withColumn("page_string_stem", blank_as_null("page_string_stem"))
-        newdf=fdf.filter(fdf.page_string_stem.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.page_string_stem)
+        fdf = df.withColumn("source_text_stem", blank_as_null("source_text_stem"))
+        newdf=fdf.filter(fdf.source_text_stem.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.source_text_stem)
     else: 
-        fdf = df.withColumn("page_string_raw", blank_as_null("page_string_raw"))
-        newdf=fdf.filter(fdf.page_string_raw.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.page_string_raw)
+        fdf = df.withColumn("source_text_raw", blank_as_null("source_text_raw"))
+        newdf=fdf.filter(fdf.source_text_raw.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.source_text_raw)
    
     pages=newdf.rdd.map(tuple)
     keysentences = []
