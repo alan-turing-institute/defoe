@@ -150,12 +150,12 @@ results_ks_sports_tiny:
 '1773':
 - [tennis, 1]
 '1797':
-- [football, 1]
-- [golf, 1]
 - [rugby, 1]
 - [bowls, 1]
+- [football, 1]
+- [golf, 1]
 '1810':
-- [tennis, 14]
+- [tennis, 15]
 - [bowls, 1]
 '1815':
 - [football, 1]
@@ -165,14 +165,14 @@ results_ks_sports_tiny:
 '1824':
 - [bowls, 1]
 '1842':
-- [rugby, 1]
-- [football, 2]
 - [bowls, 5]
+- [football, 2]
+- [rugby, 1]
 '1853':
+- [bowls, 4]
+- [rugby, 8]
 - [football, 1]
 - [tennis, 1]
-- [bowls, 4]
-- [rugby, 7]
 ```
 
 # Writing and Reading data from/to PostgreSQL database 
