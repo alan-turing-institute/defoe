@@ -6,10 +6,9 @@ from defoe import query_utils
 from defoe.query_utils import PreprocessWordType
 from nltk.corpus import words
 import re
-# encoding=utf8
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
+#import sys
+#reload(sys)
+#sys.setdefaultencoding('utf8')
 
 def get_page_matches(document,
                      keywords,
@@ -174,6 +173,30 @@ def get_page_as_string(page,
         else:
             page_string += (' ' + preprocessed_word)
     return page_string
+
+
+def clean_page_as_string(page):
+        
+    """
+    Clean a page as a single string,
+    Handling hyphenated words: combine and split.
+
+    :param page: Page
+    :type page: defoe.nls.Page
+    :return: clean page words as a string
+    :rtype: string or unicode
+    """
+    page_string = ''
+    for word in page.words:
+        if page_string == '':
+            page_string = word
+        else:
+            page_string += (' ' + word)
+
+    page_separete = page_string.split('- ')
+    page_combined = ''.join(page_separete)
+    
+    return page_combined
 
 
 def get_sentences_list_matches(text, keysentence):

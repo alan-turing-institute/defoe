@@ -32,6 +32,7 @@ class Document(object):
         self.num_pages = 0
         self.metadata = self.archive.open_document(self.code)
         self.metadata_tree = etree.parse(self.metadata)
+        #self.metadata_tree = etree.XML(self.metadata)
         self.title = self.single_query('//mods:title/text()')
         self.edition = self.single_query('//mods:partName/text()')
         self.page_codes = sorted(self.archive.document_codes[self.code], key=Document.sorter)
