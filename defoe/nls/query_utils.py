@@ -195,6 +195,20 @@ def clean_page_as_string(page):
     
     return page_combined
 
+def preprocess_clean_page(clean_page,
+                          preprocess_type=PreprocessWordType.LEMMATIZE):
+
+
+    clean_list = clean_page.split(' ') 
+    page_string = ''
+    for word in clean_list:
+        preprocessed_word = query_utils.preprocess_word(word,
+                                                         preprocess_type)
+        if page_string == '':
+            page_string = preprocessed_word
+        else:
+            page_string += (' ' + preprocessed_word)
+    return page_string
 
 def get_sentences_list_matches(text, keysentence):
     """
