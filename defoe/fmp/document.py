@@ -146,10 +146,7 @@ class Document(object):
         result = self.query(query)
         if not result:
             return None
-        try:
-            return str(result[0])
-        except UnicodeEncodeError:
-            return unicode(result[0])
+        return str(result[0])
 
     def page(self, code):
         """
@@ -380,7 +377,7 @@ class Document(object):
                for metadata in metadata_parts:
                    fptr = metadata.find('mets:fptr', self.namespaces)
                    for fp in fptr:
-                       partsCoord[metadata.values()[0]] =[fp.values()[1], fp.values()[2]]
+                       partsCoord[list(metadata.values())[0]] =[list(fp.values())[1], list(fp.values())[2]]
         return partsCoord
 
     def parse_structMap_Logical(self):
@@ -395,7 +392,7 @@ class Document(object):
         for logic in elem:
             articles = logic.findall('mets:div[@TYPE="ARTICLE"]', self.namespaces)
             for article in articles:
-                articlesId.append(article.values()[0])
+                articlesId.append(list(article.values())[0])
         return articlesId
 
     def parse_structLink(self):
@@ -417,10 +414,10 @@ class Document(object):
                 linkl = linklocator.findall('mets:smLocatorLink', self.namespaces)
                 article_parts=[]
                 for link in linkl:
-                    idstring=link.values()[0]
+                    idstring=list(link.values())[0]
                     partId=re.sub('[^A-Za-z0-9]+', '', idstring)
                     article_parts.append(partId)
-                    partsPage[partId]=link.values()[1]
+                    partsPage[partId]=list(link.values())[1]
                 articlesParts[article_parts[0]]=article_parts[1:]
         return articlesParts, partsPage     
 
