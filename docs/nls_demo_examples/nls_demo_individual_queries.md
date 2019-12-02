@@ -90,10 +90,12 @@ Everytime we run a query (e.g. defoe.nls.queries.total_documents or defoe.nls.qu
 Writing [pages to HDFS cvs file using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_df_hdfs.py) loads in memory all the pages and their metadata, applies all type of preprocess treatment ot the pages, create a dataframe, store data into the dataframe, and finally save the dataframe into HDFS using a csv file.  
 
 The information stored per page is the following:
-* title, edition, year, place, archive_filename, page_filename, page_id, num_pages, type_archive, model, page_string_norm, page_string_lemmatize, page_string_stem, num_page_words, num_page_words 
+"title",  "edition", "year", "place", "archive_filename",  "source_text_filename", "text_unit", "text_unit_id", "num_text_unit", "type_archive", "model", "source_text_raw", "source_text_clean", "source_text_norm", "source_text_lemmatize", "source_text_stem", "num_words". 
+
+In “source_text_clean”, I store the result of applying two modifications to the raw text (source_text_raw): 1) Handle hyphenated words and 2) fix the long-s. The pre-process treatments (*normalize*, *stem* and *lemmatize*) are applied to text stored in this field, and not from the raw one. Both, *stem* and *lemmatize*, they also include normalization.  . 
 
 
-We have to indicate the HDFS FILE inside **write_pages_df__hdfs.py** (e.g. "nls_demo.csv"). The query applies to the pages' words 4 type of preprocess treatment: *none*, *normalize*, *stem* and *lemmatize*. Both, *stem* and *lemmatize*, they also include normalization.  . 
+We have to indicate the HDFS FILE inside **write_pages_df__hdfs.py** (e.g. "nls_demo.csv"). 
 
   
 
@@ -150,10 +152,10 @@ results_ks_sports_tiny:
 '1773':
 - [tennis, 1]
 '1797':
+- [golf, 1]
+- [football, 1]
 - [rugby, 1]
 - [bowls, 1]
-- [football, 1]
-- [golf, 1]
 '1810':
 - [tennis, 15]
 - [bowls, 1]
@@ -169,18 +171,23 @@ results_ks_sports_tiny:
 - [football, 2]
 - [rugby, 1]
 '1853':
-- [bowls, 4]
 - [rugby, 8]
-- [football, 1]
+- [bowls, 4]
 - [tennis, 1]
+- [football, 1]
+
 ```
+
 
 # Writing and Reading data from/to PostgreSQL database 
 
 Writing [pages to PostgresSQL database using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_df_psql.py) loads in memory all the pages and their metadata, applies all type of preprocess treatment ot the pages, create a dataframe, store data into the dataframe, and finally save the dataframe into a database table. Properties of the database to use can be specified by using a config file (e.g. [queries/db_properties.yml](https://github.com/alan-turing-institute/defoe/blob/master/queries/db_properties.yml))
 
 The information stored per page is the following:
-* title, edition, year, place, archive_filename, page_filename, page_id, num_pages, type_archive, model, page_string_norm, page_string_lemmatize, page_string_stem, num_page_words, num_page_words 
+"title",  "edition", "year", "place", "archive_filename",  "source_text_filename", "text_unit", "text_unit_id", "num_text_unit", "type_archive", "model", "source_text_raw", "source_text_clean", "source_text_norm", "source_text_lemmatize", "source_text_stem", "num_words". 
+
+In “source_text_clean”, I store the result of applying two modifications to the raw text (source_text_raw): 1) Handle hyphenated words and 2) fix the long-s. The pre-process treatments (*normalize*, *stem* and *lemmatize*) are applied to text stored in this field, and not from the raw one. Both, *stem* and *lemmatize*, they also include normalization.  . 
+
 
 ```bash
 spark-submit --driver-class-path $HOME/postgresql-42.2.8.jar --jars $HOME/postgresql-42.2.8.jar --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_df_psql queries/db_properties.yml  -r results -n 324 
@@ -211,16 +218,20 @@ defoe_db=# \d+ publication_page
  year                  | bigint |           |          |         | plain    |              | 
  place                 | text   |           |          |         | extended |              | 
  archive_filename      | text   |           |          |         | extended |              | 
- page_filename         | text   |           |          |         | extended |              | 
- page_id               | text   |           |          |         | extended |              | 
- num_pages             | bigint |           |          |         | plain    |              | 
+ source_text_filename  | text   |           |          |         | extended |              | 
+ text_unit             | text   |           |          |         | extended |              | 
+ text_unit_id          | text   |           |          |         | extended |              | 
+ num_text_unit         | bigint |           |          |         | plain    |              | 
  type_archive          | text   |           |          |         | extended |              | 
  model                 | text   |           |          |         | extended |              | 
- page_string_raw       | text   |           |          |         | extended |              | 
- page_string_norm      | text   |           |          |         | extended |              | 
- page_string_lemmatize | text   |           |          |         | extended |              | 
- page_string_stem      | text   |           |          |         | extended |              | 
- num_page_words        | bigint |           |          |         | plain    |              | 
+ source_text_raw       | text   |           |          |         | extended |              | 
+ source_text_clean     | text   |           |          |         | extended |              | 
+ source_text_norm      | text   |           |          |         | extended |              | 
+ source_text_lemmatize | text   |           |          |         | extended |              | 
+ psource_text_stem     | text   |           |          |         | extended |              | 
+ num_words             | bigint |           |          |         | plain    |              | 
+ 
+  
 ```
 
 Read pages (preprocessed or raw) as Dataframes from PostgreSQL database, and do a [keysentence search](https://github.com/alan-turing-institute/defoe/blob/master/defoe/psql/queries/keysearch_by_year.py) groupping results by year.
