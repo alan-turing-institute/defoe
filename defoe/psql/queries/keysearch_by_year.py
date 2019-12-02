@@ -65,7 +65,7 @@ def do_query(df, config_file=None, logger=None, context=None):
         fdf = df.withColumn("source_text_stem", blank_as_null("source_text_stem"))
         newdf=fdf.filter(fdf.source_text_stem.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.source_text_stem)
     else: 
-        fdf = df.withColumn("source_text_raw", blank_as_null("source_text_raw"))
+        fdf = df.withColumn("source_text_clean", blank_as_null("source_text_clean"))
         newdf=fdf.filter(fdf.source_text_raw.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.source_text_raw)
    
     pages=newdf.rdd.map(tuple)
