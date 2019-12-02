@@ -3,7 +3,7 @@ Query-related utility functions.
 """
 
 from defoe import query_utils
-from defoe.query_utils import PreprocessWordType
+from defoe.query_utils import PreprocessWordType, longsfix_sentence
 from nltk.corpus import words
 import re
 
@@ -176,7 +176,7 @@ def clean_page_as_string(page):
         
     """
     Clean a page as a single string,
-    Handling hyphenated words: combine and split.
+    Handling hyphenated words: combine and split and also fixing the long-s
 
     :param page: Page
     :type page: defoe.nls.Page
@@ -192,8 +192,9 @@ def clean_page_as_string(page):
 
     page_separete = page_string.split('- ')
     page_combined = ''.join(page_separete)
-    
-    return page_combined
+   
+    page_clean = longsfix_sentence(page_combined) 
+    return page_clean
 
 def preprocess_clean_page(clean_page,
                           preprocess_type=PreprocessWordType.LEMMATIZE):

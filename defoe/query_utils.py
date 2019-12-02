@@ -3,6 +3,7 @@ Query-related utility functions and types.
 """
 
 import os
+import subprocess
 import re
 import enum
 from nltk.stem import PorterStemmer, WordNetLemmatizer
@@ -233,3 +234,17 @@ def preprocess_word(word, preprocess_type=PreprocessWordType.NONE):
     else:  # PreprocessWordType.NONE or unknown
         preprocessed_word = word
     return preprocessed_word
+
+def longsfix_sentence(sentence):
+    cmd = 'echo' + sentence + ' | ./lxtransduce -l spelling=f-to-s.lex fix-spelling.gr'
+    proc=subprocess.Popen(cmd.encode('utf-8'), shell=True,
+                        stdin=subprocess.PIPE,
+                        stdout=subprocess.PIPE,
+                        stderr=subprocess.PIPE)
+    stdout_value = proc.communicate()[0]
+    fix_s= stdout_value.decode('utf-8').split('\n')[0]
+    if re.search('[aeiou]fs', fix_s):
+        fix_final=re.sub('fs', 'ss', fix_s)
+    else:
+        fix_final = sentence
+    return fix_final
