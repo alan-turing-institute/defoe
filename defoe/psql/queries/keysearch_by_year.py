@@ -1,5 +1,5 @@
 """
-Read from HDFS file, and counts number of occurrences of keywords or keysentences and groups by year.
+Read from PostgreSQL table, and counts number of occurrences of keywords or keysentences and groups by year.
 """
 
 from operator import add
