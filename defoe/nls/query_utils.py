@@ -193,8 +193,11 @@ def clean_page_as_string(page):
     page_separete = page_string.split('- ')
     page_combined = ''.join(page_separete)
    
-    page_clean = longsfix_sentence(page_combined) 
-    return page_clean
+    if (len(page_combined) > 1) and ('f' in page_combined): 
+       page_clean = longsfix_sentence(page_combined) 
+       return page_clean
+    else:
+        return page_combined
 
 def preprocess_clean_page(clean_page,
                           preprocess_type=PreprocessWordType.LEMMATIZE):

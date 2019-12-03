@@ -5,7 +5,7 @@ Counts number of occurrences of keywords or keysentences and groups by year.
 from operator import add
 
 from defoe import query_utils
-from defoe.nls.query_utils import get_page_as_string
+from defoe.nls.query_utils import preprocess_clean_page, clean_page_as_string
 from defoe.nls.query_utils import get_sentences_list_matches
 
 import yaml, os
@@ -64,10 +64,14 @@ def do_query(archives, config_file=None, logger=None, context=None):
         lambda archive: [(document.year, document) for document in list(archive)])
     # [(year, page_string)
     
-    pages = documents.flatMap(
+    clean_pages = documents.flatMap(
         lambda year_document: [(year_document[0], 
-                                    get_page_as_string(page, preprocess_type)) 
+                                    clean_page_as_string(page)) 
                                        for page in year_document[1]])
+    pages = clean_pages.flatMap(
+        lambda cl_page: [(cl_page[0], 
+                                    preprocess_clean_page(cl_page[1], preprocess_type))]) 
+    # [(year, page_string)
     # [(year, page_string)
     filter_pages = pages.filter(
         lambda year_page: any(

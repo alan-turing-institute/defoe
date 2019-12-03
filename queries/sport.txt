@@ -1,4 +1,4 @@
-bowls
+bowl
 golf
 rugby
 tennis

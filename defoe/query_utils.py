@@ -236,12 +236,13 @@ def preprocess_word(word, preprocess_type=PreprocessWordType.NONE):
     return preprocessed_word
 
 def longsfix_sentence(sentence):
-    cmd = 'echo' + sentence + ' | ./lxtransduce -l spelling=f-to-s.lex fix-spelling.gr'
+    cmd = 'echo ' + sentence + ' | ./lxtransduce -l spelling=f-to-s.lex fix-spelling.gr'
     proc=subprocess.Popen(cmd.encode('utf-8'), shell=True,
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE)
-    stdout_value = proc.communicate()[0]
+    proc.terminate()
+    stdout_value = proc.communicate(timeout=0.3)[0]
     fix_s= stdout_value.decode('utf-8').split('\n')[0]
     if re.search('[aeiou]fs', fix_s):
         fix_final=re.sub('fs', 'ss', fix_s)
