@@ -318,7 +318,7 @@ from pyspark.sql import DataFrameReader
 ...     return when(col(x) != "", col(x)).otherwise(None)
 >> fdf = df.withColumn("page_string_norm", blank_as_null("source_text_norm"))
  
->> newdf=fdf.filter(fdf.source_text_raw.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.source_text_raw)
+>> newdf=fdf.filter(fdf.source_text_clean.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.source_text_clean)
 >> pages=newdf.rdd.map(tuple)
 >> nls_sample=pages.take(8)
 >> entry= nls_sample[8]
@@ -336,7 +336,7 @@ pyspark --jars elasticsearch-hadoop-7.5.0/dist/elasticsearch-hadoop-7.5.0.jar
 ...     return when(col(x) != "", col(x)).otherwise(None)
 >> fdf = df.withColumn("page_string_norm", blank_as_null("source_text_norm"))
  
->> newdf=fdf.filter(fdf.source_text_raw.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.source_text_raw)
+>> newdf=fdf.filter(fdf.source_text_clean.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.source_text_clean)
 >> pages=newdf.rdd.map(tuple)
 >> nls_sample=pages.take(8)
 >> entry= nls_sample[8]
