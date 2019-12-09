@@ -267,7 +267,7 @@ ati-nid00006,55555,defoe_db,rfilguei2,org.postgresql.Driver,publication_page
 
 # Writing and Reading data to/from ElasticSearch (ES) 
 
-Writing [pages to ES  using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_df_es.py) loads in memory all the pages and their metadata, applies all type of preprocess treatment ot the pages, create a dataframe, store data into the dataframe, and finally save the dataframe into ES. P
+Writing [pages to ES  using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_df_es.py) loads in memory all the pages and their metadata, applies all type of preprocess treatment ot the pages, create a dataframe, store data into the dataframe, and finally save the dataframe into ES.
 
 The information stored per page is the following:
 "title",  "edition", "year", "place", "archive_filename",  "source_text_filename", "text_unit", "text_unit_id", "num_text_unit", "type_archive", "model", "source_text_raw", "source_text_clean", "source_text_norm", "source_text_lemmatize", "source_text_stem", "num_words". 
@@ -342,7 +342,7 @@ from pyspark.sql import DataFrameReader
 >> df = DataFrameReader(sqlContext).jdbc(url='jdbc:%s' % url, table='publication_page' , properties=properties)
 >> def blank_as_null(x):
 ...     return when(col(x) != "", col(x)).otherwise(None)
->> fdf = df.withColumn("page_string_norm", blank_as_null("source_text_norm"))
+>> fdf = df.withColumn("source_text_norm", blank_as_null("source_text_norm"))
  
 >> newdf=fdf.filter(fdf.source_text_clean.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.source_text_clean)
 >> pages=newdf.rdd.map(tuple)
@@ -360,7 +360,7 @@ pyspark --jars elasticsearch-hadoop-7.5.0/dist/elasticsearch-hadoop-7.5.0.jar
 >> df = reader.load("nls/Encyclopaedia_Britannica")
 >> def blank_as_null(x):
 ...     return when(col(x) != "", col(x)).otherwise(None)
->> fdf = df.withColumn("page_string_norm", blank_as_null("source_text_norm"))
+>> fdf = df.withColumn("source_text_norm", blank_as_null("source_text_norm"))
  
 >> newdf=fdf.filter(fdf.source_text_clean.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.source_text_clean)
 >> pages=newdf.rdd.map(tuple)
