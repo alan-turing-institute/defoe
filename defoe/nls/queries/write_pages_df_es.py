@@ -60,5 +60,10 @@ def do_query(archives, config_file=None, logger=None, context=None):
     sqlContext = SQLContext(context)
     df = sqlContext.createDataFrame(pages,nlsRow)
     df = df.drop('_id')
-    df.write.format('org.elasticsearch.spark.sql').option('es.nodes', 'localhost').option('es.port', 9200).option('es.resource', '%s/%s' % ('nls', 'Encyclopaedia_Britannica'),).save()
+    with open(config_file, "r") as f:
+        config = yaml.load(f)
+    es_index=config["index"]
+    es_type_name=config["type_name"]
+    
+    df.write.format('org.elasticsearch.spark.sql').option('es.nodes', 'localhost').option('es.port', 9200).option('es.resource', '%s/%s' % (index, es_type_name),).save()
     return "0"
