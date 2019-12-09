@@ -128,11 +128,11 @@ xxx/nls -data-encyclopaediaBritannica/193916150
  hdfs dfs -getmerge /user/at003/rosa/nls_demo.csv nls_demo.csv
 ```
 
-Read pages (preprocessed or raw) as Dataframes from HDFS CSV file, and do a [keysentence search](https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/keysearch_by_year.py) groupping results by year.
+Read pages (preprocessed or just clean) as Dataframes from HDFS CSV file, and do a [keysentence search](https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/keysearch_by_year.py) groupping results by year.
 
 In [hdfs_data.txt](https://github.com/alan-turing-institute/defoe/blob/master/hdfs_data.txt) we have to indicate the HDFS file that we want to read from (e.g. hdfs:///user/at003/rosa/nls_demo.csv)
 	
-In the configuration file (e.g.[queries/sport.yml](https://github.com/alan-turing-institute/defoe/blob/master/queries/sport.yml)) we have to indicate which preprocess treatment (e.g. none, normalize, etc.) we want to use in the query, so we can select the dataframe's columm (e.g. *page_string_raw*, *page_string_normalize*, etc.) according to that. 
+In the configuration file (e.g.[queries/sport.yml](https://github.com/alan-turing-institute/defoe/blob/master/queries/sport.yml)) we have to indicate which preprocess treatment (e.g. none, normalize, etc.) we want to use in the query, so we can select the dataframe's columm (e.g. *source_text_clean*, *source_text_norm*, etc.) according to that. 
 
 ```bash
 queries/sport.yml: 
@@ -245,9 +245,15 @@ defoe_db=# \d+ publication_page
   
 ```
 
-Read pages (preprocessed or raw) as Dataframes from PostgreSQL database, and do a [keysentence search](https://github.com/alan-turing-institute/defoe/blob/master/defoe/psql/queries/keysearch_by_year.py) groupping results by year.
+Read pages (preprocessed or just clean) as Dataframes from PostgreSQL database, and do a [keysentence search](https://github.com/alan-turing-institute/defoe/blob/master/defoe/psql/queries/keysearch_by_year.py) groupping results by year.
 
-In the configuration file (e.g.[queries/sport.yml](https://github.com/alan-turing-institute/defoe/blob/master/queries/sport.yml)) we have to indicate which preprocess treatment (e.g. none, normalize, etc.) we want to use in the query, so we can select the dataframe's columm (e.g. *page_string_raw*, *page_string_normalize*, etc.) according to that. 
+In the configuration file (e.g.[queries/sport.yml](https://github.com/alan-turing-institute/defoe/blob/master/queries/sport.yml)) we have to indicate which preprocess treatment (e.g. none, normalize, etc.) we want to use in the query, so we can select the dataframe's columm (e.g. *source_text_clean*, *source_text_norm*, etc.) according to that. 
+
+```bash
+queries/sport.yml: 
+	preprocess: normalize
+	data: sport.txt
+```
 
 ```bash
 spark-submit --driver-class-path $HOME/postgresql-42.2.8.jar --jars $HOME/postgresql-42.2.8.jar --py-files defoe.zip defoe/run_query.py db_data.txt psql defoe.psql.queries.keysearch_by_year queries/sport.yml  -r results_ks_sports_tiny -n 324
@@ -259,7 +265,7 @@ ati-nid00006,55555,defoe_db,rfilguei2,org.postgresql.Driver,publication_page
 
 
 
-# Writing data to ElasticSearch (ES) 
+# Writing and Reading data to/from ElasticSearch (ES) 
 
 Writing [pages to ES  using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_df_es.py) loads in memory all the pages and their metadata, applies all type of preprocess treatment ot the pages, create a dataframe, store data into the dataframe, and finally save the dataframe into ES. P
 
@@ -283,6 +289,26 @@ type_name: Encyclopaedia_Britannica
 
 Important:
 * You need to have the elasticsearch-hadoop driver, or [download it](https://www.elastic.co/downloads/hadoop) and indicate it in the spark-submit command (see previous command). 
+
+
+Read pages (preprocessed or just clean) as Dataframes from ES, and do a [keysentence search](https://github.com/alan-turing-institute/defoe/blob/master/defoe/es/queries/keysearch_by_year.py) groupping results by year.
+
+In the configuration file (e.g.[queries/sport.yml](https://github.com/alan-turing-institute/defoe/blob/master/queries/sport.yml)) we have to indicate which preprocess treatment (e.g. none, normalize, etc.) we want to use in the query, so we can select the dataframe's columm (e.g. *source_text_clean*, *source_text_norm*, etc.) according to that. 
+
+```bash
+queries/sport.yml: 
+	preprocess: normalize
+	data: sport.txt
+```
+
+```bash
+spark-submit --driver-class-path elasticsearch-hadoop-7.5.0/dist/elasticsearch-hadoop-7.5.0.jar --jars elasticsearch-hadoop-7.5.0/dist/elasticsearch-hadoop-7.5.0.jar --py-files defoe.zip defoe/run_query.py es_data.txt es defoe.es.queries.keysearch_by_year queries/sport.yml  -r results_ks_sports -n 324
+```
+
+Important: A file with the ES properties has to be specified (e.g.[es_data.txt](https://github.com/alan-turing-institute/defoe/blob/master/es_data.txt)). It has to have the following information (and in this order), separated by comma: 
+
+#index,type_name
+nls,Encyclopaedia_Britannica
 
 
 
