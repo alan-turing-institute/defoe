@@ -9,7 +9,7 @@ Run Spark several text queries jobs.
     positional arguments:
       data_file             Data file listing data files to query
       model_name            Data model to which data files conform:
-      ['books', 'papers', 'fmp','nzpp', 'generic_xml', 'nls', 'hdfs', 'psql']
+      ['books', 'papers', 'fmp','nzpp', 'generic_xml', 'nls', 'hdfs', 'psql', 'es']
       query_list            A file with the queries to run. For each query
                             we have to indicate: query_module [query_configuration_file] [-r results_file]
        Example:
@@ -70,7 +70,7 @@ def main():
     """
     root_module = "defoe"
     setup_module = "setup"
-    models = ["books", "papers", "fmp", "nzpp", "generic_xml", "nls", "hdfs", "psql"]
+    models = ["books", "papers", "fmp", "nzpp", "generic_xml", "nls", "hdfs", "psql", "es"]
 
     parser = ArgumentParser(description="Run Spark text analysis job")
     parser.add_argument("data_file",
@@ -123,7 +123,7 @@ def main():
     context = SparkContext(conf=conf)
     log = context._jvm.org.apache.log4j.LogManager.getLogger(__name__)  # pylint: disable=protected-access
     
-    if (model_name!= "hdfs") and (model_name!= "psql"):
+    if (model_name!= "hdfs") and (model_name!= "psql") and (model_name!= "es"):
         # [filename,...]
         rdd_filenames = files_to_rdd(context, num_cores, data_file=data_file)
         # [(object, None)|(filename, error_message), ...]
