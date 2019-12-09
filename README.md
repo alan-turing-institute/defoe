@@ -72,7 +72,8 @@ Run queries:
 * [NEW: Loading dataframe from HDFS and performing a query](./docs/nls_demo_examples/nls_demo_individual_queries.md#writing-and-reading-data-fromto-hdfs)
 * [NEW: Extracting, Transforming and Saving RDD objects to PostgreSQL database](./docs/nls_demo_examples/nls_demo_individual_queries.md#writing-and-reading-data-fromto-postgresql-database)
 * [NEW: Loading dataframe from PostgreSQL database and performing a query](./docs/nls_demo_examples/nls_demo_individual_queries.md#writing-and-reading-data-fromto-postgresql-database)
-* [NEW: Extracting, Transforming and Saving RDD objects to ElastiSearch](./docs/nls_demo_examples/nls_demo_individual_queries.md#writing-data-to-elasticsearch-es)
+* [NEW: Extracting, Transforming and Saving RDD objects to ElastiSearch](./docs/nls_demo_examples/nls_demo_individual_queries.md#writing-and-reading-data-tofrom-elasticsearch-es)
+* [NEW: Loading dataframe from ElasticSearch and performing a query](./docs/nls_demo_examples/nls_demo_individual_queries.md#writing-and-reading-data-tofrom-elasticsearch-es)
 
 Available queries:
 
