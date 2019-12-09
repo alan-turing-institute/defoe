@@ -46,7 +46,6 @@ class Page(object):
 
 
     def alto_parse(self, source):
-        print("!!!!source is %s" %source)
         xml = etree.parse(source)
         xmlns = xml.getroot().tag.split('}')[0].strip('{')
         return xml, xmlns
