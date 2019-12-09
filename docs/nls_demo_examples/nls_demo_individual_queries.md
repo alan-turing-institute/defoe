@@ -193,6 +193,17 @@ In “source_text_clean”, I store the result of applying two modifications to 
 spark-submit --driver-class-path $HOME/postgresql-42.2.8.jar --jars $HOME/postgresql-42.2.8.jar --py-files defoe.zip defoe/run_query.py nls_tiny.txt nls defoe.nls.queries.write_pages_df_psql queries/db_properties.yml  -r results -n 324 
 ```
 
+Notice that the properties of the database to use are indicated in a file --> queries/db_properties.yml:
+
+```bash
+host: ati-nid00006
+port: 55555
+database: defoe_db
+table: publication_page
+user: rfilguei2
+```
+
+
 Important:
 * You need to have the postgresql driver, or [download it](https://jdbc.postgresql.org/) and indicate it in the spark-submit command (see previous command). 
 
@@ -259,7 +270,15 @@ In “source_text_clean”, I store the result of applying two modifications to 
 
 
 ```bash
-spark-submit --driver-class-path elasticsearch-hadoop-7.5.0/dist/elasticsearch-hadoop-7.5.0.jar --jars elasticsearch-hadoop-7.5.0/dist/elasticsearch-hadoop-7.5.0.jar  --py-files defoe.zip defoe/run_query.py nls-data.txt nls defoe.nls.queries.write_pages_df_es -r results -n 324
+spark-submit --driver-class-path elasticsearch-hadoop-7.5.0/dist/elasticsearch-hadoop-7.5.0.jar --jars elasticsearch-hadoop-7.5.0/dist/elasticsearch-hadoop-7.5.0.jar  --py-files defoe.zip defoe/run_query.py nls-data.txt nls defoe.nls.queries.write_pages_df_es queries/es_properties.yml -r results -n 324
+```
+
+Notice that the properties of index and type name for ES are indicated in a file --> queries/es_properties.yml:
+
+
+```bash
+index: nls
+type_name: Encyclopaedia_Britannica
 ```
 
 Important:
