@@ -228,7 +228,7 @@ defoe_db=# \d+ publication_page
  source_text_clean     | text   |           |          |         | extended |              | 
  source_text_norm      | text   |           |          |         | extended |              | 
  source_text_lemmatize | text   |           |          |         | extended |              | 
- source_text_stem     | text   |           |          |         | extended |              | 
+ source_text_stem      | text   |           |          |         | extended |              | 
  num_words             | bigint |           |          |         | plain    |              | 
  
   
