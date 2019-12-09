@@ -30,14 +30,14 @@ def do_query(archives, config_file=None, logger=None, context=None):
     newdf=df.filter(df.source_text_clean.isNotNull()).filter(df["model"]=="nls").select(df.year, df.archive_filename,df.num_text_unit,df.source_text_clean)
     archive_df= newdf.groupby("archive_filename", "year","num_text_unit").count()
     #>>> archive_df.show()
-    # +--------------------+----+---------+-----+
-    # |    archive_filename|year|num_pages|count|
-    # +--------------------+----+---------+-----+
-    # |/mnt/lustre/at003...|1842|      810|  785|
-    # |/mnt/lustre/at003...|1778|      886|  829|
-    # |/mnt/lustre/at003...|1810|      446|  422|
-    # |/mnt/lustre/at003...|1823|      878|  833|
-    # +--------------------+----+---------+-----+
+    # +--------------------+----+---------------+-----+
+    # |    archive_filename|year|num_text_units |count|
+    # +--------------------+----+---------------+-----+
+    # |/mnt/lustre/at003...|1842|      810      |  785|
+    # |/mnt/lustre/at003...|1778|      886      |  829|
+    # |/mnt/lustre/at003...|1810|      446      |  422|
+    # |/mnt/lustre/at003...|1823|      878      |  833|
+    # +--------------------+----+---------+-----------+
 
     # I need to take the number of words per page!
     #todo return result
