@@ -259,7 +259,7 @@ In “source_text_clean”, I store the result of applying two modifications to 
 
 
 ```bash
-spark-submit --driver-class-path elasticsearch-hadoop-7.5.0/dist/elasticsearch-hadoop-7.5.0.jar --jars elasticsearch-hadoop-7.5.0/dist/elasticsearch-hadoop-7.5.0.jar  --py-files defoe.zip defoe/run_query.py nls-data.txt nls defoe.nls.queries.write_pages_df_es  queries/preprocess.yml -r results -n 324
+spark-submit --driver-class-path elasticsearch-hadoop-7.5.0/dist/elasticsearch-hadoop-7.5.0.jar --jars elasticsearch-hadoop-7.5.0/dist/elasticsearch-hadoop-7.5.0.jar  --py-files defoe.zip defoe/run_query.py nls-data.txt nls defoe.nls.queries.write_pages_df_es -r results -n 324
 ```
 
 Important:
