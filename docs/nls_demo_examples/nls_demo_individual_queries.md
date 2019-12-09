@@ -128,7 +128,7 @@ xxx/nls -data-encyclopaediaBritannica/193916150
  hdfs dfs -getmerge /user/at003/rosa/nls_demo.csv nls_demo.csv
 ```
 
-Read pages (preprocessed or just clean) as Dataframes from HDFS CSV file, and do a [keysentence search](https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/keysearch_by_year.py) groupping results by year.
+Read pages (preprocessed or just clean) as Dataframes from HDFS CSV file, and do a [keysearch](https://github.com/alan-turing-institute/defoe/blob/master/defoe/hdfs/queries/keysearch_by_year.py) groupping results by year.
 
 In [hdfs_data.txt](https://github.com/alan-turing-institute/defoe/blob/master/hdfs_data.txt) we have to indicate the HDFS file that we want to read from (e.g. hdfs:///user/at003/rosa/nls_demo.csv)
 	
@@ -245,7 +245,7 @@ defoe_db=# \d+ publication_page
   
 ```
 
-Read pages (preprocessed or just clean) as Dataframes from PostgreSQL database, and do a [keysentence search](https://github.com/alan-turing-institute/defoe/blob/master/defoe/psql/queries/keysearch_by_year.py) groupping results by year.
+Read pages (preprocessed or just clean) as Dataframes from PostgreSQL database, and do a [keysearch](https://github.com/alan-turing-institute/defoe/blob/master/defoe/psql/queries/keysearch_by_year.py) groupping results by year.
 
 In the configuration file (e.g.[queries/sport.yml](https://github.com/alan-turing-institute/defoe/blob/master/queries/sport.yml)) we have to indicate which preprocess treatment (e.g. none, normalize, etc.) we want to use in the query, so we can select the dataframe's columm (e.g. *source_text_clean*, *source_text_norm*, etc.) according to that. 
 
@@ -291,7 +291,7 @@ Important:
 * You need to have the elasticsearch-hadoop driver, or [download it](https://www.elastic.co/downloads/hadoop) and indicate it in the spark-submit command (see previous command). 
 
 
-Read pages (preprocessed or just clean) as Dataframes from ES, and do a [keysentence search](https://github.com/alan-turing-institute/defoe/blob/master/defoe/es/queries/keysearch_by_year.py) groupping results by year.
+Read pages (preprocessed or just clean) as Dataframes from ES, and do a [keysearch](https://github.com/alan-turing-institute/defoe/blob/master/defoe/es/queries/keysearch_by_year.py) groupping results by year.
 
 In the configuration file (e.g.[queries/sport.yml](https://github.com/alan-turing-institute/defoe/blob/master/queries/sport.yml)) we have to indicate which preprocess treatment (e.g. none, normalize, etc.) we want to use in the query, so we can select the dataframe's columm (e.g. *source_text_clean*, *source_text_norm*, etc.) according to that. 
 
