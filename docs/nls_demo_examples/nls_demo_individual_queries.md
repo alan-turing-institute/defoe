@@ -246,6 +246,27 @@ Important: A file with the database properties has to be specified (e.g.[db_data
 #host,port,db_name,user,driver,table_name
 ati-nid00006,55555,defoe_db,rfilguei2,org.postgresql.Driver,publication_page
 
+
+
+# Writing data to ElasticSearch (ES) 
+
+Writing [pages to ES  using dataframes](https://github.com/alan-turing-institute/defoe/blob/master/defoe/nls/queries/write_pages_df_es.py) loads in memory all the pages and their metadata, applies all type of preprocess treatment ot the pages, create a dataframe, store data into the dataframe, and finally save the dataframe into ES. P
+
+The information stored per page is the following:
+"title",  "edition", "year", "place", "archive_filename",  "source_text_filename", "text_unit", "text_unit_id", "num_text_unit", "type_archive", "model", "source_text_raw", "source_text_clean", "source_text_norm", "source_text_lemmatize", "source_text_stem", "num_words". 
+
+In “source_text_clean”, I store the result of applying two modifications to the raw text (source_text_raw): 1) Handle hyphenated words and 2) fix the long-s. The pre-process treatments (*normalize*, *stem* and *lemmatize*) are applied to text stored in this field, and not from the raw one. Both, *stem* and *lemmatize*, they also include normalization.  . 
+
+
+```bash
+spark-submit --driver-class-path elasticsearch-hadoop-7.5.0/dist/elasticsearch-hadoop-7.5.0.jar --jars elasticsearch-hadoop-7.5.0/dist/elasticsearch-hadoop-7.5.0.jar  --py-files defoe.zip defoe/run_query.py nls-data.txt nls defoe.nls.queries.write_pages_df_es  queries/preprocess.yml -r results -n 324
+```
+
+Important:
+* You need to have the elasticsearch-hadoop driver, or [download it](https://www.elastic.co/downloads/hadoop) and indicate it in the spark-submit command (see previous command). 
+
+
+
 # Spark in a SHELL - Pyspark 
 
 Reading **dataframes** from *HDFS*:
