@@ -1,2 +1,4 @@
 index: nls
 type_name: Encyclopaedia_Britannica
+host: tdm-es-01.edina.ac.uk
+port: 9200
