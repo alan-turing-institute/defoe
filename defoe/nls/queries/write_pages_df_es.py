@@ -64,6 +64,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
         config = yaml.load(f)
     es_index=config["index"]
     es_type_name=config["type_name"]
-    
-    df.write.format('org.elasticsearch.spark.sql').option('es.nodes', 'localhost').option('es.port', 9200).option('es.resource', '%s/%s' % (index, es_type_name),).save()
+    es_host=config["host"]
+    es_port=config["port"]
+    df.write.format('org.elasticsearch.spark.sql').option('es.nodes', es_host).option('es.port', es_port).option('es.resource', '%s/%s' % (index, es_type_name),).save()
     return "0"
