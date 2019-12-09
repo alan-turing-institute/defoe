@@ -295,36 +295,55 @@ Reading **dataframes** from *HDFS*:
 ...     return when(col(x) != "", col(x)).otherwise(None)
 >> fdf = df.withColumn("page_string_norm", blank_as_null("page_string_norm"))
  
- >> newdf=fdf.filter(fdf.page_string_raw.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.page_string_raw)
- >> pages=newdf.rdd.map(tuple)
- >> nls_sample=pages.take(8)
- >> entry= nls_sample[8]
- >> year = entry[0]
- >> page_as_string = entry[1]
+>> newdf=fdf.filter(fdf.page_string_raw.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.page_string_raw)
+>> pages=newdf.rdd.map(tuple)
+>> nls_sample=pages.take(8)
+>> entry= nls_sample[8]
+>> year = entry[0]
+>> page_as_string = entry[1]
  
 ```
-
 
 Reading **dataframes** from *PostgreSQL*:
 ```bash
 pyspark --driver-class-path postgresql-42.2.8.jar --jars postgresql-42.2.8.jar
 from pyspark.sql import DataFrameReader
 
->>> from pyspark.sql import DataFrameReader
->>> url = 'postgresql://ati-nid00006:55555/defoe_db'
->>> properties = {'user': 'rfilguei2', 'driver': 'org.postgresql.Driver'}
->>> df = DataFrameReader(sqlContext).jdbc(url='jdbc:%s' % url, table='publication_page' , properties=properties)
+>> from pyspark.sql import DataFrameReader
+>> from pyspark.sql.functions import when, col
+>> url = 'postgresql://ati-nid00006:55555/defoe_db'
+>> properties = {'user': 'rfilguei2', 'driver': 'org.postgresql.Driver'}
+>> df = DataFrameReader(sqlContext).jdbc(url='jdbc:%s' % url, table='publication_page' , properties=properties)
 >> def blank_as_null(x):
 ...     return when(col(x) != "", col(x)).otherwise(None)
->> fdf = df.withColumn("page_string_norm", blank_as_null("page_string_norm"))
+>> fdf = df.withColumn("page_string_norm", blank_as_null("source_text_norm"))
  
- >> newdf=fdf.filter(fdf.page_string_raw.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.page_string_raw)
- >> pages=newdf.rdd.map(tuple)
- >> nls_sample=pages.take(8)
- >> entry= nls_sample[8]
- >> year = entry[0]
- >> page_as_string = entry[1]
- ```
+>> newdf=fdf.filter(fdf.source_text_raw.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.source_text_raw)
+>> pages=newdf.rdd.map(tuple)
+>> nls_sample=pages.take(8)
+>> entry= nls_sample[8]
+>> year = entry[0]
+>> page_as_string = entry[1]
+```
+
+Reading **dataframes** from *ES*:
+```bash
+pyspark --jars elasticsearch-hadoop-7.5.0/dist/elasticsearch-hadoop-7.5.0.jar 
+>> from pyspark.sql.functions import when, col
+>> reader = spark.read.format("org.elasticsearch.spark.sql").option("es.read.metadata", "true").option("es.nodes.wan.only","true").option("es.port","9200").option("es.net.ssl","false").option("es.nodes", "http://localhost")
+>> df = reader.load("nls/Encyclopaedia_Britannica")
+>> def blank_as_null(x):
+...     return when(col(x) != "", col(x)).otherwise(None)
+>> fdf = df.withColumn("page_string_norm", blank_as_null("source_text_norm"))
+ 
+>> newdf=fdf.filter(fdf.source_text_raw.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.source_text_raw)
+>> pages=newdf.rdd.map(tuple)
+>> nls_sample=pages.take(8)
+>> entry= nls_sample[8]
+>> year = entry[0]
+>> page_as_string = entry[1]
+```
+
 
 Reading **rdds**:
 ```bash
