@@ -1,0 +1,2 @@
+#index,type_name
+nls,Encyclopaedia_Britannica
