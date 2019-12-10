@@ -1,2 +1,2 @@
 #index,host,port
-encyclopedia-britannica,tdm-es-01.edina.ac.uk,9200 
+encyclopedia-britannica,localhost,9200 
