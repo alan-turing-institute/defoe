@@ -62,9 +62,6 @@ def do_query(archives, config_file=None, logger=None, context=None):
     df = df.drop('_id')
     with open(config_file, "r") as f:
         config = yaml.load(f)
-    es_index=config["index"]
-    es_type_name=config["type_name"]
-    es_host=config["host"]
-    es_port=config["port"]
-    df.write.format('org.elasticsearch.spark.sql').option('es.nodes', es_host).option('es.port', es_port).option('es.resource', '%s/%s' % (index, es_type_name),).save()
+    df.write.format('org.elasticsearch.spark.sql').option('es.nodes', config["host"]).option('es.port', config["port"]).option('es.resource', config["index"],).option('es.nodes.wan.only',"true").mode('overwrite').save()
+
     return "0"
