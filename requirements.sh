@@ -4,7 +4,7 @@ conda install --yes lxml
 conda install --yes nltk
 conda install --yes pep8
 conda install --yes pylint
-conda install --yes pycodestyle
+#conda install --yes pycodestyle
 conda install --yes pytest
 conda install --yes PyYAML
 conda install --yes regex
