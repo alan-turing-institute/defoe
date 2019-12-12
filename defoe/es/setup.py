@@ -19,10 +19,13 @@ def filename_to_object(filename, context):
 
     lines=open(filename).readlines()
     fields=lines[1].split(",")
-    #index,type_name
+    #index,host,port
     es_index=fields[0]
-    es_type_name=fields[1]
+    es_host=fields[1]
+    es_port=fields[2].rstrip('\n')
+
     sqlContext = SQLContext(context)
-    reader = sqlContext.read.format("org.elasticsearch.spark.sql").option("es.read.metadata", "true").option("es.nodes.wan.only","true").option("es.port","9200").option("es.net.ssl","false").option("es.nodes", "http://localhost")
-    df = reader.load(es_index+"/"+es_type_name)
+    reader = sqlContext.read.format("org.elasticsearch.spark.sql").option("es.read.metadata", "true").option("es.nodes.wan.only","true").option("es.port",es_port).option("es.net.ssl","false").option("es.nodes", "http://"+es_host)
+    df = reader.load(es_index)
     return df
+
