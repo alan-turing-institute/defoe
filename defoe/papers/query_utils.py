@@ -5,7 +5,9 @@ Query-related utility functions.
 from nltk.corpus import stopwords
 
 from defoe import query_utils
+from defoe.query_utils import PreprocessWordType, longsfix_sentence
 from defoe.query_utils import PreprocessWordType
+import re
 
 
 def get_article_matches(issue,
@@ -230,3 +232,75 @@ def get_concordance(article,
         concordance_words.append(
             query_utils.preprocess_word(word, preprocess_type))
     return concordance_words
+
+
+
+def clean_article_as_string(article):
+        
+    """
+    Clean a article as a single string,
+    Handling hyphenated words: combine and split and also fixing the long-s
+
+    :param article: Article
+    :type article: defoe.papers.article.Article
+    :return: clean article words as a string
+    :rtype: string or unicode
+    """
+    article_string = ''
+    for word in article.words:
+        if article_string == '':
+            article_string = word
+        else:
+            article_string += (' ' + word)
+
+    article_separete = article_string.split('- ')
+    article_combined = ''.join(article_separete)
+   
+    if (len(article_combined) > 1) and ('f' in article_combined): 
+       article_clean = longsfix_sentence(article_combined) 
+       return article_clean
+    else:
+        return article_combined
+
+def preprocess_clean_article(clean_article,
+                          preprocess_type=PreprocessWordType.LEMMATIZE):
+
+
+    clean_list = clean_article.split(' ') 
+    article_string = ''
+    for word in clean_list:
+        preprocessed_word = query_utils.preprocess_word(word,
+                                                         preprocess_type)
+        if article_string == '':
+            article_string = preprocessed_word
+        else:
+            article_string += (' ' + preprocessed_word)
+    return article_string
+
+def get_sentences_list_matches(text, keysentence):
+    """
+    Check which key-sentences from occurs within a string
+    and return the list of matches.
+
+    :param text: text
+    :type text: str or unicode
+    :type: list(str or uniocde)
+    :return: Set of sentences
+    :rtype: set(str or unicode)
+    """
+    match = []
+    text_list= text.split()
+    for sentence in keysentence:
+        if len(sentence.split()) > 1:
+            if sentence in text:
+                count = text.count(sentence)
+                for i in range(0, count):
+                    match.append(sentence)
+        else:
+            pattern = re.compile(r'^%s$'%sentence)
+            for word in text_list:
+                if re.search(pattern, word):
+                    match.append(sentence)
+    return sorted(match)
+
+
