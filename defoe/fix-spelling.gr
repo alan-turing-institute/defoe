@@ -1,0 +1,27 @@
+<rules apply="top">
+
+
+<rule name="top">
+  <first>
+
+    <regex match="[a-z][A-Za-z]+" rewrite="$good">
+      <constraint test="spelling()"/>
+      <var name="good" value="spelling()/@good"/>
+    </regex>
+
+    <regex match="[A-Z][A-Za-z]+" rewrite="$capgood">
+      <constraint test="spelling()"/>
+      <var name="good" value="spelling()/@good"/>
+      <var name="first" value="substring($good, 1, 1)"/>
+      <var name="rest" value="substring($good, 2)"/>
+      <var name="capfirst" value="translate($first, 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
+      <var name="capgood" value="concat($capfirst, $rest)"/>
+    </regex>
+
+    <regex match="[A-Za-z]+"/>
+
+  </first>
+</rule>
+
+</rules>
+
