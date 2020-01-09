@@ -11,7 +11,7 @@ import re
 
 
 def get_article_matches(issue,
-                        keywords,
+                        keysentences,
                         preprocess_type=PreprocessWordType.LEMMATIZE):
     """
     Get articles within an issue that include one or more keywords.
@@ -37,19 +37,15 @@ def get_article_matches(issue,
     :rtype: list(tuple)
     """
     matches = []
-    for keyword in keywords:
+    for keysentence in keysentences:
         for article in issue:
-            match = None
-            for word in article.words:
-                preprocessed_word = query_utils.preprocess_word(
-                    word,
-                    preprocess_type)
-                if preprocessed_word == keyword:
-                    match = (issue.date.date(), issue, article, keyword)
-                    break
-            if match:
+            sentence_match = None
+            clean_article=clean_article_as_string(article)
+            preprocess_article=preprocess_clean_article(clean_article, preprocess_type)
+            sentence_match = get_sentences_list_matches(preprocess_article, keysentence)
+            if sentence_match:
+                match = (issue.date.date(), issue, article, keysentence, clean_article)
                 matches.append(match)
-                continue  # move to next article
     return matches
 
 
