@@ -1,2 +1,2 @@
-preprocess: lemmatize
-data: menstrual.txt
+preprocess: normalize
+data: menstrual_sort.txt
