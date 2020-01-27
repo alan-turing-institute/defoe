@@ -3,12 +3,18 @@ Query-related utility functions.
 """
 
 from defoe import query_utils
+<<<<<<< HEAD
 from defoe.query_utils import PreprocessWordType, longsfix_sentence, xml_geo_entities, georesolve_cmd,  coord_xml, geomap_cmd, geoparser_cmd, geoparser_coord_xml
 from nltk.corpus import words
 import re
 import spacy
 NON_AZ_REGEXP = re.compile('[^a-z]')
 
+=======
+from defoe.query_utils import PreprocessWordType, longsfix_sentence
+from nltk.corpus import words
+import re
+>>>>>>> 8ead3f0ae20d2f83ae7cff5f82b8b7b33905ccb9
 
 def get_page_matches(document,
                      keywords,
@@ -244,6 +250,7 @@ def get_sentences_list_matches(text, keysentence):
     return sorted(match)
 
 
+<<<<<<< HEAD
 def preprocess_clean_page_spacy(clean_page,
                           preprocess_type=PreprocessWordType.LEMMATIZE):
 
@@ -298,3 +305,5 @@ def geomap_page(doc):
             geomap_html=geomap_cmd(in_xml)
     #return str(geomap_html)
     return geomap_html
+=======
+>>>>>>> 8ead3f0ae20d2f83ae7cff5f82b8b7b33905ccb9

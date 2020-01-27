@@ -12,7 +12,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
     """
     Ingest NLS pages, applies all 4 preprocess treatments (none, normalize, lemmatize, stem) to each page, and save them to ES, with some metadata associated with each page.
     Metadata collected: tittle, edition, year, place, archive filename, page filename, page id, num pages, 
-    type of archive, model, source_text_raw, source_text_norm, source_text_lemmatize, source_text_stem, num_page_words
+    type of archive, model, source_text_raw, source_text_norm, source_text_lemmatize, source_text_stem, source_text_spacy_nlp, num_page_words
 
     Data is saved as Dataframes into ElasticSearch: Index:'nls'  Type:'Encyclopaedia_Britannica'
 
@@ -54,7 +54,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
                                clean_page[3], clean_page[4], clean_page[5], clean_page[6], clean_page[7], \
                                clean_page[8], clean_page[9], clean_page[10], clean_page[11],\
                                clean_page[12], preprocess_clean_page(clean_page[12], preprocess_normalize),\
-                               preprocess_clean_page(clean_page[12], preprocess_lemmatize), preprocess_clean_page(clean_page[12], preprocess_stem), clean_page[13])])
+                               preprocess_clean_page(clean_page[12], preprocess_lemmatize), preprocess_clean_page(clean_page[12], preprocess_stem),clean_page[13])])
 
 
     nlsRow=Row("title",  "edition", "year", "place", "archive_filename",  "source_text_filename", "text_unit", "text_unit_id", "num_text_unit", "type_archive", "model", "source_text_raw", "source_text_clean", "source_text_norm", "source_text_lemmatize", "source_text_stem","num_words")
