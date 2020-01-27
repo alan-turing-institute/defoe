@@ -1,0 +1,80 @@
+#!/bin/sh
+
+usage="geogaz -g gazetteer [-c county (deep only)] [-r begindate enddate (deep only)] <input.xml >output.xml"
+descr="Run the gazetteer lookup part of geogrounding"
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    -g)
+      gazetteer=$1
+      shift
+      ;;
+    -c)
+      county=$1
+      shift
+      ;;
+    -r)
+      begin=$1
+      end=$2
+      shift 2
+      ;;
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+if [ -z "$gazetteer" ]; then
+  echo "usage: $usage" >&2
+  exit 2
+fi
+
+lib=$here/lib/georesolve
+
+if [ ! -x "$here/scripts/gazlookup-$gazetteer" ]; then
+  echo "unknown gazetteer $gazetteer" >&2
+  echo "usage: $usage" >&2
+  exit 2
+fi
+  
+cat >$tmp-input
+
+cat $tmp-input |
+lxt -s $lib/addaltname.xsl |
+lxreplace -q "@rbid" -n "'id'" |
+lxt -s $lib/extractlocs.xsl >$tmp-gazin
+
+if [ -z "$begin" ]; then
+
+  if [ -z "$county" ]; then
+
+  $here/scripts/gazlookup-$gazetteer <$tmp-gazin >$tmp-gazout
+
+  else
+
+  $here/scripts/gazlookup-$gazetteer -c "$county" <$tmp-gazin >$tmp-gazout
+
+  fi
+
+else
+
+  if [ -z "$county" ]; then
+
+  $here/scripts/gazlookup-$gazetteer -r "$begin" "$end" <$tmp-gazin >$tmp-gazout
+
+  else
+
+  $here/scripts/gazlookup-$gazetteer -c "$county" -r "$begin" "$end" <$tmp-gazin >$tmp-gazout
+
+  fi
+
+fi
+
+cat $tmp-gazout |
+lxsort placename place @gazref |
+lxuniq placename place @gazref 
+

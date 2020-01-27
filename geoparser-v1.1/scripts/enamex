@@ -1,0 +1,34 @@
+#!/bin/sh 
+
+usage="enamex <input.xml >output.xml"
+descr="Mark up enamex entities using lxtransduce enamex grammars and lexicons"
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+lib=$here/lib/ner
+
+lxtransduce -q s -l lex="$lib/enamex.lex" $lib/enamex.gr |
+lxreplace -q "enamex[substring]" -t "<enamex altname='{substring}'>&attrs;&children;</enamex>" |
+lxreplace -q substring |
+lxreplace -q "enamex//enamex" > $tmp-pre-otf
+
+$here/scripts/onthefly <$tmp-pre-otf >$tmp-otf.lex
+
+lxtransduce -q s -l lex=$tmp-otf.lex $lib/enamex2.gr <$tmp-pre-otf |
+lxreplace -q subname |
+lxaddids -p "'rb'" -e "enamex|timex" |
+lxtransduce -q s $lib/reln.gr |
+lxreplace -q "@reln" |
+lxreplace -q "enamex[@type='location' and .~'^(US|U\.S\.|U\.S|USA|U\.S\.A\.|U\.S\.A)$']" -t "<enamex abbrev-for='United States'>&attrs;&children;</enamex>" |
+lxreplace -q "enamex[@type='location' and .~'^(UK|U\.K\.|U\.K)$']" -t "<enamex abbrev-for='United Kingdom'>&attrs;&children;</enamex>" |
+lxreplace -q "enamex[@type='location' and .~'^(SA|S\.A\.|S\.A)$']" -t "<enamex abbrev-for='South Africa'>&attrs;&children;</enamex>"

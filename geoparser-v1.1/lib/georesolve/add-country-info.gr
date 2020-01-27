@@ -1,0 +1,14 @@
+<!-- Add country codes to places that are countries. -->
+
+<rules type="xml" apply="place"> 
+
+<rule name="place" attrs="cc='$cc' pop='$pop'">
+  <query match="place[@type='country']">
+     <var name="country" value="countries(../@name)"/>
+     <constraint test="$country"/>
+     <var name="cc" value="$country/@code"/>
+     <var name="pop" value="$country/@pop"/>
+  </query>
+</rule>
+
+</rules>

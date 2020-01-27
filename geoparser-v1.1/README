@@ -1,0 +1,156 @@
+To test the pipeline, do this:
+
+cd scripts
+cat ../in/172172.txt | ./run -t plain -g unlock
+
+This uses the option of plain text input and uses unlock as the
+gazetteer. The output xml file is sent to stdout.
+
+
+VISUALISATION OUTPUT: -o
+========================
+
+To run and create visualisation files:
+
+cat ../in/172172.txt | ./run -t plain -g unlock -o ../out 172172
+
+Same as before except that -o takes two args, an output directory
+(../out) and a prefix for the output file names (172172). The results
+appear in the output directory (../out):
+
+../out/172172.display.html  ../out/172172.geotagged.html
+../out/172172.events.xml    ../out/172172.out.xml
+../out/172172.gaz.xml       ../out/172172.nertagged.xml
+../out/172172.gazlist.html  ../out/172172.timeline.html
+../out/172172.gazmap.html   
+
+172172.display.html is the geoparser map display.
+172172.timeline.html is the timeline display (note that person, location, 
+organisation and date entities are highlighted in this display). 
+172172.out.xml is the output that goes to stdout when it is run
+without -o.
+The other files are ones used for the map and timeline display or ones
+which may be useful in their own right.
+
+
+SINGLE PLACENAME MARKERS: -top 
+==============================
+
+By default, all candidate placenames are shown in the display, with
+the top-ranked one in green and the rest in red. If the -top option is
+added to the command line then three extra display files will be
+created, which show only the top-ranked candidate for each place, not
+all the alternatives considered. For the example used above the extra
+files would be:
+
+../out/172172.display-top.html  ../out/172172.gazmap-top.html
+../out/172172.gazlist-top.html
+
+172172.gazlist-top.html is the geoparser map display with only one
+placename marker per toponym.
+
+
+INPUT TYPE AND GAZETTEER: -t -g
+===============================
+
+The options for type (-t) and gazetteer (-g) are:
+
+    -t   plain          (plain text)
+    	 ltgxml         (xml file in a certain format with paragraphs marked up)
+	 gb             (Google Books html files)
+
+    -g	 unlock         (Edina's gazetteer of mainly UK placenames)
+    	 os             (Just the OS part of Unlock)
+    	 naturalearth   (Just the Natural Earth part of Unlock)
+    	 geonames       (online world-wide gazetteer)
+	 plplus         (Pleiades+ gazetteer of ancient places, on Edina)
+         deep           (DEEP gazetteer of historical placenames in England)
+
+       [ geonames-local (locally maintained copy on of Geonames) ]
+       [ plplus-local   (locally maintained Pleiades+, with geonames lookup) ]
+
+The last two gazetteer options will only be usable if local gazetteers
+are maintained; they are included in case useful. The full
+documentation includes information on how to use them.
+
+If your input is XML with paragraphs already marked, it may be worth converting
+it to ltgxml format. See the example in/172172.xml for the format.
+
+For Google Books input, which can be extremely untidy, pre-processing is done
+to ensure it doesn't break the XML processes in the pipeline.
+
+
+DOCDATE: -d
+===========
+
+If you know the creation/writing date of the document you can supply
+this with -d:
+
+cat ../in/172172.txt | ./run -t plain -g unlock -d 2010-08-13
+cat ../in/172172.txt | ./run -t plain -g unlock -o ../out 172172 -d 2010-08-13 
+
+cat ../in/richard111.txt | ./run -t plain -g unlock -o ../out richard111
+cat ../in/richard111.txt | ./run -t plain -g unlock -o ../out richard111 -d 2015-03-18
+
+This will be used in event and relation detection and timeline display.
+
+
+LIMITING GEOGRAPHICAL AREA: -l -lb
+==================================
+
+If you know that toponyms in your text are likely to be in a particular 
+geographical area you can specify a bounding circle locality (-l) or a
+rectangular locality box (-lb). The geoparser will prefer places in the
+area specified but will still choose locations outside it if other factors
+give them higher weighting.
+
+To specify a circular locality:
+
+-l lat long radius score
+
+where lat and long are in decimal degrees (ie 57.5 for 57 degrees 30 mins)
+      radius is in km
+      score is a numeric weight assigned to locations within the area (else 0).
+
+To specify a locality box:
+
+-lb W N E S score
+
+where  W(est) N(orth) E(ast) S(outh) are decimal degrees
+      score is as for -l option.
+
+
+DEEP ONLY OPTIONS: -c -r
+========================
+
+For DEEP a new -c option has been added. This allows the user to
+specify the county that the document is about in order to only
+consider DEEP gaz entries for that county. Multiple uses of -c allow
+several counties to be specified. For example:
+
+cat <infile> | ./run -t plain -g deep -c Oxfordshire -c Wiltshire 
+
+The values for -c are the county names in the DEEP gazetteer:
+
+Bedfordshire, Berkshire, Buckinghamshire, Cambridgeshire, Cheshire,
+Cumberland, Derbyshire, Devon, Dorset, Durham, East Riding of
+Yorkshire, Essex, Gloucestershire, Hertfordshire, Huntingdonshire,
+Leicestershire, Lincolnshire, Middlesex, Norfolk, North Riding of
+Yorkshire, Northamptonshire, Nottinghamshire, Oxfordshire, Rutland,
+Shropshire, Staffordshire, Surrey, Sussex, The Isle of Ely,
+Warwickshire, West Riding of Yorkshire, Westmorland, Wiltshire,
+Worcestershire.
+
+Note that county names with white space need to be enclosed in double quotes:
+
+cat <infile> | ./run -t plain -g deep -c Oxfordshire -c Wiltshire -c
+"North Riding of Yorkshire" -c "East Riding of Yorkshire" -c "West
+Riding of Yorkshire"
+
+A new [-r begindate enddate ] option is also available for DEEP to
+restrict the choice of DEEP gazetteer records which have attestation
+dates withing the date range:
+
+cat ../in/essexff.txt | ./run -t plain -g deep -c Essex -r 1000 1400
+
+===============================================================================

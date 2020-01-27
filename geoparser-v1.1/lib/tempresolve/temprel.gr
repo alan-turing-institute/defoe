@@ -1,0 +1,73 @@
+<rules name="temprel" type="xml" apply="all"> 
+
+<rule name="finite-vg">
+  <first>
+    <query match="vg[@tense='pres' and @asp='simple' and @modal='no']"/>
+    <query match="vg[@tense='past' and @modal='no']"/>
+    <query match="vg[@tense='fut' and @asp='simple' and @modal='yes']"/>
+    <query match="vg[@tense='nonfin' and @asp='simple' and @voice='pass' and not(w[2])]"/>
+    <query match="vg[@tense='presorbase' and @asp='simple' and @modal='no']"/>
+  </first>
+</rule>
+
+<rule name="date">
+  <query match="timex[@type='date']"/>
+</rule>
+
+<rule name="finite-date" wrap="reln" attrs="type='simultaneous'">
+  <first>
+    <seq>
+      <ref name="finite-vg" attrs="eventarg='yes'"/>
+      <query match="*[not(self::timex) and not(self::vg) and not(self::ng)]" mult="*"/>
+      <ref name="date"  attrs="datearg='yes'"/>
+    </seq>
+    <seq>
+      <query match="ng" attrs="eventarg='yes'"/>
+      <query match="*[not(self::timex) and not(self::vg) and not(self::ng)]" mult="*"/>
+      <ref name="date"  attrs="datearg='yes'"/>
+    </seq>
+    <seq>
+      <ref name="date"  attrs="datearg='yes'"/>
+      <query match="*[not(self::timex) and not(self::vg)]" mult="*"/>
+      <ref name="finite-vg" attrs="eventarg='yes'"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="past-pubdate" wrap="reln" attrs="type='beforeorincl'">
+  <first>
+    <seq attrs="eventarg='yes'">
+      <query match="vg[@tense='past' and @asp='simple' and @modal='no']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="since" wrap="reln" attrs="type='before'">
+  <seq>
+    <seq attrs="eventarg1='yes'">
+      <first>
+        <query match="vg[@tense='past' and @asp='simple' and @modal='no']"/>
+        <query match="ng"/>
+      </first>
+    </seq>
+    <query match="*[not(.='since') and not(self::timex) and not(self::vg) and not(self::ng)]" mult="*"/>
+    <query match="w[.='since']"/>
+    <query match="*[not(self::timex) and not(self::vg) and not(self::ng)]" mult="*"/>
+    <seq attrs="eventarg2='yes'">
+      <first>
+        <query match="vg[@tense='past' and @asp='simple' and @modal='no']"/>
+        <query match="ng"/>
+      </first>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="all">
+  <first>
+    <ref name="finite-date"/>
+    <ref name="since"/>
+    <ref name="past-pubdate"/>
+  </first>
+</rule>
+
+</rules>

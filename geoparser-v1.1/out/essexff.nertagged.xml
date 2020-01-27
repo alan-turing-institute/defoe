@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document version="3">
+<meta>
+<attr wdaynum="3" day="Wednesday" day-number="736017" sdate="2016-02-24" date="24" month="02" year="2016" id="docdate" name="docdate">20160224</attr>
+<attr date="20151216" name="tokeniser_version"/></meta>
+<text>
+<p><s id="s1"><w quty="82" p="CD" id="w13" c="cd" pws="yes">82</w> <enamex id="rb1" type="organization"><w common="true" p="NN" id="w16" c="w" pws="yes" l="foot">FEET</w> <w p="IN" id="w21" c="w" pws="yes">OF</w> <w common="true" p="NNS" id="w24" c="w" pws="yes" l="fine">FINES</w></enamex> <w p="IN" id="w30" c="w" pws="yes">FOR</w> <enamex id="rb2" conf="low" type="location"><w p="NNP" id="w34" c="w" pws="yes" l="essex" locname="single" alsource="true">ESSEX</w></enamex><w p="." id="w39" pws="no" sb="true" c=".">.</w></s></p> 
+
+<p><s id="s2"><w quty="242" p="CD" id="w43" c="cd" pws="yes">242</w><w p="." id="w46" pws="no" sb="true" c=".">.</w></s> <s id="s3"><w common="true" p="JJ" id="w48" c="w" pws="yes">Same</w> <w common="true" p="NN" id="w53" c="w" pws="yes" l="date">date</w><w p="." id="w57" pws="no" sb="true" c=".">.</w></s> <s id="s4"><w p="NNP" id="w59" c="w" pws="yes" l="sanson" locname="single" alsource="true">Sanson</w> <w p="NNP" id="w66" c="w" pws="yes" l="le">le</w> <w p="NNP" id="w69" c="w" pws="yes" l="turnur">Turnur</w><w p="," id="w75" pws="no" c="cm">,</w> <w p="NN" id="w77" c="w" pws="yes" l="dem">dem</w><w p="." id="w80" pws="no" sb="true" c=".">.</w></s> <s id="s5"><enamex id="rb3" type="person"><w pername="true" p="NNP" id="w82" c="w" pws="yes" l="william" wfirstn="true">William</w> <w p="NNP" id="w90" c="w" pws="yes" l="escutard">Escutard</w></enamex><w p="," id="w98" pws="no" c="cm">,</w> <w common="true" quty="10" p="NN" id="w100" c="cd" pws="yes" l="ten">ten</w><w p="." id="w103" pws="no" sb="true" c=".">.</w></s> <s id="s6"><w quty="30" p="CD" id="w105" c="cd" pws="yes">30</w> <w common="true" p="NNS" id="w108" c="w" pws="yes" l="acre">acres</w> 
+<w p="IN" id="w115" c="w" pws="yes">of</w> <w common="true" p="NN" id="w118" c="w" pws="yes" l="land">land</w> <w p="IN" id="w123" c="w" pws="yes">with</w> <w p="NNS" id="w128" c="w" pws="yes" l="appurt">appurts</w><w p="." id="w135" pws="no" sb="true" c=".">.</w></s> <s id="s7"><w p="IN" id="w137" c="w" pws="yes">in</w> <enamex id="rb4" type="location" deepsource="true" counties="Essex"><w p="NNP" id="w140" c="w" pws="yes" l="teye">Teye</w></enamex><w p="." id="w144" pws="no" sb="true" c=".">.</w></s> <s id="s8"><w p="NNP" id="w146" c="w" pws="yes" l="recog">Recog</w><w p="." id="w151" pws="no" sb="true" c=".">.</w></s> <s id="s9"><w p="IN" id="w153" c="w" pws="yes">of</w> <w common="true" p="NN" id="w156" c="w" pws="yes" l="mort">mort</w> <w p="NN" id="w161" c="w" pws="yes" l="d">d</w><w p="POS" id="w162" pws="no" qut="s" c="lquote">'</w><w p="DT" id="w163" pws="no" c="w">a</w><w p="." id="w164" pws="no" sb="true" c=".">.</w></s> <s id="s10"><enamex id="rb5" conf="low" type="location"><w p="NNP" id="w166" c="w" pws="yes" l="dem" wfirstn="true" locname="single" alsource="true">Dem</w></enamex><w p="." id="w169" pws="no" sb="true" c=".">.</w></s> <s id="s11"><w p="VBN" id="w171" c="w" pws="yes" l="quitclaim">quitclaimed</w> <w p="TO" id="w183" c="w" pws="yes">to</w> <w quty="10" p="VB" id="w186" c="cd" pws="yes" l="ten">ten</w><w p="." id="w189" pws="no" sb="true" c=".">.</w></s> 
+<s id="s12"><w p="NNP" id="w192" c="abbr" pws="yes" l="cons.">Cons.</w><w p="," id="w197" pws="no" c="cm">,</w> <w quty="1" p="CD" id="w199" c="cd" pws="yes">1</w> <w p="NNS" id="w201" c="abbr" pws="yes" l="8">8s</w><w p="." id="w203" pws="no" sb="true" c=".">.</w></s> <s id="s13"><w common="true" p="NN" id="w205" c="w" pws="yes" l="sterling" vstem="sterl">sterling</w><w p="." id="w213" pws="no" sb="true" c=".">.</w></s></p> 
+
+<p><s id="s14"><w quty="243" p="CD" id="w217" c="cd" pws="yes">243</w><w p="." id="w220" pws="no" sb="true" c=".">.</w></s> <s id="s15"><w common="true" p="JJ" id="w222" c="w" pws="yes">Same</w> <w common="true" p="NN" id="w227" c="w" pws="yes" l="date">date</w> <w p="IN" id="w232" c="w" pws="yes">as</w> <w quty="168" p="CD" id="w235" c="cd" pws="yes">168</w><w p="." id="w238" pws="no" sb="true" c=".">.</w></s> <s id="s16"><enamex id="rb6" subtype="otf" type="person"><w p="NNP" id="w240" c="w" pws="yes" l="godsalm">Godsalm</w> <w p="NNP" id="w248" c="w" pws="yes" l="fitz" wfirstn="true" locname="single" alsource="true" edsource="true">Fitz</w></enamex> <w p="NNP" id="w253" c="w" pws="yes" l="turbern">Turbern</w><w p="," id="w260" pws="no" c="cm">,</w> <w p="NN" id="w262" c="w" pws="yes" l="dem">dem</w><w p="." id="w265" pws="no" sb="true" c=".">.</w></s> <s id="s17"><enamex id="rb7" type="person"><w pername="true" p="NNP" id="w267" c="w" pws="yes" l="martin" wfirstn="true">Martin</w> <w p="NNP" id="w274" c="w" pws="yes" l="fitz" wfirstn="true" locname="single" alsource="true" edsource="true">Fitz</w> <w pername="true" p="NNP" id="w279" c="w" pws="yes" l="william" wfirstn="true">William</w></enamex><w p="," id="w286" pws="no" c="cm">,</w> 
+<w common="true" quty="10" p="NN" id="w289" c="cd" pws="yes" l="ten">ten</w><w p="." id="w292" pws="no" sb="true" c=".">.</w></s> <s id="s18"><w quty="10" p="CD" id="w294" c="cd" pws="yes">10</w> <w common="true" p="NNS" id="w297" c="w" pws="yes" l="acre">acres</w> <w p="IN" id="w303" c="w" pws="yes">of</w> <w common="true" p="NN" id="w306" c="w" pws="yes" l="land">land</w> <w p="IN" id="w311" c="w" pws="yes">with</w> <w p="NNS" id="w316" c="w" pws="yes" l="appurt">appurts</w><w p="." id="w323" pws="no" sb="true" c=".">.</w></s> <s id="s19"><w p="IN" id="w325" c="w" pws="yes">in</w> <enamex id="rb8" altname="Tyllebir" type="location"><w common="true" p="NNP" id="w328" c="w" pws="yes" l="west" wfirstn="true">West</w> <w p="NNP" id="w333" c="w" pws="yes" l="tyllebir">Tyllebir</w></enamex><w p="POS" id="w341" pws="no" qut="s" c="lquote">'</w><w p="." id="w342" pws="no" sb="true" c=".">.</w></s> <s id="s20"><w p="NNP" id="w344" c="w" pws="yes" l="recog">Recog</w><w p="." id="w349" pws="no" sb="true" c=".">.</w></s> <s id="s21"><w p="IN" id="w351" c="w" pws="yes">of</w> <w common="true" p="NN" id="w354" c="w" pws="yes" l="mort">mort</w> <w p="NN" id="w359" c="w" pws="yes" l="d">d</w><w p="POS" id="w360" pws="no" qut="s" c="lquote">'</w><w p="DT" id="w361" pws="no" c="w">a</w><w p="." id="w362" pws="no" sb="true" c=".">.</w></s> <s id="s22"><enamex id="rb9" conf="low" type="location"><w p="NNP" id="w364" c="w" pws="yes" l="dem" wfirstn="true" locname="single" alsource="true">Dem</w></enamex><w p="." id="w367" pws="no" sb="true" c=".">.</w></s> 
+<s id="s23"><w p="VBN" id="w370" c="w" pws="yes" l="grant">granted</w> <w p="TO" id="w378" c="w" pws="yes">to</w> <w quty="10" p="VB" id="w381" c="cd" pws="yes" l="ten">ten</w><w p="." id="w384" pws="no" sb="true" c=".">.</w></s> <s id="s24"><w p="DT" id="w386" c="w" pws="yes">a</w> <w p="NN" id="w388" c="w" pws="yes" l="moiety">moiety</w> <w p="IN" id="w395" c="w" pws="yes">of</w> <w p="DT" id="w398" c="w" pws="yes">the</w> <w p="VBD" id="w402" c="w" pws="yes" l="say">said</w> <w common="true" p="NN" id="w407" c="w" pws="yes" l="land">land</w><w p="," id="w411" pws="no" c="cm">,</w> <w p="TO" id="w413" c="w" pws="yes">to</w> <w p="VB" id="w416" c="w" pws="yes" l="wit">wit</w><w p="," id="w419" pws="no" c="cm">,</w> <w p="IN" id="w421" c="w" pws="yes">that</w> <w p="WDT" id="w426" c="w" pws="yes">which</w> <w p="NN" id="w432" c="w" pws="yes" l="tibique">tibique</w> <w p="VBZ" id="w440" c="w" pws="yes" l="lie">lies</w> <w p="IN" id="w445" c="w" pws="yes">towards</w> <w p="DT" id="w453" c="w" pws="yes">the</w> 
+<w common="true" p="NN" id="w458" c="w" pws="yes" l="west">west</w> <w p=":" id="w463" c="cm" pws="yes">;</w> <w p="TO" id="w465" c="w" pws="yes">to</w> <w p="VB" id="w468" c="w" pws="yes" l="hold">hold</w> <w p="IN" id="w473" c="w" pws="yes">of</w> <w p="NN" id="w476" c="w" pws="yes" l="dem">dem</w><w p="." id="w479" pws="no" sb="true" c=".">.</w></s> <s id="s25"><w p="IN" id="w481" c="w" pws="yes">by</w> <w p="DT" id="w484" c="w" pws="yes">the</w> <w common="true" p="JJ" id="w488" c="w" pws="yes">yearly</w> <w common="true" p="NN" id="w495" c="w" pws="yes" l="rent">rent</w> <w p="IN" id="w500" c="w" pws="yes">of</w> <w p="CD" id="w503" c="abbr" pws="yes">i2.</w><w p="NN" id="w506" pws="no" c="w" l="d">d</w><w p="." id="w507" pws="no" sb="true" c=".">.</w></s> <s id="s26"><w common="true" p="NN" id="w509" c="w" pws="yes" l="sterling" vstem="sterl">sterling</w> <w p="IN" id="w518" c="w" pws="yes">for</w> <w p="DT" id="w522" c="w" pws="yes">all</w> <w common="true" p="NN" id="w526" c="w" pws="yes" l="service" vstem="serve">service</w><w p="," id="w533" pws="no" c="cm">,</w> <w p="NNS" id="w535" c="abbr" pws="yes" l="s.f.s">s.f.s</w><w p="." id="w540" pws="no" sb="true" c=".">.</w></s></p> 
+
+<p><s id="s27"><w quty="244" p="CD" id="w544" c="cd" pws="yes">244</w><w p="." id="w547" pws="no" sb="true" c=".">.</w></s> <s id="s28"><w common="true" p="JJ" id="w549" c="w" pws="yes">Same</w> <w common="true" p="NN" id="w554" c="w" pws="yes" l="date">date</w> <w p="IN" id="w559" c="w" pws="yes">as</w> <w quty="170" p="CD" id="w562" c="cd" pws="yes">170</w><w p="." id="w565" pws="no" sb="true" c=".">.</w></s> <s id="s29"><w pername="true" p="NNP" id="w567" c="w" pws="yes" l="william" wfirstn="true">William</w> <w p="NNP" id="w575" c="w" pws="yes" l="gernun">Gernun</w><w p="," id="w581" pws="no" c="cm">,</w> <w p="NN" id="w583" c="w" pws="yes" l="dem">dem</w><w p="." id="w586" pws="no" sb="true" c=".">.</w></s> <s id="s30"><w p="NNP" id="w588" c="w" pws="yes" l="osbert" locname="single" alsource="true">Osbert</w> <w p="NNP" id="w595" c="w" pws="yes" l="de">de</w> <enamex id="rb10" type="location" deepsource="true" counties="Essex"><w p="NNP" id="w598" c="w" pws="yes" l="gladefen">Gladefen</w></enamex><w p="," id="w606" pws="no" c="cm">,</w> <w p="WP" id="w608" c="w" pws="yes">whom</w> 
+<w pername="true" p="NNP" id="w614" c="w" pws="yes" l="alan" wfirstn="true">Alan</w> <w p="NNP" id="w619" c="w" pws="yes" l="de">de</w> <w p="NNP" id="w622" c="w" pws="yes" l="creppinge">Creppinges</w> <w p="VBD" id="w633" c="w" pws="yes" l="vouch">vouched</w> <w p="TO" id="w641" c="w" pws="yes">to</w> <w common="true" p="NN" id="w644" c="w" pws="yes" l="warranty">warranty</w><w p="." id="w652" pws="no" sb="true" c=".">.</w></s> <s id="s31"><w quty="50" p="CD" id="w654" c="cd" pws="yes">50</w> <w common="true" p="NNS" id="w657" c="w" pws="yes" l="acre">acres</w> <w p="IN" id="w663" c="w" pws="yes">of</w> <w common="true" p="NN" id="w666" c="w" pws="yes" l="land">land</w> <w p="IN" id="w671" c="w" pws="yes">with</w> <w p="NNS" id="w676" c="w" pws="yes" l="appurt">appurts</w><w p="." id="w683" pws="no" sb="true" c=".">.</w></s> <s id="s32"><w p="IN" id="w685" c="w" pws="yes">in</w> 
+<enamex id="rb11" type="location" coord="rb11"><w p="NNP" id="w689" c="w" pws="yes" l="alfameston">Alfameston</w></enamex> <w p="CC" id="w700" c="w" pws="yes">and</w> <enamex id="rb12" type="location" coord="rb11"><w p="NNP" id="w704" c="w" pws="yes" l="pebbener">Pebbeners</w></enamex><w p="." id="w713" pws="no" sb="true" c=".">.</w></s> <s id="s33"><w p="NNP" id="w715" c="w" pws="yes" l="recog">Recog</w><w p="." id="w720" pws="no" sb="true" c=".">.</w></s> <s id="s34"><w p="IN" id="w722" c="w" pws="yes">of</w> <w common="true" p="JJ" id="w725" c="w" pws="yes">grand</w> <w p="NN" id="w731" c="w" pws="yes" l="assize">assize</w><w p="." id="w737" pws="no" sb="true" c=".">.</w></s> <s id="s35"><enamex id="rb13" conf="low" type="location"><w p="NNP" id="w739" c="w" pws="yes" l="dem" wfirstn="true" locname="single" alsource="true">Dem</w></enamex><w p="." id="w742" pws="no" sb="true" c=".">.</w></s> <s id="s36"><w p="TO" id="w744" c="w" pws="yes">to</w> <w p="VB" id="w747" c="w" pws="yes" l="hold">hold</w> <w p="IN" id="w752" c="w" pws="yes">of</w> <enamex id="rb14" conf="low" type="location"><w p="NNP" id="w755" c="w" pws="yes" l="osbert" locname="single" alsource="true">Osbert</w></enamex> <w p="IN" id="w762" c="w" pws="yes">by</w> 
+<w p="IN" id="w766" c="w" pws="yes">by</w> <w p="DT" id="w769" c="w" pws="yes">the</w> <w common="true" p="JJ" id="w773" c="w" pws="yes">yearly</w> <w common="true" p="NN" id="w780" c="w" pws="yes" l="rent">rent</w> <w p="IN" id="w785" c="w" pws="yes">of</w> <w quty="20" p="CD" id="w788" c="cd" pws="yes">20</w><w p="NNS" id="w790" pws="no" c="sym" l="*">*</w><w p="." id="w791" pws="no" sb="true" c=".">.</w></s> <s id="s37"><w common="true" p="NN" id="w793" c="w" pws="yes" l="sterling" vstem="sterl">sterling</w> <w p="IN" id="w802" c="w" pws="yes">for</w> <w p="DT" id="w806" c="w" pws="yes">all</w> <w common="true" p="NN" id="w810" c="w" pws="yes" l="service" vstem="serve">service</w><w p="," id="w817" pws="no" c="cm">,</w> <w p="NNS" id="w819" c="abbr" pws="yes" l="s.f.s">s.f.s</w><w p="." id="w824" pws="no" sb="true" c=".">.</w></s> <s id="s38"><w p="NNP" id="w826" c="abbr" pws="yes" l="cons.">Cons.</w><w p="," id="w831" pws="no" c="cm">,</w> <w quty="6" p="CD" id="w833" c="cd" pws="yes">6</w><w p="CD" id="w834" pws="no" c="what">|</w> <w common="true" p="NNS" id="w836" c="w" pws="yes" l="mark">marks</w><w p="." id="w841" pws="no" sb="true" c=".">.</w></s> 
+<s id="s39"><w p="VBN" id="w844" c="w" pws="yes" l="endorse">Endorsed</w><w p=":" id="w852" pws="no" c="cm">:</w> <enamex id="rb15" type="person"><w pername="true" p="NNP" id="w854" c="w" pws="yes" l="alice" wfirstn="true">Alice</w> <w p="NNP" id="w860" c="w" pws="yes" l="pichard">Pichard</w></enamex> <w p="VBD" id="w868" c="w" pws="yes" l="put">put</w> <w p="IN" id="w872" c="w" pws="yes">in</w> <w p="PRP$" id="w875" c="w" pws="yes">her</w> <w common="true" p="NN" id="w879" c="w" pws="yes" l="claim" vstem="claim">claim</w><w p="." id="w884" pws="no" sb="true" c=".">.</w></s> <s id="s40"><w p="(" id="w886" c="br" pws="yes">(</w><enamex id="rb16" type="location" deepsource="true" counties="Dorset"><w p="VB" id="w887" pws="no" c="w" l="see">See</w></enamex> <w p="NN" id="w891" c="abbr" pws="yes" l="no.">No.</w> <w quty="234" p="CD" id="w895" c="cd" pws="yes">234</w><w p="." id="w898" pws="no" c=".">.</w><w p=")" id="w899" pws="no" c="br">)</w></s></p> 
+
+<p><s id="s41"><w quty="245" p="CD" id="w903" c="cd" pws="yes">245</w><w p="." id="w906" pws="no" sb="true" c=".">.</w></s> <s id="s42"><w common="true" p="NNP" id="w908" c="w" pws="yes" l="morrow">Morrow</w> <w p="IN" id="w915" c="w" pws="yes">of</w> <enamex id="rb17" type="person"><w p="NNP" id="w918" c="abbr" pws="yes" l="st.">St.</w> <w pername="true" p="NNP" id="w922" c="w" pws="yes" l="katherine" wfirstn="true">Katherine</w></enamex><w p="," id="w931" pws="no" c="cm">,</w> <w p="IN" id="w933" c="w" pws="yes">at</w> <enamex id="rb18" type="location" deepsource="true" counties="Cheshire, Gloucestershire, Hertfordshire, Huntingdonshire, North Riding of Yorkshire, Worcestershire"><w p="NNP" id="w936" c="w" pws="yes" l="hertford">Hertford</w></enamex><w p="." id="w944" pws="no" sb="true" c=".">.</w></s> <s id="s43"><w pername="true" p="NNP" id="w946" c="w" pws="yes" l="godfrey" wfirstn="true">Godfrey</w> <w p="NNP" id="w954" c="w" pws="yes" l="de">de</w> <w p="NNP" id="w957" c="w" pws="yes" l="rochamsted">Rochamsted</w><w p="," id="w967" pws="no" c="cm">,</w> <w p="NN" id="w969" c="w" pws="yes" l="dem">dem</w><w p="." id="w972" pws="no" sb="true" c=".">.</w></s> 
+<s id="s44"><enamex id="rb19" type="person"><w pername="true" p="NNP" id="w975" c="w" pws="yes" l="walter" wfirstn="true">Walter</w> <w p="NNP" id="w982" c="w" pws="yes" l="fitz" wfirstn="true" locname="single" alsource="true" edsource="true">Fitz</w></enamex> <w p="NNP" id="w987" c="abbr" pws="yes" l="vvansus">VVansi</w><w p="," id="w993" pws="no" c="cm">,</w> <w common="true" quty="10" p="NN" id="w995" c="cd" pws="yes" l="ten">ten</w><w p="." id="w998" pws="no" sb="true" c=".">.</w></s> <s id="s45"><w quty="3" p="CD" id="w1000" c="cd" pws="yes">3</w><w p="JJ" id="w1001" pws="no" c="sym">^</w> <w common="true" p="NNS" id="w1003" c="w" pws="yes" l="acre">acres</w> <w p="IN" id="w1009" c="w" pws="yes">of</w> <w common="true" p="NN" id="w1012" c="w" pws="yes" l="land">land</w> <w p="CC" id="w1017" c="w" pws="yes">and</w> <w p="JJ" id="w1021" c="sym" pws="yes">^</w> <w common="true" p="NN" id="w1023" c="w" pws="yes" l="acre">acre</w> <w p="IN" id="w1028" c="w" pws="yes">of</w> <w common="true" p="NN" id="w1031" c="w" pws="yes" l="meadow">meadow</w> <w p="IN" id="w1038" c="w" pws="yes">with</w> <w p="NNS" id="w1043" c="w" pws="yes" l="appurt">appurts</w><w p="." id="w1050" pws="no" sb="true" c=".">.</w></s> <s id="s46"><w p="IN" id="w1052" c="w" pws="yes">in</w> 
+<w p="NNP" id="w1056" c="w" pws="yes" l="rochamsted">Rochamsted</w><w p="." id="w1066" pws="no" sb="true" c=".">.</w></s> <s id="s47"><w p="NNP" id="w1068" c="w" pws="yes" l="recog">Recog</w><w p="." id="w1073" pws="no" sb="true" c=".">.</w></s> <s id="s48"><w p="IN" id="w1075" c="w" pws="yes">of</w> <w common="true" p="JJ" id="w1078" c="w" pws="yes">grand</w> <w p="NN" id="w1084" c="w" pws="yes" l="assize">assize</w><w p="." id="w1090" pws="no" sb="true" c=".">.</w></s> <s id="s49"><w quty="10" p="CD" id="w1092" c="cd" pws="yes">Ten</w><w p="." id="w1095" pws="no" sb="true" c=".">.</w></s> <s id="s50"><w p="VBN" id="w1097" c="w" pws="yes" l="quitclaim">quitclaimed</w> <w p="TO" id="w1109" c="w" pws="yes">to</w> <w p="VB" id="w1112" c="w" pws="yes" l="dem">dem</w><w p="." id="w1115" pws="no" sb="true" c=".">.</w></s> <s id="s51"><w p="NNP" id="w1117" c="abbr" pws="yes" l="cons.">Cons.</w><w p="," id="w1122" pws="no" c="cm">,</w> <w p="CD" id="w1124" c="abbr" pws="yes">2o.</w><w p="VBZ" id="w1127" pws="no" c="w" l="s">s</w><w p="." id="w1128" pws="no" sb="true" c=".">.</w></s> 
+<s id="s52"><w common="true" p="NN" id="w1131" c="w" pws="yes" l="sterling" vstem="sterl">sterling</w><w p="." id="w1139" pws="no" sb="true" c=".">.</w></s></p> 
+
+<p><s id="s53"><w quty="246" p="CD" id="w1143" c="cd" pws="yes">246</w><w p="." id="w1146" pws="no" sb="true" c=".">.</w></s> <s id="s54"><w common="true" p="JJ" id="w1148" c="w" pws="yes">Same</w> <w common="true" p="NN" id="w1153" c="w" pws="yes" l="date">date</w> <w p="IN" id="w1158" c="w" pws="yes">as</w> <w quty="168" p="CD" id="w1161" c="cd" pws="yes">168</w><w p="." id="w1164" pws="no" sb="true" c=".">.</w></s> <s id="s55"><enamex id="rb20" conf="high" type="location"><w p="NNP" id="w1166" c="w" pws="yes" l="ely" wfirstn="true" locname="single" alsource="true" edsource="true">Ely</w></enamex> <w p="DT" id="w1170" c="w" pws="yes">the</w> <enamex id="rb21" type="person"><w common="true" p="NNP" id="w1174" c="w" pws="yes" l="marshal">Marshal</w></enamex> <w p="CC" id="w1182" c="w" pws="yes">and</w> <enamex id="rb22" type="person"><w common="true" p="NNP" id="w1186" c="w" pws="yes" l="roe">Roes</w></enamex><w p="POS" id="w1190" pws="no" qut="s" c="lquote">'</w> <w p="PRP$" id="w1192" c="w" pws="yes">his</w> <w common="true" p="NN" id="w1196" c="w" pws="yes" l="wife">wife</w><w p="," id="w1200" pws="no" c="cm">,</w> <w p="NN" id="w1202" c="w" pws="yes" l="dem">dem</w><w p="." id="w1205" pws="no" sb="true" c=".">.</w></s> <s id="s56"><w pername="true" p="NNP" id="w1207" c="w" pws="yes" l="william" wfirstn="true">William</w> 
+<w p="NNP" id="w1216" c="w" pws="yes" l="de">de</w> <w p="NNP" id="w1219" c="w" pws="yes" l="rokelunde">Rokelunde</w><w p="," id="w1228" pws="no" c="cm">,</w> <w common="true" quty="10" p="NN" id="w1230" c="cd" pws="yes" l="ten">ten</w><w p="." id="w1233" pws="no" sb="true" c=".">.</w></s> <s id="s57"><w quty="60" p="CD" id="w1235" c="cd" pws="yes">60</w> <w common="true" p="NNS" id="w1238" c="w" pws="yes" l="acre">acres</w> <w p="IN" id="w1244" c="w" pws="yes">of</w> <w common="true" p="NN" id="w1247" c="w" pws="yes" l="land">land</w> <w p="IN" id="w1252" c="w" pws="yes">with</w> <w p="NNS" id="w1257" c="w" pws="yes" l="appurt">appurts</w><w p="." id="w1264" pws="no" sb="true" c=".">.</w></s> <s id="s58"><w p="IN" id="w1266" c="w" pws="yes">in</w> <enamex id="rb23" type="location" deepsource="true" counties="Essex, Gloucestershire"><w p="NNP" id="w1269" c="w" pws="yes" l="brokesheved">Brokesheved</w></enamex><w p="." id="w1280" pws="no" sb="true" c=".">.</w></s> <s id="s59"><w p="NNP" id="w1282" c="w" pws="yes" l="recog">Recog</w><w p="." id="w1287" pws="no" sb="true" c=".">.</w></s> <s id="s60"><w p="IN" id="w1289" c="w" pws="yes">of</w> 
+<w common="true" p="JJ" id="w1293" c="w" pws="yes">grand</w> <w p="NN" id="w1299" c="w" pws="yes" l="assize">assize</w><w p="." id="w1305" pws="no" sb="true" c=".">.</w></s> <s id="s61"><w quty="10" p="CD" id="w1307" c="cd" pws="yes">Ten</w><w p="." id="w1310" pws="no" sb="true" c=".">.</w></s> <s id="s62"><w p="VBD" id="w1312" c="w" pws="yes" l="acknowledge">acknowledged</w> <w p="DT" id="w1325" c="w" pws="yes">the</w> <w p="NN" id="w1329" c="w" pws="yes" l="right">right</w> <w p="IN" id="w1335" c="w" pws="yes">of</w> <w common="true" p="NNP" id="w1338" c="w" pws="yes" l="roe">Roes</w><w p="POS" id="w1342" pws="no" qut="s" c="lquote">'</w><w p="," id="w1343" pws="no" c="cm">,</w> <w p="CC" id="w1345" c="w" pws="yes">and</w> <w p="NN" id="w1349" c="w" pws="yes" l="dem">dem</w><w p="." id="w1352" pws="no" sb="true" c=".">.</w></s> <s id="s63"><w p="VBN" id="w1354" c="w" pws="yes" l="grant">granted</w> <w p="TO" id="w1362" c="w" pws="yes">to</w> <w quty="10" p="VB" id="w1365" c="cd" pws="yes" l="ten">ten</w><w p="." id="w1368" pws="no" sb="true" c=".">.</w></s> <s id="s64"><w p="DT" id="w1370" c="w" pws="yes">a</w> 
+<w p="NN" id="w1373" c="w" pws="yes" l="moiety">moiety</w> <w p="IN" id="w1380" c="w" pws="yes">of</w> <w p="DT" id="w1383" c="w" pws="yes">the</w> <w p="VBD" id="w1387" c="w" pws="yes" l="say">said</w> <w common="true" p="NN" id="w1392" c="w" pws="yes" l="land">land</w> <w p="IN" id="w1397" c="w" pws="yes">with</w> <w p="NN" id="w1402" c="abbr" pws="yes" l="appurt.">appurts.</w><w p="," id="w1410" pws="no" c="cm">,</w> <w p="TO" id="w1412" c="w" pws="yes">to</w> <w p="VB" id="w1415" c="w" pws="yes" l="wit">wit</w><w p="," id="w1418" pws="no" c="cm">,</w> <w p="IN" id="w1420" c="w" pws="yes">that</w> <w p="WDT" id="w1425" c="w" pws="yes">which</w> <w p="NN" id="w1431" c="w" pws="yes" l="ubique">ubique</w> <w p="VBZ" id="w1438" c="w" pws="yes" l="lie">lies</w> <w p="IN" id="w1443" c="w" pws="yes">towards</w> <w p="DT" id="w1451" c="w" pws="yes">the</w> 
+<w common="true" p="JJ" id="w1456" c="w" pws="yes">east</w> <w p=":" id="w1461" c="cm" pws="yes">;</w> <w p="TO" id="w1463" c="w" pws="yes">to</w> <w p="VB" id="w1466" c="w" pws="yes" l="hold">hold</w> <w p="IN" id="w1471" c="w" pws="yes">of</w> <w p="NN" id="w1474" c="abbr" pws="yes" l="dem.">dem.</w><w p="," id="w1478" pws="no" c="cm">,</w> <w p="VBG" id="w1480" c="w" pws="yes" l="do">doing</w> <w p="RB" id="w1486" c="w" pws="yes">therefor</w> <w p="DT" id="w1495" c="w" pws="yes">the</w> <w common="true" p="NN" id="w1499" c="w" pws="yes" l="service" vstem="serve">service</w> <w p="IN" id="w1507" c="w" pws="yes">of</w> <phr c="frac"><w p="DT" id="w1510" c="w" pws="yes">a</w> <w p="JJ" id="w1512" c="w" pws="yes">fourth</w></phr> <w common="true" p="NN" id="w1519" c="w" pws="yes" l="part">part</w> <w p="IN" id="w1524" c="w" pws="yes">of</w> <w quty="1" p="CD" id="w1527" c="cd" pws="yes">one</w> <w common="true" p="NN" id="w1531" c="w" pws="yes" l="knight">knight</w><w p="POS" id="w1537" pws="no" c="aposs">'s</w> 
+<w common="true" p="NN" id="w1541" c="w" pws="yes" l="fee">fee</w> <w p="IN" id="w1545" c="w" pws="yes">for</w> <w p="DT" id="w1549" c="w" pws="yes">all</w> <w common="true" p="NN" id="w1553" c="w" pws="yes" l="service" vstem="serve">service</w><w p="." id="w1560" pws="no" sb="true" c=".">.</w></s> <s id="s65"><w p="IN" id="w1562" c="w" pws="yes">If</w> <w common="true" quty="10" p="NN" id="w1565" c="cd" pws="yes" l="ten">ten</w><w p="." id="w1568" pws="no" sb="true" c=".">.</w></s> <s id="s66"><w p="VBP" id="w1570" c="w" pws="yes" l="have">have</w> <w p="DT" id="w1575" c="w" pws="yes">no</w> <w common="true" p="NN" id="w1578" c="w" pws="yes" l="heir">heir</w> <w p="IN" id="w1583" c="w" pws="yes">by</w> <w p="DT" id="w1586" c="w" pws="yes">a</w> <w common="true" p="NN" id="w1588" c="w" pws="yes" l="wife">wife</w><w p="," id="w1592" pws="no" c="cm">,</w> <w p="DT" id="w1594" c="w" pws="yes">all</w> <w p="DT" id="w1598" c="w" pws="yes">the</w> <w p="VBD" id="w1602" c="w" pws="yes" l="say">said</w> <w common="true" p="NN" id="w1607" c="w" pws="yes" l="land">land</w> <w p="MD" id="w1612" c="w" pws="yes" l="shall">shall</w> <w p="VB" id="w1618" c="w" pws="yes" l="revert">revert</w> <w p="TO" id="w1625" c="w" pws="yes">to</w> 
+<w p="VB" id="w1629" c="w" pws="yes" l="dem">dem</w><w p="." id="w1632" pws="no" sb="true" c=".">.</w></s> <s id="s67"><w p="CC" id="w1634" c="w" pws="yes">and</w> <w p="DT" id="w1638" c="w" pws="yes">the</w> <w common="true" p="NNS" id="w1642" c="w" pws="yes" l="heir">heirs</w> <w p="IN" id="w1648" c="w" pws="yes">of</w> <w common="true" p="NNS" id="w1651" c="w" pws="yes" l="roe">Roes</w><w p="POS" id="w1655" pws="no" qut="s" c="lquote">'</w><w p="." id="w1656" pws="no" sb="true" c=".">.</w></s> <s id="s68"><w p="VBN" id="w1658" c="w" pws="yes" l="endorse">Endorsed</w> <w p=":" id="w1667" c="cm" pws="yes">:</w> <w pername="true" p="NNP" id="w1669" c="w" pws="yes" l="hugh" wfirstn="true">Hugh</w> <w p="NNP" id="w1674" c="w" pws="yes" l="de">de</w> <w p="NNP" id="w1677" c="w" pws="yes" l="marme">Marmes</w> <w p="CC" id="w1684" c="w" pws="yes">and</w> <w p="NNP" id="w1688" c="w" pws="yes" l="awei">Aweis</w><w p="POS" id="w1693" pws="no" qut="s" c="lquote">'</w> <w p="PRP$" id="w1695" c="w" pws="yes">his</w> <w common="true" p="NN" id="w1699" c="w" pws="yes" l="wife">wife</w> 
+<w common="true" p="NN" id="w1705" c="w" pws="yes" l="put">put</w> <w p="IN" id="w1709" c="w" pws="yes">in</w> <w p="PRP$" id="w1712" c="w" pws="yes">their</w> <w common="true" p="NN" id="w1718" c="w" pws="yes" l="claim" vstem="claim">claim</w><w p="." id="w1723" pws="no" sb="true" c=".">.</w></s></p> 
+
+<p><s id="s69"><w quty="247" p="CD" id="w1727" c="cd" pws="yes">247</w><w p="." id="w1730" pws="no" sb="true" c=".">.</w></s> <s id="s70"><w common="true" p="JJ" id="w1732" c="w" pws="yes">Same</w> <w common="true" p="NN" id="w1737" c="w" pws="yes" l="date">date</w><w p="." id="w1741" pws="no" sb="true" c=".">.</w></s> <s id="s71"><enamex id="rb24" subtype="otf" type="person"><w pername="true" p="NNP" id="w1743" c="w" pws="yes" l="alice" wfirstn="true">Alice</w></enamex><w p="," id="w1748" pws="no" c="cm">,</w> <w common="true" p="NNP" id="w1750" c="w" pws="yes" l="matilda" wfirstn="true" locname="single" alsource="true">Matilda</w><w p="," id="w1757" pws="no" c="cm">,</w> <w p="CC" id="w1759" c="w" pws="yes">and</w> <w common="true" p="NNP" id="w1763" c="w" pws="yes" l="roe">Roes</w><w p="POS" id="w1767" pws="no" qut="s" c="lquote">'</w><w p="," id="w1768" pws="no" c="cm">,</w> <w common="true" p="NNS" id="w1770" c="w" pws="yes" l="daughter">daughters</w> <w p="IN" id="w1780" c="w" pws="yes">of</w> <enamex id="rb25" subtype="otf" type="person"><w pername="true" p="NNP" id="w1783" c="w" pws="yes" l="william" wfirstn="true">William</w></enamex><w p="," id="w1790" pws="no" c="cm">,</w> <w p="NN" id="w1792" c="w" pws="yes" l="dem">dem</w><w p="." id="w1795" pws="no" sb="true" c=".">.</w></s> 
+<s id="s72"><w pername="true" p="NNP" id="w1798" c="w" pws="yes" l="simon" wfirstn="true">Simon</w> <w p="DT" id="w1804" c="w" pws="yes">the</w> <w common="true" p="NNP" id="w1808" c="w" pws="yes" l="baker">Baker</w><w p="," id="w1813" pws="no" c="cm">,</w> <w common="true" quty="10" p="NN" id="w1815" c="cd" pws="yes" l="ten">ten</w><w p="." id="w1818" pws="no" sb="true" c=".">.</w></s> <s id="s73"><w quty="7" p="CD" id="w1820" c="cd" pws="yes">7</w><w p="JJ" id="w1821" pws="no" c="sym">^</w> <w common="true" p="NNS" id="w1823" c="w" pws="yes" l="acre">acres</w> <w p="IN" id="w1829" c="w" pws="yes">of</w> <w common="true" p="NN" id="w1832" c="w" pws="yes" l="land">land</w> <w p="IN" id="w1837" c="w" pws="yes">with</w> <w p="NNS" id="w1842" c="w" pws="yes" l="appurt">appurts</w><w p="." id="w1849" pws="no" sb="true" c=".">.</w></s> <s id="s74"><w p="IN" id="w1851" c="w" pws="yes">in</w> <w p="NNP" id="w1854" c="w" pws="yes" l="morton" wfirstn="true" locname="single" alsource="true" edsource="true">Morton</w> <w p="NNP" id="w1861" c="w" pws="yes" l="recog">Recog</w><w p="." id="w1866" pws="no" sb="true" c=".">.</w></s> <s id="s75"><w p="IN" id="w1868" c="w" pws="yes">of</w> 
+<w common="true" p="NN" id="w1872" c="w" pws="yes" l="mort">mort</w> <w p="NN" id="w1877" c="w" pws="yes" l="d">d</w><w p="POS" id="w1878" pws="no" qut="s" c="lquote">'</w><w p="DT" id="w1879" pws="no" c="w">a</w><w p="." id="w1880" pws="no" sb="true" c=".">.</w></s> <s id="s76"><enamex id="rb26" conf="low" type="location"><w p="NNP" id="w1882" c="w" pws="yes" l="dem" wfirstn="true" locname="single" alsource="true">Dem</w></enamex><w p="." id="w1885" pws="no" sb="true" c=".">.</w></s> <s id="s77"><w p="VBN" id="w1887" c="w" pws="yes" l="grant">granted</w> <w p="TO" id="w1895" c="w" pws="yes">to</w> <w quty="10" p="VB" id="w1898" c="cd" pws="yes" l="ten">ten</w><w p="." id="w1901" pws="no" sb="true" c=".">.</w></s> <s id="s78"><w quty="4" p="CD" id="w1903" c="cd" pws="yes">4</w> <w common="true" p="NNS" id="w1905" c="w" pws="yes" l="acre">acres</w> <w p="CC" id="w1911" c="w" pws="yes">and</w> <w quty="3" p="CD" id="w1915" c="cd" pws="yes">3</w> <w common="true" p="NNS" id="w1917" c="w" pws="yes" l="rood">roods</w> <w p="IN" id="w1923" c="w" pws="yes">of</w> <w p="DT" id="w1926" c="w" pws="yes">the</w> <w p="VBD" id="w1930" c="w" pws="yes" l="say">said</w> <w common="true" p="NN" id="w1935" c="w" pws="yes" l="land">land</w> <w p="IN" id="w1940" c="w" pws="yes">with</w> <w p="NNS" id="w1945" c="w" pws="yes" l="appurt">appurts</w><w p="." id="w1952" pws="no" sb="true" c=".">.</w></s> <s id="s79"><w p=":" id="w1954" c="cm" pws="yes">;</w> 
+<w p="TO" id="w1957" c="w" pws="yes">to</w> <w common="true" p="NN" id="w1960" c="w" pws="yes" l="wit">wit</w><w p="," id="w1963" pws="no" c="cm">,</w> <w quty="2" p="CD" id="w1965" c="cd" pws="yes">2</w> <w common="true" p="NNS" id="w1967" c="w" pws="yes" l="acre">acres</w> <w p="CC" id="w1973" c="w" pws="yes">and</w> <w p="JJ" id="w1977" c="w" pws="yes">i</w> <w common="true" p="NN" id="w1979" c="w" pws="yes" l="rood">rood</w> <w p="VBG" id="w1984" c="w" pws="yes" l="lie">lying</w> <w common="true" p="JJ" id="w1990" c="w" pws="yes">next</w> <w common="true" quty="10" p="NN" id="w1995" c="cd" pws="yes" l="ten">ten</w><w p="." id="w1998" pws="no" c=".">.</w><w p="POS" id="w1999" pws="no" c="aposs">'s</w> <w common="true" p="NN" id="w2002" c="w" pws="yes" l="house">house</w> <w p="IN" id="w2008" c="w" pws="yes">between</w> <w p="DT" id="w2016" c="w" pws="yes">the</w> <w common="true" p="NN" id="w2020" c="w" pws="yes" l="land">land</w> <w p="IN" id="w2025" c="w" pws="yes">of</w> <enamex id="rb27" type="person"><w pername="true" p="NNP" id="w2028" c="w" pws="yes" l="richard" wfirstn="true">Richard</w> 
+<w p="NNP" id="w2037" c="w" pws="yes" l="wudeward">Wudeward</w></enamex> <w p="CC" id="w2046" c="w" pws="yes">and</w> <w p="DT" id="w2050" c="w" pws="yes">the</w> <w common="true" p="NN" id="w2054" c="w" pws="yes" l="land">land</w> <w p="IN" id="w2059" c="w" pws="yes">of</w> <enamex id="rb28" type="person"><w pername="true" p="NNP" id="w2062" c="w" pws="yes" l="gilbert" wfirstn="true">Gilbert</w> <w p="NNP" id="w2070" c="w" pws="yes" l="fitz" wfirstn="true" locname="single" alsource="true" edsource="true">Fitz</w></enamex> <w p="NNP" id="w2075" c="w" pws="yes" l="richer">Richer</w> <w p=":" id="w2082" c="cm" pws="yes">;</w> <w quty="2" p="CD" id="w2084" c="cd" pws="yes">2</w> <w common="true" p="NNS" id="w2086" c="w" pws="yes" l="acre">acres</w> <w p="CC" id="w2092" c="w" pws="yes">and</w> <w p="JJ" id="w2096" c="w" pws="yes">i</w> <w common="true" p="NN" id="w2098" c="w" pws="yes" l="rood">rood</w> <w p="VBG" id="w2103" c="w" pws="yes" l="lie">lying</w> <w p="IN" id="w2109" c="w" pws="yes">between</w> 
+<w p="DT" id="w2118" c="w" pws="yes">the</w> <w common="true" p="NN" id="w2122" c="w" pws="yes" l="land">land</w> <w p="VBD" id="w2127" c="w" pws="yes" l="call">called</w> <enamex id="rb29" type="location" deepsource="true" counties="Cheshire"><w p="JJ" id="w2134" c="w" pws="yes">le</w> <w p="NNP" id="w2137" c="w" pws="yes" l="hegge">Hegge</w></enamex> <w p="CC" id="w2143" c="w" pws="yes">and</w> <w p="DT" id="w2147" c="w" pws="yes">the</w> <w common="true" p="NN" id="w2151" c="w" pws="yes" l="land">land</w> <w p="IN" id="w2156" c="w" pws="yes">of</w> <w p="DT" id="w2159" c="w" pws="yes">the</w> <w common="true" p="JJ" id="w2163" c="w" pws="yes">same</w> <enamex id="rb30" subtype="otf" type="person"><w pername="true" p="NNP" id="w2168" c="w" pws="yes" l="gilbert" wfirstn="true">Gilbert</w></enamex> <w p=":" id="w2176" c="cm" pws="yes">;</w> <w p="CC" id="w2178" c="w" pws="yes">and</w> <w p="JJ" id="w2182" c="w" pws="yes">i</w> <w common="true" p="NN" id="w2184" c="w" pws="yes" l="rood">rood</w> <w p="VBG" id="w2189" c="w" pws="yes" l="lie">lying</w> 
+<w p="IN" id="w2196" c="w" pws="yes">between</w> <w p="DT" id="w2204" c="w" pws="yes">the</w> <w common="true" p="NN" id="w2208" c="w" pws="yes" l="land">land</w> <w p="IN" id="w2213" c="w" pws="yes">of</w> <w p="NN" id="w2216" c="w" pws="yes" l="dem">dem</w><w p="." id="w2219" pws="no" sb="true" c=".">.</w></s> <s id="s80"><w p="CC" id="w2221" c="w" pws="yes">and</w> <w p="DT" id="w2225" c="w" pws="yes">the</w> <w common="true" p="NN" id="w2229" c="w" pws="yes" l="land">land</w> <w p="IN" id="w2234" c="w" pws="yes">of</w> <w common="true" quty="10" p="NN" id="w2237" c="cd" pws="yes" l="ten">ten</w><w p="." id="w2240" pws="no" sb="true" c=".">.</w></s> <s id="s81"><w p=":" id="w2242" c="cm" pws="yes">;</w> <w p="TO" id="w2244" c="w" pws="yes">to</w> <w p="VB" id="w2247" c="w" pws="yes" l="hold">hold</w> <w p="TO" id="w2252" c="w" pws="yes">to</w> <w quty="10" p="VB" id="w2255" c="cd" pws="yes" l="ten">ten</w><w p="." id="w2258" pws="no" sb="true" c=".">.</w></s> <s id="s82"><w p="IN" id="w2260" c="w" pws="yes">for</w> <w common="true" p="NN" id="w2264" c="w" pws="yes" l="life">life</w><w p="," id="w2268" pws="no" c="cm">,</w> <w p="IN" id="w2270" c="w" pws="yes">of</w> <w p="NN" id="w2273" c="abbr" pws="yes" l="dem.">dem.</w><w p="," id="w2277" pws="no" c="cm">,</w> <w p="IN" id="w2279" c="w" pws="yes">by</w> 
+<w p="DT" id="w2283" c="w" pws="yes">the</w> <w common="true" p="JJ" id="w2287" c="w" pws="yes">yearly</w> <w common="true" p="NN" id="w2294" c="w" pws="yes" l="rent">rent</w> <w p="IN" id="w2299" c="w" pws="yes">of</w> <w quty="28" p="CD" id="w2302" c="cd" pws="yes">28</w><w p="NNS" id="w2304" pws="no" c="sym" l="^">^</w><w p="." id="w2305" pws="no" sb="true" c=".">.</w></s> <s id="s83"><w p="IN" id="w2307" c="w" pws="yes">for</w> <w p="DT" id="w2311" c="w" pws="yes">all</w> <w common="true" p="NN" id="w2315" c="w" pws="yes" l="service" vstem="serve">service</w><w p="," id="w2322" pws="no" c="cm">,</w> <w p="NN" id="w2324" c="abbr" pws="yes" l="s.f.s.">s.f.s.</w> <w p=":" id="w2331" c="cm" pws="yes">;</w> <w common="true" p="NN" id="w2333" c="w" pws="yes" l="reversion" vstem="revert">reversion</w> <w p="TO" id="w2343" c="w" pws="yes">to</w> <w p="NN" id="w2346" c="w" pws="yes" l="dem">dem</w><w p="." id="w2349" pws="no" sb="true" c=".">.</w></s></p> 
+
+<p><s id="s84"><w quty="248" p="CD" id="w2353" c="cd" pws="yes">248</w><w p="." id="w2356" pws="no" sb="true" c=".">.</w></s> <s id="s85"><timex id="rb31" wdaynum="7" day="Sunday" type="date"><w wdaynum="7" day="Sunday" p="NNP" id="w2358" c="w" pws="yes" l="sunday">Sunday</w></timex> <w p="IN" id="w2365" c="w" pws="yes">before</w> <enamex id="rb32" type="person"><w p="NNP" id="w2372" c="abbr" pws="yes" l="st.">St.</w> <w pername="true" p="NNP" id="w2376" c="w" pws="yes" l="michael" wfirstn="true">Michael</w></enamex><w p="," id="w2383" pws="no" c="cm">,</w> <w p="IN" id="w2385" c="w" pws="yes">at</w> <w p="NNP" id="w2388" c="abbr" pws="yes" l="gipeswic">Gipeswic</w><w p="NNP" id="w2396" pws="no" c="sym" l="*">*</w><w p="." id="w2397" pws="no" sb="true" c=".">.</w></s> <s id="s86"><w pername="true" p="NNP" id="w2399" c="w" pws="yes" l="richard" wfirstn="true">Richard</w> <w p="NNP" id="w2407" c="w" pws="yes" l="le">le</w> <w p="NNP" id="w2410" c="w" pws="yes" l="veilie">Veilie</w> <w p="CC" id="w2417" c="w" pws="yes">and</w> <w pername="true" p="NNP" id="w2421" c="w" pws="yes" l="mary" wfirstn="true">Mary</w> 
+<w p="PRP$" id="w2427" c="w" pws="yes">his</w> <w common="true" p="NN" id="w2431" c="w" pws="yes" l="wife">wife</w><w p="," id="w2435" pws="no" c="cm">,</w> <w p="NN" id="w2437" c="w" pws="yes" l="dem">dem</w><w p="." id="w2440" pws="no" sb="true" c=".">.</w></s> <s id="s87"><w pername="true" p="NNP" id="w2442" c="w" pws="yes" l="ralph" wfirstn="true">Ralph</w> <w p="NNP" id="w2448" c="w" pws="yes" l="gernun">Gernun</w><w p="," id="w2454" pws="no" c="cm">,</w> <w p="WP" id="w2456" c="w" pws="yes">whom</w> <w pername="true" p="NNP" id="w2461" c="w" pws="yes" l="richard" wfirstn="true">Richard</w> <w p="NNP" id="w2469" c="w" pws="yes" l="le">le</w> <w p="NNP" id="w2472" c="w" pws="yes" l="prestre">Prestre</w> <w p="VBD" id="w2480" c="w" pws="yes" l="vouch">vouched</w> <w p="TO" id="w2488" c="w" pws="yes">to</w> <w common="true" p="NN" id="w2491" c="w" pws="yes" l="warranty">warranty</w><w p="," id="w2499" pws="no" c="cm">,</w> 
+<w p="JJ" id="w2502" c="w" pws="yes">i</w> <w p="NN" id="w2504" c="w" pws="yes" l="carucate">carucate</w> <w p="IN" id="w2513" c="w" pws="yes">of</w> <w common="true" p="NN" id="w2516" c="w" pws="yes" l="land">land</w> <w p="IN" id="w2521" c="w" pws="yes">with</w> <w p="NNS" id="w2526" c="w" pws="yes" l="appurt">appurts</w><w p="." id="w2533" pws="no" sb="true" c=".">.</w></s> <s id="s88"><w p="IN" id="w2535" c="w" pws="yes">in</w> <enamex id="rb33" type="location" deepsource="true" counties="Cheshire, Derbyshire, Dorset, Essex"><w p="NNP" id="w2538" c="w" pws="yes" l="steple">Steple</w></enamex><w p="," id="w2544" pws="no" c="cm">,</w> <w p="WDT" id="w2546" c="w" pws="yes">which</w> <w pername="true" p="NNP" id="w2552" c="w" pws="yes" l="mary" wfirstn="true">Mary</w> <w p="VBD" id="w2557" c="w" pws="yes" l="claim">claimed</w> <w p="IN" id="w2565" c="w" pws="yes">as</w> <w p="NN" id="w2568" c="w" pws="yes" l="dower">dower</w> <w p="IN" id="w2574" c="w" pws="yes">out</w> <w p="IN" id="w2578" c="w" pws="yes">of</w> 
+<w p="DT" id="w2582" c="w" pws="yes">the</w> <w common="true" p="JJ" id="w2586" c="w" pws="yes">free</w> <w common="true" p="NN" id="w2591" c="w" pws="yes" l="tenement">tenement</w> <w p="IN" id="w2600" c="w" pws="yes">of</w> <w pername="true" p="NNP" id="w2603" c="w" pws="yes" l="robert" wfirstn="true">Robert</w> <w common="true" p="NNP" id="w2610" c="w" pws="yes" l="mantel">Mantel</w><w p="," id="w2616" pws="no" c="cm">,</w> <w p="PRP$" id="w2618" c="w" pws="yes">her</w> <w common="true" p="JJ" id="w2622" c="w" pws="yes">former</w> <w common="true" p="NN" id="w2629" c="w" pws="yes" l="husband">husband</w><w p="." id="w2636" pws="no" sb="true" c=".">.</w></s> <s id="s89"><enamex id="rb34" conf="low" type="location"><w p="NNP" id="w2638" c="w" pws="yes" l="dem" wfirstn="true" locname="single" alsource="true">Dem</w></enamex><w p="." id="w2641" pws="no" sb="true" c=".">.</w></s> <s id="s90"><w p="VBN" id="w2643" c="w" pws="yes" l="quitclaim">quitclaimed</w> 
+<w p="TO" id="w2656" c="w" pws="yes">to</w> <w p="DT" id="w2659" c="w" pws="yes">the</w> <w p="VBD" id="w2663" c="w" pws="yes" l="say">said</w> <enamex id="rb35" type="person"><w pername="true" p="NNP" id="w2668" c="w" pws="yes" l="ralph" wfirstn="true">Ralph</w></enamex> <w p="CC" id="w2674" c="w" pws="yes">and</w> <enamex id="rb36" type="person"><w pername="true" p="NNP" id="w2678" c="w" pws="yes" l="richard" wfirstn="true">Richard</w></enamex><w p="." id="w2685" pws="no" sb="true" c=".">.</w></s> <s id="s91"><enamex id="rb37" subtype="otf" type="person"><w pername="true" p="NNP" id="w2687" c="w" pws="yes" l="ralph" wfirstn="true">Ralph</w></enamex> <w p="VBD" id="w2693" c="w" pws="yes" l="give">gave</w> <w p="TO" id="w2698" c="w" pws="yes">to</w> <w p="VB" id="w2701" c="w" pws="yes" l="dem">dem</w><w p="." id="w2704" pws="no" sb="true" c=".">.</w></s> <s id="s92"><numex type="money"><w quty="25" p="CD" id="w2706" c="cd" pws="yes">25</w> <w p="NNS" id="w2709" c="w" pws="yes" l="mark">marks</w></numex> <w p="IN" id="w2715" c="w" pws="yes">of</w> <w common="true" p="NN" id="w2718" c="w" pws="yes" l="silver">silver</w> <w p="CC" id="w2725" c="w" pws="yes">and</w> 
+<w p="NNS" id="w2730" c="w" pws="yes" l="i">i</w> <w p="VBP" id="w2732" c="w" pws="yes" l="soar">soar</w> <w p="NN" id="w2737" c="w" pws="yes" l="goshawk">goshawk</w><w p="." id="w2744" pws="no" sb="true" c=".">.</w></s></p> 
+
+</text>
+<standoff>
+<ents source="ner-rb">
+  <ent id="rb2" conf="low" type="location">
+    <parts>
+      <part sw="w34" ew="w34">ESSEX</part>
+    </parts>
+  </ent>
+  <ent id="rb3" type="person">
+    <parts>
+      <part sw="w82" ew="w90">William Escutard</part>
+    </parts>
+  </ent>
+  <ent id="rb4" type="location" deepsource="true" counties="Essex">
+    <parts>
+      <part sw="w140" ew="w140">Teye</part>
+    </parts>
+  </ent>
+  <ent id="rb5" conf="low" type="location">
+    <parts>
+      <part sw="w166" ew="w166">Dem</part>
+    </parts>
+  </ent>
+  <ent id="rb6" subtype="otf" type="person">
+    <parts>
+      <part sw="w240" ew="w248">Godsalm Fitz</part>
+    </parts>
+  </ent>
+  <ent id="rb7" type="person">
+    <parts>
+      <part sw="w267" ew="w279">Martin Fitz William</part>
+    </parts>
+  </ent>
+  <ent id="rb8" altname="Tyllebir" type="location">
+    <parts>
+      <part sw="w328" ew="w333">West Tyllebir</part>
+    </parts>
+  </ent>
+  <ent id="rb9" conf="low" type="location">
+    <parts>
+      <part sw="w364" ew="w364">Dem</part>
+    </parts>
+  </ent>
+  <ent id="rb10" type="location" deepsource="true" counties="Essex">
+    <parts>
+      <part sw="w598" ew="w598">Gladefen</part>
+    </parts>
+  </ent>
+  <ent id="rb11" type="location" coord="rb11">
+    <parts>
+      <part sw="w689" ew="w689">Alfameston</part>
+    </parts>
+  </ent>
+  <ent id="rb12" type="location" coord="rb11">
+    <parts>
+      <part sw="w704" ew="w704">Pebbeners</part>
+    </parts>
+  </ent>
+  <ent id="rb13" conf="low" type="location">
+    <parts>
+      <part sw="w739" ew="w739">Dem</part>
+    </parts>
+  </ent>
+  <ent id="rb14" conf="low" type="location">
+    <parts>
+      <part sw="w755" ew="w755">Osbert</part>
+    </parts>
+  </ent>
+  <ent id="rb15" type="person">
+    <parts>
+      <part sw="w854" ew="w860">Alice Pichard</part>
+    </parts>
+  </ent>
+  <ent id="rb16" type="location" deepsource="true" counties="Dorset">
+    <parts>
+      <part sw="w887" ew="w887">See</part>
+    </parts>
+  </ent>
+  <ent id="rb17" type="person">
+    <parts>
+      <part sw="w918" ew="w922">St. Katherine</part>
+    </parts>
+  </ent>
+  <ent id="rb18" type="location" deepsource="true" counties="Cheshire, Gloucestershire, Hertfordshire, Huntingdonshire, North Riding of Yorkshire, Worcestershire">
+    <parts>
+      <part sw="w936" ew="w936">Hertford</part>
+    </parts>
+  </ent>
+  <ent id="rb19" type="person">
+    <parts>
+      <part sw="w975" ew="w982">Walter Fitz</part>
+    </parts>
+  </ent>
+  <ent id="rb20" conf="high" type="location">
+    <parts>
+      <part sw="w1166" ew="w1166">Ely</part>
+    </parts>
+  </ent>
+  <ent id="rb21" type="person">
+    <parts>
+      <part sw="w1174" ew="w1174">Marshal</part>
+    </parts>
+  </ent>
+  <ent id="rb22" type="person">
+    <parts>
+      <part sw="w1186" ew="w1186">Roes</part>
+    </parts>
+  </ent>
+  <ent id="rb23" type="location" deepsource="true" counties="Essex, Gloucestershire">
+    <parts>
+      <part sw="w1269" ew="w1269">Brokesheved</part>
+    </parts>
+  </ent>
+  <ent id="rb24" subtype="otf" type="person">
+    <parts>
+      <part sw="w1743" ew="w1743">Alice</part>
+    </parts>
+  </ent>
+  <ent id="rb25" subtype="otf" type="person">
+    <parts>
+      <part sw="w1783" ew="w1783">William</part>
+    </parts>
+  </ent>
+  <ent id="rb26" conf="low" type="location">
+    <parts>
+      <part sw="w1882" ew="w1882">Dem</part>
+    </parts>
+  </ent>
+  <ent id="rb27" type="person">
+    <parts>
+      <part sw="w2028" ew="w2037">Richard Wudeward</part>
+    </parts>
+  </ent>
+  <ent id="rb28" type="person">
+    <parts>
+      <part sw="w2062" ew="w2070">Gilbert Fitz</part>
+    </parts>
+  </ent>
+  <ent id="rb29" type="location" deepsource="true" counties="Cheshire">
+    <parts>
+      <part sw="w2134" ew="w2137">le Hegge</part>
+    </parts>
+  </ent>
+  <ent id="rb30" subtype="otf" type="person">
+    <parts>
+      <part sw="w2168" ew="w2168">Gilbert</part>
+    </parts>
+  </ent>
+  <ent id="rb31" wdaynum="7" day="Sunday" type="date">
+    <parts>
+      <part sw="w2358" ew="w2358">Sunday</part>
+    </parts>
+  </ent>
+  <ent id="rb32" type="person">
+    <parts>
+      <part sw="w2372" ew="w2376">St. Michael</part>
+    </parts>
+  </ent>
+  <ent id="rb33" type="location" deepsource="true" counties="Cheshire, Derbyshire, Dorset, Essex">
+    <parts>
+      <part sw="w2538" ew="w2538">Steple</part>
+    </parts>
+  </ent>
+  <ent id="rb34" conf="low" type="location">
+    <parts>
+      <part sw="w2638" ew="w2638">Dem</part>
+    </parts>
+  </ent>
+  <ent id="rb35" type="person">
+    <parts>
+      <part sw="w2668" ew="w2668">Ralph</part>
+    </parts>
+  </ent>
+  <ent id="rb36" type="person">
+    <parts>
+      <part sw="w2678" ew="w2678">Richard</part>
+    </parts>
+  </ent>
+  <ent id="rb37" subtype="otf" type="person">
+    <parts>
+      <part sw="w2687" ew="w2687">Ralph</part>
+    </parts>
+  </ent>
+</ents></standoff></document>

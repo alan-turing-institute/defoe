@@ -1,0 +1,42 @@
+#!/bin/sh 
+
+usage="onthefly <input.xml >output.xml"
+descr="Make an on-the-fly lexicon from enamex mark up and use for a second pass of enamex recognition."
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+lib=$here/lib/ner
+
+lxgrep -w lexicon "enamex[@type='person' and not(subname[@type='fullname'])]|subname[@type='fullname' or @type='surname' or @type="firstname"]|enamex[@type='location']|enamex[@type='location']/substring/enamex|enamex[@type='organization']" |
+lxreplace -q "substring" |
+lxreplace -q "enamex/enamex" |
+lxreplace -q "enamex" -t "<name>&attrs;&children;</name>" |
+lxreplace -q "w/@*" |
+lxreplace -q "subname[@type='title']/w" -t "<w title='yes'>&children;</w>" |
+lxreplace -q "subname[@type='title']" |
+lxreplace -q "name/subname" -t "<w>&children;</w>" |
+lxreplace -q "w/w" |
+lxreplace -q "lexicon/subname" -t "<name type='person'>&children;</name>" |
+lxreplace -q "lexicon/*//text()" -r "normalize-space(.)" |
+lxreplace -q "w[.~'^[A-Z][\.]?$']" -t "<w init='yes'>&children;</w>" |
+lxt -s $lib/expandlex.xsl |
+lxreplace -q "w[position()!=1]" -t "<xsl:text> </xsl:text>&this;" |
+lxreplace -q w |
+lxreplace -q "name[not(node())]" -t "" |
+lxreplace -q name -t "<lex word='{.}'><cat><xsl:value-of select='@type'/></cat></lex>" |
+lxt -s $lib/merge-lexicon-entries.xsl |
+lxsort lexicon lex @word |
+lxuniq lexicon lex @word |
+lxsort lex cat . |
+lxuniq lex cat . |
+lxreplace -q lexicon -t "<lexicon case='yes'>&attrs;&children;</lexicon>"

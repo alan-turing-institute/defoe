@@ -1,0 +1,849 @@
+<rules type="xml" apply="all">
+
+<rule name="singleUCS">
+  <query match="cg[.~'^\p{Lu}$']"/>
+</rule>
+
+<rule name="lc">
+  <query match="cg[@c='lca' or .~'^\p{Ll}+$' or .~'^\p{Lm}+$']" mult="+"/>
+</rule>
+
+<rule name="uc">
+  <query match="cg[@c='uca' or .~'^\p{Lu}+$']" mult="+"/>
+</rule>
+
+<!-- all lc word -->
+
+<rule name="lcwrd" wrap="w" attrs="c='w'">
+  <ref name="lc" mult="+"/>
+</rule>
+
+<!-- all uc word -->
+
+<rule name="ucwrd" wrap="w" attrs="c='w'">
+  <ref name="uc" mult="+"/>
+</rule>
+
+<!-- sequence that delimits end of word -->
+
+<rule name="wrdend">
+  <first>
+    <query match="cg[@c='stop']"/>
+    <query match="cg[@c='cm']"/>
+    <query match="cg[@c='brk']"/>
+    <query match="cg[@c='qut']"/>
+    <query match="cg[@c='slash']"/>
+    <query match="cg[@c='sym' and .='-']"/>
+    <query match="cg[@c='ws']"/>
+    <query match="cg[@c='tab']"/>
+    <query match="cg[@c='nl']"/>
+    <query match="cg[@c='dots']"/>
+    <query match="cg[@c='lc-nt']"/>
+    <query match="cg[@c='uc-nt']"/>
+    <end/>
+  </first>
+</rule>
+
+<!-- n't words -->
+<!-- If "didn't" etc are not split in pretokenisation, this will put
+     together the "didn" and "'t"  to make single word tokens -->
+<rule name="ntwrd-no-split" wrap="w" attrs="c='w'">
+  <seq>
+    <ref name="singleUCS" mult="?"/>
+    <query match="cg[.~'[nN]$']"/>
+    <query match="cg[@c='qut']"/>
+    <query match="cg[.~'^[tT]$']"/>
+    <ref name="wrdend" suppress="true"/>
+  </seq>
+</rule>
+ 
+<!-- If "didn't" etc are split in pretokenisation, this will make a
+     word token out of the "n't" -->
+<rule name="ntwrd-split1">
+  <first>
+    <query match="cg[@c='lc-nt']"/>
+    <query match="cg[@c='uc-nt']"/>
+  </first>
+</rule>
+
+<!-- This is for weird tempeval tokenisation -->
+<rule name="ntwrd-split2">
+  <seq>
+    <first suppress='true'>
+      <query match="cg[@c='ws']"/>
+      <query match="cg[@c='nl']"/>
+    </first> 
+    <seq>
+      <query match="cg[@c='qut' and @qut='s']"/>
+      <query match="cg[.='t']"/>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="ntwrd-split" wrap="w" attrs="c='w'">
+  <first>
+    <ref name="ntwrd-split2"/>
+    <ref name="ntwrd-split1"/>
+  </first>
+</rule>
+
+<!-- O'Neil, M'Cullagh etc -->
+<rule name="specialname" wrap="w" attrs="c='w'">
+  <first>
+    <seq>
+      <query match="cg[.='O' or .='M']"/>
+      <first>
+        <query match="cg[@c='qut']"/>
+        <query match="cg[.='&#x2019;']"/>
+      </first>
+      <first>
+        <seq>
+          <query match="cg[.~'^[A-Z]$']"/>
+          <ref name="lc" mult="+"/>
+        </seq>
+        <ref name="uc" mult="+"/>
+      </first>
+    </seq>
+    <seq>
+      <query match="cg[.='M']"/>
+      <query match="cg[.~'^(c|ac)$']"/>
+      <first>
+        <seq>
+          <query match="cg[.~'^[A-Z]$']"/>
+          <ref name="lc" mult="+"/>
+        </seq>
+        <ref name="uc" mult="+"/>
+      </first>
+    </seq>
+  </first>
+</rule>
+
+<!-- o'clock -->
+<rule name="oclock" wrap="w" attrs="c='w'">
+  <first>
+    <seq>
+      <query match="cg[.='o']"/>
+      <first>
+        <query match="cg[@c='qut']"/>
+        <query match="cg[.='&#x2019;']"/>
+      </first>
+      <query match="cg[.='clock']"/>
+    </seq>
+    <seq>
+      <query match="cg[.='O']"/>
+      <first>
+        <query match="cg[@c='qut']"/>
+        <query match="cg[.='&#x2019;']"/>
+      </first>
+      <query match="cg[.='CLOCK']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="alphabetic">
+  <first>
+     <query match="cg[@c='uca']"/>
+     <query match="cg[@c='lca']"/>
+  </first> 
+</rule>
+
+<!-- lc word with initial capital -->
+
+<rule name="capwrd" wrap="w" attrs="c='w'">
+  <seq>
+    <ref name="singleUCS"/>
+    <ref name="lc" mult="+"/>
+    <ref name="wrdend" suppress="true"/>
+  </seq>
+</rule>
+
+<!-- ordinals -->
+
+<rule name="ordinal" wrap="w" attrs="c='ord'">
+  <seq>
+    <query match="cg[@c='cd' and .~'^[0-9]+$']"/>
+    <query match="cg[.~'^(th|rd|st|nd|TH|RD|ST|ND)$']"/>
+    <ref name="wrdend" suppress="true"/>
+  </seq>
+</rule>
+
+<!-- mixed alphabetic, numeric, dash marked as abbr -->
+<!-- took out dashes -->
+
+<rule name="abbrmiddle">
+  <first>
+     <query match="cg[@c='uca']"/>
+     <query match="cg[@c='lca']"/>
+     <query match="cg[@c='cd']"/>
+  </first> 
+</rule>
+
+<rule name="abbrend">
+  <seq>
+    <first>
+      <query match="cg[@c='uca']"/>
+      <query match="cg[@c='lca']"/>
+      <query match="cg[@c='sym' and .='+']"/>
+      <query match="cg[@c='cd']"/>
+    </first> 
+    <ref name="wrdend" suppress="true"/>
+  </seq>
+</rule>
+
+<rule name="abbr1" wrap="w" attrs="c='abbr'">
+  <seq>
+    <first>
+       <query match="cg[@c='uca']"/>
+       <query match="cg[@c='lca']"/>
+       <query match="cg[@c='cd']"/>
+    </first> 
+    <repeat-until name="abbrmiddle">
+       <ref name="abbrend"/>
+    </repeat-until>
+    <ref name="abbrend"/>
+  </seq>
+</rule>
+
+<!-- specific abbreviations -->
+
+<rule name="fullstop">
+  <query match="cg[.='.']"/>
+</rule>
+
+<rule name="abbr2" wrap="w" attrs="c='abbr'">
+  <first>
+    <seq>
+       <query match="cg[.='v']"/>
+       <ref name="fullstop" mult="?"/>
+    </seq> 
+    <seq>
+       <query match="cg[.='v']"/>
+       <query match="cg[.='s']"/>
+       <ref name="fullstop" mult="?"/>
+    </seq> 
+    <seq>
+       <query match="cg[.='i']"/>
+       <query match="cg[.='.']"/>
+       <query match="cg[.='e']"/>
+       <query match="cg[.='.']"/>
+    </seq> 
+    <seq>
+       <query match="cg[.='e']"/>
+       <query match="cg[.='.']"/>
+       <query match="cg[.='g']"/>
+       <query match="cg[.='.']"/>
+    </seq> 
+    <seq>
+       <query match="cg[.~'^[AaPp]$']"/>
+       <query match="cg[.='.']"/>
+       <query match="cg[.~'^[Mm]$']"/>
+       <query match="cg[.='.']"/>
+    </seq> 
+  </first>
+</rule>
+
+<!-- some sequences with dashes -->
+
+<rule name="abbr3groupa">
+  <first>
+     <query match="cg[@c='uca']"/>
+     <query match="cg[@c='lca']"/>
+  </first> 
+</rule>
+
+<rule name="abbr3groupb">
+  <first>
+     <query match="cg[@c='uca']"/>
+     <query match="cg[@c='lca']"/>
+     <query match="cg[@c='cd']"/>
+  </first> 
+</rule>
+
+<rule name="abbr3" wrap="w" attrs="c='abbr'">
+  <seq>
+    <ref name="abbr3groupa" mult="*"/>
+    <query match="cg[@c='uca']"/>
+    <ref name="abbr3groupa" mult="*"/>
+    <query match="cg[@c='sym' and .='-']"/>
+    <ref name="abbr3groupb" mult="+"/>
+  </seq>
+</rule>
+
+<!-- sequence of uc . uc . etc (E.C.G.) is abbreviation -->
+<!-- left final fullstop outside mark-up in case it is sentence
+      final: ltpos will decide -->
+
+<rule name="abbr4group">
+  <seq>
+    <ref name="fullstop"/>
+    <ref name="singleUCS"/>
+  </seq>
+</rule>
+
+<rule name="abbr4" wrap="w" attrs="c='abbr'">
+  <seq>
+    <query match="cg[@c='uca' and .~'^[A-Z]$']"/>
+    <ref name="abbr4group" mult="+"/>
+    <query match="cg[.='.']" suppress="true"/>
+  </seq>
+</rule>
+
+<!-- sequence of lc . lc . etc (i.v.) is abbreviation -->
+
+<rule name="abbr5group">
+  <seq>
+    <ref name="fullstop"/>
+    <query match="cg[.~'^[a-z]$']"/>
+  </seq>
+  </rule>
+
+<rule name="abbr5" wrap="w" attrs="c='abbr'">
+  <seq>
+    <query match="cg[.~'^[a-z]$']"/>
+    <ref name="abbr5group" mult="+"/>
+  </seq>
+</rule>
+
+<rule name="abbr6group">
+  <first>
+    <seq>
+      <query match="cg[@c='uca']"/>
+      <query match="cg[@c='lca']"/>
+    </seq>
+    <seq>
+      <query match="cg[@c='lca']"/>
+      <query match="cg[@c='uca']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="abbr6" wrap="w" attrs="c='abbr'">
+  <seq>
+    <ref name="abbr6group" mult="+"/>
+    <ref name="alphabetic" mult="?"/>
+    <ref name="fullstop" mult="?"/>
+  </seq>
+</rule>
+
+<!-- apostrophe s -->
+
+<rule name="poss" wrap="w" attrs="c='aposs'">
+  <seq>
+    <first>
+      <query match="cg[@c='qut']"/>
+      <query match="cg[.='&#x2019;']"/>
+    </first>
+    <query match="cg[.~'^[sS]$']"/>
+    <ref name="wrdend" suppress="true"/>
+  </seq>
+</rule>
+
+<!-- contractions ('ll, 're, 'd, 've, 'm -->
+
+<!-- This is for weird tempeval tokenisation -->
+<rule name="contracts1">
+  <seq>
+    <first suppress='true'>
+      <start/>
+      <query match="cg[@c='ws']"/>
+      <query match="cg[@c='nl']"/>
+    </first> 
+    <query match="cg[@c='qut']"/>
+    <query match="cg[.~'^(ll|d|re|m|ve|LL|D|RE|M|VE)$']"/>
+    <ref name="wrdend" suppress="true"/>
+  </seq>
+</rule>
+
+<rule name="contracts" wrap="w" attrs="c='w'">
+  <first>
+    <ref name="contracts1"/>
+    <seq>
+      <query match="cg[@c='qut']"/>
+      <query match="cg[.~'^(ll|d|re|m|ve|LL|D|RE|M|VE)$']"/>
+      <ref name="wrdend" suppress="true"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="hyphchar">
+  <first>
+    <query match="cg[@c='sym' and .='-']"/>
+    <query match="cg[.='&#x2010;']"/>
+    <query match="cg[.='&#x2011;']"/>
+    <query match="cg[.='&#x2012;']"/>
+    <query match="cg[.='&#x2013;']"/>
+    <query match="cg[.='&#x2014;']"/>
+    <query match="cg[.='&#x2015;']"/>
+  </first>
+</rule>
+
+<!-- and/or -->
+
+<rule name="andor" wrap="w" attrs="c='cc'">
+  <seq>
+    <query match="cg[.~'^(and|AND|either|EITHER)$']"/>
+    <query match="cg[@c='slash']"/>
+    <query match="cg[.~'^(or|OR)$']"/>
+  </seq>
+</rule>
+
+<!-- +/- and +/+ -->
+
+<rule name="plusminus" wrap="w" attrs="c='sym'">
+  <first>
+    <seq>
+      <query match="cg[@c='sym']"/>
+      <query match="cg[@c='slash']"/>
+      <first>
+        <query match="cg[@c='sym']"/>
+        <ref name="hyphchar"/>
+      </first>
+    </seq>
+    <query match="cg[.='&#xb1;']"/>
+  </first>
+</rule>
+
+<!-- other sequences with slash in the midddle and some non
+      alphabetic characters -->
+
+<rule name="otherslash" wrap="w" attrs="c='sym'">
+  <seq>
+    <query match="cg[@c!='nl' and @c!='ws' and .~'[^A-z]']"/>
+    <query match="cg[@c='slash']"/>
+    <query match="cg[@c!='nl' and @c!='ws' and .~'[^A-z]']"/>
+  </seq>
+</rule>
+
+<!-- two or more dashes -->
+
+<rule name="dashes" wrap="w" attrs="c='dash'">
+    <query match="cg[@c='dash']"/>
+</rule>
+
+<!-- single dash preceded by whitesapce -->
+
+<rule name="dash1" wrap="w" attrs="c='sym'">
+  <seq>
+    <query match="cg[@c='ws' or @c='nl']" suppress="true"/>
+    <ref name="hyphchar"/>
+  </seq>
+</rule>
+
+<!-- single dash followed by whitesapce -->
+
+  <rule name="dash2" wrap="w" attrs="c='sym'">
+  <seq>
+    <ref name="hyphchar"/>
+    <query match="cg[@c='ws' or @c='nl']" suppress="true"/>
+  </seq>
+</rule>
+
+<!-- all the rest - hyphen -->
+
+<rule name="hyphen" wrap="w" attrs="c='hyph'">
+  <ref name="hyphchar"/>
+</rule>
+
+<!-- big numbers with comma in the middle -->
+
+<!-- 2,400,345 -->
+
+<rule name="bigcardgroup">
+  <seq>
+     <query match="cg[.=',']"/>
+     <query match="cg[@c='cd']"/>
+  </seq>
+  </rule>
+
+  <rule name="bigcard">
+  <seq>
+    <query match="cg[@c='cd']"/>
+    <ref name="bigcardgroup" mult="+"/>
+  </seq>
+</rule>
+
+<rule name="wsornl">
+  <query match="cg[@c='ws' or @c='nl']"/>
+</rule>
+
+<!-- decimal point plus number -->
+
+<!-- .67467 -->
+
+<rule name="decimal">
+  <seq>
+    <ref name="fullstop"/>
+    <first>
+      <seq>
+        <query match="cg[@c='cd']" mult="?"/>
+        <query match="cg[.~'^[a-z]$']"/>
+      </seq>
+      <query match="cg[@c='cd']"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="lone-decimal">
+  <seq>
+    <ref name="decimal"/>
+    <first suppress="true">
+      <ref name="wsornl"/>
+      <query match="cg[not(.='.')]"/>
+    </first>
+  </seq>
+</rule>
+
+<!-- number and decimal -->
+
+<!-- 2,400,345.67467   0.6767 -->
+
+<rule name="numdec">
+  <seq>
+    <first>
+       <ref name="bigcard"/>
+       <query match="cg[@c='cd']"/>
+    </first> 
+    <ref name="decimal"/>
+  </seq>
+</rule>
+
+<!-- numbers with colons: times (6:30 pm) or ratios (5:1) 
+     or something else if more than one colon 
+     time and seconds if like this: 21:49:05.22 -->
+
+<rule name="numcolongroup">
+  <seq>
+    <query match="cg[.=':']"/>
+    <query match="cg[@c='cd']"/>
+  </seq>
+</rule>
+
+<rule name="numcolon">
+  <seq>
+    <query match="cg[@c='cd']"/>
+    <ref name="numcolongroup" mult="+"/>
+    <ref name="decimal" mult="?"/>     
+  </seq>
+</rule>
+
+<!-- simple number -->
+
+<rule name="simplecard">
+    <query match="cg[@c='cd']"/>
+</rule>
+
+<!-- Cardinal numbers are marked as c='cd' -->
+
+<rule name="card" wrap="w" attrs="c='cd'">
+  <first>
+    <ref name="numdec"/>
+    <ref name="numcolon"/>
+    <ref name="bigcard"/>
+    <ref name="lone-decimal"/>
+    <ref name="simplecard"/>
+  </first>
+</rule>
+
+<rule name="hyphencd">
+  <seq>
+    <query match="cg[.='-']"/>
+    <query match="cg[@c='cd']"/>
+  </seq>
+</rule>
+
+<!-- for egs like: 14-3-3. But not years e.g. 2006-2007 -->
+<rule name="cd-cd">
+  <seq>
+    <first suppress="true">
+      <start/>
+      <query match="cg[@c='ws' or @c='nl']"/>
+    </first>
+    <first>
+      <seq>
+        <query match="cg[.~'^[12][90][0-9][0-9]$']" wrap="w" attrs="c='cd'"/>
+        <ref name="hyphchar" wrap="w" attrs="c='hyph'"/>
+        <query match="cg[.~'^[12][90][0-9][0-9]$']" wrap="w" attrs="c='cd'"/>
+      </seq>
+      <seq wrap="w" attrs="c='w'">
+        <query match="cg[@c='cd']"/>
+        <repeat-until name="hyphencd" min-matches="1">
+          <query match="wrdend"/>
+        </repeat-until>
+      </seq>
+    </first>
+  </seq>
+</rule>
+
+<!-- percentages -->
+
+<rule name="percent" wrap="w" attrs="c='pcent'">
+  <seq>
+    <first>
+      <seq>
+        <query match="cg[@c='cd']"/>
+        <ref name="hyphencd"/>
+      </seq>
+      <ref name="numdec"/>
+      <ref name="numcolon"/>
+      <ref name="bigcard"/>
+      <ref name="lone-decimal"/>
+      <ref name="simplecard"/>
+    </first>
+    <query match="cg[@c='pct']"/>
+  </seq>
+</rule>
+
+<!-- decade, e.g, "1940s" etc -->
+
+<rule name="decade" wrap="w" attrs="c='w'">
+  <seq>
+    <query match="cg[@c='cd' and .~'^[12][089][0-9][0-9]$']"/>
+    <query match="cg[@c='lca' and .='s']"/>
+  </seq>
+</rule>
+
+<rule name="comma" wrap="w" attrs="c='cm'">
+    <query match="cg[@c='cm']"/>
+</rule>
+
+<rule name="stop" wrap="w" attrs="c='.'">
+    <query match="cg[@c='stop']"/>
+</rule>
+
+<rule name="squt" wrap="w" attrs="c='lquote' qut='s'">
+  <query match="cg[@c='qut' and @qut='s']"/>
+</rule>
+
+<rule name="dqut" wrap="w" attrs="c='lquote' qut='d'">
+  <query match="cg[@c='qut' and @qut='d']"/>
+</rule>
+
+<rule name="lsquote">
+  <seq>
+    <first suppress='true'>
+      <start/>
+      <query match="cg[@c='ws']"/>
+      <query match="cg[@c='nl']"/>
+    </first> 
+    <ref name="squt"/>
+  </seq>
+</rule>
+
+<rule name="lsquoteandbrack">
+  <seq>
+    <query match="cg[@c='brk' and .='(']" wrap="w" attrs="c='br'"/>
+    <ref name="squt"/>
+  </seq>
+</rule>
+
+<rule name="ldquote">
+  <seq>
+    <first suppress='true'>
+      <start/>
+      <query match="cg[@c='ws']"/>
+      <query match="cg[@c='nl']"/>
+    </first> 
+    <ref name="dqut"/>
+  </seq>
+</rule>
+
+<rule name="ldquoteandbrack">
+  <seq>
+    <query match="cg[@c='brk' and .='(']" wrap="w" attrs="c='br'"/>
+    <ref name="dqut"/>
+  </seq>
+</rule>
+
+<rule name="rsquote">
+  <seq>
+    <ref name="squt"/>
+    <first suppress="true">
+      <query match="cg[@c='cm']"/>
+      <query match="cg[@c='stop']"/>
+      <query match="cg[.=')']"/>
+      <query match="cg[@c='ws']"/>
+      <query match="cg[@c='nl']"/>
+      <end/>
+    </first> 
+  </seq>
+</rule>
+
+<rule name="rdquote">
+  <seq>
+    <ref name="dqut"/>
+    <first suppress="true">
+      <query match="cg[@c='cm']"/>
+      <query match="cg[@c='stop']"/>
+      <query match="cg[.=')']"/>
+      <query match="cg[@c='ws']"/>
+      <query match="cg[@c='nl']"/>
+      <end/>
+    </first> 
+  </seq>
+</rule>
+
+<rule name="quote">
+  <first>
+    <ref name="lsquoteandbrack"/>
+    <ref name="lsquote"/>
+    <ref name="ldquoteandbrack"/>
+    <ref name="ldquote"/>
+    <ref name="rsquote"/>
+    <ref name="rdquote"/>
+    <ref name="squt"/>
+    <ref name="dqut"/>
+  </first>
+</rule>
+
+<rule name="nameaposmiddle" wrap="w" attrs="c='w'">
+  <seq>
+    <ref name="singleUCS"/>
+    <ref name="lc" mult="+"/>
+    <query match="cg[@c='qut' and @qut='s']"/>
+    <ref name="singleUCS"/>
+    <ref name="lc" mult="+"/>
+    <ref name="wrdend" suppress="true"/>
+  </seq>
+</rule>
+
+<rule name="bracket" wrap="w" attrs="c='br'">
+  <query match="cg[@c='brk']"/>
+</rule>
+
+<!-- for -LRB- and -RRB- in Conll chunk data -->
+<rule name="conllbracket" wrap="w" attrs="c='br'">
+  <seq>
+    <query match="cg[@c='ws' or @c='nl']" suppress="true"/>
+    <query match="cg[.='-']"/>
+    <query match="cg[.~'^(LRB|RRB)$']"/>
+    <query match="cg[.='-']"/>
+  </seq>
+</rule>
+
+<rule name="symbol" wrap="w" attrs="c='sym'">
+  <query match="cg[@c='sym']"/>
+</rule>
+
+<rule name="lt" wrap="w" attrs="c='sym'">
+  <query match="cg[@c='lt']"/>
+</rule>
+
+<rule name="gt" wrap="w" attrs="c='sym'">
+  <query match="cg[@c='gt']"/>
+</rule>
+
+<rule name="slash" wrap="w" attrs="c='slash'">
+  <query match="cg[@c='slash']"/>
+</rule>
+
+<rule name="ampersand" wrap="w" attrs="c='amp'">
+  <query match="cg[@c='amp']"/>
+</rule>
+
+<rule name="lone-pcent" wrap="w" attrs="c='pct'">
+  <query match="cg[@c='pct']"/>
+</rule>
+
+<rule name="simpledots" wrap="w" attrs="c='dots'">
+  <query match="cg[@c='dots']"/>
+</rule>
+
+<rule name="what" wrap="w" attrs="c='what'">
+  <query match="cg[@c='what']"/>
+</rule>
+
+<rule name="alphanum">
+  <first>
+    <ref name="alphabetic"/>
+    <query match="cg[@c='cd']"/>
+  </first>
+</rule>
+
+<rule name="notwsnlendbrack">
+    <query match="cg[not(@c='ws' or @c='nl' or .=')')]"/>
+</rule>
+
+<!-- for egs like: Tyr(379), p52(dok). These may need to be 
+     split depending on the needs of the annotators. -->
+<rule name="wordinternalbrack" wrap="w" attrs="c='w'">
+  <seq>
+    <ref name="alphanum"/>
+    <repeat-until name="alphanum">
+      <query match="cg[@c='brk' and .='(']"/>
+    </repeat-until>
+    <query match="cg[@c='brk' and .='(']"/>
+    <repeat-until name="notwsnlendbrack">
+      <query match="cg[@c='brk' and .=')']"/>
+    </repeat-until>
+    <query match="cg[@c='brk' and .=')']"/>
+  </seq>
+</rule>
+
+<!-- for egs like: SLP-76. These may need to be split
+     depending on the needs of the annotators. -->
+<rule name="alphanum-cd" wrap="w" attrs="c='w'">
+  <seq>
+    <first suppress="true">
+      <start/>
+      <query match="cg[@c='ws' or @c='nl']"/>
+    </first>
+    <ref name="alphanum"/>
+    <repeat-until name="alphanum">
+      <query match="cg[.='-']"/>
+    </repeat-until>
+    <query match="cg[.='-']"/>
+    <query match="cg[@c='cd']"/>
+    <ref name="alphanum" mult="*"/>
+  </seq>
+</rule>
+
+<rule name="all">
+  <first>
+    <ref name="ntwrd-no-split"/>
+    <ref name="conllbracket"/>
+    <ref name="specialname"/>
+    <ref name="oclock"/>
+    <ref name="wordinternalbrack"/>
+    <ref name="percent"/>
+    <ref name="cd-cd"/>
+    <ref name="alphanum-cd"/>
+    <ref name="ntwrd-split"/>
+    <ref name="ntwrd-no-split"/>
+    <ref name="poss"/>
+    <ref name="contracts"/>
+    <ref name="dashes"/>
+    <ref name="dash1"/>
+    <ref name="dash2"/>
+    <ref name="hyphen"/>
+    <ref name="andor"/>
+    <ref name="plusminus"/>
+<!--    <ref name="otherslash"/> -->
+    <ref name="decade"/>
+    <ref name="ordinal"/>
+    <ref name="nameaposmiddle"/>
+    <ref name="capwrd"/>
+    <ref name="abbr1"/>
+<!--    <ref name="abbr2"/>-->
+    <ref name="abbr3"/>
+    <ref name="abbr4"/>
+    <ref name="abbr5"/>
+    <ref name="abbr6"/>
+    <ref name="card"/>
+    <ref name="lcwrd"/>
+    <ref name="ucwrd"/>
+    <ref name="comma"/>
+    <ref name="stop"/>
+    <ref name="quote"/>
+    <ref name="bracket"/>
+    <ref name="symbol"/>
+    <ref name="lt"/>
+    <ref name="gt"/>
+    <ref name="slash"/>
+    <ref name="ampersand"/>
+    <ref name="lone-pcent"/>
+    <ref name="simpledots"/>
+    <ref name="what"/>
+  </first>
+</rule>
+
+</rules>

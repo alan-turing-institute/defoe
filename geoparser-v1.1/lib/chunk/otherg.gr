@@ -1,0 +1,95 @@
+<rules name="others" type="xml" apply="all"> 
+
+<rule name="rb-preprep">
+  <first>
+    <query match="w[@p='RB' and .~'^(EVEN|Even|even)$']"/>
+    <query match="w[@p='RB' and .~'^(JUST|Just|just)$']"/>
+    <query match="w[@p='RB' and .~'^(FAR|Far|far)$']"/>
+  </first>
+</rule>
+
+<rule name="simpleprep">
+  <first>
+    <seq>
+      <ref name="rb-preprep"  mult="?"/>
+      <query match="w[@p='IN' and .~'[A-Za-z]']"/>
+    </seq>
+    <query match="w[@p='TO']"/>
+  </first>
+</rule>
+
+<rule name="complexprep">
+  <first>
+    <seq>
+      <query match="w[@p='IN' and .~'[A-Za-z]']" mult="+"/>
+      <query match="w[.~'^(and|And|AND|or|Or|OR|&amp;)$']"/>
+      <query match="w[@p='IN' and .~'[A-Za-z]']"/>
+    </seq>
+    <lookup match="w" lexicon="lex" phrase="true"/>
+  </first>
+</rule>
+
+<rule name="simpleadj">
+  <seq>
+    <query match="w[@p~'^R']" mult="?"/>
+    <query match="w[@p~'^J']"/>
+  </seq>
+</rule>
+
+<!-- egs like 'fairly clouded' should be ags -->
+<rule name="vbn-as-adj">
+  <seq>
+    <query match="w[@p~'^R']"/>
+    <query match="w[@p='VBN' or @p='VBD']"/>
+  </seq>
+</rule>
+
+<rule name="simpleadv">
+  <first>
+    <query match="w[@p~'^RB']" mult="+"/>
+    <query match="w[@p~'^WRB']" mult="+"/>
+  </first>
+</rule>
+
+<rule name="temporaladv">
+  <first>
+    <query match="w[@p~'^R' and .~'^(STILL|Still|still)$']" mult="+"/>
+    <query match="w[@p~'^R' and .~'^(ALWAYS|Always|always)$']" mult="+"/>
+    <query match="w[@p~'^R' and .~'^(NEVER|Never|never)$']" mult="+"/>
+    <query match="w[@p~'^R' and .~'^(FREQUENTLY|Frequently|frequently)$']" mult="+"/>
+  </first>
+</rule>
+
+<rule name="sbar">
+  <first>
+    <seq>
+      <query match="w[.~'^(EVEN|Even|even)$']" mult="?"/>
+      <query match="w[.~'^(IF|If|if)$']"/>
+    </seq>
+    <query match="w[@p='IN' and .~'^(THAT|That|that)$']"/>
+  </first>
+</rule>
+
+<rule name="phrases">
+  <first>
+    <seq wrap="rg">
+      <query match="w[.~'^(AT|At|at)$']"/>
+      <query match="w[.~'^(LEAST|Least|least)$']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="all">
+  <first>
+    <ref name="phrases"/>
+    <ref name="temporaladv" wrap="rg"/>
+    <ref name="sbar" wrap="sg"/>
+    <ref name="vbn-as-adj" wrap="ag"/>
+    <ref name="simpleadj" wrap="ag"/>
+    <ref name="complexprep" wrap="pg"/>
+    <ref name="simpleprep" wrap="pg"/>
+    <ref name="simpleadv" wrap="rg"/>
+  </first>
+</rule>
+
+</rules>

@@ -1,0 +1,1726 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta content="application/xhtml+xml; charset=utf-8" http-equiv="content-type"></meta>
+  <title>Geoparser results</title>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAj9ut_juj_t10klD3II_Giw-ZD9NxK2Kk&amp;sensor=false"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+
+    var icondir = "http://www.google.com/intl/en_us/mapfiles/ms/micons/";
+    var red_icon = icondir+"red-dot.png";
+    var green_icon = icondir+"green-dot.png";
+
+    function load() {
+        var center = new google.maps.LatLng(52.6752872467041,
+                                            -1.209968686103821);
+	map = new google.maps.Map(document.getElementById("map"),
+                               {center: center,
+                                zoom: 6,
+                                overviewMapControl: true,
+                                overviewMapControlOptions: {opened: true}
+                               });
+	
+        point = new google.maps.LatLng(52.6752872467041, -1.209968686103821);
+        var marker = new google.maps.Marker({
+	    title: "Leicester",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.62940530555449, -1.134935160780413);
+        var marker = new google.maps.Marker({
+	    title: "Leicester",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.63474306354272, -1.13548687310626);
+        var marker = new google.maps.Marker({
+	    title: "Leicester",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.6333333, -1.1333333);
+        var marker = new google.maps.Marker({
+	    title: "City of Leicester",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.6333333, -1.1333333);
+        var marker = new google.maps.Marker({
+	    title: "Leicester",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.632, -1.124);
+        var marker = new google.maps.Marker({
+	    title: "Leicester Railway Station",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.6685687959646, -1.13297581672668);
+        var marker = new google.maps.Marker({
+	    title: "Leicester North Railway Station",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.8720077, -73.04400149999999);
+        var marker = new google.maps.Marker({
+	    title: "Leicester Hollow Trail",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.8558955, -73.1503919);
+        var marker = new google.maps.Marker({
+	    title: "Leicester Junction",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.8667293, -73.1078914);
+        var marker = new google.maps.Marker({
+	    title: "Leicester",
+	    icon: 10 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 10
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.8697848, -73.09872470000001);
+        var marker = new google.maps.Marker({
+	    title: "Town of Leicester",
+	    icon: 11 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 11
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.245926, -71.9086843);
+        var marker = new google.maps.Marker({
+	    title: "Leicester",
+	    icon: 12 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 12
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.2473149, -71.9050731);
+        var marker = new google.maps.Marker({
+	    title: "Leicester Hill",
+	    icon: 13 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 13
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.2334263, -71.89951739999999);
+        var marker = new google.maps.Marker({
+	    title: "Town of Leicester",
+	    icon: 14 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 14
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(35.6551074, -82.6962438);
+        var marker = new google.maps.Marker({
+	    title: "Leicester",
+	    icon: 15 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 15
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.7720066, -77.8966709);
+        var marker = new google.maps.Marker({
+	    title: "Leicester",
+	    icon: 16 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 16
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.7661732, -77.9080599);
+        var marker = new google.maps.Marker({
+	    title: "Town of Leicester",
+	    icon: 17 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 17
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(8.4611111, -13.2191667);
+        var marker = new google.maps.Marker({
+	    title: "Leicester",
+	    icon: 18 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 18
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(7.9758333, -12.8380556);
+        var marker = new google.maps.Marker({
+	    title: "Leicester",
+	    icon: 19 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 19
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-22.25, 150.45);
+        var marker = new google.maps.Marker({
+	    title: "Leicester Island",
+	    icon: 20 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 20
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.57747762011358, -1.404376973545086);
+        var marker = new google.maps.Marker({
+	    title: "Dadlington",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.58244328912151, -1.402206628940613);
+        var marker = new google.maps.Marker({
+	    title: "Dadlington",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.56667, -1.4);
+        var marker = new google.maps.Marker({
+	    title: "Dadlington",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.6004976197325, -1.416727410794063);
+        var marker = new google.maps.Marker({
+	    title: "Bosworth Field",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.59683, -1.40599);
+        var marker = new google.maps.Marker({
+	    title: "Battle of Bosworth Field",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.45362569588113, -1.052865692743217);
+        var marker = new google.maps.Marker({
+	    title: "Husbands Bosworth",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.45426956736933, -1.050718555579511);
+        var marker = new google.maps.Marker({
+	    title: "Husbands Bosworth",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.62428, -1.40174);
+        var marker = new google.maps.Marker({
+	    title: "Market Bosworth",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.62461, -1.42098);
+        var marker = new google.maps.Marker({
+	    title: "Market Bosworth Railway Station",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.60778, -1.38402);
+        var marker = new google.maps.Marker({
+	    title: "Hinckley and Bosworth District",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.45, -1.05);
+        var marker = new google.maps.Marker({
+	    title: "Husbands Bosworth",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.58413, -83.78366);
+        var marker = new google.maps.Marker({
+	    title: "Bosworth Railroad Station (historical)",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.2806113, -81.48344760000001);
+        var marker = new google.maps.Marker({
+	    title: "Bosworth (historical)",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.42782, -81.99653000000001);
+        var marker = new google.maps.Marker({
+	    title: "Bosworth Incorporated Airport",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(33.0229003, -85.5613426);
+        var marker = new google.maps.Marker({
+	    title: "Bosworth",
+	    icon: 10 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 10
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(46.083382356, -80.082963455);
+        var marker = new google.maps.Marker({
+	    title: "Bosworth Island",
+	    icon: 11 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 11
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.46974, -93.33465);
+        var marker = new google.maps.Marker({
+	    title: "Bosworth",
+	    icon: 12 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 12
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.46992, -93.33555);
+        var marker = new google.maps.Marker({
+	    title: "City of Bosworth",
+	    icon: 13 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 13
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(48.0425999, -121.9681848);
+        var marker = new google.maps.Marker({
+	    title: "Bosworth Lake",
+	    icon: 14 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 14
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(48.04537, -121.96723);
+        var marker = new google.maps.Marker({
+	    title: "Lake Bosworth",
+	    icon: 15 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 15
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(48.0450999, -121.9684627);
+        var marker = new google.maps.Marker({
+	    title: "Lake Bosworth",
+	    icon: 16 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 16
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.97881, -94.97150000000001);
+        var marker = new google.maps.Marker({
+	    title: "Bosworth Mobile Home Park",
+	    icon: 17 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 17
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(51.4639, -116.3306);
+        var marker = new google.maps.Marker({
+	    title: "Mount Bosworth",
+	    icon: 18 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 18
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(51.46668382, -116.335502252);
+        var marker = new google.maps.Marker({
+	    title: "Mount Bosworth",
+	    icon: 19 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 19
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.633423792, -88.133256535);
+        var marker = new google.maps.Marker({
+	    title: "Bosworth Lake",
+	    icon: 20 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 20
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(53.95597051436854, -1.093146843145696);
+        var marker = new google.maps.Marker({
+	    title: "York",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(53.96076943268712, -1.081790579591088);
+        var marker = new google.maps.Marker({
+	    title: "York",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.75984573364258, -75.81017303466797);
+        var marker = new google.maps.Marker({
+	    title: "New York",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(53.9639632888809, -1.09142303466797);
+        var marker = new google.maps.Marker({
+	    title: "City of York",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.1253701, -76.999977);
+        var marker = new google.maps.Marker({
+	    title: "York County",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(44.0001100, -79.4663200);
+        var marker = new google.maps.Marker({
+	    title: "York",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.7834345, -73.9662495);
+        var marker = new google.maps.Marker({
+	    title: "New York County",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.6667453, -73.8323448);
+        var marker = new google.maps.Marker({
+	    title: "New York Army National Guard Heliport",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.4667493, -70.6828338);
+        var marker = new google.maps.Marker({
+	    title: "York County",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.00035, -75.4999);
+        var marker = new google.maps.Marker({
+	    title: "New York",
+	    icon: 10 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 10
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(34.9834716, -81.1831303);
+        var marker = new google.maps.Marker({
+	    title: "York County",
+	    icon: 11 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 11
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.2334783, -76.54967430000001);
+        var marker = new google.maps.Marker({
+	    title: "York County",
+	    icon: 12 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 12
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(49.899826914, -118.319003572);
+        var marker = new google.maps.Marker({
+	    title: "Mount York",
+	    icon: 13 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 13
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.8666784, -97.6003288);
+        var marker = new google.maps.Marker({
+	    title: "York County",
+	    icon: 14 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 14
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.3574172, -119.1254269);
+        var marker = new google.maps.Marker({
+	    title: "New York Hill",
+	    icon: 15 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 15
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-45.5666667, 167.7333333);
+        var marker = new google.maps.Marker({
+	    title: "Mount York",
+	    icon: 16 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 16
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-4.16667, 152.45);
+        var marker = new google.maps.Marker({
+	    title: "Duke of York Group",
+	    icon: 17 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 17
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-33.65, 148.65);
+        var marker = new google.maps.Marker({
+	    title: "Mount York",
+	    icon: 18 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 18
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-33.25, 149.4333333);
+        var marker = new google.maps.Marker({
+	    title: "Mount York",
+	    icon: 19 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 19
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.647989, -117.9328613);
+        var marker = new google.maps.Marker({
+	    title: "New York Butte",
+	    icon: 20 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 20
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(-40.7, 176.1666667);
+        var marker = new google.maps.Marker({
+	    title: "Mount York",
+	    icon: 21 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 21
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.5089832, -73.44928880000001);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Neck",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.3720157, -73.5640033);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Corners",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.8131372, -83.916588);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Mill",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.0553547, -84.5496627);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Branch",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.8525717, -83.45880219999999);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Chapel Cemetery",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.3201517, -78.12277690000001);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Creek",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.2059861, -78.184164);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Cemetery",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.0704108, -80.25421009999999);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Chapel",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.1033922, -86.8686117);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Gap Branch",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.0686711, -86.8986124);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Gap",
+	    icon: 10 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 10
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(33.1145864, -83.2332105);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Church",
+	    icon: 11 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 11
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(33.8889888, -86.6952709);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Bridge",
+	    icon: 12 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 12
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.0020114, -88.8556189);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Grove Church of Christ",
+	    icon: 13 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 13
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.0017337, -88.85589659999999);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Grove Cemetery",
+	    icon: 14 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 14
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.0020114, -88.8561744);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Grove",
+	    icon: 15 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 15
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(34.3348307, -89.8992562);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Chapel",
+	    icon: 16 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 16
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(31.7898845, -90.0700835);
+        var marker = new google.maps.Marker({
+	    title: "South Branch Vaughns Creek",
+	    icon: 17 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 17
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(31.7807183, -90.1084178);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Creek",
+	    icon: 18 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 18
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.2470562, -123.9331528);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Creek",
+	    icon: 19 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 19
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(33.0098588, -93.3640592);
+        var marker = new google.maps.Marker({
+	    title: "Vaughns Chapel (historical)",
+	    icon: 20 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 20
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.4437166, -74.4704303);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(54.97075, -2.45814);
+        var marker = new google.maps.Marker({
+	    title: "Haltwhistle Red Lion Tower",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.3376041, -77.0135903);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion Inn Estates",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.9006557, -76.60718900000001);
+        var marker = new google.maps.Marker({
+	    title: "Borough of Red Lion",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.9009334, -76.6058001);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.9423214, -76.5805215);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion Reservoir",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.480652, -75.61602120000001);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.9042807, -74.7490492);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion Airport",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.8895588, -74.74460449999999);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.8781653, -75.6816022);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion",
+	    icon: 10 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 10
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.6084453, -75.66381869999999);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion",
+	    icon: 11 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 11
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.6062232, -75.6538182);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion State Forest",
+	    icon: 12 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 12
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.5917787, -75.6663188);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion Hundred",
+	    icon: 13 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 13
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.2420543, -75.9132729);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion Branch",
+	    icon: 14 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 14
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.6048345, -75.61381609999999);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion Creek",
+	    icon: 15 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 15
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.4914482, -84.24966019999999);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion",
+	    icon: 16 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 16
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(44.053415, -68.8266982);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion Island",
+	    icon: 17 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 17
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(46.2563144, -113.2420029);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion Ski Trail",
+	    icon: 18 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 18
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(46.2868703, -113.1992235);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion Mountain",
+	    icon: 19 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 19
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.8916578, -102.6768575);
+        var marker = new google.maps.Marker({
+	    title: "Red Lion",
+	    icon: 20 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 20
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.62739493716479, -1.401594271526773);
+        var marker = new google.maps.Marker({
+	    title: "Market Bosworth",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.62480959699852, -1.406126851526482);
+        var marker = new google.maps.Marker({
+	    title: "Market Bosworth",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.6106300779621, -1.457010080043452);
+        var marker = new google.maps.Marker({
+	    title: "Market Bosworth ED",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.62138201337278, -1.413126771549158);
+        var marker = new google.maps.Marker({
+	    title: "Market Bosworth CP",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.64285360112748, -1.421305437645644);
+        var marker = new google.maps.Marker({
+	    title: "Cadeby, Carlton and Market Bosworth with Shackerstone Ward",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.62174, -1.41473);
+        var marker = new google.maps.Marker({
+	    title: "Market Bosworth",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.62461, -1.42098);
+        var marker = new google.maps.Marker({
+	    title: "Market Bosworth Railway Station",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.62428, -1.40174);
+        var marker = new google.maps.Marker({
+	    title: "Market Bosworth",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.60098540445604, -1.384329741819248);
+        var marker = new google.maps.Marker({
+	    title: "Sutton Cheney",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.60034851972582, -1.387196414999224);
+        var marker = new google.maps.Marker({
+	    title: "Sutton Cheney",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.59302328554065, -1.410121164648865);
+        var marker = new google.maps.Marker({
+	    title: "Sutton Cheney CP",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.59343, -1.41148);
+        var marker = new google.maps.Marker({
+	    title: "Sutton Cheney",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.5991, -1.38668);
+        var marker = new google.maps.Marker({
+	    title: "Sutton Cheney",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.67053935667493, -0.2916964412335623);
+        var marker = new google.maps.Marker({
+	    title: "Deeping St James",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.65815235817728, 0.2479581791563883);
+        var marker = new google.maps.Marker({
+	    title: "Marshland St James",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(54.18280946669103, -1.440659057493214);
+        var marker = new google.maps.Marker({
+	    title: "Baldersby St James",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(51.76085743249326, 0.4226025019208778);
+        var marker = new google.maps.Marker({
+	    title: "Chignall St James",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(51.75864775555274, 0.4272666039265854);
+        var marker = new google.maps.Marker({
+	    title: "Chignall St James",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.02967745157379, -1.162786720473012);
+        var marker = new google.maps.Marker({
+	    title: "St James' Lake",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(51.15418368303685, -1.892749961508787);
+        var marker = new google.maps.Marker({
+	    title: "Berwick St James",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(51.15194083278517, -1.898903601146458);
+        var marker = new google.maps.Marker({
+	    title: "Berwick St James",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(51.581, -0.0323);
+        var marker = new google.maps.Marker({
+	    title: "St James Street Railway Station",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.87613, -73.15192999999999);
+        var marker = new google.maps.Marker({
+	    title: "St. James",
+	    icon: 10 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 10
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(51.1586, -1.90738);
+        var marker = new google.maps.Marker({
+	    title: "Berwick St. James",
+	    icon: 11 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 11
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.57367, -77.74800999999999);
+        var marker = new google.maps.Marker({
+	    title: "St. James",
+	    icon: 12 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 12
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(50.73106, -3.52234);
+        var marker = new google.maps.Marker({
+	    title: "St James Park Railway Station",
+	    icon: 13 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 13
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(55.852, -4.442);
+        var marker = new google.maps.Marker({
+	    title: "Paisley St James Railway Station",
+	    icon: 14 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 14
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(33.94528, -78.11412);
+        var marker = new google.maps.Marker({
+	    title: "Town of St. James",
+	    icon: 15 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 15
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(54.429064948, -124.247601397);
+        var marker = new google.maps.Marker({
+	    title: "Réserve indienne Necoslie (Fort St. James) 1",
+	    icon: 16 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 16
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(54.4559694102206, -124.262752532959);
+        var marker = new google.maps.Marker({
+	    title: "Fort St. James",
+	    icon: 17 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 17
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(54.429064948, -124.247601397);
+        var marker = new google.maps.Marker({
+	    title: "Necoslie (Fort St. James) Indian Reserve 1",
+	    icon: 18 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 18
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(51.9373862575194, -131.016941070557);
+        var marker = new google.maps.Marker({
+	    title: "St. James Island",
+	    icon: 19 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 19
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(54.440168012, -124.258802683);
+        var marker = new google.maps.Marker({
+	    title: "Fort St. James National Historic Site of Canada",
+	    icon: 20 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 20
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.36488723754883, -82.671875);
+        var marker = new google.maps.Marker({
+	    title: "Ohio",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.2503400, -83.0001800);
+        var marker = new google.maps.Marker({
+	    title: "Ohio",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(43.6231247, -72.6253749);
+        var marker = new google.maps.Marker({
+	    title: "Ohio Hill",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.1000728, -80.6164644);
+        var marker = new google.maps.Marker({
+	    title: "Ohio County",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.9611755, -82.99879420000001);
+        var marker = new google.maps.Marker({
+	    title: "Columbus",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.9625644, -82.9993497);
+        var marker = new google.maps.Marker({
+	    title: "Ohio Building Authority Heliport",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.9725644, -83.0018498);
+        var marker = new google.maps.Marker({
+	    title: "Ohio Center Heliport",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.0797854, -83.0729642);
+        var marker = new google.maps.Marker({
+	    title: "Ohio State University Airport",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.079778, -83.07302799999999);
+        var marker = new google.maps.Marker({
+	    title: "Columbus, Ohio State University Airport",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.2503398, -83.0001841);
+        var marker = new google.maps.Marker({
+	    title: "Ohio",
+	    icon: 10 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 10
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.295617, -83.0518531);
+        var marker = new google.maps.Marker({
+	    title: "Ohio Department of Transportation District 6 Heliport",
+	    icon: 11 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 11
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.9489492, -84.853838);
+        var marker = new google.maps.Marker({
+	    title: "Ohio County",
+	    icon: 12 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 12
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.6195, -83.61938000000001);
+        var marker = new google.maps.Marker({
+	    title: "Medical College of Ohio Hospital Heliport",
+	    icon: 13 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 13
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.9525522, -83.9821657);
+        var marker = new google.maps.Marker({
+	    title: "Ohio Dusting Company Incorporated Airport",
+	    icon: 14 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 14
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.0320053, -86.7933329);
+        var marker = new google.maps.Marker({
+	    title: "Murray Ohio Airport",
+	    icon: 15 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 15
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.4592155, -86.8483248);
+        var marker = new google.maps.Marker({
+	    title: "Ohio County Airport",
+	    icon: 16 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 16
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.4667155, -86.86665859999999);
+        var marker = new google.maps.Marker({
+	    title: "Ohio County",
+	    icon: 17 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 17
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.3713016, -120.7699348);
+        var marker = new google.maps.Marker({
+	    title: "Ohio Hill",
+	    icon: 18 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 18
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.8174935, -107.1214382);
+        var marker = new google.maps.Marker({
+	    title: "Ohio Peak",
+	    icon: 19 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 19
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.860829, -107.6986725);
+        var marker = new google.maps.Marker({
+	    title: "Ohio Peak",
+	    icon: 20 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 20
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(76.6197222, -67.4252778);
+        var marker = new google.maps.Marker({
+	    title: "Ohio Fjeld",
+	    icon: 21 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 21
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(52.60042398997511, -1.401961880485832);
+        var marker = new google.maps.Marker({
+	    title: "Ambion Hill",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+        map.setCenter(new google.maps.LatLng(x, y), 10);
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getPosition();
+        if(l.lat() == lastlat && l.lng() == lastlng)
+        {
+//            alert("match: " + l.lat() + "," + l.lng() + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat();
+        lastlng = l.lng();
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getPosition();
+    var lat = latlng.lat(), lng = latlng.lng();
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var point = new google.maps.LatLng(55.944696, -3.187004);
+
+        var newlatlng = new google.maps.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setPosition(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat() + "   " + lng + " -> " + newlatlng.lng());
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getPosition(), l2 = m2.getPosition();
+    if(l1.lat() == l2.lat())
+        return l1.lng() - l2.lng();
+    else
+        return l1.lat() - l2.lat();
+}
+//]]>
+      </script>
+  <style>
+      .found {color: red;} 
+      table  {border-collapse: collapse; empty-cells: show;}
+      tr     {border: 1px solid black;}
+      td[best="true"] {color: green;}
+      td[best="false"] {color: red;}
+    </style>
+ </head>
+ <body onload="load()">
+  <div style="height: 400px" id="map"></div>
+ </body>
+</html>

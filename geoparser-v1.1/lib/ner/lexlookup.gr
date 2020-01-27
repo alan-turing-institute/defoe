@@ -1,0 +1,325 @@
+<rules name="lexlookup" type="xml" apply="all">
+
+<lexicon name="fname" href="femalefirstnames.lex"/>
+<lexicon name="mname" href="malefirstnames.lex"/>
+<lexicon name="alexm" href="alexandria-multi.mmlex"/>
+<lexicon name="alexs" href="alexandria-single.mmlex"/>
+<lexicon name="common" href="common.mmlex"/>
+<lexicon name="locadj" href="locadj-ethnic.lex"/>
+<lexicon name="countries" href="countries.lex"/>
+<lexicon name="edinam" href="edina-multi.mmlex"/>
+<lexicon name="edinas" href="edina-single.mmlex"/>
+<lexicon name="org" href="org.lex"/>
+<lexicon name="prof" href="profession.lex"/>
+<lexicon name="wper" href="wikiperson.mmlex"/>
+<lexicon name="wfirstn" href="firstnames.lex"/>
+<lexicon name="wlastn" href="lastnames.lex"/>
+<lexicon name="eventn" href="eventnouns.lex"/>
+<lexicon name="staten" href="statenouns.lex"/>
+<lexicon name="tmln" href="tmlnouns.lex"/>
+<lexicon name="tmla" href="tmladj.lex"/>
+<lexicon name="class" href="classpreds.lex"/>
+
+<rule name="firstname" attrs="pername='true'">
+  <first>
+    <lookup match="w[@p~'^N' and .~'^[A-Z]']" lexicon="fname" phrase="true"/>
+    <lookup match="w[@p~'^N' and .~'^[A-Z]']" lexicon="mname" phrase="true"/>
+  </first>
+</rule>
+
+<rule name="place-multi-edina0">
+  <and>
+    <lookup match="w" lexicon="edinam" phrase="true"/>
+    <seq>
+      <query match="w[.~'^[Tt]he$']"/>
+      <query match="w[.~'^[A-Z]' and @common='true']"/>
+    </seq>
+  </and>
+</rule>
+
+<rule name="place-multi-edina1">
+  <seq>
+  <query match="w[.~'^[Tt]he$']" mult="?" suppress="true"/>
+  <and>
+    <query match="w[.~'^[A-Z]']"/>
+    <first>
+      <lookup match="w" lexicon="edinam" phrase="true"/>
+      <lookup match="w[@p~'^N' and .~'^[A-Z]+$']" lexicon="edinam" case="no" phrase="true"/>
+    </first>
+  </and>
+  </seq>
+</rule>
+
+<rule name="place-multi-edina2">
+  <and>
+    <query match="w[not(.~'^[Tt]he$')]"/>
+    <lookup match="w[(@p~'^N' and .~'^[A-Z]') or .='the']" lexicon="edinam" case="no" phrase="true"/>
+  </and>
+</rule>
+
+<rule name="place-multi-edina">
+  <first>
+    <ref name="place-multi-edina1"/>
+    <ref name="place-multi-edina2"/>
+  </first>
+</rule>
+
+<rule name="place-multi-alex0">
+  <and>
+    <lookup match="w" lexicon="alexm" phrase="true"/>
+    <seq>
+      <query match="w[.~'^[Tt]he$']"/>
+      <query match="w[.~'^[A-Z]' and @common='true']"/>
+    </seq>
+  </and>
+</rule>
+
+<rule name="place-multi-alex1">
+  <seq>
+  <query match="w[.~'^[Tt]he$']" mult="?" suppress="true"/>
+  <and>
+    <query match="w[.~'^[A-Z]']"/>
+    <first>
+      <lookup match="w" lexicon="alexm" phrase="true"/>
+      <lookup match="w[@p~'^N' and .~'^[A-Z]+$']" lexicon="alexm" case="no" phrase="true"/>
+    </first>
+  </and>
+  </seq>
+</rule>
+
+<rule name="place-multi-alex2">
+  <and>
+    <query match="w[not(.~'^[Tt]he$')]"/>
+    <lookup match="w[(@p~'^N' and .~'^[A-Z]') or .='the']" lexicon="alexm" case="no" phrase="true"/>
+  </and>
+</rule>
+
+<rule name="place-multi-alex">
+  <first>
+    <ref name="place-multi-alex1"/>
+    <ref name="place-multi-alex2"/>
+  </first>
+</rule>
+
+<rule name="place-multi-both" wrap="enamex" attrs="type='location' alsource='true' edsource='true' conf='high'">
+  <and>
+    <ref name="place-multi-edina"/>
+    <ref name="place-multi-alex"/>
+  </and>
+</rule>
+
+<rule name="place-multi-justedina" wrap="enamex" attrs="type='location' edsource='true' conf='med'">
+  <ref name="place-multi-edina"/>
+</rule>
+
+<rule name="place-multi-justalex" wrap="enamex" attrs="type='location' alsource='true' conf='low'">
+  <ref name="place-multi-alex"/>
+</rule>
+
+<rule name="place-multi-rulenotlex" wrap="enamex" attrs="type='location'">
+  <seq>
+    <query match="w[.~'^[A-Z]']"/>
+    <query match="w[.~'^(County|COUNTY)$']"/>
+  </seq>
+</rule>
+
+<rule name="place-single-edina">
+  <and>
+    <query match="w[.~'^[A-Z]']"/>
+    <first>
+      <lookup match="w" lexicon="edinas"/>
+      <lookup match="w[@p~'^N' and .~'^[A-Z][A-Z][A-Z][A-Z]+$']" lexicon="edinas" case="no"/>
+    </first>
+  </and>
+</rule>
+
+<rule name="place-single-alex">
+  <and>
+    <query match="w[.~'^[A-Z]']"/>
+    <first>
+      <lookup match="w" lexicon="alexs" phrase="true"/>
+      <lookup match="w[@p~'^N' and .~'^[A-Z][A-Z][A-Z][A-Z]+$']" lexicon="alexs" case="no" phrase="true"/>
+    </first>
+  </and>
+</rule>
+
+<rule name="place-single-both" attrs="locname='single' alsource='true' edsource='true'">
+  <and>
+    <ref name="place-single-edina"/>
+    <ref name="place-single-alex"/>
+  </and>
+</rule>
+
+<rule name="place-single-justedina" attrs="locname='single' edsource='true'">
+  <ref name="place-single-edina"/>
+</rule>
+
+<rule name="place-single-justalex" attrs="locname='single' alsource='true'">
+  <ref name="place-single-alex"/>
+</rule>
+
+<!-- right context makes sure the next word isn't capitalized (stops
+     a shorter entry matching a longer name) -->
+<rule name="place-multi">
+  <seq>
+    <first>
+      <ref name="place-multi-both"/>
+      <ref name="place-multi-alex0"/>
+      <ref name="place-multi-edina0"/>
+      <ref name="place-multi-justedina"/>
+      <ref name="place-multi-justalex"/>
+    </first>
+    <first suppress="true">
+      <query match="*[not(self::w)]"/>
+      <end/>
+      <seq>
+        <query match="w[@c='aposs']" mult="?"/>
+        <query match="w[not(.~'^[A-Z]')]"/>
+      </seq>
+    </first>
+  </seq>
+</rule>
+
+<rule name="place">
+  <first>
+    <ref name="place-multi"/>
+    <ref name="place-multi-rulenotlex"/>
+    <ref name="place-single-both"/>
+    <ref name="place-single-justedina"/>
+    <ref name="place-single-justalex"/>
+  </first>
+</rule>
+
+<rule name="common" attrs="common='true'">
+  <first>
+    <query match="w[@l and @p~'^[NJ]' and .~'^[A-Z]']">
+      <constraint test="common(@l)"/>
+    </query>
+    <lookup match="w[@p~'^[NJ]' and .~'^[A-Z]']" lexicon="common" phrase="true"/>
+  </first>
+</rule>
+
+<rule name="commonfordeep" attrs="common='true'">
+  <first>
+    <query match="w[@l and @p~'^[NJ]']">
+      <constraint test="common(@l)"/>
+    </query>
+    <lookup match="w[@p~'^[NJ]']" lexicon="common" phrase="true"/>
+  </first>
+</rule>
+
+<rule name="otherloc">
+  <first>
+    <lookup match="w[.~'^[A-Z]']" lexicon="countries" phrase="true" attrs="country='true'"/>
+    <lookup match="w[@p~'^[NJ]' and .~'^[A-Z]']" lexicon="locadj" phrase="true" attrs="locadj='true'"/>
+  </first>
+</rule>
+
+<rule name="org">
+  <and>
+    <first>
+      <query match="w[.~'^[A-Z]']"/>
+      <query match="w[.='the']"/>
+    </first>
+    <first>
+      <lookup match="w" lexicon="org" phrase="true" attrs="orgname='multi'">
+        <constraint test="cat='morg'"/>
+      </lookup>
+      <lookup match="w" lexicon="org" phrase="true" attrs="orgname='single'">
+        <constraint test="cat='sorg'"/>
+      </lookup>
+      <lookup match="w" lexicon="org" phrase="true" attrs="orgname='brand'">
+        <constraint test="cat='brand'"/>
+      </lookup>
+    </first>
+  </and>
+</rule>
+
+<rule name="prof">
+  <lookup match="w[@p='NN' or @p='NNS']" lexicon="prof" phrase="true" attrs="prof='true'"/>
+</rule>
+
+<rule name="wper" wrap="enamex" attrs="type='person'">
+  <seq>
+    <first suppress="true">
+      <start/>
+      <query match="w[not(@pername)]"/>
+    </first>
+    <lookup match="w" lexicon="wper" phrase="true" attrs="wiki='I-wper'"/>
+    <not>
+      <query match="w[.~'^[A-Z]']"/>
+    </not>
+  </seq>
+</rule>
+
+<rule name="wikifirstname" attrs="wfirstn='true'">
+  <lookup match="w[@p~'^N' and .~'^[A-Z]']" lexicon="wfirstn"/>
+</rule>
+
+<rule name="wikilastname" attrs="wlastn='true'">
+  <lookup match="w[@p~'^N' and .~'^[A-Z]']" lexicon="wlastn"/>
+</rule>
+
+<rule name="eventn" attrs="event='true'">
+  <first>
+    <query match="w[@l and @p~'^N']">
+      <constraint test="eventn(@l)"/>
+    </query>
+    <lookup match="w[@p~'^N']" lexicon="eventn"/>
+  </first>
+</rule>
+
+<rule name="staten" attrs="state='true'">
+  <first>
+    <query match="w[@l and @p~'^N']">
+      <constraint test="staten(@l)"/>
+    </query>
+    <lookup match="w[@p~'^N']" lexicon="staten"/>
+  </first>
+</rule>
+
+<rule name="class" attrs="class='$cat'">
+  <and>
+    <query match="w[@l]">
+      <constraint test="class(@l)"/>
+    </query>
+    <query match="w[@l]">
+      <var name="cat" value="class(@l)/cat"/>
+    </query>
+  </and>
+</rule>
+
+<rule name="tmln" attrs="tmln='true'">
+  <first>
+    <query match="w[@l and @p~'^N']">
+      <constraint test="tmln(@l)"/>
+    </query>
+    <lookup match="w[@p~'^N']" lexicon="tmln"/>
+  </first>
+</rule>
+
+<rule name="tmla" attrs="tmla='true'">
+  <lookup match="w[@p~'^J']" lexicon="tmla"/>
+</rule>
+
+<rule name="all">
+  <first>
+    <ref name="firstname"/>
+    <ref name="place"/>
+    <ref name="common"/>
+    <ref name="otherloc"/>
+    <ref name="org"/>
+    <ref name="prof"/>
+    <ref name="wper"/>
+    <ref name="wikilastname"/>
+    <ref name="wikifirstname"/>
+    <ref name="eventn"/>
+    <ref name="staten"/>
+    <ref name="tmln"/>
+    <ref name="tmla"/>
+  </first>
+</rule>
+
+</rules>
+
+

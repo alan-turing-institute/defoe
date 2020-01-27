@@ -1,0 +1,49 @@
+#!/bin/sh
+
+usage="prepare-plain [-d docdate] <input.xml >output.xml"
+descr="Convert plain text document to pipeline input format."
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    -d)
+      docdate=$1
+      shift
+      ;;
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+lib=$here/lib/prepare
+temp=$here/lib/tempresolve
+
+if [ "$docdate" ]; then
+
+ddate=`echo $docdate | $SED 's/-//g'`
+year=`echo $docdate | $SED 's/^(....)-.*/\1/'`
+month=`echo $docdate | $SED 's/^....-(..).*/\1/'`
+date=`echo $docdate | $SED 's/.*(..)$/\1/'`
+
+else
+
+ddate=`date +%Y%m%d`
+year=`date +%Y`
+month=`date +%m`
+date=`date +%d`
+
+fi
+
+cat > $tmp-in
+
+cat $tmp-in |
+tr -d '\000\015\014' |
+lxplain2xml -e guess -w text |
+lxtransduce -q 'text' $lib/paras.gr |
+lxreplace -q 'text' -t "<document version='3'><xsl:text>&#10;</xsl:text><meta><xsl:text>&#10;</xsl:text><attr name='docdate' id='docdate' year='$year' month='$month' date='$date'>$ddate</attr><xsl:text>&#10;</xsl:text></meta><xsl:text>&#10;</xsl:text>&this;<xsl:text>&#10;</xsl:text></document>" |
+lxt -s $temp/dateground.xsl
+

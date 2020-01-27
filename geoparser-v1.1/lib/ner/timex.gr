@@ -1,0 +1,3742 @@
+<rules name="timex" type="xml" apply="all">
+
+<!-- general purpose rules -->
+
+<rule name="the">
+  <query match="w[.~'^(the|The|THE)$']"/>
+</rule> 
+
+<!-- prepositions to be used for context. NB if POS tagging is done
+     before these rules apply then POS tag could be used instead -->
+
+<rule name="some-preps">
+  <lookup match="w" lexicon="lex" phrase="true" case="no">
+    <constraint test="cat='prep'"/>
+  </lookup>
+</rule>
+
+<!-- determiners and possessive marking to be used for context. Again,
+     POS tag could be used instead --> 
+
+<rule name="some-dets">
+  <first>
+    <query match="w[.~&quot;^'[s]?$&quot;]"/>
+    <lookup match="w" lexicon="lex" case="no">
+      <constraint test="cat='det'"/>
+    </lookup>
+  </first>
+</rule>
+
+<!-- prepositions or determiners -->
+
+<rule name="preps-dets">
+  <first>
+    <ref name="some-preps"/>
+    <ref name="some-dets"/>
+  </first>
+</rule> 
+
+<!-- and, but, or ... -->
+ 
+<rule name="some-conjs">
+  <lookup match="w" lexicon="lex" case="no">
+    <constraint test="cat='conj'"/>
+  </lookup>
+</rule>
+
+<!-- half, part (as in "the first half of the year") -->
+
+<rule name="part">
+  <first>
+    <query match="w[.~'^(half|Half|HALF|part|Part|PART)$']"/>
+    <query match="w[@c='frac']"/>
+    <query match="phr[@c='frac']"/>
+  </first>
+</rule> 
+
+<rule name="hyphen">
+  <first>
+    <query match="w[@c='hyph']"/>
+    <query match="w[.='-']"/>
+    <query match="w[.='&#x2010;']"/>
+    <query match="w[.='&#x2011;']"/> 
+    <query match="w[.='&#x2012;']"/>
+    <query match="w[.='&#x2013;']"/>
+    <query match="w[.='&#x2014;']"/>
+    <query match="w[.='&#x2015;']"/>
+  </first>
+</rule> 
+
+<rule name="fullstop">
+  <query match="w[.='.']"/>
+</rule>
+
+<!-- days -->
+
+<!-- Monday, Tuesday, ... -->
+
+<rule name="day-name-full-lex">
+  <lookup match="w" lexicon="lex" attrs="day='$dayname' wdaynum='$daynum'">
+    <constraint test="cat='day'"/>
+    <var name="dayname" value="dayname"/>
+    <var name="daynum" value="daynum"/>
+  </lookup>
+</rule>
+
+<!-- Mon., Mon, Tues., Tues, etc, The fullstop may or may not get
+     tokenised with the abbreviation so allow it optionally in either
+     place. --> 
+
+<rule name="day-name-abbrev-lex">
+  <seq>
+    <lookup match="w" lexicon="lex" attrs="day='$dayname' wdaynum='$daynum'">
+      <constraint test="cat='day-abbr'"/>
+      <var name="dayname" value="dayname"/>
+      <var name="daynum" value="daynum"/>
+    </lookup>
+    <ref name="fullstop" mult="?"/>
+  </seq>
+</rule>
+
+<!-- Monday, Mon., Mon, ...  -->
+
+<rule name="day-name">
+  <first>
+    <ref name="day-name-full-lex"/>
+    <ref name="day-name-abbrev-lex"/>
+  </first>
+</rule>
+
+<!-- months -->
+
+<!-- January, February, ...  -->
+
+<rule name="month-name-full-lex">
+  <lookup match="w" lexicon="lex" attrs="month='$mnumber'">
+    <constraint test="cat='month-ambig' or cat='month-nonambig'"/>
+    <var name="mnumber" value="mnumber"/>
+  </lookup>
+</rule>
+
+<!-- Jan., Jan, Feb., Feb, etc. The fullstop may or may not get
+     tokenised with the abbreviation so allow it optionally in either
+     place - but not when it's the sentence final fullstop. --> 
+
+<rule name="sentfinalstop">
+  <seq>
+    <ref name="fullstop"/>
+    <end/>
+  </seq>
+</rule>
+
+<rule name="month-name-abbrev-lex">
+  <first>
+    <seq>
+      <lookup match="w" lexicon="lex" attrs="month='$mnumber'">
+        <constraint test="cat='month-abbr'"/>
+        <var name="mnumber" value="mnumber"/>
+      </lookup>
+      <ref name="sentfinalstop" suppress="true"/>
+    </seq>
+    <seq>
+      <lookup match="w" lexicon="lex" attrs="month='$mnumber'">
+        <constraint test="cat='month-abbr'"/>
+        <var name="mnumber" value="mnumber"/>
+      </lookup>
+      <ref name="fullstop" mult="?"/>
+    </seq>
+  </first>
+</rule>
+
+<!-- January, Jan., Jan, ...  -->
+
+<rule name="all-month">
+  <first>
+    <ref name="month-name-full-lex"/>
+    <ref name="month-name-abbrev-lex"/>
+  </first>
+</rule>
+
+<!-- January, February, July, September, October, November,
+     December, plus abbreviations of month names.  
+     These are month names which are not ambiguous, so can be
+     recognised on their own regardless of context -->
+
+<rule name="nonambig-month1">
+  <first>
+    <lookup match="w" lexicon="lex" attrs="month='$mnumber'">
+      <constraint test="cat='month-nonambig'"/>
+      <var name="mnumber" value="mnumber"/>
+    </lookup>
+    <ref name="month-name-abbrev-lex"/>
+  </first>
+</rule>
+
+<!-- March, April, May, June, August. Also Jan (no fullstop). These
+     are month names which are potentially ambiguous and 
+     context must be taken into account -->
+
+<rule name="ambig-months-lex">
+  <first>
+    <lookup match="w" lexicon="lex" attrs="month='$mnumber'">
+      <constraint test="cat='month-ambig'"/>
+      <var name="mnumber" value="mnumber"/>
+    </lookup>
+    <query match="w[.='Jan']"/>
+  </first>
+</rule>
+
+<!-- ambig months recognised after certain prepositions
+     ("until March") or after determiners ("their April
+     meeting"). -->
+<!-- suppressed left context interferes with other rules so try just
+     blocking cases where the following word is capitalised -->
+<!-- <rule name="nonambig-month2">
+  <seq> 
+    <ref name="preps-dets" suppress="true"/>
+    <ref name="ambig-months-lex"/>
+    <query match="w[not(.~'[0-9]')]" suppress="true"/>
+  </seq>
+</rule>-->
+
+<rule name="nonambig-month2">
+  <seq> 
+    <ref name="ambig-months-lex"/>
+    <first suppress="true">
+      <query match="w[not(.~'^[A-Z]')]"/>
+      <end/>
+    </first>
+  </seq>
+</rule>
+
+<!-- date names -->
+
+<!-- Rosh Hashanah, St. Patrick's Day etc. -->
+
+<!-- Names of special holidays -->
+
+<rule name="special-date-lex">
+  <lookup match="w" lexicon="lex" phrase="true">
+    <constraint test="cat='hol'"/>
+  </lookup>
+</rule>
+
+<!-- Guess at special dates that aren't in the lexicon -->
+
+<rule name="middlebit">
+   <query match="w[.~&quot;^(([A-Z][\.`'A-z\-]+)|([`']s?))$&quot;]"/>
+</rule>
+
+<rule name="special-date-guess">
+  <seq>
+    <query match="w[.~&quot;^[A-Z][\.`'A-z\-]+$&quot;]"/>
+    <ref name="middlebit" mult="*"/>
+    <query match="w[.~'^(Day|DAY|Eve|EVE|Night|NIGHT)$']"> </query>
+  </seq>
+</rule>
+
+<!-- Special dates from the lexicon or guessed -->
+
+<rule name="special-date-name">
+  <first>
+    <ref name="special-date-lex"/>
+    <ref name="special-date-guess"/>
+  </first>
+</rule>
+
+<!-- today, yesterday, tomorrow -->
+
+<rule name="today-deictic">
+  <lookup match="w" lexicon="lex" case="no" attrs="trel='$trel' unit='day' quty='1'">
+    <constraint test="cat='day-deict'"/>
+    <var name="trel" value="trel"/>
+  </lookup>
+</rule> 
+
+<!-- weekend etc -->
+
+<rule name="weekend">
+  <seq>
+    <ref name="the" mult="?"/>
+    <query match="w[.~'^[Ww]eekend$']"/>
+  </seq>
+</rule> 
+
+<!-- seasons -->
+
+<!-- Season names -->
+
+<rule name="season-name" attrs="season='$S'">
+  <lookup match="w" lexicon="lex" case="no">
+    <constraint test="cat='season-nonambig' or cat='season-ambig'"/>
+    <var name="S" value="sname"/>
+  </lookup>
+</rule> 
+
+<!-- non-ambiguous seasons: summer, winter, autumn (not spring, fall) -->
+
+<rule name="nonambig-season" attrs="season='$S'">
+  <lookup match="w" lexicon="lex" case="no">
+    <constraint test="cat='season-nonambig'"/>
+    <var name="S" value="sname"/>
+  </lookup>
+</rule> 
+
+<!-- years -->
+
+<!-- nineteen ninety-six -->
+
+<rule name="spelledyearwrapped" wrap="timex" attrs="type='date' year='$A$B'">
+  <seq>
+    <query match="w[.~'^[A-Za-z][a-z]+$' and @quty~'^(1[0-9]|20)$']">
+      <var name="A" value="@quty"/>
+    </query>
+    <query match="*[@quty~'^([1-9]|[1-9][0-9])$']">
+      <var name="B" value="@quty"/>
+    </query>
+  </seq>
+</rule> 
+
+<rule name="spelledyear" wrap="phr" attrs="quty='$A$B' year='$A$B'">
+  <seq>
+    <query match="w[.~'^[A-Za-z][a-z]+$' and @quty~'^(1[0-9]|20)$']">
+      <var name="A" value="@quty"/>
+    </query>
+    <query match="*[@quty~'^([1-9]|[1-9][0-9])$']">
+      <var name="B" value="@quty"/>
+    </query>
+  </seq>
+</rule> 
+
+<!-- the year 2000, the year 1947 -->
+
+<rule name="year2000" attrs="year='$Y'">
+  <seq>
+    <query match="w[.~'^([Yy]ear|YEAR)$']"/>
+    <query match-var="Y" match="w[.~'^[1-9][0-9][0-9][0-9]?$']"/>
+  </seq>
+</rule> 
+
+<rule name="adbc">
+  <query match="w[.~'^(A\.D[\.]?|AD|a\.d[\.]?|ad|B\.C[\.]?|BC|b\.c[\.]?|bc)$']"/>
+</rule> 
+
+<!-- 700 A.D. -->
+
+<rule name="year-ad-bc" attrs="year='$Y'">
+  <seq>
+    <query match-var="Y" match="w[.~'^[1-9][0-9][0-9]?[0-9]?$']"/>
+    <ref name="adbc"/>
+  </seq>
+</rule> 
+
+<!-- c.1996 -->
+
+<rule name="copyright-year">
+  <seq>
+    <query match="w[.='c\.']" suppress="true"/>
+    <query match="w[.~'^(20|19)[0-9][0-9]$']"/>
+  </seq>
+</rule> 
+
+<!-- year abbreviation: '68 -->
+
+<rule name="apo-year">
+  <first>
+    <seq>
+      <query match="w[.~&quot;^['`]$&quot;]" mult="?"/>
+      <seq attrs="year='20$Y'">
+        <query match-var="Y" match="w[.~'^(10|11|12)$']"/>
+      </seq> 
+    </seq> 
+    <seq>
+      <query match="w[.~&quot;^['`]$&quot;]" mult="?"/>
+      <seq attrs="year='19$Y'">
+        <query match-var="Y" match="w[.~'^([2-9][0-9]|1[3-9])$']"/>
+      </seq> 
+    </seq> 
+    <seq>
+      <query match="w[.~&quot;^['`]$&quot;]" mult="?"/>
+      <seq attrs="year='20$Y'">
+        <query match-var="Y" match="w[.~'^0[0-9]$']"/>
+      </seq> 
+    </seq> 
+    <seq attrs="year='20$Y'">
+      <query match="w[.~&quot;^['`]1[0-2]$&quot;]">
+        <var name="Y" value="substring(., 2)"/>
+      </query>
+    </seq> 
+    <seq attrs="year='19$Y'">
+      <query match="w[.~&quot;^['`]([2-9][0-9]|1[3-9])$&quot;]">
+        <var name="Y" value="substring(., 2)"/>
+      </query>
+    </seq> 
+    <seq attrs="year='20$Y'">
+      <query match="w[.~&quot;^['`]0[0-9]$&quot;]">
+        <var name="Y" value="substring(., 2)"/>
+      </query>
+    </seq> 
+  </first> 
+</rule> 
+
+<!-- If a possible year is conjoined with something numerical which
+     isn't a year (more than four characters) then it isn't a year:
+     eg. 212-556-4204 or 1927. This rule finds those cases to prevent
+     other rules finding them but it doesn't add mark-up. -->
+
+<rule name="not-year-long">
+  <first>
+    <seq>
+      <query match="w[.~'[0-9][0-9][0-9][0-9]$']"/>
+      <first>
+        <ref name="hyphen"/>
+        <query match="w[.='/']"/>
+      </first>
+      <query match="w[.~'[0-9][0-9][0-9][0-9]$']"/>
+      <first>
+        <ref name="hyphen"/>
+        <query match="w[.='/']"/>
+      </first>
+      <query match="w[.~'[0-9][0-9][0-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match="w[.~'.+[0-9][0-9][0-9][0-9]$']"/>
+      <ref name="some-conjs"/>
+      <query match="w[.~'^[0-9][0-9][0-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^[03456789][0-9][0-9][0-9]$']"/>
+      <query match="w[@pws='no']"/>
+      <query match="w[@pws='no']"/>
+    </seq>
+    <seq>
+      <query match="w[not(.~'^(IN|In|in|THE|The|the)$') and not(@p~'^V.*Z')]" suppress="true"/>
+      <query match="w[.~'^[0-9][0-9][0-9][0-9]$']"/>
+      <query match="w[@p~'^[VJ]']" mult="?"/>
+      <query match="w[@p~'^N.*S$' and .~'[A-Za-z]']"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^[Nn][Oo]$']" suppress="true"/>
+      <query match="w[.='.']" suppress="true"/>
+      <query match="w[.~'^[0-9][0-9][0-9][0-9]?$']" mult="+"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^[Nn][Oo]\.$']" suppress="true"/>
+      <query match="w[.~'^[0-9][0-9][0-9][0-9]?$']" mult="+"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^[0-9]+$']" suppress="true"/>
+      <query match="w[.~'^[0-9][0-9][0-9][0-9]?$']" mult="+"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^[0-9][0-9][0-9][0-9]?$']" mult="+"/>
+      <query match="w[.~'^[0-9]+$']" suppress="true"/>
+    </seq>
+    <seq>
+      <first suppress="true">
+        <ref name="hyphen"/>
+        <query match="w[@c='dash']"/>
+      </first>
+      <query match="w[@pws='no' and .~'^[0-9][0-9][0-9][0-9]?$']"/>
+    </seq>
+  </first>
+</rule> 
+
+<!-- Four digits that could be a year. For use in a larger date -->
+
+<rule name="year-long" attrs="year='$Y'"> 
+  <query match-var="Y" match="w[.~'^[1-9][0-9][0-9][0-9]$']"/>
+</rule> 
+
+<rule name="year-long-wrapped"> 
+  <first>
+    <ref name="spelledyearwrapped"/>
+    <ref name="not-year-long"/>
+    <seq wrap="timex" attrs="type='date' year='$Y'">
+<!--      <query match-var="Y" match="w[.~'^[1-9][0-9][0-9][0-9]$']"/>-->
+<!--      <first>
+        <query match-var="Y" match="w[.~'^19[0-9][0-9]$']"/>
+        <query match-var="Y" match="w[.~'^20[0-9][0-9]$']"/>
+      </first>-->
+      <query match-var="Y" match="w[.~'^[12][0-9][0-9][0-9]$']"/>
+    </seq>
+  </first>
+</rule> 
+
+<!-- Four digits that could be a year. Range is from 1000-2999.
+     The rule constrains the preceding word to be a preposition,
+     determiner or conjunction in either lower or upper case or the 
+     string FY, or failing that, it must be lower case alphabetic. 
+     This will rule out egs like "Corporate Communications Dept.,
+     CIMS 1820, PO Box" but it will get egs like "the fatal 1994
+     crash" -->
+
+<rule name="year-long-stand-alone1" wrap="timex" attrs="type='date' year='$Y'">
+  <seq>
+    <first suppress="true">
+      <ref name="some-preps"/>
+      <ref name="some-dets"/>
+      <ref name="some-conjs"/>
+      <query match="w[.='FY']"/>
+      <query match="w[.~'^[a-z][a-z]+$']"/>
+      <query match="w[.~&quot;^([,.;:?!\(\)]|''|``)$&quot;]"/>
+      <query match="w[.~'^(year|years|Year|Years|YEAR|YEARS)$']"/>
+    </first> 
+    <ref match-var="Y" name="year-long"/>
+  </seq>
+</rule> 
+
+<!-- same as above but attempt to get just some of the cases where
+     the preceding word starts with a capital. Also restricts the
+     range to just 1900-1999 and 2000-2099 -->
+
+<rule name="capword">
+  <query match="w[.~'^[A-Z][a-z]+$']"/>
+</rule>
+
+<rule name="year-long-stand-alone2" wrap="timex" attrs="type='date' year='$Y'">
+  <seq>
+    <first suppress="true">
+      <seq>
+        <start/>
+        <ref name="capword" mult="?"/>
+      </seq> 
+      <query match="*[not(self::w)]"/>
+    </first>
+    <first>
+      <query match-var="Y" match="w[.~'^19[0-9][0-9]$']"/>
+      <query match-var="Y" match="w[.~'^20[0-9][0-9]$']"/>
+    </first>
+  </seq>
+</rule> 
+
+<!-- this interferes with month-year so keep it out of
+     year-stand-alone (see below) or refine it --> 
+<rule name="year-long-stand-alone3">
+  <seq>
+    <seq suppress="true">
+      <query match="w[not(.=',')]"/>
+      <ref name="capword"/>
+    </seq> 
+    <first>
+      <query match="w[.~'^19[0-9][0-9]$']"/>
+      <query match="w[.~'^20[0-9][0-9]$']"/>
+    </first>
+  </seq>
+</rule> 
+
+<!-- year ranges. May have been marked as phr[@c='yrrange']
+     by number.gr (1990-1992, 1990 to 1992, between 1990 and 1992) but 
+     may not so provide for both. -->
+<rule name="year-range1" wrap="timex" attrs="type='date-range'">
+    <first>
+      <query match="phr[@c='yrrange']"/>
+      <query match="w[.~'^19[0-9][0-9]-19[0-9][0-9]$']"/>
+      <query match="w[.~'^19[0-9][0-9]-20[0-9][0-9]$']"/>
+      <query match="w[.~'^20[0-9][0-9]-20[0-9][0-9]$']"/>
+      <query match="w[.~'^19[0-9][0-9]-[0-9][0-9]$']"/>
+      <query match="w[.~'^20[0-9][0-9]-[0-9][0-9]$']"/>
+      <seq>
+        <query match="w[.~'^([Ss]ince|SINCE)$']"/>
+        <first wrap="timex" attrs="type='date' year='$Y1'">
+          <query match-var="Y1" match="w[.~'^1[0-9][0-9][0-9]$']"/>
+          <query match-var="Y1" match="w[.~'^20[0-9][0-9]$']"/>
+        </first>
+      </seq> 
+      <seq>
+        <query match="w[.~'^([Bb]etween|BETWEEN)$']"/>
+        <first wrap="timex" attrs="type='date' year='$Y1'">
+          <query match-var="Y1" match="w[.~'^1[0-9][0-9][0-9]$']"/>
+          <query match-var="Y1" match="w[.~'^20[0-9][0-9]$']"/>
+        </first>
+        <query match="w[.~'^([Aa]nd|AND)$']"/>
+        <first wrap="timex" attrs="type='date' year='$Y2'">
+          <query match-var="Y2" match="w[.~'^1[0-9][0-9][0-9]$']"/>
+          <query match-var="Y2" match="w[.~'^20[0-9][0-9]$']"/>
+        </first>
+      </seq> 
+      <seq>
+        <first wrap="timex" attrs="type='date' year='$Y1'">
+          <query match-var="Y1" match="w[.~'^1[0-9][0-9][0-9]$']"/>
+          <query match-var="Y1" match="w[.~'^20[0-9][0-9]$']"/>
+        </first>
+        <first>
+          <query match="w[.~'^([Tt]hrough|THROUGH)$']"/>
+          <query match="w[.~'^([Tt]o|TO)$']"/>
+          <ref name="hyphen"/>
+          <query match="w[.='/']"/>
+        </first>
+        <first wrap="timex" attrs="type='date' year='$Y2'">
+          <query match-var="Y2" match="w[.~'^1[0-9][0-9][0-9]$']"/>
+          <query match-var="Y2" match="w[.~'^20[0-9][0-9]$']"/>
+        </first>
+      </seq> 
+    </first>
+</rule> 
+
+<rule name="now" attrs="tref='present'">
+  <first>
+    <query match="w[.~'^([Nn]ow|NOW)$']"/>
+    <query match="w[.~'^([Pp]resent|PRESENT)$']"/>
+    <query match="w[.~'^([Cc]urrent|CURRENT)$']"/>
+  </first>
+</rule>
+
+<rule name="year-range2" wrap="timex" attrs="type='date-range'">
+    <first>
+      <query match="phr[@c='yrrange']"/>
+      <query match="w[.~'^1[0-9][0-9][0-9][\-][12][0-9][0-9][0-9]$']"/>
+      <query match="w[.~'^20[0-9][0-9][\-]20[0-9][0-9]$']"/>
+      <seq>
+        <first wrap="timex" attrs="type='date' year='$Y1'">
+          <query match-var="Y1" match="w[.~'^1[0-9][0-9][0-9]$']"/>
+          <query match-var="Y1" match="w[.~'^20[0-9][0-9]$']"/>
+        </first>
+        <first>
+          <seq>
+            <ref name="hyphen"/>
+            <ref name="now" wrap="timex" attrs="type='date'"/>
+          </seq>
+          <seq>
+            <query match="w[.~'^([Tt]o|TO)$']"/>
+            <ref name="now" wrap="timex" attrs="type='date'"/>
+          </seq>
+        </first>
+      </seq> 
+    </first>
+</rule> 
+
+<rule name="range-end-context">
+  <first>
+    <end/>
+    <query match="w[@pws='yes']"/>
+    <query match="w[.~'^[.,:;)]$']"/>
+  </first>
+</rule>  
+
+<rule name="year-range">
+  <seq>
+    <first>
+      <seq>
+        <query match="w[.='(']" suppress='true'/>
+        <first>
+          <ref name="year-range1"/>
+          <ref name="year-range2"/>
+        </first>
+      </seq>
+      <and>
+         <query match="w[@pws='yes']"/>
+         <first>
+           <ref name="year-range1"/>
+           <ref name="year-range2"/>
+         </first>
+      </and>
+    </first>
+    <ref name="range-end-context" suppress='true'/>
+  </seq>
+</rule> 
+
+<!-- standalone year: 1968, '68 -->
+
+<rule name="apo-year-wrapped">
+  <first>
+    <seq wrap="timex" attrs="type='date' year='20$Y'">
+      <query match="w[.~&quot;^['`]$&quot;]"/>
+      <query match-var="Y" match="w[.~'^(10|11|12)$']"/>
+    </seq> 
+    <seq wrap="timex" attrs="type='date' year='19$Y'">
+      <query match="w[.~&quot;^['`]$&quot;]"/>
+      <query match-var="Y" match="w[.~'^([2-9][0-9]|1[3-9])$']"/>
+    </seq> 
+    <seq wrap="timex" attrs="type='date' year='20$Y'">
+      <query match="w[.~&quot;^['`]$&quot;]"/>
+      <query match-var="Y" match="w[.~'^0[1-9]$']"/>
+    </seq> 
+    <seq wrap="timex" attrs="type='date' year='20$Y'">
+      <query match="w[.~&quot;^['`]1[0-2]$&quot;]">
+        <var name="Y" value="substring(., 2)"/>
+      </query>
+    </seq> 
+    <seq wrap="timex" attrs="type='date' year='19$Y'">
+      <query match="w[.~&quot;^['`]([2-9][0-9]|1[3-9])$&quot;]">
+        <var name="Y" value="substring(., 2)"/>
+      </query>
+    </seq> 
+    <seq wrap="timex" attrs="type='date' year='20$Y'">
+      <query match="w[.~&quot;^['`]0[1-9]$&quot;]">
+        <var name="Y" value="substring(., 2)"/>
+      </query>
+    </seq> 
+  </first> 
+</rule> 
+
+<rule name="year-stand-alone">
+  <first>
+    <ref name="not-year-long"/>
+    <ref name="year-long-stand-alone1"/>
+    <ref name="year-long-stand-alone2"/>
+<!--    <ref name="year-long-stand-alone3"/> -->
+    <ref name="apo-year-wrapped"/>
+  </first>
+</rule> 
+
+<!-- year in larger date: 1968, '68 -->
+
+<rule name="year-in-context">
+  <first>
+    <ref name="year-long"/>
+    <ref name="apo-year"/>
+    <ref name="spelledyear"/>
+  </first>
+</rule> 
+
+<!-- year as part of a date: 1968, '68, 68-->
+
+<rule name="year-in-date">
+  <first>
+    <ref name="year-long"/>
+    <ref name="apo-year"/>
+    <query match="w[.~'^([1-9][0-9])$']"/>
+  </first>
+</rule> 
+
+<!-- FY 1964  -->
+
+<rule name="fy-year">
+  <seq>
+    <first>
+      <query match="w[.~'^([Ff]iscal|FISCAL|FY)$']"/>
+      <seq>
+        <query match="w[.~'^([Ff]inancial|FINANCIAL)$']"/>
+        <query match="w[.~'^([Yy]ear|YEAR)$']"/>
+      </seq> 
+    </first>
+    <ref name="year-in-context"/>
+  </seq>
+</rule> 
+
+<!-- decades -->
+
+<!-- 80s, 80's -->
+
+<!-- NB these are not necessarily decades - could also be temperatures
+     or ages --> 
+
+<rule name="decade-2nums" attrs="year='19$Y'">
+  <first>
+    <query match="w[.~&quot;^[2-9]0[']?s$&quot;]">
+      <var name="Y" value="substring(., 1, 2)"/>
+    </query>
+    <seq>
+      <query match="w[.~'^[2-9]0$']">
+        <var name="Y" value="substring(., 1, 2)"/>
+      </query>
+       <query match="w[.~&quot;^'s$&quot;]"/>
+    </seq>
+  </first>
+</rule> 
+
+<!-- (the) early 40s, 50's, 
+      Presence of late/early makes it likely it is a decade.
+      Used "the" as pre-context to avoid ages (his early 50s) -->
+
+<rule name="decade-number1">
+  <seq> 
+    <ref name="the"/>
+    <query match="w[.~'^(late|LATE|early|EARLY)$']" mult="?"/>
+    <ref name="decade-2nums"/>
+  </seq>
+</rule>
+  
+<!-- 1980s, 1980's -->
+
+<rule name="decade-number2">
+  <seq> 
+    <ref name="the" mult="?"/>
+    <query match="w[.~'^(late|LATE|early|EARLY)$']"  mult="?"/>
+    <first attrs="year='$Y'">
+      <query match="w[.~&quot;^19[0-9]0[']?s$&quot;]">
+        <var name="Y" value="substring(., 1, 4)"/>
+      </query>
+      <seq>
+        <query match="w[.~'^19[0-9]0$']">
+          <var name="Y" value="substring(., 1, 4)"/>
+         </query>
+         <query match="w[.~&quot;^'s$&quot;]"/>
+      </seq>
+    </first>
+  </seq>
+</rule> 
+
+<!-- '80s -->
+
+<rule name="decade-number3">
+  <seq> 
+    <ref name="the" mult="?"/>
+    <query match="w[.~'^(late|LATE|early|EARLY)$']" mult="?"/>
+    <first attrs="year='19$Y'">
+      <query match="w[.~&quot;^['][2-9]0[']?s$&quot;]">
+        <var name="Y" value="substring(., 2, 2)"/>
+      </query>
+      <seq>
+        <query match="w[.~&quot;^[']$&quot;]"/>
+        <query match="w[.~'^[2-9]0s$']">
+          <var name="Y" value="substring(., 1, 2)"/>
+        </query>
+      </seq>
+    </first>
+  </seq>
+</rule> 
+
+<!-- 1920s and 30s -->
+
+<rule name="conjoined-decade-num">
+  <seq> 
+    <first>
+       <ref name="decade-number2"/>
+       <ref name="decade-number3"/>
+    </first>
+    <query match="w[.~'^([Aa]nd|AND)$']"/>
+    <first>
+       <ref name="decade-number2"/>
+       <ref name="decade-number3"/>
+       <ref name="decade-2nums"/>
+    </first>
+  </seq>
+</rule>
+  
+<!-- decades: Fifties, Sixties
+     Initial capital makes it likely it is a decade, not an age
+     or temperature -->
+
+<rule name="decade-name1"> 
+  <seq> 
+    <ref name="the" mult="?"/>
+    <query match="w[.~'^(late|LATE|early|EARLY)$']" mult="?"/>
+    <seq attrs="year='$Y'">
+      <lookup match="w[.~'^[A-Z][a-z]+$']" lexicon="lex" case="no">
+        <constraint test="cat='decade'"/>
+        <var name="dval" value="dval"/>
+        <var name="Y" value="substring($dval,1,3)"/>
+      </lookup>
+    </seq>
+  </seq>
+</rule>
+  
+<!-- decades: (the) early fifties 
+     Presence of late/early makes it likely it is a decade
+     Used "the" as pre-context to avoid ages (his early fifties) -->
+
+<rule name="decade-name2">
+  <seq> 
+    <ref name="the"/>
+    <query match="w[.~'^(late|LATE|early|EARLY)$']" mult="?"/>
+    <seq attrs="year='$Y'">
+      <lookup match="w" lexicon="lex">
+        <constraint test="cat='decade'"/>
+        <var name="dval" value="dval"/>
+        <var name="Y" value="substring($dval,1,3)"/>
+      </lookup>
+    </seq>
+  </seq>
+</rule>
+
+<!-- all decades -->
+
+<rule name="decade">
+  <first>
+    <ref name="conjoined-decade-num"/>
+    <ref name="decade-number1"/>
+    <ref name="decade-number2"/>
+    <ref name="decade-number3"/>
+    <ref name="decade-name1"/>
+    <ref name="decade-name2"/>
+  </first>
+</rule> 
+
+<!-- group date names together -->
+
+<!-- named units that can be used with pre-modifiers like
+     "last/next" e.g. January, Tuesday, winter, Christmas  -->
+
+<rule name="recurrent-date-name">
+  <first>
+    <ref name="all-month"/>
+    <ref name="day-name-full-lex"/>
+    <ref name="season-name"/>
+    <ref name="special-date-name"/>
+  </first>
+</rule> 
+ 
+<rule name="date-name">
+  <first>
+   <ref name="recurrent-date-name"/>
+   <ref name="decade"/>
+   <ref name="year-in-context"/>
+  </first>
+</rule> 
+
+<rule name="conjoined-date-name">
+  <seq>
+    <ref name="date-name"/>
+    <ref name="some-conjs"/>
+    <ref name="date-name"/>
+  </seq>
+</rule> 
+
+<!-- simple dates -->
+
+<!-- 24.3.67, 24.03.67, 3.24.67, 03.24.67, 03.24.1967 
+     Also with '-' or '/' as separators -->
+
+<rule name="d/m/y-uk-long" wrap="timex" attrs="type='date' date='$D' month='$M' year='$Y' style='uk'">
+  <first>
+    <query match="w[.~'^(0?[1-9]|1[0-2])/(0?[1-9]|1[0-2])/(19|20)[0-9][0-9]$']">
+      <var name="D" value="substring-before(., '/')"/>
+      <var name="rest" value="substring-after(., '/')"/>
+      <var name="M" value="substring-before($rest, '/')"/>
+      <var name="Y" value="substring-after($rest, '/')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])[.](0?[1-9]|1[0-2])[.](19|20)[0-9][0-9]$']">
+      <var name="D" value="substring-before(., '.')"/>
+      <var name="rest" value="substring-after(., '.')"/>
+      <var name="M" value="substring-before($rest, '.')"/>
+      <var name="Y" value="substring-after($rest, '.')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])-(0?[1-9]|1[0-2])-(19|20)[0-9][0-9]$']">
+      <var name="D" value="substring-before(., '-')"/>
+      <var name="rest" value="substring-after(., '-')"/>
+      <var name="M" value="substring-before($rest, '-')"/>
+      <var name="Y" value="substring-after($rest, '-')"/>
+    </query>
+    <seq>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="Y" match="w[.~'^(19|20)[0-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="Y" match="w[.~'^(19|20)[0-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="Y" match="w[.~'^(19|20)[0-9][0-9]$']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="d/m/y-uk-short19" wrap="timex" attrs="type='date' date='$D' month='$M' year='19$Y' style='uk'">
+  <first>
+    <query match="w[.~'^(0?[1-9]|1[0-2])/(0?[1-9]|1[0-2])/[1-9][0-9]$']">
+      <var name="D" value="substring-before(., '/')"/>
+      <var name="rest" value="substring-after(., '/')"/>
+      <var name="M" value="substring-before($rest, '/')"/>
+      <var name="Y" value="substring-after($rest, '/')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])[.](0?[1-9]|1[0-2])[.][1-9][0-9]$']">
+      <var name="D" value="substring-before(., '.')"/>
+      <var name="rest" value="substring-after(., '.')"/>
+      <var name="M" value="substring-before($rest, '.')"/>
+      <var name="Y" value="substring-after($rest, '.')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])-(0?[1-9]|1[0-2])-[1-9][0-9]$']">
+      <var name="D" value="substring-before(., '-')"/>
+      <var name="rest" value="substring-after(., '-')"/>
+      <var name="M" value="substring-before($rest, '-')"/>
+      <var name="Y" value="substring-after($rest, '-')"/>
+    </query>
+    <seq>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="Y" match="w[.~'^[1-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="Y" match="w[.~'^[1-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="Y" match="w[.~'^[1-9][0-9]$']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="d/m/y-uk-short20" wrap="timex" attrs="type='date' date='$D' month='$M' year='20$Y' style='uk'">
+  <first>
+    <query match="w[.~'^(0?[1-9]|1[0-2])/(0?[1-9]|1[0-2])/0[0-9]$']">
+      <var name="D" value="substring-before(., '/')"/>
+      <var name="rest" value="substring-after(., '/')"/>
+      <var name="M" value="substring-before($rest, '/')"/>
+      <var name="Y" value="substring-after($rest, '/')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])[.](0?[1-9]|1[0-2])[.]0[0-9]$']">
+      <var name="D" value="substring-before(., '.')"/>
+      <var name="rest" value="substring-after(., '.')"/>
+      <var name="M" value="substring-before($rest, '.')"/>
+      <var name="Y" value="substring-after($rest, '.')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])-(0?[1-9]|1[0-2])-0[0-9]$']">
+      <var name="D" value="substring-before(., '-')"/>
+      <var name="rest" value="substring-after(., '-')"/>
+      <var name="M" value="substring-before($rest, '-')"/>
+      <var name="Y" value="substring-after($rest, '-')"/>
+    </query>
+    <seq>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="Y" match="w[.~'^0[0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="Y" match="w[.~'^0[0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="Y" match="w[.~'^0[0-9]$']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="d/m/y-us-long" wrap="timex" attrs="type='date' date='$D' month='$M' year='$Y' style='us'">
+  <first>
+    <query match="w[.~'^(0?[1-9]|1[0-2])/(0?[1-9]|1[0-2])/(19|20)[0-9][0-9]$']">
+      <var name="M" value="substring-before(., '/')"/>
+      <var name="rest" value="substring-after(., '/')"/>
+      <var name="D" value="substring-before($rest, '/')"/>
+      <var name="Y" value="substring-after($rest, '/')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])[.](0?[1-9]|1[0-2])[.](19|20)[0-9][0-9]$']">
+      <var name="M" value="substring-before(., '.')"/>
+      <var name="rest" value="substring-after(., '.')"/>
+      <var name="D" value="substring-before($rest, '.')"/>
+      <var name="Y" value="substring-after($rest, '.')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])-(0?[1-9]|1[0-2])-(19|20)[0-9][0-9]$']">
+      <var name="M" value="substring-before(., '-')"/>
+      <var name="rest" value="substring-after(., '-')"/>
+      <var name="D" value="substring-before($rest, '-')"/>
+      <var name="Y" value="substring-after($rest, '-')"/>
+    </query>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="Y" match="w[.~'^(19|20)[0-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="Y" match="w[.~'^(19|20)[0-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="Y" match="w[.~'^(19|20)[0-9][0-9]$']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="d/m/y-us-short19" wrap="timex" attrs="type='date' date='$D' month='$M' year='19$Y' style='us'">
+  <first>
+    <query match="w[.~'^(0?[1-9]|1[0-2])/(0?[1-9]|1[0-2])/[1-9][0-9]$']">
+      <var name="M" value="substring-before(., '/')"/>
+      <var name="rest" value="substring-after(., '/')"/>
+      <var name="D" value="substring-before($rest, '/')"/>
+      <var name="Y" value="substring-after($rest, '/')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])[.](0?[1-9]|1[0-2])[.][1-9][0-9]$']">
+      <var name="M" value="substring-before(., '.')"/>
+      <var name="rest" value="substring-after(., '.')"/>
+      <var name="D" value="substring-before($rest, '.')"/>
+      <var name="Y" value="substring-after($rest, '.')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])-(0?[1-9]|1[0-2])-[1-9][0-9]$']">
+      <var name="M" value="substring-before(., '-')"/>
+      <var name="rest" value="substring-after(., '-')"/>
+      <var name="D" value="substring-before($rest, '-')"/>
+      <var name="Y" value="substring-after($rest, '-')"/>
+    </query>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="Y" match="w[.~'^[1-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="Y" match="w[.~'^[1-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="Y" match="w[.~'^[1-9][0-9]$']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="d/m/y-us-short20" wrap="timex" attrs="type='date' date='$D' month='$M' year='20$Y' style='us'">
+  <first>
+    <query match="w[.~'^(0?[1-9]|1[0-2])/(0?[1-9]|1[0-2])/0[0-9]$']">
+      <var name="M" value="substring-before(., '/')"/>
+      <var name="rest" value="substring-after(., '/')"/>
+      <var name="D" value="substring-before($rest, '/')"/>
+      <var name="Y" value="substring-after($rest, '/')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])[.](0?[1-9]|1[0-2])[.]0[0-9]$']">
+      <var name="M" value="substring-before(., '.')"/>
+      <var name="rest" value="substring-after(., '.')"/>
+      <var name="D" value="substring-before($rest, '.')"/>
+      <var name="Y" value="substring-after($rest, '.')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])-(0?[1-9]|1[0-2])-0[0-9]$']">
+      <var name="M" value="substring-before(., '-')"/>
+      <var name="rest" value="substring-after(., '-')"/>
+      <var name="D" value="substring-before($rest, '-')"/>
+      <var name="Y" value="substring-after($rest, '-')"/>
+    </query>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="Y" match="w[.~'^0[0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="Y" match="w[.~'^0[0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="Y" match="w[.~'^0[0-9]$']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="d/m/y-long" wrap="timex" attrs="type='date' date='$D' month='$M' year='$Y' style='$S'">
+  <first>
+    <query match="w[.~'^(1[3-9]|[2][0-9]|3[01])/(0?[1-9]|1[0-2])/(19|20)[0-9][0-9]$']">
+      <var name="S" value="'uk'"/>
+      <var name="D" value="substring-before(., '/')"/>
+      <var name="rest" value="substring-after(., '/')"/>
+      <var name="M" value="substring-before($rest, '/')"/>
+      <var name="Y" value="substring-after($rest, '/')"/>
+    </query>
+    <query match="w[.~'^(1[3-9]|[2][0-9]|3[01])[.](0?[1-9]|1[0-2])[.](19|20)[0-9][0-9]$']">
+      <var name="S" value="'uk'"/>
+      <var name="D" value="substring-before(., '.')"/>
+      <var name="rest" value="substring-after(., '.')"/>
+      <var name="M" value="substring-before($rest, '.')"/>
+      <var name="Y" value="substring-after($rest, '.')"/>
+    </query>
+    <query match="w[.~'^(1[3-9]|[2][0-9]|3[01])-(0?[1-9]|1[0-2])-(19|20)[0-9][0-9]$']">
+      <var name="S" value="'uk'"/>
+      <var name="D" value="substring-before(., '-')"/>
+      <var name="rest" value="substring-after(., '-')"/>
+      <var name="M" value="substring-before($rest, '-')"/>
+      <var name="Y" value="substring-after($rest, '-')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])/(1[3-9]|[2][0-9]|3[01])/(19|20)[0-9][0-9]$']">
+      <var name="S" value="'us'"/>
+      <var name="M" value="substring-before(., '/')"/>
+      <var name="rest" value="substring-after(., '/')"/>
+      <var name="D" value="substring-before($rest, '/')"/>
+      <var name="Y" value="substring-after($rest, '/')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])[.](1[3-9]|[2][0-9]|3[01])[.](19|20)[0-9][0-9]$']">
+      <var name="S" value="'us'"/>
+      <var name="M" value="substring-before(., '.')"/>
+      <var name="rest" value="substring-after(., '.')"/>
+      <var name="D" value="substring-before($rest, '.')"/>
+      <var name="Y" value="substring-after($rest, '.')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])-(1[3-9]|[2][0-9]|3[01])-(19|20)[0-9][0-9]$']">
+      <var name="S" value="'us'"/>
+      <var name="M" value="substring-before(., '-')"/>
+      <var name="rest" value="substring-after(., '-')"/>
+      <var name="D" value="substring-before($rest, '-')"/>
+      <var name="Y" value="substring-after($rest, '-')"/>
+    </query>
+    <seq>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'uk'"/>
+      </query>
+      <ref name="fullstop"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="Y" match="w[.~'^(19|20)[0-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'us'"/>
+      </query>
+      <ref name="fullstop"/>
+      <query match-var="Y" match="w[.~'^(19|20)[0-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'uk'"/>
+      </query>
+      <query match="w[.='/']"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="Y" match="w[.~'^(19|20)[0-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'us'"/>
+      </query>
+      <query match="w[.='/']"/>
+      <query match-var="Y" match="w[.~'^(19|20)[0-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'uk'"/>
+      </query>
+      <ref name="hyphen"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="Y" match="w[.~'^(19|20)[0-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'us'"/>
+      </query>
+      <ref name="hyphen"/>
+      <query match-var="Y" match="w[.~'^(19|20)[0-9][0-9]$']"/>
+    </seq>
+  </first>
+</rule>  
+
+<rule name="d/m/y-short19" wrap="timex" attrs="type='date' date='$D' month='$M' year='19$Y' style='$S'">
+  <first>
+    <query match="w[.~'^(1[3-9]|[2][0-9]|3[01])/(0?[1-9]|1[0-2])/[1-9][0-9]$']">
+      <var name="S" value="'uk'"/>
+      <var name="D" value="substring-before(., '/')"/>
+      <var name="rest" value="substring-after(., '/')"/>
+      <var name="M" value="substring-before($rest, '/')"/>
+      <var name="Y" value="substring-after($rest, '/')"/>
+    </query>
+    <query match="w[.~'^(1[3-9]|[2][0-9]|3[01])[.](0?[1-9]|1[0-2])[.][1-9][0-9]$']">
+      <var name="S" value="'uk'"/>
+      <var name="D" value="substring-before(., '.')"/>
+      <var name="rest" value="substring-after(., '.')"/>
+      <var name="M" value="substring-before($rest, '.')"/>
+      <var name="Y" value="substring-after($rest, '.')"/>
+    </query>
+    <query match="w[.~'^(1[3-9]|[2][0-9]|3[01])-(0?[1-9]|1[0-2])-[1-9][0-9]$']">
+      <var name="S" value="'uk'"/>
+      <var name="D" value="substring-before(., '-')"/>
+      <var name="rest" value="substring-after(., '-')"/>
+      <var name="M" value="substring-before($rest, '-')"/>
+      <var name="Y" value="substring-after($rest, '-')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])/(1[3-9]|[2][0-9]|3[01])/[1-9][0-9]$']">
+      <var name="S" value="'us'"/>
+      <var name="M" value="substring-before(., '/')"/>
+      <var name="rest" value="substring-after(., '/')"/>
+      <var name="D" value="substring-before($rest, '/')"/>
+      <var name="Y" value="substring-after($rest, '/')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])[.](1[3-9]|[2][0-9]|3[01])[.][1-9][0-9]$']">
+      <var name="S" value="'us'"/>
+      <var name="M" value="substring-before(., '.')"/>
+      <var name="rest" value="substring-after(., '.')"/>
+      <var name="D" value="substring-before($rest, '.')"/>
+      <var name="Y" value="substring-after($rest, '.')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])-(1[3-9]|[2][0-9]|3[01])-[1-9][0-9]$']">
+      <var name="S" value="'us'"/>
+      <var name="M" value="substring-before(., '-')"/>
+      <var name="rest" value="substring-after(., '-')"/>
+      <var name="D" value="substring-before($rest, '-')"/>
+      <var name="Y" value="substring-after($rest, '-')"/>
+    </query>
+    <seq>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'uk'"/>
+      </query>
+      <ref name="fullstop"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="Y" match="w[.~'^[1-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'us'"/>
+      </query>
+      <ref name="fullstop"/>
+      <query match-var="Y" match="w[.~'^[1-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'uk'"/>
+      </query>
+      <query match="w[.='/']"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="Y" match="w[.~'^[1-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'us'"/>
+      </query>
+      <query match="w[.='/']"/>
+      <query match-var="Y" match="w[.~'^[1-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'uk'"/>
+      </query>
+      <ref name="hyphen"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="Y" match="w[.~'^[1-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'us'"/>
+      </query>
+      <ref name="hyphen"/>
+      <query match-var="Y" match="w[.~'^[1-9][0-9]$']"/>
+    </seq>
+  </first>
+</rule>  
+
+<rule name="d/m/y-short20" wrap="timex" attrs="type='date' date='$D' month='$M' year='20$Y' style='$S'">
+  <first>
+    <query match="w[.~'^(1[3-9]|[2][0-9]|3[01])/(0?[1-9]|1[0-2])/0[0-9]$']">
+      <var name="S" value="'uk'"/>
+      <var name="D" value="substring-before(., '/')"/>
+      <var name="rest" value="substring-after(., '/')"/>
+      <var name="M" value="substring-before($rest, '/')"/>
+      <var name="Y" value="substring-after($rest, '/')"/>
+    </query>
+    <query match="w[.~'^(1[3-9]|[2][0-9]|3[01])[.](0?[1-9]|1[0-2])[.]0[0-9]$']">
+      <var name="S" value="'uk'"/>
+      <var name="D" value="substring-before(., '.')"/>
+      <var name="rest" value="substring-after(., '.')"/>
+      <var name="M" value="substring-before($rest, '.')"/>
+      <var name="Y" value="substring-after($rest, '.')"/>
+    </query>
+    <query match="w[.~'^(1[3-9]|[2][0-9]|3[01])-(0?[1-9]|1[0-2])-0[0-9]$']">
+      <var name="S" value="'uk'"/>
+      <var name="D" value="substring-before(., '-')"/>
+      <var name="rest" value="substring-after(., '-')"/>
+      <var name="M" value="substring-before($rest, '-')"/>
+      <var name="Y" value="substring-after($rest, '-')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])/(1[3-9]|[2][0-9]|3[01])/0[0-9]$']">
+      <var name="S" value="'us'"/>
+      <var name="M" value="substring-before(., '/')"/>
+      <var name="rest" value="substring-after(., '/')"/>
+      <var name="D" value="substring-before($rest, '/')"/>
+      <var name="Y" value="substring-after($rest, '/')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])[.](1[3-9]|[2][0-9]|3[01])[.]0[0-9]$']">
+      <var name="S" value="'us'"/>
+      <var name="M" value="substring-before(., '.')"/>
+      <var name="rest" value="substring-after(., '.')"/>
+      <var name="D" value="substring-before($rest, '.')"/>
+      <var name="Y" value="substring-after($rest, '.')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])-(1[3-9]|[2][0-9]|3[01])-0[0-9]$']">
+      <var name="S" value="'us'"/>
+      <var name="M" value="substring-before(., '-')"/>
+      <var name="rest" value="substring-after(., '-')"/>
+      <var name="D" value="substring-before($rest, '-')"/>
+      <var name="Y" value="substring-after($rest, '-')"/>
+    </query>
+    <seq>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'uk'"/>
+      </query>
+      <ref name="fullstop"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="Y" match="w[.~'^0[0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'us'"/>
+      </query>
+      <ref name="fullstop"/>
+      <query match-var="Y" match="w[.~'^0[0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'uk'"/>
+      </query>
+      <query match="w[.='/']"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="Y" match="w[.~'^0[0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'us'"/>
+      </query>
+      <query match="w[.='/']"/>
+      <query match-var="Y" match="w[.~'^0[0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'uk'"/>
+      </query>
+      <ref name="hyphen"/>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="Y" match="w[.~'^0[0-9]$']"/>
+    </seq>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <ref name="hyphen"/>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']">
+        <var name="S" value="'us'"/>
+      </query>
+      <ref name="hyphen"/>
+      <query match-var="Y" match="w[.~'^0[0-9]$']"/>
+    </seq>
+  </first>
+</rule>  
+
+<rule name="d/m/y">
+  <first>
+    <ref name="d/m/y-long"/>
+    <ref name="d/m/y-short19"/>
+    <ref name="d/m/y-short20"/>
+  </first>
+</rule>
+
+<rule name="d/m/y-uk">
+  <first>
+    <ref name="d/m/y"/>
+    <ref name="d/m/y-uk-long"/>
+    <ref name="d/m/y-uk-short19"/>
+    <ref name="d/m/y-uk-short20"/>
+  </first>
+</rule>
+
+<rule name="d/m/y-us">
+  <first>
+    <ref name="d/m/y"/>
+    <ref name="d/m/y-us-long"/>
+    <ref name="d/m/y-us-short19"/>
+    <ref name="d/m/y-us-short20"/>
+  </first>
+</rule>
+
+<rule name="dm/my-ambig-no-context">
+  <first>
+    <query match="w[.~'^(0?[1-9]|1[0-2])/(0?[1-9]|1[0-2])$']"/>
+    <query match="w[.~'^(0?[1-9]|1[0-2])-(0?[1-9]|1[0-2])$']"/>
+    <seq>
+      <query match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <first>
+        <query match="w[.='/']"/>
+        <ref name="hyphen"/>
+      </first>
+      <query match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+    </seq>
+    <query match="w[.~'^(0[1-9]|1[0-2])[.](0[1-9]|1[0-2])$']"/>
+    <seq>
+      <query match="w[.~'^(0[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match="w[.~'^(0[1-9]|1[0-2])$']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="dm/my-ambig-not-wrapped">
+  <seq>
+    <first>
+      <seq>
+        <query match="w[.='(']" suppress='true'/>
+        <ref name="dm/my-ambig-no-context"/>
+      </seq>
+      <and>
+        <query match="w[@pws='yes']"/>
+        <ref name="dm/my-ambig-no-context"/>
+      </and>
+    </first>
+    <ref name="range-end-context" suppress='true'/>
+  </seq>
+</rule>
+
+<rule name="dm/my-ambig" wrap="timex" attrs="type='date' style='ambig'">
+  <ref name="dm/my-ambig-not-wrapped"/>
+</rule>
+
+<rule name="d/m-uk-non-ambig-no-context" wrap="timex" attrs="type='date' date='$D' month='$M' style='uk'">
+  <first>
+    <query match="w[.~'^(1[3-9]|[2][0-9]|3[01])/(0?[1-9]|1[0-2])$']">
+      <var name="D" value="substring-before(., '/')"/>
+      <var name="M" value="substring-after(., '/')"/>
+    </query>
+    <query match="w[.~'^(1[3-9]|[2][0-9]|3[01])[.](0?[1-9]|1[0-2])$']">
+      <var name="D" value="substring-before(., '.')"/>
+      <var name="M" value="substring-after(., '.')"/>
+    </query>
+    <query match="w[.~'^(1[3-9]|[2][0-9]|3[01])-(0?[1-9]|1[0-2])$']">
+      <var name="D" value="substring-before(., '-')"/>
+      <var name="M" value="substring-after(., '-')"/>
+    </query>
+    <seq>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']"/>
+      <first>
+        <ref name="fullstop"/>
+        <query match="w[.='/']"/>
+        <ref name="hyphen"/>
+      </first>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+    </seq>
+  </first>
+</rule>  
+
+<rule name="d/m-uk-non-ambig">
+  <seq>
+    <first>
+      <seq>
+        <query match="w[.='(']" suppress='true'/>
+        <ref name="d/m-uk-non-ambig-no-context"/>
+      </seq>
+      <and>
+        <query match="w[@pws='yes']"/>
+        <ref name="d/m-uk-non-ambig-no-context"/>
+      </and>
+    </first>
+    <ref name="range-end-context" suppress='true'/>
+  </seq>
+</rule>
+
+<rule name="d/m-uk-ambig-no-context" wrap="timex" attrs="type='date' date='$D' month='$M' style='uk'">
+  <first>
+    <query match="w[.~'^(0?[1-9]|1[0-2])/(0?[1-9]|1[0-2])$']">
+      <var name="D" value="substring-before(., '/')"/>
+      <var name="M" value="substring-after(., '/')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])-(0?[1-9]|1[0-2])$']">
+      <var name="D" value="substring-before(., '-')"/>
+      <var name="M" value="substring-after(., '-')"/>
+    </query>
+    <query match="w[.~'^(0[1-9]|1[0-2])[.](0[1-9]|1[0-2])$']">
+      <var name="D" value="substring-before(., '.')"/>
+      <var name="M" value="substring-after(., '.')"/>
+    </query>
+    <seq>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <first>
+        <query match="w[.='/']"/>
+        <ref name="hyphen"/>
+      </first>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+    </seq>
+    <seq>
+      <query match-var="D" match="w[.~'^(0[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="M" match="w[.~'^(0[1-9]|1[0-2])$']"/>
+    </seq>
+  </first>
+</rule>  
+
+<rule name="d/m-uk-ambig">
+  <seq>
+    <first>
+      <seq>
+        <query match="w[.='(']" suppress='true'/>
+        <ref name="d/m-uk-ambig-no-context"/>
+      </seq>
+      <and>
+        <query match="w[@pws='yes']"/>
+        <ref name="d/m-uk-ambig-no-context"/>
+      </and>
+    </first>
+    <ref name="range-end-context" suppress='true'/>
+  </seq>
+</rule>  
+
+<rule name="d/m-us-non-ambig-no-context" wrap="timex" attrs="type='date' date='$D' month='$M' style='us'">
+  <first>
+    <query match="w[.~'^(0?[1-9]|1[0-2])/(1[3-9]|[2][0-9]|3[01])$']">
+      <var name="M" value="substring-before(., '/')"/>
+      <var name="D" value="substring-after(., '/')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])-(1[3-9]|[2][0-9]|3[01])$']">
+      <var name="M" value="substring-before(., '-')"/>
+      <var name="D" value="substring-after(., '-')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])[.](1[3-9]|[2][0-9]|3[01])$']">
+      <var name="M" value="substring-before(., '.')"/>
+      <var name="D" value="substring-after(., '.')"/>
+    </query>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <first>
+        <ref name="fullstop"/>
+        <query match="w[.='/']"/>
+        <ref name="hyphen"/>
+      </first>
+      <query match-var="D" match="w[.~'^(1[3-9]|[2][0-9]|3[01])$']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="d/m-us-non-ambig">
+  <seq>
+    <first>
+      <seq>
+        <query match="w[.='(']" suppress='true'/>
+        <ref name="d/m-us-non-ambig-no-context"/>
+      </seq>
+      <and>
+        <query match="w[@pws='yes']"/>
+        <ref name="d/m-us-non-ambig-no-context"/>
+      </and>
+    </first>
+    <ref name="range-end-context" suppress='true'/>
+  </seq>
+</rule>  
+
+<rule name="d/m-us-ambig-no-context" wrap="timex" attrs="type='date' date='$D' month='$M' style='us'">
+  <first>
+    <query match="w[.~'^(0?[1-9]|1[0-2])/(0?[1-9]|1[0-2])$']">
+      <var name="M" value="substring-before(., '/')"/>
+      <var name="D" value="substring-after(., '/')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])-(0?[1-9]|1[0-2])$']">
+      <var name="M" value="substring-before(., '-')"/>
+      <var name="D" value="substring-after(., '-')"/>
+    </query>
+    <query match="w[.~'^(0[1-9]|1[0-2])[.](0[1-9]|1[0-2])$']">
+      <var name="M" value="substring-before(., '.')"/>
+      <var name="D" value="substring-after(., '.')"/>
+    </query>
+    <seq>
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <first>
+        <query match="w[.='/']"/>
+        <ref name="hyphen"/>
+      </first>
+      <query match-var="D" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+    </seq>
+    <seq>
+      <query match-var="M" match="w[.~'^(0[1-9]|1[0-2])$']"/>
+      <ref name="fullstop"/>
+      <query match-var="D" match="w[.~'^(0[1-9]|1[0-2])$']"/>
+    </seq>
+  </first>
+</rule>  
+
+<rule name="d/m-us-ambig">
+  <seq>
+    <first>
+      <seq>
+        <query match="w[.='(']" suppress='true'/>
+        <ref name="d/m-us-ambig-no-context"/>
+      </seq>
+      <and>
+        <query match="w[@pws='yes']"/>
+        <ref name="d/m-us-ambig-no-context"/>
+      </and>
+    </first>
+    <ref name="range-end-context" suppress='true'/>
+  </seq>
+</rule>  
+
+<rule name="m/y-no-context">
+  <first>
+    <query match="w[.~'^(0?[1-9]|1[0-2])/(19|20)[0-9][0-9]$']" wrap="timex" attrs="type='date' month='$M' year='$Y'">
+      <var name="M" value="substring-before(., '/')"/>
+      <var name="Y" value="substring-after(., '/')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])/[6-9][0-9]$']" wrap="timex" attrs="type='date' month='$M' year='19$Y'">
+      <var name="M" value="substring-before(., '/')"/>
+      <var name="Y" value="substring-after(., '/')"/>
+    </query>
+    <query match="w[.~'^(0?[1-9]|1[0-2])/0[1-9]$']" wrap="timex" attrs="type='date' month='$M' year='20$Y'">
+      <var name="M" value="substring-before(., '/')"/>
+      <var name="Y" value="substring-after(., '/')"/>
+    </query>
+    <query match="w[.~'^(0[1-9]|1[0-2])[.](19|20)[0-9][0-9]$']" wrap="timex" attrs="type='date' month='$M' year='$Y'">
+      <var name="M" value="substring-before(., '.')"/>
+      <var name="Y" value="substring-after(., '.')"/>
+    </query>
+    <query match="w[.~'^(0[1-9]|1[0-2])-(19|20)[0-9][0-9]$']" wrap="timex" attrs="type='date' month='$M' year='$Y'">
+      <var name="M" value="substring-before(., '-')"/>
+      <var name="Y" value="substring-after(., '-')"/>
+    </query>
+    <seq wrap="timex" attrs="type='date' month='$M' year='$Y'">
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="Y" match="w[.~'^(19|20)[0-9][0-9]$']"/>
+    </seq>
+    <seq wrap="timex" attrs="type='date' month='$M' year='19$Y'">
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="Y" match="w[.~'^[1-9][0-9]$']"/>
+    </seq>
+    <seq wrap="timex" attrs="type='date' month='$M' year='20$Y'">
+      <query match-var="M" match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+      <query match="w[.='/']"/>
+      <query match-var="Y" match="w[.~'^0[1-9]$']"/>
+    </seq>
+    <seq wrap="timex" attrs="type='date' month='$M' year='$Y'">
+      <query match-var="M" match="w[.~'^(0[1-9]|1[0-2])$']"/>
+      <first>
+        <ref name="fullstop"/>
+        <ref name="hyphen"/>
+      </first>
+      <query match-var="Y" match="w[.~'^(19|20)[0-9][0-9]$']"/>
+    </seq>
+    <seq wrap="timex" attrs="type='date' season='$S' year='$Y'">
+      <ref match-var="S" name="season-name"/>
+      <query match-var="Y" match="w[.~'^(19|20)[0-9][0-9]$']"/>
+    </seq>
+    <seq wrap="timex" attrs="type='date' season='$S' year='19$Y'">
+      <ref match-var="S" name="season-name"/>
+      <query match-var="Y" match="w[.~'^[1-9][0-9]$']"/>
+    </seq>
+    <seq wrap="timex" attrs="type='date' season='$S' year='20$Y'">
+      <ref match-var="S" name="season-name"/>
+      <query match-var="Y" match="w[.~'^0[1-9]$']"/>
+    </seq>
+  </first>
+</rule>  
+
+<rule name="m/y">
+  <seq>
+    <first>
+      <seq>
+        <query match="w[.='(']" suppress='true'/>
+        <ref name="m/y-no-context"/>
+      </seq>
+      <and>
+        <query match="w[@pws='yes']"/>
+        <ref name="m/y-no-context"/>
+      </and>
+    </first>
+    <ref name="range-end-context" suppress='true'/>
+  </seq>
+</rule>  
+
+<!-- a number that could be a date or a month (up to 12) -->
+
+<rule name="month-or-date">
+  <query match="w[.~'^(0?[1-9]|1[0-2])$']"/>
+</rule>
+
+<!-- a number that could be a date (up to 31) -->
+
+<rule name="poss-date" attrs="date='$A'"> 
+  <query match-var="A" match="w[.~'^(0?[1-9]|[12][0-9]|3[01])$']"/>
+</rule>
+
+<rule name="poss-date-range" attrs="date='$A'"> 
+  <query match="w[.~'^([1-9]|[12][0-9]|3[01])-([1-9]|[12][0-9]|3[01])$']">
+    <var name="A" value="substring-before(., '-')"/>
+  </query>
+</rule>
+
+<rule name="conjoined-poss-date">
+  <first>
+    <seq>
+      <ref name="poss-date"/>
+      <query match="w[.~'^(and|AND|or|OR|-)$']"/>
+      <ref name="poss-date"/>
+    </seq>
+    <ref name="poss-date-range"/>
+  </first>
+</rule> 
+
+<!-- ordinal numbers which could be dates (1st-31st) -->
+
+<rule name="ordinal-date-num" attrs="date='$A'">
+  <first> 
+      <query match="w[.~'^([1-9]|[12][0-9]|3[01])[\-]?([Ss]t|ST|[Nn]d|ND|[Rr]d|RD|[Tt]h|TH)$']">
+        <var name="A" value="translate(., 'stndrhSTNDRH', '')"/>
+      </query>
+      <query match="phr[.~'^([1-9]|[12][0-9]|3[01])[\-]?([Ss]t|ST|[Nn]d|ND|[Rr]d|RD|[Tt]h|TH)$']">
+        <var name="A" value="translate(., 'stndrhSTNDRH', '')"/>
+      </query>
+  </first> 
+</rule>
+
+<!-- ordinals which could be dates. Notice that word ordinals 
+     aren't constrained to be thirty first or less -->
+  
+<rule name="ordinal-date">
+  <first> 
+    <ref name="ordinal-date-num"/>
+    <query match="w[@c='ord' and .~'^[A-z]']"/>
+    <query match="phr[@c='ord' and .~'^[A-z]']"/>
+  </first> 
+</rule>
+
+<rule name="conjoined-ordinal-date">
+  <seq>
+    <ref name="ordinal-date"/>
+    <query match="w[.~'^(and|AND|or|OR|-)$']"/>
+    <ref name="ordinal-date"/>
+  </seq>
+</rule> 
+
+<!-- Takes a number range and checks that the first number is a 
+     potential date. -->
+
+<rule name="phr-date-range">
+  <query match="phr[@c='range' and w[1][.~'^(0?[1-9]|[12][0-9]|3[01])$']]"/>
+</rule> 
+    
+<rule name="date">
+  <first>
+    <ref name="conjoined-ordinal-date"/>
+    <ref name="conjoined-poss-date"/>
+    <ref name="phr-date-range"/>
+    <ref name="ordinal-date"/>
+    <ref name="poss-date"/>
+  </first>
+</rule>
+
+<!-- (the) 4(th) (of) Feb(ruary) -->
+
+<rule name="of">
+  <query match="w[.~'^(of|Of|OF)$']"/>
+</rule> 
+
+<rule name="date-month">
+  <seq>
+    <ref name="the" mult="?"/>
+    <first>
+      <ref name="date"/>
+      <query match="w[.~'^([1-9]|[12][0-9]|3[01])\.$']"/>
+    </first>
+    <ref name="of" mult="?"/>
+    <ref name="all-month"/>
+  </seq>
+</rule>
+
+<!-- Feb(ruary) (the) 4(th), March 3 -->
+
+<rule name="month-date">
+  <seq>
+    <ref name="all-month"/>
+    <ref name="the" mult="?"/>
+    <first>
+      <ref name="date"/>
+      <query match="w[.~'^([1-9]|[12][0-9]|3[01])\.$']"/>
+    </first>
+  </seq>
+</rule> 
+
+<!-- date and month in either order -->
+
+<rule name="dm">
+  <first>
+    <ref name="date-month"/>
+    <ref name="month-date"/>
+  </first>
+</rule>
+
+<!-- Monday, May 19th -->
+
+<rule name="comma">
+  <query match="w[.=',']"/>
+</rule> 
+
+<rule name="day-dm">
+  <seq>
+    <ref name="day-name"/>
+    <ref name="comma" mult="?"/>
+    <ref name="dm"/>
+  </seq>
+</rule>
+
+<!-- Summer 1944 -->
+
+<rule name="season-year">
+  <seq>
+    <ref name="season-name"/>
+    <ref name="comma" mult="?"/>
+    <first>
+      <ref name="year-long"/>
+      <ref name="apo-year"/>
+    </first> 
+  </seq>
+</rule>
+
+<!-- January, 1997 -->
+
+<rule name="month-year">
+  <seq>
+    <ref name="all-month"/>
+    <ref name="comma" mult="?"/>
+    <first>
+      <ref name="year-long"/>
+      <ref name="apo-year"/>
+    </first> 
+  </seq>
+</rule>
+
+<!-- Easter 1998 -->
+
+<rule name="special-date-year">
+  <seq>
+    <ref name="special-date-name"/>
+    <ref name="comma" mult="?"/>
+    <ref name="year-in-date"/>
+  </seq>
+</rule>
+
+<!-- May 19th, 1958 -->
+
+<rule name="dmy">
+  <seq>
+    <ref name="preps-dets" mult="?" suppress="true"/>
+    <ref name="dm"/>
+    <ref name="comma" mult="?"/>
+    <ref name="year-in-date"/>
+  </seq>
+</rule>
+
+<!-- Monday, May 19th, 1958 -->
+
+<rule name="day-dmy">
+  <seq>
+    <ref name="day-name"/>
+    <ref name="comma" mult="?"/>
+    <ref name="dm"/>
+    <ref name="comma" mult="?"/>
+    <ref name="year-in-date"/>
+  </seq>
+</rule>
+
+<!-- July-August (1988) -->
+
+<rule name="month-range">
+  <seq>
+    <ref name="all-month"/>
+    <ref name="hyphen"/>
+    <ref name="all-month"/>
+    <ref name="year-long" mult="?"/>
+  </seq>
+</rule>
+
+<!-- date units -->
+
+<!-- date units (week, month, year etc) excluding day (because it 
+       can be a time rather than a date) -->
+
+<rule name="d-unit-not-day">
+  <lookup match="w" lexicon="lex" case="no" attrs="unit='$unit'">
+    <constraint test="cat='dateunit'"/>
+    <var name="unit" value="unit"/>
+  </lookup>
+</rule> 
+
+<!-- date units including day -->
+
+<rule name="d-unit">
+  <first>
+    <query match="w[.~'^(day|Day|DAY)$']" attrs="unit='day'"/>
+    <ref name="d-unit-not-day"/>
+  </first>
+</rule> 
+
+<!-- year and a half, day or so. Picks up fractions from 
+     number grammar -->
+
+<rule name="a">
+  <query match="w[.~'^(a|A|an|An|AN)$']"/>
+</rule> 
+
+<rule name="andahalf">
+  <seq>
+    <query match="w[.~'^([Aa]nd|AND)$']"/>
+    <ref name="a" mult="?"/>
+    <first>
+      <query match="w[@c='frac']"/>
+      <query match="phr[@c='frac']"/>
+    </first>
+  </seq> 
+</rule> 
+
+<rule name="orso">
+  <seq>
+    <query match="w[.~'^([Oo]r|OR)$']"/>
+    <first>
+      <query match="w[.~'^[Ss]o|SO$']"/>
+      <query match="w[.~'^[Tt]wo|TWO$']"/>
+    </first>
+  </seq> 
+</rule> 
+
+<rule name="d-unit-and-a-half">
+  <seq>
+    <ref name="d-unit"/>
+    <first>
+       <seq>
+         <ref name="andahalf"/>
+         <ref name="orso"/>
+       </seq>
+       <ref name="andahalf"/>
+       <ref name="orso"/>
+    </first>
+  </seq>
+</rule> 
+
+<!-- week, year, year and a half -->
+
+<rule name="date-unit">
+  <first>
+    <ref name="d-unit-and-a-half"/>
+    <ref name="d-unit"/>
+  </first>
+</rule> 
+
+<!-- weeks, months, years etc -->
+
+<rule name="plural-date-unit-lex">
+  <lookup match="w" lexicon="lex" case="no" attrs="unit='$unit'">
+    <constraint test="cat='dateunit-plur'"/>
+    <var name="unit" value="unit"/>
+  </lookup>
+</rule> 
+
+<!-- time units -->
+
+<!-- minute, hour, half-hour -->
+
+<rule name="time-unit-lex">
+  <lookup match="w" lexicon="lex" case="no" attrs="unit='$unit'">
+    <constraint test="cat='timeunit'"/>
+    <var name="unit" value="unit"/>
+  </lookup>
+</rule>
+
+<!-- minutes, hours -->
+
+<rule name="plural-time-unit-lex">
+  <lookup match="w" lexicon="lex" case="no" attrs="unit='$unit'">
+    <constraint test="cat='timeunit-plur'"/>
+    <var name="unit" value="unit"/>
+  </lookup>
+</rule>
+
+<!-- morning, afternoon, evening etc -->
+
+<rule name="day-part">
+  <lookup match="w" lexicon="lex" case="no">
+    <constraint test="cat='datepart'"/>
+  </lookup>
+</rule> 
+
+<!-- mornings, nights etc -->
+
+<rule name="plural-day-part">
+  <lookup match="w" lexicon="lex" case="no">
+    <constraint test="cat='datepart-plur'"/>
+  </lookup>
+</rule> 
+
+<!-- noon, midday, etc -->
+
+<rule name="time-name">
+  <lookup match="w" lexicon="lex" case="no" attrs="tval='$tval'">
+    <constraint test="cat='timename'"/>
+    <var name="tval" value="tval"/>
+  </lookup>
+</rule> 
+
+
+<!-- financial quarters -->
+
+<!-- 4th-quarter (i.e. financial year quarters) -->
+
+<rule name="ordinal">
+  <first>
+    <query match="w[.~'^[Ff]irst$']" attrs="quty='1'"/>
+    <query match="w[.~'^[Ss]econd$']" attrs="quty='2'"/>
+    <query match="w[.~'^[Tt]hird$']" attrs="quty='3'"/>
+    <query match="w[.~'^[Ff]ourth$']" attrs="quty='4'"/>
+    <query match="w[.~'^[Ll]ast$']" attrs="quty='4'"/>
+    <query match="w[@c='ord']"/>
+    <query match="phr[@c='ord']"/>
+  </first>
+</rule> 
+
+<rule name="fiscal">
+  <query match="w[.~'^([Ff]iscal|FISCAL)$']"/>
+</rule>
+
+<rule name="quarts">
+  <seq> 
+    <ref name="the" mult="?"/>
+    <ref name="year-long" mult="?"/>
+    <ref name="fiscal" mult="?"/>
+    <ref name="ordinal"/>
+    <ref name="hyphen" mult="?"/>
+    <ref name="fiscal" mult="?"/>
+    <query match="w[.~'^([Qq]uarter|QUARTER)$']" attrs="unit='quarter'"/>
+  </seq>
+</rule> 
+
+<!-- the quarter (followed by anything but "of") -->
+
+<rule name="the-quart">
+  <seq> 
+    <ref name="the"/>
+    <ref name="year-long" mult="?"/>
+    <query match="w[.~'^([Qq]uarter|QUARTER)$']" attrs="unit='quarter'"/>
+    <query match="w[not(.~'^(of|Of|OF)$')]" suppress="true"/>
+  </seq>
+</rule> 
+
+<!-- second-quarter 1996 -->
+
+<rule name="quarts-year">
+  <seq>
+    <ref name="quarts"/>
+    <ref name="year-in-context"/>
+  </seq>
+</rule> 
+
+<!-- quant + date/time units -->
+
+<!-- nearly, about, approximately -->
+
+<rule name="nearly-words">
+  <lookup match="w" lexicon="lex" case="no" phrase="true">
+    <constraint test="cat='nearlyword'"/>
+  </lookup>
+</rule> 
+
+<!-- nearly four, less than three -->
+
+<rule name="cd">
+  <first>
+    <query match="w[@c='cd']"/>
+    <query match="phr[@c='cd']"/>
+  </first>
+</rule>
+
+<rule name="nearly-num">
+  <seq>
+    <ref name="nearly-words"/>
+    <ref name="cd"/>
+  </seq>
+</rule> 
+
+<!-- 25, twenty-five, three thousand, several thousand, 20-30 ... -->
+
+<rule name="quant">
+  <first>
+    <seq>
+      <ref name="nearly-words" mult="?"/>
+      <first>
+        <ref name="cd"/>
+        <query match="phr[@c='quant']"/>
+        <query match="phr[@c='range']"/>
+        <lookup match="w" lexicon="numlex" phrase="true">
+          <constraint test="cat='quant'"/>
+        </lookup>
+      </first>
+    </seq>
+    <seq>
+      <query match="w[.~'^[Aa]$']"/>
+      <query match="w[.='couple']" attrs="quty='2'"/>
+      <query match="w[.='of']"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^[Aa]$']"/>
+      <query match="w[.='number']"/>
+      <query match="w[.='of']"/>
+    </seq>
+  </first>
+</rule>
+
+<!-- three years, a few years -->
+
+<rule name="num-plural-date">
+  <seq>
+   <ref name="quant"/>
+   <first>
+      <ref name="plural-date-unit-lex"/>
+      <ref name="plural-day-part"/>
+   </first> 
+   </seq>
+</rule> 
+
+<!-- expressions that can follow "the (past/following/next/last)"
+     e.g. morning, winter, week, etc  -->
+
+<rule name="units-after-the">
+  <first>
+   <ref name="day-part"/>
+   <ref name="season-name"/>
+   <ref name="date-unit"/>
+   <ref name="decade"/>
+  </first>
+</rule>  
+
+<!-- the week, the morning, the winter -->
+
+<rule name="the-supp-unit">
+  <seq>
+    <ref name="the" suppress="true"/>
+    <ref name="units-after-the"/>
+  </seq>
+</rule> 
+ 
+<rule name="the-unit">
+  <seq>
+    <ref name="the"/>
+    <ref name="units-after-the"/>
+  </seq>
+</rule> 
+ 
+<!-- last/past/next/first date -->
+
+<!-- last, next, past, following, previous -->
+
+<rule name="last-past-word">
+  <lookup match="w" lexicon="lex" case="no" attrs="trel='$trel' quty='1'">
+    <constraint test="cat='lastword1'"/>
+    <var name="trel" value="trel"/>
+  </lookup>
+</rule> 
+
+<!-- past year, previous month -->
+
+<rule name="past-sing-date">
+  <seq>
+    <ref name="the" mult="?"/>
+    <ref name="last-past-word"/>
+    <ref name="date-unit"/>
+  </seq>
+</rule>
+
+<!-- last three years -->
+
+<rule name="last-plural-date">
+  <seq>
+   <ref name="last-past-word"/>
+   <ref name="num-plural-date"/>
+  </seq>
+</rule> 
+
+<!-- (in the) last three years. Prior context constrained -->
+
+<rule name="last-plural-date-context">
+  <seq>
+    <seq suppress="true">
+      <ref name="some-preps"/>
+    </seq>
+    <ref name="the"/>
+    <ref name="last-plural-date"/>
+  </seq>
+</rule> 
+
+<!-- three hours, few hours -->
+
+<rule name="num-plural-time">
+  <seq>
+     <ref name="quant"/>
+     <ref name="plural-time-unit-lex"/>
+   </seq>
+</rule> 
+
+<!-- last three hours -->
+
+<rule name="last-plural-time">
+  <seq>
+   <ref name="last-past-word"/>
+   <ref name="num-plural-time"/>
+  </seq>
+</rule> 
+
+<!-- (in the) last three hours. Prior context constrained -->
+
+<rule name="last-plural-time-context">
+  <seq>
+    <seq suppress="true">
+      <ref name="some-preps"/>
+    </seq>
+    <ref name="the"/>
+    <ref name="last-plural-time"/>
+  </seq>
+</rule> 
+
+<!-- the past week, the following morning, the previous winter -->
+
+<rule name="the-past-unit">
+  <seq>
+    <ref name="the"/>
+    <ref name="last-past-word"/>
+    <ref name="units-after-the"/>
+  </seq>
+</rule>  
+
+<!-- last, next, this -->
+
+<rule name="last-next-word">
+  <lookup match="w" lexicon="lex" case="no" attrs="trel='$trel' quty='1'">
+    <constraint test="cat='lastword2'"/>
+    <var name="trel" value="trel"/>
+  </lookup>
+</rule> 
+
+<!-- units that can be used with pre-modifiers like "last/next"
+     e.g. January, Tuesday, winter, Christmas, week, month, year,  -->
+
+<rule name="recurrent">
+  <first>
+    <ref name="recurrent-date-name"/>
+    <ref name="date-unit"/>
+  </first>
+</rule> 
+
+<!-- last January, next Christmas, that very week -->
+
+<rule name="very">
+  <query match="w[.~'^(very|Very|VERY)$']"/>
+</rule> 
+
+<rule name="simple-deictic">
+  <seq>
+    <ref name="last-next-word"/>
+    <ref name="very" mult="?"/>
+    <first>
+      <ref name="dm"/>
+      <ref name="recurrent"/>
+    </first>
+  </seq>
+</rule> 
+
+<!-- first three years, second two weeks  -->
+
+<rule name="ord-plural-date">
+  <seq>
+    <ref name="the" mult="?"/>
+    <ref name="ordinal"/>
+    <ref name="num-plural-date"/>
+  </seq>
+</rule> 
+
+<!-- first half, next part, this half -->
+
+<rule name="ord-part">
+  <seq>
+    <ref name="the" mult="?"/>
+    <first>
+      <ref name="ordinal"/>
+      <ref name="last-next-word"/>
+    </first>
+    <ref name="part"/>
+  </seq>
+</rule> 
+
+<!-- second week -->
+
+<rule name="ord-unit">
+  <seq>
+    <ref name="the" mult="?"/>
+    <ref name="ordinal"/>
+    <ref name="date-unit"/>
+  </seq>
+</rule>  
+
+<!-- first three weeks, last three weeks, first half, 
+     second week, first-quarter
+     i.e. strings that can precede "of the month" etc -->
+
+<rule name="ord/last-plur-date">
+  <first>
+    <ref name="ord-plural-date"/>
+    <ref name="last-plural-date"/>
+    <ref name="ord-part"/>
+    <ref name="ord-unit"/>
+    <ref name="quarts"/>
+  </first>
+</rule> 
+
+<!-- things that follow "of" in expressions like 
+     "the first three months of the year" -->
+
+<rule name="date-units-after-of1">
+  <first>
+    <ref name="the-past-unit"/>
+    <ref name="the-unit"/>
+    <ref name="date-name"/>
+    <ref name="simple-deictic"/>
+    <ref name="today-deictic"/>
+  </first>
+</rule> 
+
+<!-- the first three months of the year etc -->
+
+<rule name="part-of-date-unit">
+  <seq>
+    <ref name="ord/last-plur-date"/>
+    <ref name="of"/>
+    <ref name="date-units-after-of1"/>
+  </seq>
+</rule> 
+
+<!-- date/time units with ago, later, earlier -->
+
+<!-- later, earlier -->
+
+<rule name="later-words">
+  <lookup match="w" lexicon="lex" case="no">
+    <constraint test="cat='lateword-er'"/>
+  </lookup>
+</rule> 
+
+<!-- ago, later, earlier -->
+
+<rule name="ago-words">
+  <first>
+    <query match="w[.~'^(ago|Ago|AGO)$']" attrs="trel='before'"/>
+    <query match="w[.~'^(time|Time|TIME)$']" attrs="trel='after'"/>
+    <ref name="later-words"/>
+  </first>
+</rule> 
+  
+<!-- three weeks ago, a few months earlier/later -->
+
+<rule name="num-plural-date-ago">
+  <seq>
+    <ref name="num-plural-date"/>
+    <ref name="ago-words"/>
+  </seq>
+</rule> 
+
+<!-- three hours ago, a few hours later -->
+ 
+<rule name="num-plural-time-ago">
+  <seq> 
+    <ref name="num-plural-time"/> 
+    <ref name="ago-words"/>
+  </seq>
+</rule> 
+
+<!-- a week ago, one month earlier/later -->
+
+<rule name="a-sing-date-ago">
+  <seq>
+    <query match="w[.~'^(a|A|an|An|AN|one|One|ONE)$']" attrs="quty='1'"/>
+    <ref name="date-unit"/>
+    <ref name="ago-words"/>
+  </seq>
+</rule> 
+
+<!-- a minute ago, one hour ago -->
+
+<rule name="a-sing-time-ago">
+  <seq>
+    <query match="w[.~'^(a|A|an|An|AN|one|One|ONE)$']"/>
+    <ref name="time-unit-lex"/>
+    <ref name="ago-words"/>
+  </seq>
+</rule> 
+
+<!-- (later) that (very) month/January.
+      "that" prevented from being an LN in simple-deictic because
+      of the example "that May 2nd report". Now "that+recurrent"
+      only works if the following isn't a digit -->
+
+<rule name="that-deictic">
+  <seq>
+    <ref name="later-words" mult="?"/>
+    <query match="w[.~'^(that|That|THAT)$']"/>
+    <ref name="very" mult="?"/>
+    <first>
+      <ref name="recurrent-date-name"/>
+      <ref name="d-unit-not-day"/>
+    </first> 
+    <query match="w[.~'^[^0-9]']" suppress="true"/>
+  </seq>
+</rule>
+
+<!-- date and time before/after -->
+
+<!-- before, after, ... -->
+
+<rule name="before-words">
+  <first>
+    <query match="w[.~'^(before|Before|BEFORE)$']"/>
+    <query match="w[.~'^(after|After|AFTER)$']"/>
+  </first> 
+</rule> 
+  
+<!-- the week before last, the day after tomorrow, ... -->
+
+<rule name="the-unit-before-unit">
+  <seq>
+    <ref name="the-supp-unit"/>
+    <ref name="before-words"/>
+    <first>
+      <ref name="last-next-word"/>
+      <ref name="today-deictic"/>
+    </first> 
+  </seq>
+</rule> 
+
+<!-- expressions that can go before "before" -->
+
+<rule name="before-before">
+  <first>
+    <ref name="recurrent-date-name"/>
+    <ref name="date-unit"/>
+  </first>
+</rule> 
+
+<!-- post context for trailing "before" in egs like "the week 
+     before": punctuation or a conjunction make it likely it's not
+     a longer eg like "the week before he left" (which we can't get
+     because we can't guarantee to find the end of the sentence
+     following "before"). -->
+
+<rule name="trailing-before-context">
+  <first>
+    <query match="w[.~&quot;^([,.;:?!\(\)]|''|``)$&quot;]"/>
+    <ref name="some-conjs"/>
+  </first>
+</rule> 
+
+<!-- (the) week before -->
+
+<rule name="the-supp-u-before">
+  <seq>
+    <ref name="the"/>
+    <ref name="before-before"/>
+    <ref name="before-words"/>
+  </seq>
+</rule> 
+
+<rule name="the-u-before">
+  <seq>
+    <ref name="the"/>
+    <ref name="before-before"/>
+    <ref name="before-words"/>
+  </seq>
+</rule> 
+
+<!-- (the) week before (with following context constrained) -->
+
+<rule name="the-unit-before">
+  <seq>
+    <ref name="the-u-before"/>
+    <ref name="trailing-before-context" suppress="true"/>
+  </seq>
+</rule> 
+
+<!-- (the) night before -->
+
+<rule name="the-dpart-before">
+  <seq>
+    <ref name="the"/>
+    <ref name="day-part"/>
+    <ref name="before-words"/>
+  </seq>
+</rule> 
+
+<!-- (the) night before (with following context constrained) -->
+
+<rule name="the-day-part-before">
+  <seq>
+    <ref name="the-dpart-before"/>
+    <ref name="trailing-before-context" suppress="true"/>
+  </seq>
+</rule> 
+
+<!-- a week before, months after -->
+
+<rule name="a-unit-before">
+  <seq>
+    <first>
+      <seq>
+        <query match="w[.~'^(a|A|an|An|AN|one|One|ONE)$']"/>
+        <ref name="date-unit"/>
+      </seq>
+      <ref name="plural-date-unit-lex"/>
+    </first>
+    <ref name="before-words"/>
+    <ref name="trailing-before-context" suppress="true"/>
+  </seq>
+</rule> 
+
+<!-- three weeks before -->
+
+<rule name="num-plural-date-before">
+  <seq>
+    <ref name="num-plural-date"/>
+    <ref name="before-words"/>
+    <ref name="trailing-before-context" suppress="true"/>
+  </seq>
+</rule> 
+
+<!-- group together rules for ago, later, before -->
+
+<!-- all dates ending ago/before/after/later -->
+
+<rule name="ago/before-date">
+  <first>
+    <ref name="num-plural-date-ago"/>
+    <ref name="a-sing-date-ago"/>
+    <ref name="the-unit-before-unit"/>
+    <ref name="the-unit-before"/>
+    <ref name="a-unit-before"/>
+    <ref name="num-plural-date-before"/>
+  </first>
+</rule> 
+
+<rule name="ago/before-time">
+  <first>
+    <ref name="num-plural-time-ago"/>
+    <ref name="a-sing-time-ago"/>
+    <ref name="the-day-part-before"/>
+  </first>
+</rule>
+
+<!-- late/early date -->
+
+<!-- late, early, mid -->
+
+<rule name="late-words">
+  <first>
+    <seq>
+      <query match="w[.~'^(mid|Mid|MID)[\-]?$']"/>
+      <ref name="hyphen" mult="?"/>
+    </seq>
+    <lookup match="w" lexicon="lex" case="no">
+      <constraint test="cat='lateword'"/>
+    </lookup>
+  </first>
+</rule> 
+
+<!-- last January, today, January, 1994 -->
+
+<rule name="named-unit">
+  <first>
+    <ref name="date-name"/>
+    <ref name="simple-deictic"/>
+    <ref name="today-deictic"/>
+  </first>
+</rule> 
+
+<!-- late Wednesday, late last month, early next year -->
+
+<rule name="late-early">
+  <seq>
+    <ref name="late-words"/>
+    <ref name="named-unit"/>
+  </seq>
+</rule> 
+
+<!-- late on Wednesday -->
+
+<rule name="on">
+  <query match="w[.~'^(on|On|ON)$']"/>
+</rule> 
+
+<rule name="late-on-day">
+  <seq>
+    <ref name="late-words"/>
+    <ref name="on"/>
+    <ref name="day-name-full-lex"/>
+  </seq>
+</rule> 
+
+<!-- week, winter, January, 1997 -->
+
+<rule name="late-in-things">
+  <first>
+    <ref name="d-unit-not-day"/>
+    <ref name="season-name"/>
+    <ref name="all-month"/>
+    <ref name="year-in-context"/>
+  </first>
+</rule> 
+
+<!-- late in (the) week, winter, January, 1997 -->
+
+<rule name="late-in-date">
+  <seq>
+   <ref name="late-words"/>
+   <query match="w[.~'^(in|In|IN)$']"/>
+   <ref name="the" mult="?"/>
+   <ref name="late-in-things"/>
+  </seq>
+</rule> 
+
+<!-- (late) 18th century (B.C./A.D.) -->
+
+<rule name="ord-century">
+  <seq>
+    <ref name="late-words" mult="?"/>
+    <ref name="ordinal"/>
+    <ref name="hyphen" mult="?"/>
+    <query match="w[.~'^([Cc]entury|CENTURY)$']"/>
+    <ref name="adbc"/>
+  </seq>
+</rule> 
+
+<!-- beginning/end/middle of date/time -->
+
+<rule name="end-words">
+  <lookup match="w" lexicon="lex" case="no">
+    <constraint test="cat='endword'"/>
+  </lookup>
+</rule> 
+
+<!-- beginning of the year -->
+
+<rule name="beginning-end">
+  <seq>
+    <ref name="the" mult="?"/>
+    <ref name="end-words"/>
+    <ref name="of"/>
+    <first> 
+      <ref name="the-past-unit"/>
+      <ref name="the-unit"/>
+      <ref name="named-unit"/>
+    </first>
+  </seq>
+</rule> 
+ 
+<!-- beginning of the day  -->
+
+<rule name="beginning-end-day">
+  <seq>
+    <ref name="end-words"/>
+    <ref name="of"/>
+    <ref name="the"/>
+    <query match="w[.~'^(day|Day|DAY)$']"/>
+  </seq>
+</rule> 
+
+<!-- day/month of date-unit -->
+
+<!-- expressions that can follow "January/Tuesday of"
+     e.g. January of the following year, Tuesday of last week  -->
+
+<rule name="date-units-after-of2">
+  <first>
+    <ref name="simple-deictic"/>
+    <ref name="today-deictic"/>
+    <ref name="year-in-context"/>
+    <ref name="the-past-unit"/>
+    <ref name="the-u-before"/>
+  </first>
+</rule> 
+
+<!-- January of last year, Tuesday of the following week -->
+
+<rule name="date-name-of-date1">
+  <seq>
+    <ref name="recurrent-date-name"/>
+    <ref name="of"/>
+    <ref name="date-units-after-of2"/>
+  </seq>
+</rule> 
+
+<!-- January, last year, Tuesday next week ..... -->
+
+<rule name="date-name-of-date2">
+  <seq>
+    <ref name="recurrent-date-name"/>
+    <ref name="comma" mult="?"/>
+    <ref name="simple-deictic"/>
+  </seq>
+</rule> 
+
+<!-- Feb 14th (of/,) last year -->
+
+<rule name="oforcomma">
+  <query match="w[.~'^(of|Of|OF|,)$']"/>
+</rule> 
+
+<rule name="date-name-of-date3">
+  <seq>
+    <ref name="dm"/>
+    <ref name="oforcomma" mult="?"/>
+    <ref name="simple-deictic"/>
+  </seq>
+</rule> 
+
+<rule name="date-name-of-date">
+  <first>
+    <ref name="date-name-of-date1"/>
+    <ref name="date-name-of-date2"/>
+    <ref name="date-name-of-date3"/>
+  </first>
+</rule> 
+
+<!-- simple times -->
+
+<!-- 14:47 -->
+
+<rule name="24time">
+  <first>
+    <query match="w[.~'^(0[0-9]|1[3-9]|2[0-3])[:.][0-5][0-9]$']"/>
+    <seq>
+      <query match="w[.~'^(0[0-9]|1[3-9]|2[0-3])$']"/>
+      <query match="w[.='.' or .=':']"/>
+      <query match="w[.~'^[0-5][0-9]$']"/>
+    </seq>
+  </first>
+</rule>
+
+<!-- 8:32 -->
+
+<rule name="12time">
+  <first>
+    <query match="w[.~'^([1-9]|1[012])[:.][0-5][0-9]$']"/>
+    <seq>
+      <query match="w[.~'^([1-9]|1[012])$']"/>
+      <query match="w[.='.' or .=':']"/>
+      <query match="w[.~'^[0-5][0-9]$']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="ampm">
+  <first>
+    <query match="w[.~'^[AaPp][\.]?[Mm][\.]?$']"/>
+    <seq>
+      <query match="w[.~'^[AaPp][\.]?[Mm]']"/>
+      <query match="w[.='.']"/>
+    </seq>
+  </first>
+</rule> 
+ 
+<!-- 1, 2 ... 12, one, two ... twelve -->
+
+<!-- Notice that cardinal words aren't constrained to be in the
+     range one to twelve or -->
+
+<rule name="one-to-twelve">
+  <first>
+    <ref name="12time"/>
+    <ref name="24time"/>
+    <query match="w[@c='cd' and .~'^[1-9]$']"/>
+    <query match="phr[@c='cd' and .~'^[1-9]$']"/>
+    <query match="w[@c='cd' and .~'^[1][012]$']"/>
+    <query match="phr[@c='cd' and .~'^[1][012]$']"/>
+    <query match="w[@c='cd' and .~'^[A-z]']"/>
+    <query match="phr[@c='cd' and .~'^[A-z]']"/>
+  </first>
+</rule> 
+
+<!-- six o'clock, 6 o'clock -->
+
+<rule name="num-oclock">
+  <seq>
+    <ref name="one-to-twelve"/>
+    <query match="w[.~&quot;^(o'clock|O'CLOCK)$&quot;]"/>
+  </seq>
+</rule> 
+
+<!-- 6:30, six o'clock, 6 o'clock, 6, six -->
+
+<rule name="timerange">
+  <query match="phr[@c='range' and w[1][.~'^([2][0-4]|[1][0-9]|[1-9])$']]"/>
+</rule> 
+
+<rule name="pre-ampm">
+  <first>
+    <ref name="num-oclock"/>
+    <ref name="one-to-twelve"/>
+    <ref name="timerange"/>
+  </first>
+</rule> 
+
+<!-- 6:30 a.m., six o'clock a.m., 6 o'clock a.m., 6 a.m., six a.m -->
+
+<rule name="time-ampm">
+  <seq>
+    <ref name="pre-ampm"/>
+    <ref name="ampm"/>
+    <ref name="fullstop" mult="?"/>
+  </seq>
+</rule> 
+ 
+<!-- 1447 -->
+
+<rule name="timenopunct">
+  <first>
+    <query match="w[.~'^(0[0-9]|1[3-9]|2[0-3])[0-5][0-9]$']"/>
+    <seq>
+      <query match="w[.~'^(0[0-9]|1[3-9]|2[0-3])$']"/>
+      <query match="w[.~'^[0-5][0-9]$']"/>
+    </seq>
+  </first>
+</rule>
+
+<!-- 6:30/6/six (a.m.), 18:30 -->
+
+<rule name="pre-tzone">
+  <first>
+    <ref name="time-ampm"/>
+    <ref name="pre-ampm"/>
+    <ref name="24time"/>
+    <ref name="time-name"/>
+    <ref name="timenopunct"/>
+  </first>
+</rule> 
+
+<!-- GMT, BST, EST, local time, South African time -->
+
+<rule name="tzone">
+  <first>
+    <query match="w[.~'^[A-Z][A-Z]?[A-Z]?T$']"/>
+    <seq>
+       <query match="w[.~'^([Ll]ocal|LOCAL)$']"/>
+       <query match="w[.~'^([Tt]ime|TIME)$']"/>
+    </seq>
+    <seq>
+       <ref name="capword" mult="+"/>
+       <query match="w[.~'^([Tt]ime|TIME)$']"/>
+    </seq>
+  </first>
+</rule> 
+
+<!-- 6:30/6/six (a.m.)/18:30 local time/BST -->
+
+<rule name="time-timezone">
+  <seq>
+    <ref name="pre-tzone"/>
+    <ref name="comma" mult="?"/>
+    <ref name="tzone"/>
+  </seq>
+</rule> 
+
+<rule name="simple-times">
+  <first>
+    <ref name="time-timezone"/>
+    <ref name="time-ampm"/>
+    <ref name="12time"/>
+    <ref name="num-oclock"/>
+    <ref name="24time"/>
+    <ref name="time-name"/>
+  </first>
+</rule>
+
+<rule name="simple-time-all">
+  <best>
+   <ref name="simple-times"/>
+   <ref name="pre-ampm"/>
+  </best>
+</rule>
+
+<rule name="standalone-simple-times-no-context">
+  <first>
+    <ref name="time-timezone"/>
+    <ref name="time-ampm"/>
+    <ref name="num-oclock"/>
+    <ref name="time-name"/>
+  </first>
+</rule>
+
+<!-- to stop e.g. 18.11 in "gained 18.11 to 761.38" from being
+     recognised as a time -->  
+
+<rule name="standalone-simple-times-need-context">
+  <seq>
+    <first>
+      <ref name="12time"/>
+      <ref name="24time"/>
+    </first>
+    <seq suppress='true'>
+      <query match="w[not(.~'^(TO|To|to)$')]"/>
+    </seq>
+  </seq>
+</rule>
+
+<!-- between midnight and 5 a.m. -->
+
+<rule name="time-range1">
+  <seq>
+    <query match="w[.~'^([Bb]etween|BETWEEN)$']"/>
+    <first>
+      <ref name="simple-time-all"/>
+      <ref name="one-to-twelve"/>
+    </first>
+    <query match="w[.~'^(and|And|AND)$']"/>
+    <ref name="simple-time-all"/>
+  </seq>
+</rule> 
+
+<!-- 3:00-5:00 -->
+
+<rule name="time-range2">
+  <seq>
+    <ref name="simple-time-all"/>
+    <ref name="hyphen"/>
+    <ref name="simple-time-all"/>
+  </seq>
+</rule> 
+
+<rule name="time-range">
+  <first>
+    <ref name="time-range1"/>
+    <ref name="time-range2"/>
+  </first>
+</rule> 
+
+<!-- complex times -->
+  
+<!-- 2 o'clock EST Wednesday afternoon -->
+
+<rule name="time-day-day-part" wrap="timex" attrs="type='mix'">
+  <seq> 
+    <ref name="simple-time-all" wrap="timex" attrs="type='time'"/>
+    <ref name="day-name" wrap="timex" attrs="type='date'"/>
+    <seq mult="?">
+      <ref name="day-part" wrap="timex" attrs="type='time'"/>
+    </seq>
+  </seq>
+</rule> 
+
+<!-- 3:45 pm Tuesday local time -->
+
+<rule name="time-day-timezone" attrs="type='mix'">
+  <seq>
+    <ref name="pre-tzone"/>
+    <ref name="day-name"/>
+    <ref name="tzone"/>
+  </seq>
+</rule> 
+
+<!-- 3:45 and 30 seconds -->
+
+<rule name="12time-and-num-secs">
+  <seq> 
+    <ref name="12time"/>
+    <query match="w[.~'^(and|And|AND)$']"/> 
+    <ref name="quant"/>
+    <query match="w[.~'^([Ss]econds|SECONDS)$']"/>
+  </seq>
+</rule> 
+
+<!-- late Thursday evening -->
+
+<rule name="late-day-day-part" wrap="timex" attrs="type='mix'">
+  <seq>
+   <ref name="late-words"/>
+    <ref name="on" mult="?"/>
+   <first>
+     <ref name="day-name" wrap="timex" attrs="type='date'"/>
+     <ref name="today-deictic"/>
+   </first>
+   <ref name="day-part" wrap="timex" attrs="type='time'"/>
+  </seq>
+</rule> 
+
+<!-- Thursday evenings, every Tuesday (night), 
+     each month, every three months -->
+
+<rule name="tml-set" wrap="timex" attrs="type='set'">
+  <first>
+    <seq>
+      <ref name="day-name"/>
+      <ref name="plural-day-part"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^([Ee]ach|[Ee]very)$']"/>
+      <first>
+        <seq>
+          <ref name="day-name"/>
+          <ref name="day-part" mult="?"/>
+        </seq>
+        <ref name="date-unit"/>
+        <ref name="season-name"/>
+      </first>
+    </seq>
+    <seq>
+      <first>
+        <query match="w[.~'^[Ee]very$']"/>
+        <seq>
+          <query match="w[.~'^(the|The|THE)$']"/>
+          <query match="w[.~'^(past|Past|PAST|last|Last|LAST|previous|Previous|PREVIOUS)$']"/>
+        </seq>
+      </first>
+      <ref name="quant"/>
+      <first>
+        <ref name="plural-date-unit-lex"/>
+        <lookup match="w" lexicon="lex" case="no">
+          <constraint test="cat='season-plur'"/>
+        </lookup>
+      </first>
+    </seq>
+    <seq attrs="unit='quarter'">
+      <query match="w[.~'^(the|The|THE)$']"/>
+      <query match="w[.~'^(past|Past|PAST|last|Last|LAST|previous|Previous|PREVIOUS)$']"/>
+      <query match="phr[@c='frac' and .~'quarters']"/>
+    </seq>
+  </first>
+</rule> 
+
+<!-- late in the afternoon -->
+
+<rule name="late-in-time">
+  <seq>
+   <ref name="late-words"/>
+   <query match="w[.~'^(in|In|IN)$']"/>
+   <ref name="the"/>
+   <first>
+     <ref name="day-part"/>
+     <query match="w[.~'^(day|Day|DAY)$']"/>
+   </first> 
+  </seq>
+</rule> 
+
+<!--==========last/next/this TIME =============-->
+
+<!-- last hour, next half-hour -->
+
+<rule name="last-tunit">
+  <seq>
+    <ref name="last-next-word"/>
+    <first>
+      <query match="w[.~'^(hour|Hour|HOUR)$']"/>
+      <query match="w[.~'^([Hh]alf-hour|HALF-HOUR)$']"/>
+      <seq>
+        <query match="w[.~'^(half|Half|HALF)$']"/>
+        <query match="w[.='-']"/>
+        <query match="w[.~'^(hour|Hour|HOUR)$']"/>
+      </seq> 
+    </first> 
+  </seq>
+</rule> 
+
+<rule name="last-and-that">
+  <first>
+    <ref name="last-next-word"/>
+    <query match="w[.~'^(that|That|THAT)$']"/>
+  </first>
+</rule> 
+
+<!-- (late) last night, (early) that (very) morning -->
+
+<rule name="deictic-day-part-time1">
+  <seq>
+    <ref name="late-words" mult="?"/>
+    <ref name="last-and-that"/>
+    <ref name="very" mult="?"/>
+    <ref name="day-part"/> 
+  </seq>
+</rule> 
+
+<!-- that/next day -->
+ 
+<rule name="last-that-day">
+  <seq>
+    <ref name="last-and-that"/>
+    <ref name="very" mult="?"/>
+    <query match="w[.~'^([Dd]ay|DAY)$']"/>
+  </seq>
+</rule> 
+
+<!-- that/next day, today, yesterday -->
+
+<rule name="yesterday-that-day">
+  <first>
+    <ref name="last-that-day"/>
+    <ref name="today-deictic"/>
+  </first>
+</rule> 
+
+<!-- late/early yesterday/tomorrow/that day/next day -->
+
+<rule name="deictic-day-part-time2">
+  <seq>
+    <ref name="late-words"/>
+    <ref name="yesterday-that-day"/>
+  </seq>
+</rule> 
+
+<!-- 10 years ago, a year ago -->
+
+<rule name="some-agos">
+  <first>
+    <ref name="num-plural-date-ago"/>
+    <ref name="a-sing-date-ago"/>
+  </first>
+</rule>
+
+<!-- that day 10 years ago -->
+
+<rule name="double-date1">
+  <seq>
+    <ref name="last-that-day"/>
+    <ref name="some-agos"/>
+  </seq>
+</rule> 
+
+<!-- two months ago tomorrow, a week ago Tuesday -->
+
+<rule name="double-date2">
+  <seq>
+    <ref name="some-agos"/>
+    <first>
+      <ref name="yesterday-that-day"/>
+      <ref name="simple-deictic"/>
+      <ref name="day-name-full-lex"/>
+      <seq>
+        <query match="w[.~'^(in|In|IN)$']"/>
+        <ref name="month-name-full-lex"/>
+      </seq>
+    </first>
+  </seq>
+</rule> 
+
+<!-- day-parts in context -->
+  
+
+<!-- Not all instances of afternoon, morning, evening etc should be 
+     marked up. The following rules find them when in appropriate
+     contexts. -->
+
+<rule name="briefing-words">
+  <lookup match="w" lexicon="lex" case="no">
+    <constraint test="cat='event'"/>
+  </lookup>
+</rule>
+
+<!-- afternoon (press conference), morning (briefing) -->
+
+<rule name="afternoon-briefing">
+  <seq>
+    <ref name="day-part"/>
+    <ref name="briefing-words" suppress="true"/>
+  </seq>
+</rule> 
+
+<!-- (in the) morning, (during the) afternoon -->
+
+<rule name="in-the-morning">
+  <seq>
+    <seq suppress="true">
+      <ref name="some-preps"/>
+    </seq>
+    <ref name="the"/>
+    <ref name="day-part"/>
+  </seq>
+</rule> 
+
+<rule name="days">
+  <seq>
+    <ref name="last-next-word" mult="?"/>
+    <first>
+      <ref name="day-name"/>
+      <ref name="today-deictic"/>
+    </first> 
+  </seq>
+</rule> 
+
+<!-- <Thursday> <night>, (<Thursday>) <night> -->
+
+<!-- The date (days) is used as a context for day-part 
+     and so mark-up of each must be carried up. -->
+
+<rule name="dashorbracket">
+  <first>
+    <query match="w[@c='brk']"/>
+    <query match="w[.='-']"/>
+  </first> 
+</rule> 
+
+<rule name="day-and-day-part" wrap="timex" attrs="type='mix'">
+  <seq>
+    <ref name="days" wrap="timex" attrs="type='date'"/>
+    <ref name="dashorbracket" mult="?"/>
+    <first>
+      <ref name="time-name" wrap="timex" attrs="type='time'"/>
+      <ref name="day-part" wrap="timex" attrs="type='time'"/>
+    </first>
+  </seq>
+</rule> 
+
+<rule name="day-part-and-day" wrap="timex" attrs="type='mix'">
+  <seq>
+    <first>
+      <ref name="time-name" wrap="timex" attrs="type='time'"/>
+      <ref name="day-part" wrap="timex" attrs="type='time'"/>
+    </first>
+    <first mult="?">
+      <ref name="dashorbracket"/>
+      <query match="w[.=',']"/>
+      <query match="w[.='on']"/>
+    </first>
+    <ref name="days" wrap="timex" attrs="type='date'"/>
+  </seq>
+</rule> 
+
+<!-- <winter> <evening>: again season is used as context for
+     day-part. Mark-up assigned to subparts is carried up. -->
+
+<rule name="season-and-day-part" wrap="timex" attrs="type='mix'">
+  <seq>
+    <ref name="season-name" wrap="timex" attrs="type='date'"/>
+    <ref name="day-part" wrap="timex" attrs="type='time'"/>
+  </seq>
+</rule> 
+
+<!-- (Tuesday) 11th September (1997) -->
+
+<rule name="dates-with-days">
+  <first>
+    <ref name="day-dmy"/>
+    <ref name="day-dm"/>
+    <seq>
+      <ref name="dm"/>
+      <ref name="comma" mult="?" />
+      <ref name="year-in-date"/>
+    </seq>
+    <ref name="dm"/>
+  </first>
+</rule> 
+
+<!-- evening of (Tuesday) 11th September (1997) -->
+
+<rule name="day-part-of-date" wrap="timex" attrs="type='mix'">
+  <seq>
+    <ref name="day-part" wrap="timex" attrs="type='time'"/>
+    <ref name="of"/>
+    <ref name="dates-with-days" wrap="timex" attrs="type='date'"/>
+  </seq>
+</rule> 
+
+<!-- 5 p.m. (EST) (Tuesday) 11th September (1997) -->
+
+<rule name="time-and-date" wrap="timex" attrs="type='mix'">
+  <seq>
+    <ref name="simple-time-all" wrap="timex" attrs="type='time'"/>
+    <ref name="comma" mult="?" />
+    <ref name="dates-with-days" wrap="timex" attrs="type='date'"/>
+  </seq>
+</rule> 
+
+<!-- fixed phrases -->
+
+<!-- throughout the day, this very moment etc -->
+
+<rule name="fixed-time-phrases">
+  <lookup match="w" lexicon="lex" phrase="true" case="no">
+    <constraint test="cat='fixedtime'"/>
+  </lookup>
+</rule> 
+
+<!-- the turn of the century, year's end -->
+
+<rule name="fixed-date-phrases">
+  <lookup match="w" lexicon="lex" phrase="true" case="no">
+    <constraint test="cat='fixeddate'"/>
+  </lookup>
+</rule> 
+
+<!-- timeml additions -->
+
+<!-- a long/short time -->
+
+<rule name="timeml1">
+  <seq>
+    <ref name="a"/>
+    <query match="w[.~'^(long|short)$']"/>
+    <query match="w[.='time']"/>
+  </seq>
+</rule> 
+
+<rule name="timeml2">
+  <seq>
+    <query match="w[.='recent']"/>
+    <query match="w[.~'^(years|months|weeks|days)$']"/>
+  </seq>
+</rule> 
+
+<rule name="timeml3">
+  <seq>
+    <query match="w[.~'^[Oo]n$']" suppress="true"/>
+    <query match="w[.~'^weekends$']"/>
+  </seq>
+</rule> 
+
+<rule name="timeml4">
+  <first>
+    <query match="w[.~'^[Nn]ow$']" attrs="tref='present'"/>
+    <seq>
+      <query match="w[.~'^(the|The|THE)$']"/>
+      <first>
+        <query match="w[.~'^(past|Past|PAST)$']" attrs="tref='past'"/>
+        <query match="w[.~'^(future|Future|FUTURE)$']" attrs="tref='future'"/>
+      </first>
+    </seq>
+  </first>
+</rule> 
+
+<rule name="a-sing-date">
+  <seq>
+    <first>
+      <seq>
+        <query attrs="quty='1'" match="w[.~'^(a|A|an|An|AN|one|One|ONE)$']"/>
+        <query mult="?" match="w[@p='JJ']"/>
+      </seq>
+      <ref name="quant"/>
+      <ref name="part"/>
+    </first>
+    <ref name="date-unit"/>
+  </seq>
+</rule> 
+
+<rule name="a-sing-time">
+  <seq>
+    <ref name="quant"/>
+    <ref name="time-unit-lex"/>
+  </seq>
+</rule> 
+
+<rule name="timeml-date">
+  <first>
+    <ref name="a-sing-date"/>
+    <seq>
+      <ref name="the" mult="?"/>
+      <ref name="num-plural-date"/>
+    </seq>
+    <ref name="plural-date-unit-lex"/>
+    <ref name="plural-day-part"/>
+    <ref name="timeml1"/>
+    <ref name="timeml2"/>
+    <ref name="timeml3"/>
+    <ref name="timeml4"/>
+  </first>
+</rule> 
+
+<rule name="timeml-time">
+  <first>
+    <ref name="a-sing-time"/>
+    <ref name="num-plural-time"/>
+    <ref name="plural-time-unit-lex"/>
+  </first>
+</rule> 
+
+<!-- putting it all together -->
+
+<rule name="time-all" wrap="timex" attrs="type='time'">
+  <first>
+    <ref name="ago/before-time"/>
+    <ref name="fixed-time-phrases"/>
+    <ref name="late-in-time"/>
+    <ref name="12time-and-num-secs"/>
+    <ref name="time-day-timezone"/>
+    <ref name="deictic-day-part-time1"/>
+    <ref name="deictic-day-part-time2"/>
+    <ref name="last-plural-time-context"/>
+    <ref name="last-tunit"/>
+    <ref name="afternoon-briefing"/>
+<!--    <ref name="in-the-morning"/>-->
+    <ref name="beginning-end-day"/>
+    <ref name="time-range"/>
+    <ref name="standalone-simple-times-no-context"/>
+    <ref name="standalone-simple-times-need-context"/>
+    <ref name="timeml-time"/>
+  </first>
+</rule>
+
+<rule name="mixed-all">
+  <first>
+    <ref name="late-day-day-part"/>
+    <ref name="time-and-date"/>
+    <ref name="time-day-day-part"/>
+    <ref name="day-and-day-part"/>
+    <ref name="day-part-and-day"/>
+    <ref name="season-and-day-part"/>
+    <ref name="day-part-of-date"/>
+  </first>
+</rule>
+
+<rule name="date-all" wrap="timex" attrs="type='date'">
+  <first>
+    <ref name="fixed-date-phrases"/>
+    <ref name="double-date1"/>
+    <ref name="double-date2"/>
+    <ref name="part-of-date-unit"/>
+    <ref name="past-sing-date"/>
+    <ref name="last-plural-date-context"/>
+    <ref name="simple-deictic"/>
+    <ref name="ord-plural-date"/>
+    <ref name="ago/before-date"/>
+    <ref name="that-deictic"/>
+    <ref name="late-early"/>
+    <ref name="late-on-day"/>
+    <ref name="late-in-date"/>
+    <ref name="ord-century"/>
+    <ref name="beginning-end"/>
+<!--    <ref name="conjoined-date-name"/> -->
+    <ref name="date-name-of-date"/>
+    <ref name="last-that-day"/>
+    <ref name="quarts-year"/>
+    <ref name="the-quart"/> 
+    <ref name="quarts"/> 
+    <ref name="month-range"/>
+    <ref name="day-dmy"/>
+    <ref name="day-dm"/>
+    <ref name="dmy"/>
+    <ref name="special-date-year"/>
+    <ref name="date-month"/>
+    <ref name="month-date"/>
+    <ref name="month-year"/>
+    <ref name="day-name-full-lex"/>
+    <ref name="nonambig-month1"/>
+    <ref name="nonambig-month2"/>
+    <ref name="special-date-name"/>
+    <ref name="today-deictic"/>
+    <ref name="weekend"/>
+    <ref name="season-year"/>
+    <ref name="nonambig-season"/>
+    <ref name="year2000"/>
+    <ref name="year-ad-bc"/>
+    <ref name="timeml-date"/>
+  </first>
+</rule>
+ 
+<rule name="date-range-uk" wrap="timex" attrs="type='date-range'">
+  <first>
+    <seq>
+      <query match="w[.~'^([Ss]ince|SINCE)$']"/>
+      <first>
+        <ref name="month-year" wrap="timex" attrs="type='date'"/>
+        <ref name="m/y"/>
+        <ref name="d/m/y-uk"/>
+      </first>
+      <ref name="range-end-context" suppress='true'/>
+    </seq>
+    <seq>
+      <query match="w[.~'^([Bb]etween|BETWEEN)$']"/>
+      <first>
+        <ref name="month-year" wrap="timex" attrs="type='date'"/>
+        <ref name="m/y"/>
+        <ref name="d/m/y-uk"/>
+      </first>
+      <query match="w[.~'^([Aa]nd|AND)$']"/>
+      <first>
+        <ref name="month-year" wrap="timex" attrs="type='date'"/>
+        <ref name="m/y"/>
+        <ref name="d/m/y-uk"/>
+        <ref name="now" wrap="timex" attrs="type='date'"/>
+      </first>
+      <ref name="range-end-context" suppress='true'/>
+    </seq>
+    <seq>
+      <first>
+        <ref name="month-year" wrap="timex" attrs="type='date'"/>
+        <ref name="m/y"/>
+        <ref name="d/m/y-uk"/>
+      </first>
+      <first>
+        <query match="w[.~'^([Tt]hrough|THROUGH)$']"/>
+        <query match="w[.~'^([Tt]o|TO)$']"/>
+        <ref name="hyphen"/>
+      </first>
+      <first>
+        <ref name="month-year" wrap="timex" attrs="type='date'"/>
+        <ref name="m/y"/>
+        <ref name="d/m/y-uk"/>
+        <ref name="now" wrap="timex" attrs="type='date'"/>
+      </first>
+      <ref name="range-end-context" suppress='true'/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="date-range-us" wrap="timex" attrs="type='date-range'">
+  <first>
+    <seq>
+      <query match="w[.~'^([Ss]ince|SINCE)$']"/>
+      <first>
+        <ref name="month-year" wrap="timex" attrs="type='date'"/>
+        <ref name="m/y"/>
+        <ref name="d/m/y-us"/>
+      </first>
+      <ref name="range-end-context" suppress='true'/>
+    </seq>
+    <seq>
+      <query match="w[.~'^([Bb]etween|BETWEEN)$']"/>
+      <first>
+        <ref name="month-year" wrap="timex" attrs="type='date'"/>
+        <ref name="m/y"/>
+        <ref name="d/m/y-us"/>
+      </first>
+      <query match="w[.~'^([Aa]nd|AND)$']"/>
+      <first>
+        <ref name="month-year" wrap="timex" attrs="type='date'"/>
+        <ref name="m/y"/>
+        <ref name="d/m/y-us"/>
+        <ref name="now" wrap="timex" attrs="type='date'"/>
+      </first>
+      <ref name="range-end-context" suppress='true'/>
+    </seq>
+    <seq>
+      <first>
+        <ref name="month-year" wrap="timex" attrs="type='date'"/>
+        <ref name="m/y"/>
+        <ref name="d/m/y-us"/>
+      </first>
+      <first>
+        <query match="w[.~'^([Tt]hrough|THROUGH)$']"/>
+        <query match="w[.~'^([Tt]o|TO)$']"/>
+        <ref name="hyphen"/>
+      </first>
+      <first>
+        <ref name="month-year" wrap="timex" attrs="type='date'"/>
+        <ref name="m/y"/>
+        <ref name="d/m/y-us"/>
+        <ref name="now" wrap="timex" attrs="type='date'"/>
+      </first>
+      <ref name="range-end-context" suppress='true'/>
+    </seq>
+  </first>
+</rule>
+
+<!-- Put "and" constraint on almost all rules to speed things up. The
+     only rules that aren't affected are some of the year ones which
+     have too many suppressed precontexts. -->
+
+<rule name="all">
+  <first>
+    <and>
+      <first>
+        <query match="phr"/>
+        <query match="w[.~'^([Ee]ach|[Ee]very)$']"/>
+        <query match="w[.~'^([Bb]etween|BETWEEN)$']"/>
+        <query match="w[.~'^([Tt]hat|THAT)$']"/>
+        <query match="w[.~'^([Nn]ow|[Rr]ecent)$']"/>
+        <query match="w[.~'[0-9]']"/>
+        <query match="w[.='(']"/>
+        <lookup match="w" lexicon="lex" phrase="true" case="no"/>
+        <lookup match="w" lexicon="numlex" phrase="true" case="no"/>
+      </first>
+      <first>
+<!--        <ref name="tml-set"/>-->
+        <ref name="date-range-uk"/>
+        <ref name="year-range"/>
+        <ref name="d/m/y-uk"/>
+<!--        <ref name="dm/my-ambig"/>
+        <ref name="d/m-uk-non-ambig"/>
+        <ref name="d/m-uk-ambig"/>-->
+        <ref name="m/y"/>
+        <ref name="mixed-all"/>
+        <ref name="time-all"/>
+        <ref name="date-all"/>
+      </first>
+    </and>
+    <ref name="copyright-year" wrap="timex" attrs="type='date'"/>
+    <ref name="fy-year" wrap="timex" attrs="type='date'"/>
+    <ref name="decade" wrap="timex" attrs="type='date'"/>
+    <ref name="year-long-wrapped"/>
+  </first>
+</rule> 
+
+<rule name="us-all">
+  <first>
+    <and>
+      <first>
+        <query match="phr"/>
+        <query match="w[.~'^([Bb]etween|BETWEEN)$']"/>
+        <query match="w[.~'^([Tt]hat|THAT)$']"/>
+        <query match="w[.~'[0-9]']"/>
+        <query match="w[.='(']"/>
+        <lookup match="w" lexicon="lex" phrase="true" case="no"/>
+        <lookup match="w" lexicon="numlex" phrase="true" case="no"/>
+      </first>
+      <first>
+<!--        <ref name="tml-set"/>-->
+        <ref name="date-range-us"/>
+        <ref name="year-range"/>
+        <ref name="d/m/y-us"/>
+<!--        <ref name="dm/my-ambig"/>
+        <ref name="d/m-us-non-ambig"/>
+        <ref name="d/m-us-ambig"/>-->
+        <ref name="m/y"/>
+        <ref name="mixed-all"/>
+        <ref name="time-all"/>
+        <ref name="date-all"/>
+      </first>
+    </and>
+    <ref name="copyright-year" wrap="timex" attrs="type='date'"/>
+    <ref name="fy-year" wrap="timex" attrs="type='date'"/>
+    <ref name="decade" wrap="timex" attrs="type='date'"/>
+    <ref name="year-long-wrapped"/>
+  </first>
+</rule> 
+
+<rule name="numdates">
+    <first>
+      <ref name="d/m/y"/>
+<!--      <ref name="dm/my-ambig-not-wrapped"/>
+      <ref name="d/m-uk-non-ambig"/>
+      <ref name="d/m-us-non-ambig"/>-->
+      <ref name="m/y"/>
+    </first>
+</rule>
+
+</rules>
+
+

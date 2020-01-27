@@ -1,0 +1,231 @@
+<rules name="numbers" type="xml" apply="all">
+
+<!-- NUMBERS -->
+
+<!-- one to nine -->
+
+<rule name="unit" attrs="c='cd'">
+  <lookup lexicon="lex" match="w" attrs="quty='$quty'">
+    <constraint test="cat='unit'"/>
+    <var name="quty" value="quty"/>
+  </lookup>
+</rule>
+
+<!-- ten to nineteen -->
+
+<rule name="teen" attrs="c='cd'">
+  <lookup match="w" lexicon="lex" attrs="quty='$quty'">
+    <constraint test="cat='teen'"/>
+    <var name="quty" value="quty"/>
+  </lookup>
+</rule>
+
+<!-- twenty, thirty, ..., ninety  -->
+
+<rule name="ty" attrs="c='cd'">
+  <lookup lexicon="lex" match="w" attrs="quty='$quty'">
+    <constraint test="cat='ty'"/>
+    <var name="quty" value="quty"/>
+  </lookup>
+</rule>
+
+<!-- hundred, thousand, million .. -->
+
+<rule name="big-unit" attrs="c='cd'">
+  <lookup lexicon="lex" match="w" attrs="quty='$quty'">
+    <constraint test="cat='big-unit'"/>
+    <var name="quty" value="quty"/>
+  </lookup>
+</rule>
+
+<!-- three, 3 -->
+<rule name="unit-or-digits">
+  <first>
+    <ref name="unit"/>
+    <query match="w[.~'^[1-9]$']" attrs="quty='$quty'">
+      <var name="quty" value="."/>
+    </query>
+  </first>
+</rule> 
+
+<!-- fifteen, 15 -->
+<rule name="teen-or-digits">
+  <first>
+    <ref name="teen"/>
+    <query match="w[.~'^1[0-9]$']" attrs="quty='$quty'">
+      <var name="quty" value="."/>
+    </query>
+  </first>
+</rule> 
+
+<rule name="hyphen">
+  <query match="w[.='-']"/>
+</rule>
+
+<!-- twenty two, twenty-two -->
+<rule name="ty-unit" wrap="tw" attrs="op='+'">
+  <seq>
+    <ref name="ty"/>
+    <ref name="hyphen" mult="?"/>
+    <ref name="unit"/>
+  </seq>
+</rule>
+
+<!-- sixty, sixty-six, 60, 66 -->
+<rule name="ty-or-digits">
+  <first>
+    <ref name="ty-unit"/>
+    <ref name="ty"/>
+    <query match="w[.~'^[2-9][0-9]$']" attrs="quty='$quty'">
+      <var name="quty" value="."/>
+    </query>
+  </first>
+</rule> 
+
+<!-- A -->
+<rule name="under-twenty-or-digits">
+  <first>
+    <ref name="teen-or-digits"/>
+    <ref name="unit-or-digits"/>
+    <query match="w[.~'^[Aa]$']" attrs="quty='1'"/> 
+  </first>
+</rule>
+
+<!-- B = ty-or-digits -->
+
+<!-- C -->
+<rule name="num-hundred" wrap="tw" attrs="op='*'">
+  <seq>
+    <ref name="under-twenty-or-digits"/>
+    <lookup lexicon="lex" match="w" attrs="quty='100'">
+      <constraint test="quty='100'"/>
+     </lookup>
+  </seq>
+</rule>
+
+<rule name="and-num">
+  <seq>
+    <query match="w[.~'^(and|And|AND)$']"/> 
+    <first>
+      <ref name="ty-or-digits"/>
+      <ref name="under-twenty-or-digits"/>
+    </first>
+  </seq>
+</rule>
+
+<!-- D -->
+<rule name="hundred-and-num">
+  <first>
+    <seq wrap="tw" attrs="op='+'">
+      <ref name="num-hundred"/>
+      <ref name="and-num"/>
+    </seq>
+    <ref name="num-hundred"/>
+  </first>
+</rule>
+
+<!-- E -->
+<rule name="num-thousand" wrap="tw" attrs="op='*'">
+  <seq>
+    <first>
+      <ref name="hundred-and-num"/>
+      <ref name="num-hundred"/>
+      <ref name="ty-or-digits"/>
+      <ref name="under-twenty-or-digits"/>
+    </first>
+    <lookup lexicon="lex" match="w" attrs="quty='1000'">
+      <constraint test="quty='1000'"/>
+     </lookup>
+  </seq>
+</rule>
+
+<rule name="thousand-and-num1">
+  <first>
+    <seq wrap="tw" attrs="op='+'">
+      <ref name="num-thousand"/>
+      <ref name="and-num"/>
+    </seq>
+    <ref name="num-thousand"/>
+  </first>
+</rule>
+
+<rule name="thousand-and-num2" wrap="tw" attrs="op='+'">
+  <seq>
+    <ref name="num-thousand"/>
+    <ref name="hundred-and-num"/>
+  </seq>
+</rule>
+
+<!-- F -->
+<rule name="thousand-and-num">
+  <first>
+    <ref name="thousand-and-num2"/>
+    <ref name="thousand-and-num1"/>
+  </first>
+</rule>
+
+<!-- G -->
+<rule name="num-million" wrap="tw" attrs="op='*'">
+  <seq>
+    <first>
+      <ref name="thousand-and-num"/>
+      <ref name="hundred-and-num"/>
+      <ref name="num-hundred"/>
+      <ref name="ty-or-digits"/>
+      <ref name="under-twenty-or-digits"/>
+    </first>
+    <lookup lexicon="lex" match="w" attrs="quty='1000000'">
+      <constraint test="quty='1000000'"/>
+     </lookup>
+  </seq>
+</rule>
+
+<rule name="million-and-num1">
+  <first>
+    <seq wrap="tw" attrs="op='+'">
+      <ref name="num-million"/>
+      <ref name="and-num"/>
+    </seq>
+    <ref name="num-million"/>
+  </first>
+</rule>
+
+<rule name="million-and-num2" wrap="tw" attrs="op='+'">
+  <seq>
+    <ref name="num-million"/>
+    <ref name="thousand-and-num"/>
+  </seq>
+</rule>
+
+<!-- H -->
+<rule name="million-and-num">
+  <first>
+    <ref name="million-and-num2"/>
+    <ref name="million-and-num1"/>
+  </first>
+</rule>
+
+<rule name="num-dozen" wrap="tw" attrs="op='*'">
+  <seq>
+    <ref name="under-twenty-or-digits"/>
+    <lookup lexicon="lex" match="w" attrs="quty='12'">
+      <constraint test="quty='12'"/>
+     </lookup>
+  </seq>
+</rule>
+
+<rule name="all">
+  <first>
+    <ref name="million-and-num"/>
+    <ref name="num-million"/>
+    <ref name="thousand-and-num"/>
+    <ref name="num-thousand"/>
+    <ref name="hundred-and-num"/>
+    <ref name="num-hundred"/>
+    <ref name="num-dozen"/>
+    <ref name="ty-or-digits"/>
+    <ref name="under-twenty-or-digits"/>
+  </first>
+</rule>
+
+</rules>

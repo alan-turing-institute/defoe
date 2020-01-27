@@ -1,0 +1,131 @@
+<!-- DTD for lxtransduce rule files -->
+
+<!ENTITY % common-atts '
+		match-var	NMTOKEN			#IMPLIED
+		rewrite-var	NMTOKEN			#IMPLIED
+		suppress	(true|false)		"false"
+		rewrite		CDATA			#IMPLIED
+		mult		CDATA			#IMPLIED
+'>
+
+<!ENTITY % common-xml-atts '
+		wrap		NMTOKEN			#IMPLIED
+		attrs		CDATA			#IMPLIED
+'>
+
+<!ENTITY % match-elements 'ref|regex|query|repeat-until|backtrack|seq|first|or|best|and|all|start|not-start|end|not-end|repeat|lookup|not'>
+
+<!ELEMENT rules (lexicon*,rule+)>
+<!ATTLIST rules name    NMTOKEN		#IMPLIED
+                type    (xml|plain)	"plain"
+                apply   IDREF		#REQUIRED>
+
+<!ELEMENT lexicon EMPTY>
+<!ATTLIST lexicon name	NMTOKEN		#REQUIRED
+	  	  href	CDATA		#REQUIRED>
+
+<!ELEMENT constraint EMPTY>
+<!ATTLIST constraint	test	CDATA	#REQUIRED>
+
+<!ELEMENT var EMPTY>
+<!ATTLIST var		name	NMTOKEN	#REQUIRED
+	  		value	CDATA	#REQUIRED>
+
+<!ELEMENT with-param EMPTY>
+<!ATTLIST with-param	name	NMTOKEN	#REQUIRED
+	  		value	CDATA	#REQUIRED>
+
+<!ELEMENT rule (%match-elements;)?>
+<!ATTLIST rule	name		ID			#IMPLIED
+		match		CDATA			#IMPLIED
+	        constraint	CDATA			#IMPLIED
+		rewrite		CDATA			#IMPLIED
+		%common-xml-atts;>
+
+<!ELEMENT ref	(with-param)*>
+<!ATTLIST ref	%common-atts;
+		%common-xml-atts;
+		name		IDREF			#REQUIRED>
+
+<!ELEMENT regex (var|constraint)*>
+<!ATTLIST regex	%common-atts;
+		match		CDATA			#REQUIRED
+	        constraint	CDATA			#IMPLIED>
+
+<!ELEMENT query (var|constraint)*>
+<!ATTLIST query	%common-atts;
+		%common-xml-atts;
+		match		CDATA			#REQUIRED
+	        constraint	CDATA			#IMPLIED>
+
+<!ELEMENT repeat-until (%match-elements;)+>
+<!ATTLIST repeat-until %common-atts;
+		       %common-xml-atts;
+		       name	   IDREF		#REQUIRED
+		       min-matches CDATA		#IMPLIED>
+
+<!ELEMENT backtrack (ref, (%match-elements;)+)>
+<!ATTLIST backtrack %common-atts;
+		    %common-xml-atts;>
+
+<!ELEMENT seq	(%match-elements;)+>
+<!ATTLIST seq	%common-atts;
+		%common-xml-atts;>
+
+
+<!ELEMENT first (%match-elements;)+>
+<!ATTLIST first	%common-atts;
+		%common-xml-atts;>
+
+
+<!ELEMENT or	(%match-elements;)+>
+<!ATTLIST or	%common-atts;
+		%common-xml-atts;>
+
+<!ELEMENT best	(%match-elements;)+>
+<!ATTLIST best	%common-atts;
+		%common-xml-atts;>
+
+<!ELEMENT and	(%match-elements;)+>
+<!ATTLIST and	%common-atts;
+		%common-xml-atts;>
+
+<!ELEMENT all	(%match-elements;)+>
+<!ATTLIST all	%common-atts;
+		%common-xml-atts;>
+
+<!ELEMENT  start     EMPTY>
+<!ELEMENT  not-start EMPTY>
+<!ELEMENT  end       EMPTY>
+<!ELEMENT  not-end   EMPTY>
+
+<!ELEMENT repeat (%match-elements;)+>
+<!ATTLIST repeat %common-atts;
+		 %common-xml-atts;>
+
+<!ELEMENT lookup (var|constraint)*>
+<!ATTLIST lookup %common-atts;
+		 %common-xml-atts;
+		 match		CDATA			#REQUIRED
+		 phrase		(true|false)		#IMPLIED
+		 case		(yes|no)		#IMPLIED
+		 lexicon	CDATA			#REQUIRED>
+
+<!ELEMENT not	 (%match-elements;)>
+
+<!-- We use Unicode private-use-area characters to identify 
+     magically-unescaped <, >, and &.
+     Use "ED??" - ED for Edinburgh -->
+
+<!ENTITY xlt  "&#xED80;">
+<!ENTITY xgt  "&#xED81;">
+<!ENTITY xamp "&#xED82;">
+
+<!ENTITY XLT  "&#xED80;">
+<!ENTITY XGT  "&#xED81;">
+<!ENTITY XAMP "&#xED82;">
+
+<!-- Entities for compatibility with old-style variables -->
+
+<!ENTITY S-VAL "$-">
+<!ENTITY S-REW "$+">

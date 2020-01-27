@@ -1,0 +1,34 @@
+#!/bin/sh 
+
+usage="postag -m model <input.xml >output.xml"
+descr="Do part of speech tagging using the C&C pos tagger."
+
+. `dirname $0`/setup
+
+model=''
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    -m)
+      model=$1
+      shift
+      ;;
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+if [ -z "$model" ]; then
+  echo "usage: $usage" >&2
+  exit 2
+fi
+
+lib=$here/lib/postag
+
+cat >$tmp-in
+
+lxconvert -w -q s -s $lib/pos.cnv <$tmp-in |
+pos -model $model 2>$tmp-ccposerr |
+lxconvert -r -q s -s $lib/pos.cnv -x $tmp-in

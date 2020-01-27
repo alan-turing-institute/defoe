@@ -1,0 +1,33 @@
+#!/bin/sh
+
+usage="tokenise <input.xml >output.xml"
+descr="Tokenisation of paragraphs into sentence (<s>) and word (<w>) elements."
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+lib=$here/lib/tokenise
+ner=$here/lib/ner
+
+lxreplace -q meta -t '<meta>&attrs;&children;<attr name="tokeniser_version" date="20151216"/></meta>'|
+lxreplace -q '/document[not(standoff)]' -t '<xsl:copy>&attrs;&children;<standoff/></xsl:copy>' |
+lxtransduce -r -q p $lib/pretokenise.gr |
+lxtransduce -r -q p $lib/tokenise.gr |
+lxreplace -q "w/cg" |
+lxtransduce -r -q p -l lex=$lib/mobyfuncwords.lex -l tlex=$ner/timex.lex $lib/sents-news.gr |
+lxtransduce -q s -l lex=$ner/numbers.lex $lib/posttokenise.gr |
+lxreplace -q "w/w" |
+lxreplace -q "w[preceding-sibling::*[1][self::w]]" -t "<w pws='no'>&attrs;&children;</w>" |
+lxreplace -q "w[not(@pws)]" -t "<w pws='yes'>&attrs;&children;</w>" |
+lxreplace -q cg |
+lxaddids -e 'w' -p "'w'" -c '//text()' |
+lxaddids -e 's' -p "'s'"

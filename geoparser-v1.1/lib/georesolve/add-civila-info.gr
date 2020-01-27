@@ -1,0 +1,24 @@
+<!-- Add populations to states etc.
+     Same as add-city-info.gr, but check type=civila and allow 2 degree fuzz.
+     New: allow type=ppl too, in case gazetteer doesn't get it right
+     (but don't allow pplc or ppla, because those are not likely to be
+     mistakes; if they might appear as countries they should be handled
+     by add-country-info).
+     XXX shouldn't override existing values.
+-->
+
+<rules type="xml" apply="place"> 
+
+<rule name="place" attrs="pop='$pop' in-cc='$country'">
+  <query match="place[@type='civila' or @type='ppl']">
+     <var name="lat" value="@lat"/>
+     <var name="long" value="@long"/>
+     <var name="entries" value="civila(../@name)/*"/>
+     <var name="near" value="$entries[($lat - @lat)*($lat - @lat) + ($long - @long)*($long - @long) &lt; 4][1]"/>
+     <var name="pop" value="$near/@pop"/>
+     <var name="country" value="$near/@country"/>
+     <constraint test="$near"/>
+  </query>
+</rule>
+
+</rules>

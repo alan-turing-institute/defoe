@@ -1,0 +1,76 @@
+#!/bin/sh
+
+usage="gazlookup-deep [-c county (deep only)] [-r begindate enddate (deep only)]<input.xml >output.xml"
+descr="Do Unlock (xwalk replacement) gazetteer lookup on a set of placenames."
+
+unlock_host='http://unlock.edina.ac.uk'
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    -c)
+      county=$1
+      shift
+      ;;
+    -r)
+      begin="$1"
+      end="$2"
+      shift 2
+      ;;
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+lib=$here/lib/georesolve
+
+cat >$tmp-input
+
+# get gazetteer from script name
+# (so a link to this script named "gazlookup-xyz" will use gazetteer xyz)
+gaz=`basename $0 | awk -F"-" '{print $2}'`
+
+lxt -s $lib/dodeepquery.xsl -p host "$unlock_host" -p gazetteer "$gaz" <$tmp-input > $tmp-output
+
+if [ "$county" ] ; then
+
+if [ "$begin" ] ; then
+
+cat $tmp-output |
+lxt -p countiesin "$county" -s $lib/deepcounty.xsl |
+lxt -s $lib/exactmatchfilter.xsl |
+lxt -p begindate $begin -p enddate $end -s $lib/daterangefilter.xsl |
+lxt -s $lib/addxwalkextras.xsl
+
+else
+
+cat $tmp-output |
+lxt -p countiesin "$county" -s $lib/deepcounty.xsl |
+lxt -s $lib/exactmatchfilter.xsl |
+lxt -s $lib/addxwalkextras.xsl
+
+fi
+
+else
+
+if [ "$begin" ] ; then
+
+cat $tmp-output |
+lxt -s $lib/exactmatchfilter.xsl |
+lxt -p begindate $begin -p enddate $end -s $lib/daterangefilter.xsl |
+lxt -s $lib/addxwalkextras.xsl
+
+else
+
+cat $tmp-output |
+lxt -s $lib/exactmatchfilter.xsl |
+lxt -s $lib/addxwalkextras.xsl
+
+fi
+
+fi
+

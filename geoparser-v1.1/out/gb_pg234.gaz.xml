@@ -1,0 +1,20 @@
+<placenames>
+ <placename id="rb2" name="Bosphorus">
+  <place rank="1" score="0.07464385071" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="29.125" lat="41.125" gazetteer="Pleiades Plus" type="other" gazref="unlock:14196134" name="Bosphorus" clusteriness="709.1078589" scaled_clusteriness="0.07464385071" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.07314742448" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="29.04333" lat="41.05722" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210786" name="Bosphorus" clusteriness="714.0114086" scaled_clusteriness="0.07314742448" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb3" name="Thrace">
+  <place rank="1" score="0.04991844568" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="41.33333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211536" name="Thrake" clusteriness="794.6266178" scaled_clusteriness="0.04991844568" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb4" name="Ister"/>
+ <placename id="rb8" name="Agathyrsi"/>
+ <placename id="rb9" name="Persia"/>
+ <placename id="rb14" name="Maeotis">
+  <place rank="1" score="0.08136502054" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="36.5" lat="46.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14192861" name="Maeotis" clusteriness="687.4956568" scaled_clusteriness="0.08136502054" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb15" name="Tanais">
+  <place rank="1" score="0.03436650067" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="39.5" lat="47.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14192914" name="Tanais" clusteriness="853.6247503" scaled_clusteriness="0.03436650067" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.01825591327" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="40.5" lat="47.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14192915" name="Tanais fl." clusteriness="919.3654387" scaled_clusteriness="0.01825591327" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="72.5" lat="42.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14208865" name="Tanais fl." clusteriness="3388.889411" scaled_clusteriness="0" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+</placenames>

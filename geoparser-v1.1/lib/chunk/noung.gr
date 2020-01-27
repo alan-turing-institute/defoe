@@ -1,0 +1,840 @@
+<rules name="noung" type="xml" apply="all"> 
+
+<rule name="comma">
+  <query match="w[.=',']"/>
+</rule>
+
+<!-- CD sequences -->
+
+<rule name="ly-adv">
+  <first>
+    <query match="w[.~'ly$']"/>
+  </first>
+</rule>
+
+<rule name="as">
+    <query match="w[.~'^[Aa]s$']"/>
+</rule>
+
+<rule name="quant-than">
+  <first>
+    <seq>
+      <ref name="ly-adv" mult="?"/>
+      <ref name="as" mult="?"/>
+      <query match="w[.~'^([Mm]ore|[Mm]uch|[Ll]ess|[Ll]ittle)$']"/>
+      <query match="w[.~'^(than|as)$']"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^[Aa]t$']"/>
+      <query match="w[.~'^[Ll]east$']"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^[Aa]$']"/>
+      <query match="w[.~'^[Ff]urther$']"/>
+    </seq>
+    <seq>
+      <first>
+        <query match="w[.~'^[Cc]lose$']"/>
+        <query match="w[.~'^[Uu]p$']"/>
+      </first>
+      <query match="w[.~'^[Tt]o$']"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^[Aa]n$']"/>
+      <query match="w[.~'^[Oo]verall$']"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^[Aa][n]?$']"/>
+      <query match="w[@p='JJ' or @p='VBN']"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^[Oo]nly$']"/>
+      <query match="w[.~'^[Aa]bout$']"/>
+    </seq>
+    <query match="w[.~'^[Nn]early$']"/>
+    <query match="w[.~'^[Aa]round$']"/>
+    <query match="w[.~'^[Oo]ver$']"/>
+    <query match="w[.~'^[Oo]nly$']"/>
+    <query match="w[.~'^[Aa]bout$']"/>
+    <query match="w[.~'^[Aa]pproximately$']"/>
+  </first>   
+</rule>
+
+<rule name="cd">
+  <seq>
+    <ref name="quant-than" mult="?"/>
+    <first>
+      <query match="w[@p='CD']"/>
+      <query match="w[@p='#']"/>
+      <query match="w[@p='$']"/>
+      <query match="phr[@c='cd']"/>
+      <query match="phr[@c='frac']"/>
+    </first>
+    <query match="*[not(.='-')]" suppress="true"/>
+  </seq>
+</rule>
+
+<!-- a more than sixfold, a higher than average -->
+<rule name="erthan">
+  <seq>
+    <query match="w[.~'^[Aa][n]?$']"/>
+    <query match="w[@p='JJR']"/>
+    <query match="w[.~'^than$']"/>
+    <query match="w[@p='JJ']"/>
+  </seq>
+</rule>
+
+<!-- determiner (PRP$ - possessive, PDT - predeterminer (all, both,
+     half etc) -->
+
+<rule name="det">
+  <best>
+    <ref name="cd"/>
+    <query match="w[@p~'^DT']"/>
+    <query match="w[@p='PRP$']"/>
+    <query match="w[@p='PDT']"/>
+    <query match="w[@p='WP$']"/>
+    <ref name="erthan"/>
+    <seq>
+      <query match="w[@p~'^DT']" mult="?"/>
+      <query match="w[.~'^[Mm]any$']"/>
+    </seq>
+  </best>
+</rule>
+
+<!-- adverb -->
+<rule name="adv">
+  <first>
+     <query match="w[@p~'^RB']"/>
+  </first>
+</rule>
+
+<!-- pronoun -->
+<rule name="pron">
+   <first>
+     <query match="w[@p='PRP']"/>
+     <seq>
+       <query match="w[.~'^(NO|No|no)$']"/>
+       <query match="w[@c='hyph' and .='-']" mult="?"/>
+       <query match="w[@p='PRP' and .~'^(ONE|One|one)$']"/>
+     </seq>
+     <query match="w[.~'^(NO-ONE|No-one|no-one)$']"/>
+     <query match="w[@p='DT' and .~'^(this|This|THIS|that|That|THAT)$']"/>
+     <query match="w[@p='WDT' and .~'^(that|That|THAT)$']"/>
+   </first>
+</rule>
+
+<!-- proper noun -->
+<rule name="simplepropernoun">
+  <first>
+     <query match="w[@p='NNP']"/>
+     <query match="w[@p='NNPS']"/>
+  </first>
+</rule>
+
+<rule name="hyphen-propernoun">
+  <seq>
+    <query match="w[@c='hyph' and .='-']"/>
+    <ref name="simplepropernoun"/>
+  </seq>
+</rule>
+
+<rule name="hyph-propernoun">
+  <seq>
+    <ref name="simplepropernoun"/>
+    <ref name="hyphen-propernoun" mult="+"/>
+  </seq>
+</rule>
+
+<!-- <rule name="propernoun-date">
+  <seq>
+    <query match="w[@p='NNP' and .~'^[ADFJMNOS]']"/>
+    <query match="w[@p='CD' and .~'^[1-3][0-9]']"/>
+  </seq>
+</rule> -->
+
+<rule name="propnoun">
+  <first>
+    <ref name="hyph-propernoun"/>
+    <ref name="simplepropernoun"/>
+    <query match="w[@p='VBG' and .~'^[A-Z]']"/>
+  </first>
+</rule>
+
+<rule name="propernoun">
+  <first>
+<!--    <ref name="propernoun-date"/> -->
+    <ref name="propnoun"/>
+  </first>
+</rule>
+
+<!-- noun -->
+<rule name="simplenoun">
+  <first>
+     <query match="w[@p='NN']"/>
+     <query match="w[@p='NNS']"/>
+  </first>
+</rule>
+
+<rule name="simplenoun-ger">
+  <first>
+     <query match="w[@p='NN']"/>
+     <query match="w[@p='VBG']"/>
+     <query match="w[@p='NNS']"/>
+  </first>
+</rule>
+
+<rule name="hyphen-noun">
+  <seq>
+    <query match="w[@c='hyph' and .='-']"/>
+    <ref name="simplenoun-ger"/>
+  </seq>
+</rule>
+
+<rule name="hyph-noun">
+  <seq>
+    <first>
+      <ref name="simplenoun-ger"/>
+      <query match="w[@p='CD']"/>
+    </first>
+    <ref name="hyphen-noun" mult="+"/>
+  </seq>
+</rule>
+
+<!-- nominal -->
+<rule name="nomger">
+  <best>
+    <ref name="hyph-noun"/>
+    <ref name="simplenoun-ger"/>
+    <ref name="propnoun"/>
+  </best>
+</rule>
+
+<rule name="restr-nom">
+  <best>
+    <ref name="hyph-noun"/>
+    <ref name="simplenoun"/>
+    <ref name="propnoun"/>
+  </best>
+</rule>
+
+<rule name="compoundlast">
+  <first>
+    <query match="w[@p~'^NN[S]?$']"/>
+    <query match="w[@p='CD']"/>
+  </first>
+</rule>
+
+<rule name="compound-noun">
+  <seq>
+    <ref name="restr-nom"/>
+    <backtrack>
+      <ref name="nomger" mult="*"/>
+      <ref name="compoundlast"/>
+    </backtrack>
+  </seq>
+</rule>
+
+<!-- common noun -->
+<rule name="noun">
+  <best>
+    <ref name="compound-noun"/>
+    <ref name="hyph-noun"/>
+    <ref name="simplenoun"/>
+  </best>
+</rule>
+
+<!-- adjective (JJR - comparative, JJS - superlative, JJP - propernoun
+     used as adj) -->
+<rule name="adj">
+  <seq>
+    <ref name="adv" mult="?"/>
+    <first>
+      <ref name="cd"/>
+      <query match="w[@p='JJ' and not(.~'^[Mm]any$')]"/>
+      <query match="w[@p='JJP']"/>
+      <query match="w[@p='JJS']"/>
+      <query match="w[@p='JJR']"/>
+      <query match="w[@p='VBG']"/>
+      <query match="w[@p='VBN']"/>
+      <query match="w[@p='VBD']"/>
+      <query match="timex"/>
+      <query match="numex"/>
+      <query match="enamex"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="coord-adj">
+  <seq>
+    <ref name="adj"/>
+    <query match="w[.~'^(and|And|AND|or|Or|OR|&amp;)$']"/>
+    <ref name="adj"/>
+  </seq>
+</rule>
+
+<rule name="hyph-adj">
+  <seq>
+    <ref name="noun"/>
+    <query match="w[@c='hyph' and .='-']"/>
+    <ref name="adj"/>
+  </seq>
+</rule>
+
+<rule name="alladj">
+  <first>
+    <ref name="coord-adj"/>
+    <ref name="hyph-adj"/>
+    <ref name="adj"/>
+  </first>
+</rule>
+
+<!-- restricted set of adjectives - doesn't include VBG, VBN, CD - for
+     use in determinerless noun groups where the left boundary is less
+     obvious -->
+<rule name="restr-adj">
+  <seq>
+    <ref name="adv" mult="?"/>
+    <first>
+      <query match="w[@p='JJ']"/>
+      <query match="w[@p='JJP']"/>
+      <query match="w[@p='JJS']"/>
+      <query match="w[@p='JJR']"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="coord-restr-adj">
+  <seq>
+    <ref name="restr-adj"/>
+    <query match="w[.~'^(and|And|AND|or|Or|OR|&amp;)$']"/>
+    <ref name="restr-adj"/>
+  </seq>
+</rule>
+
+<rule name="allrestr-adj">
+  <first>
+    <ref name="coord-restr-adj"/>
+    <ref name="hyph-adj"/>
+    <ref name="restr-adj"/>
+  </first>
+</rule>
+
+<rule name="alladj-comma">
+  <seq>
+    <ref name="alladj"/>
+    <ref name="comma" mult="?"/>
+  </seq>
+</rule>
+
+
+<!-- conjunction restricted to near-lexical level. A gerund can be the
+     second conjunct or nonfinal in the second conjunct -->
+<rule name="conj-noun">
+  <seq>
+    <ref name="comma" mult="?"/>
+    <query match="w[.~'^(and|And|AND|or|Or|OR|&amp;)$']"/>
+    <ref name="nomger" attrs="headn='yes'"/>
+    <ref name="restr-nom" attrs="headn='yes'" mult="*"/>
+  </seq>
+</rule>
+
+<rule name="coordinate-nom1">
+  <seq>
+    <ref name="nomger" attrs="headn='yes'" mult="+"/>
+    <ref name="conj-noun" mult="+"/>
+  </seq>
+</rule>
+
+<!-- similar to conj-noun except comma instead of overt 
+     conjunction -->
+<rule name="comma-noun">
+  <seq>
+    <ref name="comma"/>
+    <ref name="nomger" attrs="headn='yes'" mult="*"/>
+  </seq>
+</rule>
+
+<rule name="coordinate-nom2">
+  <seq>
+    <ref name="nomger" attrs="headn='yes'" mult="+"/>
+    <ref name="comma-noun" mult="+"/>
+    <ref name="conj-noun"/>
+  </seq>
+</rule>
+
+<rule name="nomcoord">
+  <first>
+    <ref name="coordinate-nom1"/>
+    <ref name="coordinate-nom2"/>
+  </first>
+</rule>
+
+<rule name="allnoun">
+  <first>
+    <ref name="nomcoord"/>
+    <ref name="noun"/>
+  </first>
+</rule>
+
+<rule name="det-n-group">
+  <seq>
+    <ref name="det"/>
+    <ref name="alladj-comma" mult="*"/>
+    <ref name="allnoun" attrs="headn='yes'"/>
+  </seq>
+</rule>
+
+<rule name="enamex">
+  <first>
+    <query match="enamex"/>
+    <query match="url"/>
+  </first>
+</rule>
+
+<rule name="det-enamex-group">
+  <seq>
+    <ref name="det"/>
+    <ref name="enamex" attrs="headn='yes'"/>
+  </seq>
+</rule>
+
+<rule name="allrestr-adj-comma">
+  <seq>
+    <ref name="allrestr-adj"/>
+    <ref name="comma" mult="?"/>
+  </seq>
+</rule>
+
+<rule name="allrestr-adj-comma-or-timex">
+  <first>
+    <ref name="allrestr-adj-comma"/>
+    <query match="timex"/>
+    <query match="numex"/>
+    <query match="enamex"/>
+  </first>
+</rule>
+
+<rule name="else">
+  <query match="w[.='else']"/>
+</rule>
+
+<rule name="detless-nomfinal-group">
+  <seq>
+    <ref name="allrestr-adj-comma-or-timex" mult="*"/>
+    <ref name="allnoun" attrs="headn='yes'"/>
+    <ref name="else" attrs="headn='yes'" mult="?"/>
+  </seq>
+</rule>
+
+<!-- ng initial VBN used adjectivally ok if ng is sentence initial -->
+<rule name="detless-nomfinal-group2">
+  <seq>
+    <seq suppress="true">
+      <start/>
+    </seq>
+    <query match="w[@p='VBN' or @p='VBD']"/>
+    <ref name="detless-nomfinal-group"/>
+  </seq>
+</rule>
+
+<rule name="extrafterpropernoun">
+  <seq>
+    <ref name="allrestr-adj-comma" mult="*"/>
+    <ref name="allnoun" attrs="headn='yes'"/>
+  </seq>
+</rule>
+
+<rule name="propernoun-group">
+  <seq>
+    <ref name="det" mult="?"/>
+    <ref name="allrestr-adj-comma-or-timex" mult="*"/>
+    <backtrack>
+      <ref name="propernoun" attrs="headn='yes'" mult="*"/>
+      <ref name="propernoun" attrs="headn='yes'"/>
+    </backtrack>
+    <ref name="extrafterpropernoun" mult="?"/>
+  </seq>
+</rule>
+
+<rule name="almost">
+  <first>
+    <query match="w[.~'^[Aa]lmost$']"/>
+    <query match="w[.~'^[Pp]ractically']"/>
+    <query match="w[.~'^[Nn]early']"/>
+  </first>
+</rule>
+
+<rule name="previous">
+  <first>
+    <query match="w[.~'^[Pp]revious']"/>
+  </first>
+</rule>
+
+<!-- (almost) every -->
+<rule name="pre-timex">
+  <first>
+    <seq>
+      <ref name="almost" mult="?"/>
+      <query match="w[.~'^[Ee]very$']"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^[Tt]he$']"/>
+      <ref name="previous" mult="?"/>
+    </seq>
+  </first>   
+</rule>
+
+<rule name="timex">
+  <seq>
+    <ref name="pre-timex" mult="?"/>
+    <query match="timex"/>
+  </seq>
+</rule>
+
+<rule name="ng">
+  <first>
+     <ref name="det-n-group"/>
+     <ref name="detless-nomfinal-group"/>
+     <ref name="detless-nomfinal-group2"/>
+     <ref name="propernoun-group"/>
+     <ref name="det-enamex-group"/>
+     <ref name="timex"/>
+     <ref name="enamex"/>
+  </first>
+</rule>
+
+<rule name="firstconjposs">
+    <seq>
+      <ref name="ng" wrap="ng"/>
+      <query match="w[@p='POS']"/>
+      <query match="w[.~'^(and|And|AND|or|Or|OR|&amp;)$']"/>
+    </seq>
+</rule>
+
+<!-- extended version of conj-noun to include adjectives in later
+     conjuncts for use where modifier scopes over both conjuncts. -->
+<rule name="ext-conj-noun">
+  <seq>
+    <ref name="comma" mult="?"/>
+    <query match="w[.~'^(and|And|AND|or|Or|OR|&amp;)$']"/>
+    <ref name="allrestr-adj-comma" mult="*"/>
+    <ref name="restr-nom" attrs="headn='yes'" mult="+"/>
+  </seq>
+</rule>
+
+<rule name="coordinate-nom3">
+  <seq>
+    <ref name="nomger" attrs="headn='yes'" mult="+"/>
+    <ref name="ext-conj-noun" mult="+"/>
+  </seq>
+</rule>
+
+<rule name="ext-allnoun">
+  <first>
+    <ref name="coordinate-nom3"/>
+    <ref name="allnoun"/>
+  </first>
+</rule>
+
+<!-- This gives a nested structure: 
+<ng><ng>Tom</ng><cng>'s book</cng></ng> 
+To get a flat structure remove both inner chunks or, if you want CoNLL
+style, remove the outer ng and rename the cng as ng. Or to keep just
+true noun groups, remove the cng mark-up. Do these changes using
+lxreplace on the chunker output. 
+The second disjunct does lone possessives: "McDonald's says ..." -->
+
+<rule name="possng-n-group">
+  <first>
+    <seq>
+      <seq wrap="ng">
+        <ref name="firstconjposs" mult="?"/>
+        <ref name="ng"/>
+      </seq>
+      <seq wrap="cng">
+        <query match="w[@p='POS']"/>
+        <first>
+          <seq>
+            <ref name="alladj-comma" mult="*"/>
+            <ref name="ext-allnoun" attrs="headn='yes'"/>
+          </seq>
+          <query match="numex"/>
+          <backtrack>
+            <ref name="propernoun" attrs="headn='yes'" mult="*"/>
+            <ref name="propernoun" attrs="headn='yes'"/>
+          </backtrack>
+        </first> 
+      </seq>
+    </seq>
+    <seq>
+      <ref name="firstconjposs" mult="?"/>
+      <ref name="ng"/>
+      <query match="w[@p='POS']"/>
+    </seq>
+  </first>
+</rule>
+
+<!-- partitive head -->
+<rule name="partword" attrs="headn='yes'">
+  <first>
+    <ref name="cd"/>
+    <query match="w[.~'^(all|most|some|both|many|more|few|either|neither|several)$']"/>
+    <query match="w[.~'^(All|Most|Some|Both|Many|More|Few|Either|Neither|Several)$']"/>
+    <query match="w[.~'^(ALL|MOST|SOME|BOTH|MANY|MORE|FEW|EITHER|NEITHER|SEVERAL)$']"/>
+    <query match="numex[@type='percent']"/>
+  </first>
+</rule>
+
+<!-- partitive head -->
+<rule name="partword-no-of" attrs="headn='yes'">
+  <first>
+    <query match="w[.~'^(both|all)$']"/>
+    <query match="w[.~'^(Both|All)$']"/>
+    <query match="w[.~'^(BOTH|ALL)$']"/>
+  </first>
+</rule>
+
+<rule name="a">
+  <query match="w[p='DT' and .~'^(a|A)$']"/>
+</rule>
+
+<rule name="partitive">
+  <seq>
+    <seq wrap="cng">
+      <ref name="a" mult="?"/>
+      <ref name="partword"/>
+    </seq>
+    <query match="w[.~'^(of|Of|OF)$']"/>
+    <first wrap="ng">
+       <ref name="possng-n-group"/>
+       <ref name="ng"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="partitive-no-of">
+  <seq>
+    <ref name="partword-no-of"/>
+    <first>
+       <ref name="possng-n-group"/>
+       <ref name="ng"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="pron-ng">
+   <ref name="pron"/>
+</rule>
+
+<rule name="notall">
+  <first>
+     <ref name="possng-n-group"/>
+     <ref name="partitive"/>
+     <ref name="partitive-no-of"/>
+     <ref name="ng"/>
+     <ref name="pron-ng"/>
+  </first>
+</rule>
+
+<rule name="subseq">
+  <seq>
+    <query match="w[.=',']"/>
+    <ref name="notall"/>
+  </seq>
+</rule>
+
+<rule name="coordnoungroup">
+  <seq>
+    <ref name="notall"/>
+    <ref name="subseq" mult="*"/>
+    <query match="w[.~'^(and|And|AND|or|Or|OR|&amp;)$']"/>
+    <ref name="notall"/>
+  </seq>
+</rule>
+
+<!-- note this rule does vg mark-up for heads of post ng
+     gerund modifers) -->
+<rule name="ng-vbg-nom">
+  <seq>
+    <first wrap="ng">
+       <ref name="coordnoungroup"/>
+       <ref name="notall"/>
+    </first>
+    <ref name="adv" mult="?"/>
+    <seq wrap="vg" attrs="tense='nonfin' voice='act' asp='prog' modal='no'">
+      <query match="w[@p='VBG']" attrs="headv='yes'"/>
+    </seq>
+    <first wrap="ng">
+       <ref name="coordnoungroup"/>
+       <ref name="notall"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="lonevbn-nonvg">
+  <seq>
+    <query match="w[@c='hyph' and .='-']"/>
+    <query match="w[@p='VBN' or @p='VBD']" attrs="headv='yes'"/>
+  </seq>
+</rule>
+
+<rule name="lonevbn" wrap="vg" attrs="tense='nonfin' voice='pass' asp='simple' modal='no'">
+    <query match="w[@p='VBN' or @p='VBD']" attrs="headv='yes'"/>
+</rule>
+
+<rule name="lonevbg" wrap="vg" attrs="tense='nonfin' voice='act' asp='prog' modal='no'">
+    <query match="w[@p='VBG']" attrs="headv='yes'"/>
+</rule>
+
+<!-- egs like "compared with", "combined with" shouldn't be vgs -->
+
+<rule name="pps">
+  <seq>
+    <first>
+      <query match="w[.~'^[Cc]ompared$']"/>
+      <query match="w[.~'^[Cc]ombined$']"/>
+    </first>
+    <seq suppress="true">
+      <query match="w[@p='IN' and .='with']"/>
+    </seq>
+  </seq>
+</rule>
+
+<!-- egs like 'fairly clouded' shouldn't be vgs -->
+
+<rule name="vbn-as-adj">
+  <seq>
+    <query match="w[@p~'^R']"/>
+    <query match="w[@p='VBN' or @p='VBD']"/>
+  </seq>
+</rule>
+
+<rule name="finalvgs">
+  <first>
+    <ref name="pps"/>
+    <ref name="vbn-as-adj"/>
+    <ref name="lonevbn-nonvg"/>
+    <ref name="lonevbn"/>
+    <ref name="lonevbg"/>
+  </first>
+</rule>
+
+<!-- that DT - only a pronoun after a preposition -->
+<rule name="that1">
+  <seq>
+    <query match="w[@p='IN']" suppress="true"/>
+    <query match="w[@p='DT' and .='that']" attrs="headn='yes'"/>
+  </seq>
+</rule>
+
+<!-- that WDT - only a pronoun if not followed by a verb -->
+<rule name="that2">
+  <seq>
+    <query match="w[@p='WDT' and .='that']" attrs="headn='yes'"/>
+    <query match="w[not(@p~'^V')]" suppress="true"/>
+  </seq>
+</rule>
+
+<rule name="numex1">
+  <seq>
+    <ref name="quant-than" mult="?"/>
+    <query match="numex"/>
+  </seq>
+</rule>
+
+<rule name="numex2">
+  <seq>
+    <ref name="quant-than" mult="?"/>
+    <query match="numex[@type='money']"/>
+    <query match="w[.~'^[Tt]o$']"/>
+    <query match="numex[@type='money']"/>
+  </seq>
+</rule>
+
+<rule name="numex3">
+  <seq>
+    <ref name="quant-than" mult="?"/>
+    <query match="numex[@type='percent']"/>
+    <query match="w[.~'^[Tt]o$']"/>
+    <query match="numex[@type='percent']"/>
+  </seq>
+</rule>
+
+<rule name="numex4">
+  <seq>
+    <query match="w[.~'^[Bb]etween$']"/>
+    <query match="numex[@type='money']"/>
+    <query match="w[.~'^[Aa]nd$']"/>
+    <query match="numex[@type='money']"/>
+  </seq>
+</rule>
+
+<rule name="numex5">
+  <seq>
+    <query match="w[.~'^[Bb]etween$']"/>
+    <query match="numex[@type='percent']"/>
+    <query match="w[.~'^[Aa]nd$']"/>
+    <query match="numex[@type='percent']"/>
+  </seq>
+</rule>
+
+<rule name="numex6">
+  <seq>
+    <query match="w[@p='DT']"/>
+    <query match="w[@p='JJ' or @p='NN' or @p='VBN']" mult="?"/>
+    <query match="numex[@type='money']"/>
+  </seq>
+</rule>
+
+<!-- there, who etc -->
+<rule name="singles">
+ <first>
+   <ref name="cd" attrs="headn='yes'" mult="+"/>
+   <query match="w[@p='DT' and not(.~'^([Tt]he|[Nn]o|that|[Aa]n?)')]" attrs="headn='yes'"/>
+   <query match="w[@p='WDT' and .~'^[Ww]hich$']" attrs="headn='yes'"/>
+   <query match="w[@p='WP' and .~'^[Ww]hat$']" attrs="headn='yes'"/>
+   <query match="w[@p='EX' and .~'^[Tt]here$']" attrs="headn='yes'"/>
+   <query match="w[@p='WP' and .~'^[Ww]ho$']" attrs="headn='yes'"/>
+   <query match="w[@p='JJ' and .~'^[Mm]any$']" attrs="headn='yes'"/>
+   <query match="w[@p='JJR' and .~'^[Mm]ore$']" attrs="headn='yes'"/>
+   <query match="w[@p='JJS' and .~'^[Mm]ost$']" attrs="headn='yes'"/>
+   <query match="w[.~'^[Mm]uch$']" attrs="headn='yes'"/>
+   <query match="w[.~'^[Ll]ittle$']" attrs="headn='yes'"/>
+ </first>
+</rule>
+
+<!-- noun mistagged as adj (the poor) -->
+<rule name="det-adj">
+  <seq>
+    <ref name="det"/>
+    <backtrack>
+      <ref name="allrestr-adj" mult="*"/>
+      <query match="w[@p~'^J']" attrs="headn='yes' p='NN' prevtag='$pos'">
+        <var name="pos" value="@p"/>
+      </query>
+    </backtrack>
+  </seq>
+</rule>
+
+<rule name="all">
+  <first>
+     <ref name="ng-vbg-nom"/>
+     <ref name="notall" wrap="ng"/>
+     <ref name="numex6" wrap="ng"/>
+     <ref name="finalvgs"/>
+     <ref name="that1" wrap="ng"/>
+     <ref name="that2" wrap="ng"/>
+     <ref name="numex5" wrap="ng"/>
+     <ref name="numex4" wrap="ng"/>
+     <ref name="numex3" wrap="ng"/>
+     <ref name="numex2" wrap="ng"/>
+     <ref name="numex1" wrap="ng"/>
+     <ref name="timex" wrap="ng"/>
+     <ref name="enamex" wrap="ng"/>
+     <ref name="det-adj" wrap="ng"/>
+     <ref name="singles" wrap="ng"/>
+  </first>
+</rule>
+
+</rules>

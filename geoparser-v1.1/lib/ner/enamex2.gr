@@ -1,0 +1,361 @@
+<rules name="enamex2" type="xml" apply="all">
+
+<lexicon name="enamexlex" href="enamex.lex"/>
+
+<rule name="multiwordpermatch">
+  <lookup match="w" lexicon="lex" phrase="true" case="no">
+      <constraint test="cat='person' and @word~' '"/>
+  </lookup>
+</rule>
+
+<!-- don't wrap single person entry if it is a common word or an orgname 
+     but don't apply this rule if a longer match is possible -->
+<rule name="repeatsingleper">
+  <and>
+    <not>
+      <ref name="multiwordpermatch"/>
+    </not>
+    <first>
+      <lookup match="w[.~'[a-z]' and @p~'^N' and @common='true' and not(@pername) and not(@surname)]" lexicon="lex">
+        <constraint test="cat='person'"/>
+      </lookup>
+     <lookup match="w[.~'[a-z]' and @p~'^N' and @orgname and not(@pername) and not(@surname)]" lexicon="lex">
+        <constraint test="cat='person'"/>
+      </lookup>
+      <lookup match="w[.~'^[A-Z]+$' and @p~'^N' and @common='true' and not(@pername) and not(@surname)]" lexicon="lex" case="no">
+        <constraint test="cat='person'"/>
+      </lookup>
+      <lookup match="w[.~'^[A-Z]+$' and @p~'^N' and @orgname and not(@pername) and not(@surname)]" lexicon="lex" case="no">
+        <constraint test="cat='person'"/>
+      </lookup>
+    </first>
+  </and>
+</rule>
+
+<!-- @p~'^[NI]' because of names like "de Jager" where the "de" might be IN -->
+<rule name="repeatper" wrap="enamex" attrs="type='person' subtype='otf'">
+  <first>
+    <lookup match="w[.~'[a-z]' and @p~'^[NI]']" lexicon="lex" phrase="true">
+      <constraint test="cat='person'"/>
+    </lookup>
+    <seq>
+      <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$' and not(@locname)]"/>
+      <lookup match="w[.~'[a-z]' and @p~'^[NI]']" lexicon="lex" phrase="true" case="no">
+        <constraint test="cat='person'"/>
+      </lookup>
+    </seq>
+    <lookup match="w[.~'^[A-Z]+$' and @p~'^[NI]']" lexicon="lex" phrase="true" case="no">
+      <constraint test="cat='person'"/>
+    </lookup>
+  </first>
+</rule>
+
+<rule name="repeatloc" wrap="enamex" attrs="type='location' subtype='otf'">
+  <first>
+    <lookup match="w[.~'[a-z]' and @p~'^N']" lexicon="lex" phrase="true">
+      <constraint test="cat='location'"/>
+    </lookup>
+    <lookup match="w[.~'^[A-Z]+$' and @p~'^N']" lexicon="lex" phrase="true" case="no">
+      <constraint test="cat='location'"/>
+    </lookup>
+  </first>
+</rule>
+
+<rule name="repeatorg" wrap="enamex" attrs="type='organization' subtype='otf'">
+  <first>
+    <lookup match="w[.~'[a-z]' and @p~'^N']" lexicon="lex" phrase="true">
+      <constraint test="cat='organization'"/>
+    </lookup>
+    <lookup match="w[.~'^[A-Z]+$' and @p~'^N']" lexicon="lex" phrase="true" case="no">
+      <constraint test="cat='organization'"/>
+    </lookup>
+  </first>
+</rule>
+
+<!-- make sure that an otf entry which is ambiguous between loc and
+     per gets interpreted as loc if following 'to' -->
+
+<rule name="repeatname0">
+  <seq>
+    <query match="w[.='to']"/>
+    <ref name="repeatloc"/>
+  </seq>
+</rule>
+
+<!-- suppressed left context because single-place has prep in left context too -->
+<rule name="repeatname">
+  <seq>
+    <query match="w[@p~'^[IT]' and not(.~'^(van|von|de|du|al)')]" mult="*" suppress="true"/>
+    <first>
+      <ref name="repeatsingleper"/>
+      <ref name="repeatper"/>
+      <ref name="repeatloc"/>
+      <ref name="repeatorg"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="multicap">
+  <seq>
+    <query match="w[@p~'^N' and .~'^[A-Z][a-z]']"/>
+    <query match="w[@p~'^N' and .~'^[A-Z]']" constraint="not(lex())" mult="+"/>
+  </seq>
+</rule>
+
+<rule name="single-place">
+  <seq>
+    <first suppress="true">
+      <query match="w[.~'^(In|From|IN|FROM)$']"/>
+      <query match="w[@p~'^[IT]']"/>
+      <query match="w[@p~'^[J]']" mult="?"/>
+      <start/>
+    </first>
+    <first>
+      <seq wrap="enamex" attrs="type='location' conf='high'">
+        <query match="w[@pws='yes' and @locname='single' and @edsource and @alsource and not(@pername='true') and not(@locadj) and not(@abb)]"/>
+      </seq>
+      <seq wrap="enamex" attrs="type='location' conf='med'">
+        <query match="w[@pws='yes' and @locname='single' and @edsource and not(@alsource) and not(@pername='true') and not(@locadj) and not(@abb) and not(@common)]"/>
+      </seq>
+      <seq  wrap="enamex" attrs="type='location' conf='low'">
+        <query match="w[@pws='yes' and @locname='single' and not(@edsource) and @alsource and not(@pername='true') and not(@locadj) and not(@abb) and not(@common) and not(@orgname='single')]"/>
+      </seq>
+    </first>
+    <first suppress="true">
+      <end/>
+      <query match="numex|timex|enamex"/>
+      <query match="w[@pws='yes' and not(@p~'^N')]"/>
+      <query match="w[.~&quot;^[.,:;')?-]$&quot;]"/>
+      <query match='w[.~&apos;^["]$&apos;]'/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="single-place2">
+  <first>
+    <seq wrap="enamex" attrs="type='location' conf='high'">
+      <query match="w[@pws='yes' and @locname='single' and @edsource and @alsource and not(@pername='true') and not(@locadj) and not(@common='true') and not(@abb)]"/>
+    <first suppress="true">
+      <end/>
+      <query match="w[@pws='yes']"/>
+    </first>
+    </seq>
+    <seq wrap="enamex" attrs="type='location' conf='high'">
+      <query match="w[.='(']" suppress="true"/>
+        <query match="w[@locname='single' and @edsource and @alsource and not(@pername='true') and not(@locadj) and not(@common='true') and not(@abb)]"/>
+      <query match="w[.=')']" suppress="true"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="single-place3">
+  <seq wrap="enamex" attrs="type='location' conf='low'">
+    <query match="w[.~'^(In|IN|From|from)$']" suppress="true"/>
+    <query match="w[@pws='yes' and @locname='single' and not(@locadj) and not(@common='true') and not(@abb)]"/>
+    <first suppress="true">
+      <end/>
+      <query match="w[@pws='yes']"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="notcommonword">
+  <query match="w[@p~'^N' and .~'^[A-Z]' and not(@common='true')]"/>
+</rule>
+
+<rule name="single-plus" wrap="enamex">
+  <seq>
+    <query match="w[@locname='single' and not(@pername='true')]"/>
+    <first mult="+">
+      <query match="w[@locname='single' and not(@pername='true')]"/>
+      <ref name="notcommonword"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="name">
+  <query match="w[@p~'^N' and .~'^[A-Z][a-z]']" constraint="not(enamexlex()[cat='perword'])"/>
+</rule>
+
+<rule name="locabbr">
+  <lookup match="w" lexicon="enamexlex" phrase="true" attrs="locabbr='true'">
+    <constraint test="cat='locabbr'"/>
+  </lookup>
+</rule>
+
+<rule name="unknowntype1" wrap="enamex">
+  <seq>
+    <first>
+      <ref name="locabbr"/>
+      <ref name="name"/>
+    </first>
+    <first mult="+">
+      <ref name="locabbr"/>
+      <ref name="name"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="unknowntype2" wrap="enamex">
+  <ref name="notcommonword"/>
+</rule>
+
+<!--<rule name="conllmisc1" wrap="enamex" attrs="type='locadj'">-->
+<rule name="conllmisc1">
+  <seq>
+    <query match="w[@locadj='true']"/>
+    <seq mult="?">
+      <query match="w[.='-']"/>
+      <query match="w[@locadj='true']"/>
+    </seq>
+  </seq>    
+</rule>
+
+<rule name="postcontext">
+  <first>
+    <query match="w[@p~'^V' and .~'^(says|tells|denies|admits)$']"/>
+    <seq>
+      <query match="w[.~'^(has|had)$']" mult="?"/>
+      <query match="w[@p~'^V' and .~'^(said|told|expressed|denied|admitted|addressed|assured|reiterated|congratulated|announced|signed|summed)$']"/>
+    </seq>
+    <seq>
+      <query match="w[.='as']"/>
+      <query match="w[@p~'^V' and .~'^(saying|telling)$']"/>
+    </seq>
+    <seq>
+      <query match="w[@p='POS']"/>
+      <query match="w[.~'^(comment|reply|proposal)$']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="pername-postcontext">
+  <seq>
+    <first suppress="true">
+      <start/>
+      <query match="w[not(@p~'^[DPI]')]"/>
+    </first>
+    <first>
+      <seq wrap="enamex" attrs="type='person' subtype='otf'">
+        <first>
+          <lookup match="w[.~'[a-z]' and @p~'^[NI]']" lexicon="lex" phrase="true">
+            <constraint test="cat='person'"/>
+          </lookup>
+          <seq>
+            <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$']"/>
+            <lookup match="w[.~'[a-z]' and @p~'^[NI]']" lexicon="lex" phrase="true">
+              <constraint test="cat='person'"/>
+            </lookup>
+          </seq>
+        </first>
+      </seq>
+      <seq wrap="enamex" attrs="type='person'">
+        <lookup match="w" lexicon="lex">
+          <constraint test="cat='person'"/>
+        </lookup>
+      </seq>
+      <seq wrap="enamex" attrs="type='person'">
+        <ref name="name"/>
+        <ref name="name" mult="+"/>
+      </seq>
+      <seq wrap="enamex" attrs="type='person'">
+        <query match="w[@p~'^N.*[^S]$' and .~'^[A-Z][a-z]+$' and not(.~'body$') and not(@locname='single') and not(@common)]">
+          <constraint test="not(enamexlex()[cat='perword'])"/>
+        </query>
+      </seq>
+    </first>
+    <ref name="postcontext" suppress="true"/>
+  </seq>
+</rule>
+
+<rule name="prof-lastn" wrap="enamex" attrs="type='person'">
+  <seq>
+    <first suppress="true">
+      <query match="w[@prof='true']"/>
+    </first>
+    <query match="w[@wlastn='true']"/>
+  </seq>
+</rule>
+
+<rule name="orgname-postcontext" wrap="enamex" attrs="type='organization'">
+  <seq>
+    <seq>
+      <query match="w[.~'^(THE|The|the)$']" mult="?"/>
+      <query match="w[.~'^[A-Z][A-Z]+$']"/>
+    </seq>
+    <ref name="postcontext" suppress="true"/>
+  </seq>
+</rule>
+
+<!-- McDonald's -->
+<rule name="single-org" wrap="enamex" attrs="type='organization'">
+  <query match="w[@orgname='single' or @orgname='brand']" mult="+"/>
+</rule>
+
+<rule name="not-enamex">
+  <first>
+    <query match="w[.='No']"/>
+    <query match="w[.='Tempore']"/>
+    <query match="w[.='Billa']"/>
+    <seq>
+      <query match="w[.='May']"/>
+      <query match="w[@p~'^P']"/>
+    </seq>
+    <seq>
+      <query match="w[.='Will']"/>
+      <query match="w[.='the']"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^(The|the)$']"/>
+      <query match="w[.~'^[A-Z]' and not(.~'^(Report|Committee)$')]" mult="+"/>
+      <query match="w[.~'^(Report|Committee)$']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="coord-person">
+  <seq>
+    <first>
+      <query match="enamex[@type='person']"/>
+      <ref name="repeatper"/>
+    </first>
+    <seq mult="*">
+      <query match="w[.=',']"/>
+      <seq wrap="enamex" attrs="type='person'">
+        <query match="w[.~'^[A-Z]']" mult="+"/>
+      </seq>
+    </seq>
+    <seq>
+      <query match="w[.~'^(and|or)$']"/>
+      <seq wrap="enamex" attrs="type='person'">
+        <query match="w[.~'^[A-Z]' and not(@common='true') and not(@c='abbr')]" mult="+"/>
+      </seq>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="all">
+  <first>
+    <ref name="not-enamex"/>
+    <ref name="conllmisc1"/>
+    <ref name="coord-person"/>
+    <ref name="pername-postcontext"/>
+    <ref name="prof-lastn"/>
+    <ref name="repeatname0"/>
+    <ref name="repeatname"/>
+    <ref name="orgname-postcontext"/>
+    <ref name="single-org"/>
+    <ref name="multicap"/>
+    <ref name="single-place"/>
+    <ref name="single-place2"/>
+    <ref name="single-place3"/>
+<!--      <ref name="single-plus"/>-->
+<!--      <ref name="unknowntype1"/>
+    <ref name="unknowntype2"/>-->
+  </first>
+</rule>
+
+
+</rules>
+
+

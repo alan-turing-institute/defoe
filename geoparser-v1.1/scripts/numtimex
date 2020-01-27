@@ -1,0 +1,65 @@
+#!/bin/sh 
+
+usage="numtimex <input.xml >output.xml"
+descr="Mark up numex and timex entities using lxtransduce numex and timex grammars and lexicons"
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    -d)
+      default=$1
+      shift
+      ;;
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+lib=$here/lib/ner
+
+lxtransduce -q s -l lex=$lib/numbers.lex $lib/numbers.gr | 
+lxreplace -q "phr/phr" |
+lxreplace -q "phr[w][count(node())=1]" -t "&children;" | 
+lxtransduce -q "phr[@c='cd']" -l lex=$lib/numbers.lex $lib/newnumbers.gr |
+lxt -s $lib/evalnum.xsl |
+lxreplace -q tw |
+lxtransduce -q s -l lex=$lib/currency.lex $lib/numex.gr |
+lxreplace -q "phr[not(@c='cd') and not(@c='yrrange') and not(@c='frac')]" > $tmp-pretimex
+
+cat $tmp-pretimex |
+lxtransduce -q s -a numdates -l lex=$lib/timex.lex -l numlex=$lib/numbers.lex $lib/timex.gr > $tmp-firsttimex
+
+if [ "$default" = us ]
+then 
+
+usstyle=`cat $tmp-firsttimex | lxprintf "%s\n" 'count(//timex[@style="uk"]) <= count(//timex[@style="us"])'`
+
+else 
+
+usstyle=`cat $tmp-firsttimex | lxprintf "%s\n" 'count(//timex[@style="uk"]) < count(//timex[@style="us"])'`
+
+fi
+
+if [ $usstyle = true ]
+then
+
+cat  $tmp-pretimex | 
+lxtransduce -q s -a us-all -l lex=$lib/timex.lex -l numlex=$lib/numbers.lex $lib/timex.gr  > $tmp-secondtimex
+
+else
+
+cat  $tmp-pretimex |
+lxtransduce -q s -l lex=$lib/timex.lex -l numlex=$lib/numbers.lex $lib/timex.gr > $tmp-secondtimex
+
+fi
+
+cat $tmp-secondtimex |
+lxreplace -q "w[@date~'^[0-9]$']" -t "<w>&attrs;<xsl:attribute name='date'>0<xsl:value-of select='translate(., &apos;stndrhSTNDRH&apos;, &apos;&apos;)'/></xsl:attribute>&children;</w>" |
+lxt -s $lib/propagateattrs.xsl |
+lxreplace -q "timex[@quty and not(@unit)]/@quty" -d |
+lxt -s $lib/mixedtimex.xsl |
+lxreplace -q "timex/@style"

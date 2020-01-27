@@ -1,0 +1,121 @@
+<!DOCTYPE xsl:stylesheet [
+<!ENTITY allow-regexp "^([0-9a-zA-Z&apos;&#x25;;\-.,!-#-[!#]])+$">
+<!ENTITY nt "n't">
+]>
+
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+<xsl:template match="w" mode="write">
+  <!-- ignore words other than Vs, Ns, and Js, 
+       and ones with non-word characters -->
+</xsl:template>
+
+<!-- XXX horrible hack because we can't put both kinds of quote in an
+     XPath string.  [!-#-[!#]] matches double quote. -->
+
+<xsl:template match='w[@p ~ "^([VNJ]|MD)" and .~"&allow-regexp;"]' mode="write">
+
+  <xsl:value-of select="."/>
+  <xsl:text>_</xsl:text>
+  <xsl:value-of select="@p"/>
+
+  <xsl:if test="@p ~ '^J' and .~'(ing|ed|en)$'">
+    <xsl:text> </xsl:text>
+    <xsl:value-of select="."/>
+    <xsl:text>_V</xsl:text>
+  </xsl:if>
+
+  <xsl:if test="@p ~ '^NN' and .~'[aeiouy][a-z]+ing$' 
+                and not(.~'^([Aa]ny|[Ee]very|[Nn]o|[Ss]ome)thing$')">
+    <xsl:text> </xsl:text>
+    <xsl:value-of select="."/>
+    <xsl:text>_V</xsl:text>
+  </xsl:if>
+
+  <xsl:text>&#10;</xsl:text>
+    
+</xsl:template>
+
+<xsl:template match='w[@p ~ "^V" and .~"&nt;$"]' mode="write">
+  <xsl:value-of select='substring-before(., "&nt;")'/>
+  <xsl:text>_</xsl:text>
+  <xsl:value-of select="@p"/>
+  <xsl:text>&#10;</xsl:text>
+</xsl:template>
+
+<xsl:key name="stem" match="lex" use="@word"/>
+
+<xsl:template match="w" mode="read">
+  <xsl:copy>
+    <xsl:apply-templates select="@*"/>
+    <xsl:if test="@p ~ '^[VN]'">
+      <xsl:attribute name="l"><xsl:value-of select="."/></xsl:attribute>
+    </xsl:if>
+    <xsl:apply-templates select="node()"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match='w[@p ~ "^([VNJ]|MD)" and .~"&allow-regexp;"]' mode="read">
+
+  <xsl:variable name="line" select="read-line()"/>
+
+  <xsl:copy>
+    <xsl:apply-templates select="@*"/>
+    <xsl:choose>
+
+      <xsl:when test="@p='MD' and .='cannot'">
+	<xsl:attribute name="l">can</xsl:attribute>
+      </xsl:when>
+      <xsl:when test="@p~'^[MV]' and .='ca'">
+	<xsl:attribute name="l">can</xsl:attribute>
+      </xsl:when>
+      <xsl:when test="@p~'^[MV]' and .='wo'">
+	<xsl:attribute name="l">will</xsl:attribute>
+      </xsl:when>
+      <xsl:when test="@p~'^[MV]' and .='sha'">
+	<xsl:attribute name="l">shall</xsl:attribute>
+      </xsl:when>
+      <xsl:when test="@p='MD'">
+	<xsl:attribute name="l"><xsl:value-of select="$line[1]"/></xsl:attribute>
+      </xsl:when>
+
+      <xsl:when test="@p ~ '^[V]'">
+	<xsl:attribute name="l"><xsl:value-of select="$line[1]"/></xsl:attribute>
+      </xsl:when>
+
+      <xsl:when test="@p ~ '^JJ' and .~'(ing|ed|en)$'">
+	<xsl:attribute name="l"><xsl:value-of select="$line[1]"/></xsl:attribute>
+	<xsl:attribute name="vstem"><xsl:value-of select="$line[2]"/></xsl:attribute>
+      </xsl:when>
+
+      <xsl:when test="@p ~ '^NN' and .~'[aeiouy][a-z]+ing$' 
+                      and not(.~'^([Aa]ny|[Ee]very|[Nn]o|[Ss]ome)thing$')">
+	<xsl:attribute name="l"><xsl:value-of select="$line[1]"/></xsl:attribute>
+	<xsl:attribute name="vstem"><xsl:value-of select="$line[2]"/></xsl:attribute>
+      </xsl:when>
+
+      <xsl:when test="@p ~ '^NN' and ( not(.~'[aeiouy][a-z]+ing$') 
+                      or .~'^([Aa]ny|[Ee]very|[Nn]o|[Ss]ome)thing$' )">
+	<xsl:attribute name="l"><xsl:value-of select="$line[1]"/></xsl:attribute>
+	<!-- for-each is just to establish context node for key() -->
+	<xsl:for-each select="document('umls.lex')">
+	  <xsl:variable name="vs" select="key('stem', $line[1])/@stem"/>
+	  <xsl:if test="$vs">
+	    <xsl:attribute name="vstem"><xsl:value-of select="$vs"/></xsl:attribute>
+	  </xsl:if>
+	</xsl:for-each>
+      </xsl:when>
+
+    </xsl:choose>
+    <xsl:apply-templates select="node()"/>
+  </xsl:copy>
+
+</xsl:template>
+
+<xsl:template match="node()|@*">
+  <xsl:copy>
+    <xsl:apply-templates select="node()|@*"/>
+  </xsl:copy>
+</xsl:template>
+
+</xsl:stylesheet>

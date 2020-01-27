@@ -1,0 +1,47 @@
+<!DOCTYPE rules SYSTEM "lxtransduce.dtd">
+<rules name="paras" type="plain" apply="all">
+
+<rule name="pbreak" rewrite="&xlt;/p&xgt;$-&xlt;p&xgt;">
+    <regex match="(\t|[ ])*\n(\t|\n|[ ])*\n(\t|[ ])*"/>
+</rule>
+
+<rule name="nlorws">
+    <regex match="(\n|[ ]|\t)*\n(\t|[ ])*"/>
+</rule>
+
+<rule name="one-char-para" rewrite="${A}&xlt;p&xgt;${B}&xlt;/p&xgt;${C}">
+  <seq>
+    <start/>
+    <ref match-var="A" name="nlorws" mult="?"/>
+    <regex match-var="B" match="[^ \n\t]"/>
+    <ref match-var="C" name="nlorws" mult="?"/>
+    <end/>
+  </seq>
+</rule>
+
+<rule name="first-para" rewrite="${A}&xlt;p&xgt;${B}">
+  <seq>
+    <start/>
+    <ref match-var="A" name="nlorws" mult="?"/>
+    <regex match-var="B" match="[^ \n\t]"/>
+  </seq>
+</rule>
+
+<rule name="last-para" rewrite="${B}&xlt;/p&xgt;${A}">
+  <seq>
+    <regex match-var="B" match="[^ \n\t]"/>
+    <ref match-var="A" name="nlorws" mult="?"/>
+    <end/>
+  </seq>
+</rule>
+
+<rule name="all" rewrite="$+">
+  <first>
+    <ref name="one-char-para"/>
+    <ref name="first-para"/>
+    <ref name="pbreak"/>
+    <ref name="last-para"/>
+  </first>
+</rule>
+
+</rules>

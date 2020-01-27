@@ -1,0 +1,171 @@
+<rules name="numex" type="xml" apply="all">
+
+<!-- money -->
+
+<rule name="currency-short">
+  <lookup match="w" lexicon="lex" phrase="true">
+    <constraint test="cat='short' or cat='abbr'"/>
+  </lookup>
+</rule>
+
+<rule name="currency-long">
+  <lookup match="w" lexicon="lex" phrase="true">
+    <constraint test="cat='long' or cat ='full'"/>
+  </lookup>
+</rule>
+
+<rule name="currency">
+  <first>
+    <ref name="currency-long"/>
+    <ref name="currency-short"/>
+  </first>
+</rule>
+
+<rule name="currency-subunit">
+  <lookup match="w" lexicon="lex" phrase="true">
+    <constraint test="cat='subunit'"/>
+  </lookup>
+</rule>
+
+<!-- 25, twenty-five, three thousand, several thousand, 20-30 -->
+
+<rule name="quantity">
+  <first>
+    <query match="w[@c='cd']"/>
+    <query match="phr[@c='cd']"/>
+    <query match="phr[@c='quant']"/>
+    <query match="phr[@c='range']"/>
+    <query match="w[@p='CD' and .~'[0-9]' ]"/>
+  </first>
+</rule>
+
+<!-- $700; US$ 700; $US7000 -->
+
+<rule name="currency-number">
+  <seq>
+    <ref name="currency-short"/>
+    <first>
+      <query match="w[@c='cd']"/>
+      <query match="phr[@c='cd']"/>
+      <query match="w[@p='CD' and .~'[0-9]']"/>
+    </first>
+  </seq>
+ </rule>
+   
+<!-- $US7000 wgen it's tokenised like this: $ US7000 -->
+
+<rule name="currency-number2">
+  <seq>
+    <query match="w[.='$']"/>
+    <query match="w[.~'^US[0-9]+$']"/>
+  </seq>
+ </rule>
+
+<!-- 700 dollars, several thousand lire, between 40 and 50 dollars -->
+
+<rule name="number-currency">
+  <seq>
+    <ref name="quantity"/>
+    <ref name="currency"/>
+  </seq>
+</rule>
+
+<!-- a dollar, a Belgian franc -->
+
+<rule name="a-currency">
+  <seq>
+    <query match="w[.~'^[Aa][Nn]?$']"/>
+    <ref name="currency-long"/>
+  </seq>
+</rule>
+
+<!-- 700 UK pounds etc -->
+
+<rule name="british">
+  <query match="w[.~'^(UK|[Bb]ritish|BRITISH|[Ee]nglish|ENGLISH)$']"/>
+</rule>
+
+<rule name="number-pounds">
+  <seq>
+    <ref name="quantity"/>
+    <ref name="british" mult="?"/>
+    <query match="w[.~'^(#|[Pp]ound[s]?|POUND[S]?)$']"/>
+  </seq>
+</rule>
+
+<!-- 700 dollars; US$ 700; $US7000 -->
+
+<rule name="number-smallunit">
+  <seq>
+    <ref name="quantity"/>
+    <ref name="currency-subunit"/>
+  </seq>
+</rule>
+
+<!-- twenty five dollars and 50 cents -->
+
+<rule name="bigsum-and-smallunit">
+  <seq>
+    <first>
+      <ref name="number-currency"/>
+      <ref name="a-currency"/>
+      <ref name="number-pounds"/>
+    </first>    
+    <query match="w[.~'^([Aa]nd|AND)$']"/>
+    <ref name="number-smallunit"/>
+  </seq>
+</rule>
+ 
+<rule name="money" wrap="numex" attrs="type='money'">
+  <first>
+    <ref name="bigsum-and-smallunit"/>
+    <ref name="currency-number"/> 
+    <ref name="currency-number2"/> 
+    <ref name="number-currency"/>
+    <ref name="a-currency"/>
+    <ref name="number-smallunit"/>
+  </first>
+</rule>
+
+<!-- percent -->
+
+<!-- %, percent, per-cent -->
+
+<rule name="numandpcent_wrd">
+  <query match="w[@c='pcent']"/>
+</rule>
+
+<rule name="percent_wrd">
+  <first>
+    <query match="w[@c='pct']"/>
+    <query match="w[.~'^(%|[Pp]er[\-]?cent|PER[\-]?CENT)$']"/>
+    <seq>
+      <query match="w[.~'^([Pp]er|PER)$']"/>
+      <query match="w[.~'^([Cc]ent|CENT)$']"/>
+    </seq>   
+  </first>
+</rule>
+
+<rule name="percent" wrap="numex" attrs="type='percent'">
+  <first>
+    <seq>
+      <ref name="quantity"/>
+      <ref name="percent_wrd"/>
+    </seq>
+    <first>
+      <ref name="numandpcent_wrd"/>
+      <query match="w[.~'^[0-9\.]+%$']"/>
+    </first>
+  </first>
+</rule>
+
+<!-- all -->
+
+<rule name="all">
+  <first>
+    <ref name="money"/> 
+    <ref name="percent"/>
+  </first>
+</rule>
+
+</rules>

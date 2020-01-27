@@ -1,0 +1,13 @@
+<!-- Add country codes to places that are countries. -->
+
+<rules type="xml" apply="place"> 
+
+<rule name="place" attrs="pop='$pop'">
+  <query match="place[@type='continent']">
+     <var name="continent" value="continents(../@name)"/>
+     <constraint test="$continent"/>
+     <var name="pop" value="$continent/@pop"/>
+  </query>
+</rule>
+
+</rules>

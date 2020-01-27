@@ -1,0 +1,104 @@
+<rules name="temprel" type="xml" apply="all"> 
+
+<rule name="timex-past1">
+  <seq>
+    <query match="vg[@tense='past']"/>
+    <seq mult="+">
+      <first mult="*">
+        <query match="w"/>
+        <query match="vg[@tense~'^(base|inf|nonfin)$']"/>
+      </first>
+      <query match="timex[@type='time']" mult="?"/>
+      <query match="timex[@type='date' and not(@docdaterel)]" attrs="docdaterel='before'"/>
+    </seq>
+    <not>
+      <query match="vg[@tense~'(past|pres|fut)']"/>
+    </not>
+  </seq>
+</rule>
+
+<rule name="timex-past2">
+  <seq>
+    <query match="w[@p='IN']"/>
+    <query match="timex[@type='date' and not(@docdaterel)]" attrs="docdaterel='before'"/>
+    <query match="w" mult="*"/>
+    <query match="vg[@tense='past']"/>
+  </seq>
+</rule>
+
+<rule name="timex-past3">
+  <seq>
+    <query match="timex[@type='date' and not(@docdaterel)]" attrs="docdaterel='before'"/>
+    <query match="vg[@tense='past']"/>
+  </seq>
+</rule>
+
+<rule name="timex-fut1">
+  <seq>
+    <query match="vg[@tense='fut']"/>
+    <seq mult="+">
+      <first mult="*">
+        <query match="w"/>
+        <query match="vg[@tense~'^(base|inf|nonfin)$']"/>
+      </first>
+      <query match="timex[@type='time']" mult="?"/>
+      <query match="timex[@type='date' and not(@docdaterel)]" attrs="docdaterel='after'"/>
+    </seq>
+    <not>
+      <query match="vg[@tense~'(past|pres|fut)']"/>
+    </not>
+  </seq>
+</rule>
+
+<rule name="timex-fut2">
+  <seq>
+    <query match="w[@p='IN']"/>
+    <query match="timex[@type='date' and not(@docdaterel)]" attrs="docdaterel='after'"/>
+    <query match="w" mult="*"/>
+    <query match="vg[@tense='fut']"/>
+  </seq>
+</rule>
+
+<rule name="timex-fut3">
+  <seq>
+    <query match="timex[@type='date' and not(@docdaterel)]" attrs="docdaterel='after'"/>
+    <query match="vg[@tense='fut']"/>
+  </seq>
+</rule>
+
+<rule name="timex-pres">
+  <seq>
+    <query match="vg[@tense~'^pres' and @asp='simple']"/>
+    <seq mult="+">
+      <first mult="*">
+        <query match="w"/>
+        <query match="vg[@tense~'^(base|inf|nonfin)$']"/>
+      </first>
+      <query match="timex[@type='time']" mult="?"/>
+      <query match="timex[@type='date' and not(@docdaterel)]" attrs="docdaterel='after'"/>
+      <query match="w[.=',']" mult="?"/>
+    </seq>
+    <not>
+      <query match="vg[@tense~'(past|pres|fut)']"/>
+    </not>
+  </seq>
+</rule>
+
+<rule name="timex-default">
+  <query match="timex[@type='date' and not(@docdaterel)]" attrs="docdaterel='before'"/>
+</rule>
+
+<rule name="all">
+  <first>
+    <ref name="timex-past1"/>
+    <ref name="timex-past2"/>
+    <ref name="timex-past3"/>
+    <ref name="timex-fut1"/>
+    <ref name="timex-fut2"/>
+    <ref name="timex-fut3"/>
+    <ref name="timex-pres"/>
+    <ref name="timex-default"/>
+  </first>
+</rule>
+
+</rules>

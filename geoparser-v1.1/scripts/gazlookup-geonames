@@ -1,0 +1,23 @@
+#!/bin/sh
+
+usage="gazlookup-geonames <input.xml >output.xml"
+descr="Do Geonames gazetteer lookup on a set of placenames."
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+lib=$here/lib/georesolve
+
+cat >$tmp-input
+
+lxt -s $lib/dogeonamesquery.xsl <$tmp-input
+

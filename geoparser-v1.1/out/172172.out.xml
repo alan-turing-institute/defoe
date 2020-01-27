@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document version="3">
+<meta>
+<attr name="docdate" id="docdate" year="2020" month="01" date="17" sdate="2020-01-17" day-number="737440" day="Friday" wdaynum="5">20200117</attr>
+<attr name="tokeniser_version" date="20151216"/></meta>
+<text>
+
+
+
+<p><s id="s1"><w l="nadal" pws="yes" id="w16" p="NNP" group="B-NP">Nadal</w> <w pws="yes" id="w22" p="CC" group="O">and</w> <w wlastn="true" locname="single" l="murray" pws="yes" id="w26" p="NNP" wfirstn="true" group="B-NP">Murray</w> <w l="set" pws="yes" id="w33" p="VBD" headv="yes" group="B-VP">set</w> <w pws="yes" id="w37" p="RP" group="I-VP">up</w> <w l="semus" pws="yes" id="w40" p="NN" event="true" headn="yes" group="B-NP">semi</w> <w l="showdown" pws="yes" id="w45" p="NN" event="true" tmln="true" headn="yes" group="I-NP">showdown</w>
+<w pws="yes" id="w54" p="(" group="O">(</w><w l="cnn" pws="no" id="w55" p="NNP" orgname="single" group="B-NP">CNN</w><w pws="no" id="w58" p=")" group="O">)</w> <w pws="yes" id="w60" p=":" group="O">--</w> <w wiki="B-wper" l="rafael" pws="yes" id="w63" p="NNP" pername="true" wfirstn="true" group="B-NP">Rafael</w> <w wiki="I-wper" l="nadal" pws="yes" id="w70" p="NNP" group="I-NP">Nadal</w> <w pws="yes" id="w76" p="CC" group="O">and</w> <w wiki="B-wper" l="andy" pws="yes" id="w80" p="NNP" pername="true" wfirstn="true" group="B-NP">Andy</w> <w wiki="I-wper" wlastn="true" locname="single" l="murray" pws="yes" id="w85" p="NNP" wfirstn="true" group="I-NP">Murray</w> <w l="be" pws="yes" id="w92" p="VBP" headv="yes" group="B-VP">are</w> <w pws="yes" id="w96" p="DT" headn="yes" group="B-NP">both</w> <w pws="yes" id="w101" p="IN" group="B-PP">through</w> <w pws="yes" id="w109" p="TO" group="B-PP">to</w> <w pws="yes" id="w112" p="DT" group="B-NP">the</w> <w l="semifinal" pws="yes" id="w116" p="NNS" event="true" headn="yes" group="I-NP">semifinals</w> <w pws="yes" id="w127" p="IN" group="B-PP">of</w> <w pws="yes" id="w130" p="DT" group="B-NP">the</w> <w wlastn="true" l="roger" pws="yes" id="w134" p="NNP" wfirstn="true" headn="yes" group="I-NP">Rogers</w> <w common="true" l="cup" pws="yes" id="w141" p="NNP" headn="yes" group="I-NP">Cup</w> <w pws="yes" id="w145" p="IN" group="B-PP">in</w> <w locname="single" l="toronto" pws="yes" id="w148" p="NNP" group="B-NP">Toronto</w><w pws="no" id="w155" p="," group="O">,</w> <w pws="yes" id="w157" p="WRB" group="B-ADVP">where</w> <w pws="yes" id="w163" p="PRP" group="B-NP">they</w> <w l="will" pws="yes" id="w168" p="MD" group="B-VP">will</w> <w l="face" pws="yes" id="w173" p="VB" headv="yes" group="I-VP">face</w> <w pws="yes" id="w178" p="DT" group="B-NP">each</w> <w pws="yes" id="w183" p="NN" headn="yes" prevtag="JJ" group="I-NP">other</w> <w pws="yes" id="w189" p="IN" group="B-PP">for</w> <w pws="yes" id="w193" p="DT" group="B-NP">a</w> <w l="place" pws="yes" id="w195" p="NN" tmln="true" headn="yes" group="I-NP">place</w> <w pws="yes" id="w201" p="IN" group="B-PP">in</w> <w l="sunday" pws="yes" id="w204" p="NNP" day="Sunday" wdaynum="7" group="B-NP">Sunday</w><w pws="no" id="w210" p="POS" group="B-NP">'s</w> <w pws="yes" id="w213" p="JJ" group="B-ADJP">final</w><w sb="true" pws="no" id="w218" p="." group="O">.</w></s>
+<s id="s2"><w wlastn="true" locname="single" l="murray" pws="yes" id="w220" p="NNP" wfirstn="true" group="B-NP">Murray</w> <w l="play" pws="yes" id="w227" p="VBD" headv="yes" group="B-VP">played</w> <w pws="yes" id="w234" p="DT" group="B-NP">some</w> <w pws="yes" id="w239" p="JJ" group="I-NP">superb</w> <w l="tennis" pws="yes" id="w246" p="NN" event="true" headn="yes" group="I-NP">tennis</w> <w pws="yes" id="w253" p="IN" group="B-PP">in</w> <w l="crush" pws="yes" id="w256" p="VBG" headv="yes" group="B-VP">crushing</w> <w pws="yes" id="w265" p="DT" group="B-NP">the</w> <w pws="yes" id="w269" p="NN" headn="yes" prevtag="JJ" group="I-NP">in-form</w> <w wiki="B-wper" wlastn="true" l="david" pws="yes" id="w277" p="NNP" pername="true" wfirstn="true" group="B-NP">David</w> <w wiki="I-wper" l="nalbandian" pws="yes" id="w283" p="NNP" group="I-NP">Nalbandian</w> <w pws="yes" id="w294" p="CC" group="O">but</w> <w l="nadal" pws="yes" id="w298" p="NNP" group="B-NP">Nadal</w> <w l="have" pws="yes" id="w304" p="VBD" group="B-VP">had</w> <w pws="yes" id="w308" p="TO" group="I-VP">to</w> <w l="recover" pws="yes" id="w311" p="VB" headv="yes" group="I-VP">recover</w> <w pws="yes" id="w319" p="IN" group="B-PP">from</w> <w l="drop" pws="yes" id="w324" p="VBG" headv="yes" group="B-VP">dropping</w> <w pws="yes" id="w333" p="DT" group="B-NP">the</w> <w vstem="open" l="opening" pws="yes" id="w337" p="NN" tmln="true" headn="yes" group="I-NP">opening</w> <w l="set" pws="yes" id="w345" p="NN" tmln="true" headn="yes" group="I-NP">set</w> <w pws="yes" id="w349" p="TO" group="B-VP">to</w> <w l="get" pws="yes" id="w352" p="VB" headv="yes" group="I-VP">get</w> <w pws="yes" id="w356" p="JJ" group="B-ADJP">past</w> <w locname="single" l="germany" pws="yes" id="w361" p="NNP" country="true" group="B-NP">Germany</w><w pws="no" id="w368" p="POS" group="I-NP">'s</w> <w wiki="B-wper" locname="single" l="philipp" pws="yes" id="w371" p="NNP" wfirstn="true" group="B-NP">Philipp</w> <w wiki="I-wper" l="kohlschreiber" pws="yes" id="w379" p="NNP" group="I-NP">Kohlschreiber</w><w sb="true" pws="no" id="w392" p="." group="O">.</w></s>
+<s id="s3"><w l="nalbandian" pws="yes" id="w394" p="NNP" group="B-NP">Nalbandian</w> <w l="win" pws="yes" id="w405" p="VBD" headv="yes" group="B-VP">won</w> <w pws="yes" id="w409" p="DT" group="B-NP">the</w> <w l="atp" pws="yes" id="w413" p="NNP" headn="yes" group="I-NP">ATP</w> <w l="title" pws="yes" id="w417" p="NN" headn="yes" group="I-NP">title</w> <w pws="yes" id="w423" p="IN" group="B-PP">in</w> <w wlastn="true" locname="single" l="washington" pws="yes" id="w426" p="NNP" wfirstn="true" group="B-NP">Washington</w> <w pws="yes" id="w437" p="JJ" trel="before" quty="1" group="B-NP">last</w> <w l="weekend" pws="yes" id="w442" p="NN" unit="weekend" group="I-NP">weekend</w> <w pws="yes" id="w450" p="CC" group="O">and</w> <w l="come" pws="yes" id="w454" p="VBD" headv="yes" group="B-VP">came</w> <w pws="yes" id="w459" p="IN" group="B-PP">into</w> <w l="friday" pws="yes" id="w464" p="NNP" day="Friday" wdaynum="5" group="B-NP">Friday</w><w pws="no" id="w470" p="POS" group="B-NP">'s</w> <w vstem="encounter" l="encounter" pws="yes" id="w473" p="NN" event="true" headn="yes" group="I-NP">encounter</w> <w pws="yes" id="w483" p="IN" group="B-PP">on</w> <w pws="yes" id="w486" p="DT" group="B-NP">an</w> <w pws="yes" id="w489" p="CD" quty="11" headn="yes" group="I-NP">11</w><w pws="no" id="w491" p=":" headn="yes" group="I-NP">-</w><w l="match" pws="no" id="w492" p="NN" headn="yes" group="I-NP">match</w> <w vstem="unbeaten" l="unbeaten" pws="yes" id="w498" p="JJ" group="B-NP">unbeaten</w> <w l="streak" pws="yes" id="w507" p="NN" headn="yes" group="I-NP">streak</w><w sb="true" pws="no" id="w513" p="." group="O">.</w></s>
+<s id="s4"><w pws="yes" id="w515" p="CC" group="O">But</w> <w pws="yes" id="w519" p="DT" group="B-NP">the</w> <w pws="yes" id="w523" p="NN" headn="yes" prevtag="JJ" group="I-NP">fourth</w><w pws="no" id="w529" p=":" group="O">-</w><w vstem="seed" l="seeded" pws="no" id="w530" p="JJ" group="B-NP">seeded</w> <w l="briton" pws="yes" id="w537" p="NNP" wfirstn="true" headn="yes" group="I-NP">Briton</w><w pws="no" id="w543" p="," group="O">,</w> <w pws="yes" id="w545" p="WP" headn="yes" group="B-NP">who</w> <w l="have" pws="yes" id="w549" p="VBZ" group="B-VP">has</w> <w l="struggle" pws="yes" id="w553" p="VBN" headv="yes" group="I-VP">struggled</w> <w pws="yes" id="w563" p="TO" group="B-VP">to</w> <w l="find" pws="yes" id="w566" p="VB" headv="yes" group="I-VP">find</w> <w pws="yes" id="w571" p="PRP$" group="B-NP">his</w> <w pws="yes" id="w575" p="JJ" group="I-NP">top</w> <w l="form" pws="yes" id="w579" p="NN" headn="yes" group="I-NP">form</w> <w pws="yes" id="w584" p="DT" trel="same" quty="1" group="B-NP">this</w> <w l="season" pws="yes" id="w589" p="NN" unit="season" group="I-NP">season</w><w pws="no" id="w595" p="," group="O">,</w> <w l="brush" pws="yes" id="w597" p="VBD" headv="yes" group="B-VP">brushed</w> <w pws="yes" id="w605" p="RB" group="B-ADVP">aside</w> <w pws="yes" id="w611" p="DT" group="B-NP">the</w> <w common="true" pws="yes" id="w615" p="NN" locadj="true" headn="yes" prevtag="JJ" group="I-NP">Argentine</w> <w pws="yes" id="w625" p="IN" group="B-PP">in</w> <w pws="yes" id="w628" p="JJ" group="B-NP">impressive</w> <w l="fashion" pws="yes" id="w639" p="NN" headn="yes" group="I-NP">fashion</w><w pws="no" id="w646" p="," group="O">,</w> <w l="secure" pws="yes" id="w648" p="VBG" headv="yes" group="B-VP">securing</w> <w pws="yes" id="w657" p="DT" group="B-NP">a</w> <w pws="yes" id="w659" p="JJ" group="I-NP">6-2</w> <w pws="yes" id="w663" p="CD" group="I-NP">6-2</w> <w l="victory" pws="yes" id="w667" p="NN" event="true" tmln="true" headn="yes" group="I-NP">victory</w> <w pws="yes" id="w675" p="IN" group="B-PP">in</w> <w pws="yes" id="w678" p="RB" group="B-ADVP">just</w> <w pws="yes" id="w683" p="CD" quty="69" group="B-NP">69</w> <w l="minute" pws="yes" id="w686" p="NNS" unit="minute" group="I-NP">minutes</w><w sb="true" pws="no" id="w693" p="." group="O">.</w></s>
+<s id="s5"><w pws="yes" qut="d" id="w695" p="``" group="O">"</w><w pws="no" id="w696" p="PRP" group="B-NP">It</w> <w l="be" pws="yes" id="w699" p="VBD" headv="yes" group="B-VP">was</w> <w pws="yes" id="w703" p="RB" group="B-ADVP">probably</w> <w pws="yes" id="w712" p="CD" quty="1" headn="yes" group="B-NP">one</w> <w pws="yes" id="w716" p="IN" group="I-NP">of</w> <w pws="yes" id="w719" p="DT" group="I-NP">the</w> <w pws="yes" id="w723" p="JJS" group="I-NP">best</w> <w l="match" pws="yes" id="w728" p="NNS" headn="yes" group="I-NP">matches</w> <w pws="yes" id="w736" p="PRP" group="B-NP">I</w><w l="have" pws="no" id="w737" p="VBP" group="B-VP">'ve</w> <w l="play" pws="yes" id="w741" p="VBN" headv="yes" group="I-VP">played</w> <w pws="yes" id="w748" p="DT" trel="same" quty="1" group="B-NP">this</w> <w l="year" pws="yes" id="w753" p="NN" unit="year" group="I-NP">year</w><w pws="no" id="w757" p="," group="O">,</w><w qut="d" pws="no" id="w758" p="``" group="O">"</w> <w wlastn="true" locname="single" l="murray" pws="yes" id="w760" p="NNP" wfirstn="true" group="B-NP">Murray</w> <w l="tell" pws="yes" id="w767" p="VBD" class="reporting" headv="yes" group="B-VP">told</w> <w pws="yes" id="w772" p="DT" group="B-NP">the</w> <w pws="yes" id="w776" p="JJ" group="I-NP">official</w> <w l="atp" pws="yes" id="w785" p="NNP" headn="yes" group="I-NP">ATP</w> <w common="true" vstem="tour" l="tour" pws="yes" id="w789" p="NNP" event="true" tmln="true" headn="yes" group="I-NP">Tour</w> <w l="website" pws="yes" id="w794" p="NN" headn="yes" group="I-NP">website</w><w sb="true" pws="no" id="w801" p="." group="O">.</w></s>
+<s id="s6"><w pws="yes" qut="d" id="w803" p="``" group="O">"</w><w pws="no" id="w804" p="PRP" group="B-NP">I</w> <w l="serve" pws="yes" id="w806" p="VBD" headv="yes" group="B-VP">served</w> <w pws="yes" id="w813" p="RB" group="B-ADVP">well</w> <w pws="yes" id="w818" p="CC" group="O">and</w> <w l="get" pws="yes" id="w822" p="VBD" headv="yes" group="B-VP">got</w> <w pws="yes" id="w826" p="DT" group="B-NP">the</w> <w pws="yes" id="w830" p="JJ" group="I-NP">first</w> <w tmla="true" pws="yes" id="w836" p="JJ" group="I-NP">good</w> <w vstem="hit" l="hit" pws="yes" id="w841" p="NNS" event="true" headn="yes" group="I-NP">hits</w> <w pws="yes" id="w846" p="IN" group="B-PP">in</w> <w pws="yes" id="w849" p="DT" group="B-NP">a</w> <w l="lot" pws="yes" id="w851" p="NN" headn="yes" group="I-NP">lot</w> <w pws="yes" id="w855" p="IN" group="B-PP">of</w> <w pws="yes" id="w858" p="DT" group="B-NP">the</w> <w l="rally" pws="yes" id="w862" p="NNS" tmln="true" headn="yes" group="I-NP">rallies</w><w pws="no" id="w869" p="," group="O">,</w> <w pws="yes" id="w871" p="RB" group="B-ADVP">so</w> <w pws="yes" id="w874" p="PRP" group="B-NP">I</w> <w l="be" pws="yes" id="w876" p="VBD" headv="yes" group="B-VP">was</w> <w tmla="true" pws="yes" id="w880" p="JJ" group="B-ADJP">able</w> <w pws="yes" id="w885" p="TO" group="B-VP">to</w> <w l="dictate" pws="yes" id="w888" p="VB" headv="yes" group="I-VP">dictate</w> <w pws="yes" id="w896" p="DT" group="B-NP">a</w> <w l="lot" pws="yes" id="w898" p="NN" headn="yes" group="I-NP">lot</w> <w pws="yes" id="w902" p="IN" group="B-PP">of</w> <w pws="yes" id="w905" p="DT" group="B-NP">the</w> <w l="point" pws="yes" id="w909" p="NNS" headn="yes" group="I-NP">points</w><w pws="no" id="w915" p="," group="O">,</w><w qut="d" pws="no" id="w916" p="``" group="O">"</w> <w l="add" pws="yes" id="w918" p="VBD" class="reporting" headv="yes" group="B-VP">added</w> <w wlastn="true" locname="single" l="murray" pws="yes" id="w924" p="NNP" wfirstn="true" group="B-NP">Murray</w> <w pws="yes" id="w931" p=":" group="O">--</w> <w pws="yes" id="w934" p="WP" headn="yes" group="B-NP">who</w> <w l="be" pws="yes" id="w938" p="VBZ" headv="yes" group="B-VP">is</w> <w pws="yes" id="w941" p="DT" group="B-NP">the</w> <w l="defend" pws="yes" id="w945" p="VBG" group="I-NP">defending</w> <w l="champion" pws="yes" id="w955" p="NN" headn="yes" group="I-NP">champion</w> <w pws="yes" id="w964" p="IN" group="B-PP">after</w> <w l="win" pws="yes" id="w970" p="VBG" headv="yes" group="B-VP">winning</w> <w pws="yes" id="w978" p="DT" group="B-NP">the</w> <w l="tournament" pws="yes" id="w982" p="NN" event="true" headn="yes" group="I-NP">tournament</w> <w pws="yes" id="w993" p="IN" group="B-PP">in</w> <w locname="single" l="montreal" pws="yes" id="w996" p="NNP" group="B-NP">Montreal</w> <w pws="yes" id="w1005" p="JJ" trel="before" quty="1" group="B-NP">last</w> <w l="year" pws="yes" id="w1010" p="NN" unit="year" group="I-NP">year</w><w sb="true" pws="no" id="w1014" p="." group="O">.</w></s>
+<s id="s7"><w pws="yes" id="w1016" p="RB" group="B-ADVP">Meanwhile</w><w pws="no" id="w1025" p="," group="O">,</w> <w pws="yes" id="w1027" p="JJ" group="B-NP">top</w> <w prof="true" l="seed" pws="yes" id="w1031" p="NN" headn="yes" group="I-NP">seed</w> <w l="nadal" pws="yes" id="w1036" p="NNP" group="B-NP">Nadal</w> <w pws="yes" id="w1042" p="RB" group="B-ADVP">also</w> <w l="secure" pws="yes" id="w1047" p="VBD" headv="yes" group="B-VP">secured</w> <w pws="yes" id="w1055" p="PRP$" group="B-NP">his</w> <w l="place" pws="yes" id="w1059" p="NN" tmln="true" headn="yes" group="I-NP">place</w> <w pws="yes" id="w1065" p="IN" group="B-PP">in</w> <w pws="yes" id="w1068" p="DT" group="B-NP">the</w> <w pws="yes" id="w1072" p="NN" headn="yes" prevtag="JJ" group="I-NP">last</w> <w pws="yes" id="w1077" p="CD" quty="4" headn="yes" group="B-NP">four</w><w pws="no" id="w1081" p="," group="O">,</w> <w pws="yes" id="w1083" p="CC" group="O">but</w> <w pws="yes" id="w1087" p="PRP" group="B-NP">he</w> <w l="be" pws="yes" id="w1090" p="VBD" headv="yes" group="B-VP">was</w> <w pws="yes" id="w1094" p="RB" neg="yes" group="I-VP">not</w> <w pws="yes" id="w1098" p="RB" group="B-ADJP">as</w> <w pws="yes" id="w1101" p="JJ" group="I-ADJP">impressive</w> <w pws="yes" id="w1112" p="IN" group="B-PP">as</w> <w wlastn="true" locname="single" l="murray" pws="yes" id="w1115" p="NNP" wfirstn="true" group="B-NP">Murray</w> <w pws="yes" id="w1122" p="IN" group="B-PP">in</w> <w pws="yes" id="w1125" p="DT" group="B-NP">a</w> <w pws="yes" id="w1127" p="JJ" group="I-NP">3-6</w> <w pws="yes" id="w1131" p="JJ" group="I-NP">6-3</w> <w pws="yes" id="w1135" p="JJ" group="I-NP">6-4</w> <w l="victory" pws="yes" id="w1139" p="NN" event="true" tmln="true" headn="yes" group="I-NP">victory</w> <w pws="yes" id="w1147" p="IN" group="B-PP">over</w> <w l="kohlschreiber" pws="yes" id="w1152" p="NNP" group="B-NP">Kohlschreiber</w>
+<w pws="yes" id="w1166" p="IN" group="B-PP">In</w> <w pws="yes" id="w1169" p="DT" group="B-NP">the</w> <w vstem="even" l="evening" pws="yes" id="w1173" p="NN" headn="yes" group="I-NP">evening</w> <w l="session" pws="yes" id="w1181" p="NN" tmln="true" headn="yes" group="I-NP">session</w><w pws="no" id="w1188" p="," group="O">,</w> <w pws="yes" id="w1190" p="JJ" group="B-NP">third</w> <w prof="true" l="seed" pws="yes" id="w1196" p="NN" headn="yes" group="I-NP">seed</w> <w wlastn="true" l="federer" pws="yes" id="w1201" p="NNP" group="B-NP">Federer</w> <w l="will" pws="yes" id="w1209" p="MD" group="B-VP">will</w> <w l="face" pws="yes" id="w1214" p="VB" headv="yes" group="I-VP">face</w> <w pws="yes" id="w1219" p="DT" group="B-NP">a</w> <w locname="single" l="wimbledon" pws="yes" id="w1221" p="NNP" group="I-NP">Wimbledon</w> <w l="re-match" pws="yes" id="w1231" p="NN" headn="yes" group="I-NP">re-match</w> <w pws="yes" id="w1240" p="IN" group="B-PP">with</w> <w pws="yes" id="w1245" p="JJ" locadj="true" group="B-ADJP">Czech</w> <w l="toma" pws="yes" id="w1251" p="NNP" pername="true" wfirstn="true" group="B-NP">Tomas</w> <w l="berdych" pws="yes" id="w1257" p="NNP" group="I-NP">Berdych</w><w pws="no" id="w1264" p="," group="O">,</w> <w pws="yes" id="w1266" p="WP" headn="yes" group="B-NP">who</w> <w l="beat" pws="yes" id="w1270" p="VBD" headv="yes" group="B-VP">beat</w> <w pws="yes" id="w1275" p="PRP" group="B-NP">him</w> <w pws="yes" id="w1279" p="IN" group="B-PP">in</w> <w pws="yes" id="w1282" p="DT" group="B-NP">the</w> <w l="quarterfinal" pws="yes" id="w1286" p="NNS" event="true" headn="yes" group="I-NP">quarterfinals</w> <w pws="yes" id="w1300" p="IN" group="B-PP">of</w> <w pws="yes" id="w1303" p="DT" group="B-NP">the</w> <w l="grasscourt" pws="yes" id="w1307" p="NN" headn="yes" group="I-NP">grasscourt</w> <w l="tournament" pws="yes" id="w1318" p="NN" event="true" headn="yes" group="I-NP">tournament</w><w sb="true" pws="no" id="w1328" p="." group="O">.</w></s>
+<s id="s8"><w pws="yes" id="w1330" p="DT" group="B-NP">The</w> <w l="winner" pws="yes" id="w1334" p="NN" headn="yes" group="I-NP">winner</w> <w pws="yes" id="w1341" p="IN" group="B-PP">of</w> <w pws="yes" id="w1344" p="DT" headn="yes" group="B-NP">that</w> <w l="match" pws="yes" id="w1349" p="NN" headn="yes" group="B-NP">match</w> <w l="will" pws="yes" id="w1355" p="MD" group="B-VP">will</w> <w l="face" pws="yes" id="w1360" p="VB" headv="yes" group="I-VP">face</w> <w pws="yes" id="w1365" p="DT" group="B-NP">either</w> <w pws="yes" id="w1372" p="JJ" group="I-NP">second</w> <w prof="true" l="seed" pws="yes" id="w1379" p="NN" headn="yes" group="I-NP">seed</w> <w wiki="B-wper" locname="single" l="novak" pws="yes" id="w1384" p="NNP" wfirstn="true" group="B-NP">Novak</w> <w wiki="I-wper" l="djokovic" pws="yes" id="w1390" p="NNP" group="I-NP">Djokovic</w> <w pws="yes" id="w1399" p="CC" group="O">or</w> <w wiki="B-wper" l="jeremy" pws="yes" id="w1402" p="NNP" pername="true" wfirstn="true" group="B-NP">Jeremy</w> <w wiki="I-wper" l="chardy" pws="yes" id="w1409" p="NNP" group="I-NP">Chardy</w> <w pws="yes" id="w1416" p="IN" group="B-PP">of</w> <w locname="single" l="france" pws="yes" id="w1419" p="NNP" country="true" wfirstn="true" group="B-NP">France</w> <w pws="yes" id="w1426" p="IN" group="B-PP">for</w> <w pws="yes" id="w1430" p="DT" group="B-NP">a</w> <w l="place" pws="yes" id="w1432" p="NN" tmln="true" headn="yes" group="I-NP">place</w> <w pws="yes" id="w1438" p="IN" group="B-PP">in</w> <w pws="yes" id="w1441" p="DT" group="B-NP">the</w> <w pws="yes" id="w1445" p="NN" headn="yes" prevtag="JJ" group="I-NP">final</w><w sb="true" pws="no" id="w1450" p="." group="O">.</w></s></p>
+
+
+            </text>
+<standoff>
+<ents source="ner-rb">
+  <ent id="rb1" type="person">
+    <parts>
+      <part ew="w16" sw="w16">Nadal</part>
+    </parts>
+  </ent>
+  <ent id="rb2" type="person">
+    <parts>
+      <part ew="w26" sw="w26">Murray</part>
+    </parts>
+  </ent>
+  <ent id="rb4" type="person">
+    <parts>
+      <part ew="w70" sw="w63">Rafael Nadal</part>
+    </parts>
+  </ent>
+  <ent id="rb5" type="person">
+    <parts>
+      <part ew="w85" sw="w80">Andy Murray</part>
+    </parts>
+  </ent>
+  <ent id="rb6" type="location" lat="43.70011" long="-79.4163" gazref="geonames:6167865" in-country="CA" feat-type="ppla" pop-size="4612191">
+    <parts>
+      <part ew="w148" sw="w148">Toronto</part>
+    </parts>
+  </ent>
+  <ent date="19" month="01" year="2020" sdate="2020-01-19" day-number="737442" id="rb7" type="date" day="Sunday" wdaynum="7">
+    <parts>
+      <part ew="w204" sw="w204">Sunday</part>
+    </parts>
+  </ent>
+  <ent id="rb8" subtype="otf" type="person">
+    <parts>
+      <part ew="w220" sw="w220">Murray</part>
+    </parts>
+  </ent>
+  <ent id="rb9" type="person">
+    <parts>
+      <part ew="w283" sw="w277">David Nalbandian</part>
+    </parts>
+  </ent>
+  <ent id="rb10" subtype="otf" type="person">
+    <parts>
+      <part ew="w298" sw="w298">Nadal</part>
+    </parts>
+  </ent>
+  <ent id="rb11" type="location" lat="51.5" long="10.5" gazref="geonames:2921044" in-country="DE" feat-type="country" pop-size="82431390">
+    <parts>
+      <part ew="w361" sw="w361">Germany</part>
+    </parts>
+  </ent>
+  <ent id="rb12" type="person">
+    <parts>
+      <part ew="w379" sw="w371">Philipp Kohlschreiber</part>
+    </parts>
+  </ent>
+  <ent id="rb13" subtype="otf" type="person">
+    <parts>
+      <part ew="w394" sw="w394">Nalbandian</part>
+    </parts>
+  </ent>
+  <ent id="rb14" type="location" lat="38.89511" long="-77.03637" gazref="geonames:4140963" in-country="US" feat-type="pplc" pop-size="552433">
+    <parts>
+      <part ew="w426" sw="w426">Washington</part>
+    </parts>
+  </ent>
+  <ent id="rb15" type="date" trel="before" unit="weekend" quty="1">
+    <parts>
+      <part ew="w442" sw="w437">last weekend</part>
+    </parts>
+  </ent>
+  <ent date="17" month="01" year="2020" sdate="2020-01-17" day-number="737440" id="rb16" type="date" day="Friday" wdaynum="5">
+    <parts>
+      <part ew="w464" sw="w464">Friday</part>
+    </parts>
+  </ent>
+  <ent id="rb17" type="date" trel="same" unit="season" quty="1">
+    <parts>
+      <part ew="w589" sw="w584">this season</part>
+    </parts>
+  </ent>
+  <ent id="rb18" type="time" unit="minute" quty="69" tval="69">
+    <parts>
+      <part ew="w686" sw="w683">69 minutes</part>
+    </parts>
+  </ent>
+  <ent year="2020" id="rb19" type="date" trel="same" unit="year" quty="1">
+    <parts>
+      <part ew="w753" sw="w748">this year</part>
+    </parts>
+  </ent>
+  <ent id="rb20" subtype="otf" type="person">
+    <parts>
+      <part ew="w760" sw="w760">Murray</part>
+    </parts>
+  </ent>
+  <ent id="rb21" subtype="otf" type="person">
+    <parts>
+      <part ew="w924" sw="w924">Murray</part>
+    </parts>
+  </ent>
+  <ent id="rb22" type="location" lat="45.50884" long="-73.58781" gazref="geonames:6077243" in-country="CA" feat-type="ppl" pop-size="3268513">
+    <parts>
+      <part ew="w996" sw="w996">Montreal</part>
+    </parts>
+  </ent>
+  <ent year="2019" id="rb23" type="date" trel="before" unit="year" quty="1">
+    <parts>
+      <part ew="w1010" sw="w1005">last year</part>
+    </parts>
+  </ent>
+  <ent id="rb24" subtype="otf" type="person">
+    <parts>
+      <part ew="w1036" sw="w1036">Nadal</part>
+    </parts>
+  </ent>
+  <ent id="rb25" subtype="otf" type="person">
+    <parts>
+      <part ew="w1115" sw="w1115">Murray</part>
+    </parts>
+  </ent>
+  <ent id="rb26" subtype="otf" type="person">
+    <parts>
+      <part ew="w1152" sw="w1152">Kohlschreiber</part>
+    </parts>
+  </ent>
+  <ent id="rb27" type="person">
+    <parts>
+      <part ew="w1201" sw="w1201">Federer</part>
+    </parts>
+  </ent>
+  <ent id="rb28" type="location" lat="35.71814" long="-83.97907" gazref="geonames:4668339" in-country="US" feat-type="ppl">
+    <parts>
+      <part ew="w1221" sw="w1221">Wimbledon</part>
+    </parts>
+  </ent>
+  <ent id="rb29" type="person">
+    <parts>
+      <part ew="w1257" sw="w1251">Tomas Berdych</part>
+    </parts>
+  </ent>
+  <ent id="rb30" type="person">
+    <parts>
+      <part ew="w1390" sw="w1384">Novak Djokovic</part>
+    </parts>
+  </ent>
+  <ent id="rb31" type="person">
+    <parts>
+      <part ew="w1409" sw="w1402">Jeremy Chardy</part>
+    </parts>
+  </ent>
+  <ent id="rb32" type="location" lat="46" long="2" gazref="geonames:3017382" in-country="FR" feat-type="country" pop-size="60656178">
+    <parts>
+      <part ew="w1419" sw="w1419">France</part>
+    </parts>
+  </ent>
+</ents>
+<ents source="events">
+  <ent tense="past" voice="act" asp="simple" modal="no" id="ev1" subtype="set" type="event"><parts><part ew="w33" sw="w33">set</part></parts></ent>
+  <ent id="ev2" subtype="" nominal="true" type="event"><parts><part ew="w45" sw="w45">showdown</part></parts></ent>
+  <ent tense="fut" voice="act" asp="simple" modal="yes" id="ev3" subtype="face" type="event"><parts><part ew="w173" sw="w173">face</part></parts></ent>
+  <ent tense="past" voice="act" asp="simple" modal="no" id="ev4" subtype="play" type="event"><parts><part ew="w227" sw="w227">played</part></parts></ent>
+  <ent tense="nonfin" voice="act" asp="prog" modal="no" id="ev5" subtype="crush" type="event"><parts><part ew="w256" sw="w256">crushing</part></parts></ent>
+  <ent tense="pres" voice="act" asp="simple" modal="yes" id="ev6" subtype="recover" type="event"><parts><part ew="w311" sw="w311">recover</part></parts></ent>
+  <ent tense="nonfin" voice="act" asp="prog" modal="no" id="ev7" subtype="drop" type="event"><parts><part ew="w324" sw="w324">dropping</part></parts></ent>
+  <ent tense="inf" voice="act" asp="simple" modal="no" id="ev8" subtype="get" type="event"><parts><part ew="w352" sw="w352">get</part></parts></ent>
+  <ent tense="past" voice="act" asp="simple" modal="no" id="ev9" subtype="win" type="event"><parts><part ew="w405" sw="w405">won</part></parts></ent>
+  <ent tense="past" voice="act" asp="simple" modal="no" id="ev10" subtype="come" type="event"><parts><part ew="w454" sw="w454">came</part></parts></ent>
+  <ent tense="pres" voice="act" asp="perf" modal="no" id="ev11" subtype="struggle" type="event"><parts><part ew="w553" sw="w553">struggled</part></parts></ent>
+  <ent tense="inf" voice="act" asp="simple" modal="no" id="ev12" subtype="find" type="event"><parts><part ew="w566" sw="w566">find</part></parts></ent>
+  <ent tense="past" voice="act" asp="simple" modal="no" id="ev13" subtype="brush" type="event"><parts><part ew="w597" sw="w597">brushed</part></parts></ent>
+  <ent tense="nonfin" voice="act" asp="prog" modal="no" id="ev14" subtype="secure" type="event"><parts><part ew="w648" sw="w648">securing</part></parts></ent>
+  <ent id="ev15" subtype="" nominal="true" type="event"><parts><part ew="w667" sw="w667">victory</part></parts></ent>
+  <ent tense="pres" voice="act" asp="perf" modal="no" id="ev16" subtype="play" type="event"><parts><part ew="w741" sw="w741">played</part></parts></ent>
+  <ent tense="past" voice="act" asp="simple" modal="no" id="ev17" subtype="tell" type="event"><parts><part ew="w767" sw="w767">told</part></parts></ent>
+  <ent tense="past" voice="act" asp="simple" modal="no" id="ev18" subtype="serve" type="event"><parts><part ew="w806" sw="w806">served</part></parts></ent>
+  <ent tense="past" voice="act" asp="simple" modal="no" id="ev19" subtype="get" type="event"><parts><part ew="w822" sw="w822">got</part></parts></ent>
+  <ent tense="inf" voice="act" asp="simple" modal="no" id="ev20" subtype="dictate" type="event"><parts><part ew="w888" sw="w888">dictate</part></parts></ent>
+  <ent tense="past" voice="act" asp="simple" modal="no" id="ev21" subtype="add" type="event"><parts><part ew="w918" sw="w918">added</part></parts></ent>
+  <ent tense="nonfin" voice="act" asp="prog" modal="no" id="ev22" subtype="win" type="event"><parts><part ew="w970" sw="w970">winning</part></parts></ent>
+  <ent tense="past" voice="act" asp="simple" modal="no" id="ev23" subtype="secure" type="event"><parts><part ew="w1047" sw="w1047">secured</part></parts></ent>
+  <ent id="ev24" subtype="" nominal="true" type="event"><parts><part ew="w1139" sw="w1139">victory</part></parts></ent>
+  <ent tense="fut" voice="act" asp="simple" modal="yes" id="ev25" subtype="face" type="event"><parts><part ew="w1214" sw="w1214">face</part></parts></ent>
+  <ent tense="past" voice="act" asp="simple" modal="no" id="ev26" subtype="beat" type="event"><parts><part ew="w1270" sw="w1270">beat</part></parts></ent>
+  <ent tense="fut" voice="act" asp="simple" modal="yes" id="ev27" subtype="face" type="event"><parts><part ew="w1360" sw="w1360">face</part></parts></ent>
+</ents>
+<relations source="temprel">
+  <relation id="rbr1" type="beforeorincl" text="set up">
+    <argument arg1="true" ref="ev1"/>
+    <argument arg2="true" ref="docdate"/>
+  </relation>
+  <relation id="rbr2" type="simultaneous" text="will face each other for a place in Sunday">
+    <argument arg1="true" ref="ev3"/>
+    <argument arg2="true" ref="rb7"/>
+  </relation>
+  <relation id="rbr3" type="beforeorincl" text="played">
+    <argument arg1="true" ref="ev4"/>
+    <argument arg2="true" ref="docdate"/>
+  </relation>
+  <relation id="rbr4" type="simultaneous" text="won the ATP title in Washington last weekend">
+    <argument arg1="true" ref="ev9"/>
+    <argument arg2="true" ref="rb15"/>
+  </relation>
+  <relation id="rbr5" type="simultaneous" text="came into Friday">
+    <argument arg1="true" ref="ev10"/>
+    <argument arg2="true" ref="rb16"/>
+  </relation>
+  <relation id="rbr6" type="simultaneous" text="this season, brushed">
+    <argument arg1="true" ref="ev13"/>
+    <argument arg2="true" ref="rb17"/>
+  </relation>
+  <relation id="rbr7" type="simultaneous" text="this year,&quot; Murray told">
+    <argument arg1="true" ref="ev17"/>
+    <argument arg2="true" ref="rb19"/>
+  </relation>
+  <relation id="rbr8" type="beforeorincl" text="served">
+    <argument arg1="true" ref="ev18"/>
+    <argument arg2="true" ref="docdate"/>
+  </relation>
+  <relation id="rbr9" type="beforeorincl" text="got">
+    <argument arg1="true" ref="ev19"/>
+    <argument arg2="true" ref="docdate"/>
+  </relation>
+  <relation id="rbr10" type="beforeorincl" text="added">
+    <argument arg1="true" ref="ev21"/>
+    <argument arg2="true" ref="docdate"/>
+  </relation>
+  <relation id="rbr11" type="beforeorincl" text="secured">
+    <argument arg1="true" ref="ev23"/>
+    <argument arg2="true" ref="docdate"/>
+  </relation>
+  <relation id="rbr12" type="beforeorincl" text="beat">
+    <argument arg1="true" ref="ev26"/>
+    <argument arg2="true" ref="docdate"/>
+  </relation>
+</relations></standoff></document>

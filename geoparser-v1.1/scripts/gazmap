@@ -1,0 +1,50 @@
+#!/bin/sh
+
+usage="gazmap mapfile.html listfile.html docfile.html displayfile.html <locations.xml"
+descr="Display locations on a Google Map."
+
+. `dirname $0`/setup
+
+if [ $# -ne 4 ]; then
+  echo "usage: $usage" >&2
+  exit 2
+fi
+
+mapfile=$1
+listfile=$2
+docfile=$3
+displayfile=$4
+
+lib=$here/lib/georesolve
+
+# defkey is old-style Google Maps API key for ed.ac.uk
+defkey="AIzaSyAj9ut_juj_t10klD3II_Giw-ZD9NxK2Kk"
+
+cat >$tmp-in
+lxt -p key $defkey -s $lib/gazmap.xsl <$tmp-in >$mapfile
+lxt -s $lib/gazlist.xsl <$tmp-in >$listfile
+
+# XXX fix assumption about directory in basename below!
+
+cat <<EOF >$displayfile
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <title>Geoparser</title>
+</head>
+
+<frameset rows="50%,50%">
+  <frame name="map" src="`basename $mapfile`">
+  <frameset cols="50%,50%">
+    <frame name="doc" src="`basename $docfile`">
+    <frame name="list" src="`basename $listfile`">
+  </frameset>
+</frameset>
+
+</html>
+
+EOF

@@ -1,0 +1,33 @@
+#!/bin/sh 
+
+usage="ner <input.xml >output.xml"
+descr="Rule-based NER using numtimex, lexlookup and enamex components"
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+lib=$here/lib/ner
+temp=$here/lib/tempresolve
+
+cat >$tmp-input
+
+$here/scripts/numtimex <$tmp-input >$tmp-numtimex
+$here/scripts/lexlookup-deep <$tmp-numtimex >$tmp-lexlookup
+$here/scripts/enamex <$tmp-lexlookup >$tmp-enamex
+
+cat $tmp-enamex |
+lxreplace -q notplace |
+lxreplace -q "meta/p//*" |
+lxreplace -q "meta/p" -n "'attr'" |
+lxt -s $lib/standoff.xsl |
+lxreplace -q "ent[@type='date-range']" -t "<ent subtype='date-range'>&attrs;<xsl:attribute name='type'>date</xsl:attribute>&children;</ent>" |
+lxt -s $temp/dateground.xsl

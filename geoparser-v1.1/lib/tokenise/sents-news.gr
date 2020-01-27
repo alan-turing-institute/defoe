@@ -1,0 +1,612 @@
+<rules type="xml" apply="all">
+
+<rule name="fullstop">
+  <query match="w[.~'^\.$']"/>
+</rule>
+
+<rule name="stoporquest">
+  <query match="w[.~'^[\.\?]$']"/>
+</rule>
+
+<rule name="space">
+  <query match="cg[not(.~'\n\n')]"/>
+</rule>
+
+<rule name="nl">
+  <query match="cg[.~'\n']"/>
+</rule>
+
+<rule name="ws">
+  <query match="cg"/>
+</rule>
+
+<rule name="capword">
+  <query match="w[.~'^[A-Z]']"/>
+</rule>
+
+<rule name="lcword">
+  <query match="w[.~'^[a-z\-]+$']"/>
+</rule>
+
+<rule name="what">
+  <query match="w[@c='what']"/>
+</rule>
+
+<rule name="quoteoropenbrack">
+  <first>
+    <query match="w[@qut]"/>
+    <query match="w[.='(']"/>
+  </first>
+</rule>
+
+<rule name="quoteorclosebrack">
+  <first>
+    <query match="w[@qut]"/>
+    <query match="w[.=')']"/>
+  </first>
+</rule>
+
+<!-- sequence where a stop is followed directly by another w element, 
+     i.e. not a ws. This kind of stop is not a sentence boundary -->
+
+<rule name="stop-nows">
+  <seq>
+    <ref name="stoporquest"/>
+    <query match="w[not(.~'^[\.\?]$')]"/>
+  </seq>
+</rule>
+
+<!-- sequence of question marks -->
+
+<rule name="quests">
+  <seq>
+    <query match="w[.~'^\?$']"/>
+    <query match="w[.~'^\?$']" mult="+"/>
+  </seq>
+</rule>
+
+<!-- sequence where a white space precedes a stop (e.g. 0.43 . rCBF).
+     Depending on text type, this may or may not be a good rule. -->
+
+<rule name="w-ws-stop">
+  <seq>
+    <query match="w[not(.~'^[\.\?]$')]"/>
+    <ref name="space" mult="+"/>
+    <ref name="stoporquest"/>
+  </seq>
+</rule>
+
+<!-- Abbreviations: fullstops which are part of known abbreviations etc
+     should not be sentence boundaries -->
+
+<!-- Abbreviations that don't occur sentence finally. First case gets abbrs 
+     like U.S in "U.S. Army": tokenisation has already treated U.S as a 
+     single word and so long as the following word has an initial uc and
+     isn't a function word the fullstop won't be considered as a sentence
+     boundary. The remaining cases are specific instances --> 
+
+<rule name="knownabbr-general-pre">
+  <first>
+    <seq>
+      <query match="w[@c='abbr' and .~'^[A-Z\.]+$']"/>
+      <ref name="fullstop"/>
+      <ref name="space"/>
+      <query match="w[.~'^[A-Z]']" constraint="not(lex())"/>
+    </seq>
+    <query match="w[.~'^(cf|c\.f|Cf|C\.f|C\.F)$']"/>
+    <query match="w[.~'^(ie|i\.e|Ie|I\.e|IE|I\.E)$']"/>
+    <query match="w[.~'^(eg|e\.g|Eg|E\.g|EG|E\.G)$']"/>
+    <query match="w[.~'^(ca|Ca|CA)$']"/>
+    <query match="w[.~'^(vs|VS|Vs)$']"/>
+    <query match="w[.~'^(incl|Incl|INCL)$']"/>
+    <query match="w[.~'^(misc|Misc|MISC)$']"/>
+    <query match="w[.~'^(fig|Fig|FIG)$']"/>
+    <query match="w[.~'^(hon|Hon|HON)$']"/>
+    <query match="w[.~'^(rt|Rt|RT)$']"/>
+  </first>
+</rule>
+
+<!-- Abbreviations that can occur sentence finally. First case gets 
+     abbrs like U.S in "... by the U.S. The report ...": tokenisation
+     has already treated U.S as a single word and the previous rule 
+     has checked the following word, so if this matches the fullstop 
+     might be a sentence boundary. The remaining cases are specific 
+     instances --> 
+
+<rule name="knownabbr-general-post">
+  <first>
+    <query match="w[@c='abbr' and .~'\.']"/>
+    <query match="w[.~'^(a\.m|p\.m)$']"/>
+    <query match="w[.~'^Ave$']"/>
+    <query match="w[.~'^(approx|Approx|APPROX)$']"/>
+    <query match="w[.~'^(etc|ETC|Etc)$']"/>
+    <query match="w[.~'^(jan|Jan|JAN)$']"/>
+    <query match="w[.~'^(feb|Feb|FEB)$']"/>
+    <query match="w[.~'^(mar|Mar|MAR)$']"/>
+    <query match="w[.~'^(apr|Apr|APR)$']"/>
+    <query match="w[.~'^(jun|Jun|JUN)$']"/>
+    <query match="w[.~'^(jul|Jul|JUL)$']"/>
+    <query match="w[.~'^(aug|Aug|AUG)$']"/>
+    <query match="w[.~'^(sep|Sep|SEP)$']"/>
+    <query match="w[.~'^(sept|Sept|SEPT)$']"/>
+    <query match="w[.~'^(oct|Oct|OCT)$']"/>
+    <query match="w[.~'^(nov|Nov|NOV)$']"/>
+    <query match="w[.~'^(dec|Dec|DEC)$']"/>
+    <query match="w[.~'^(no|No|NO)$']"/>
+  </first>
+</rule>
+
+<!-- to deal with ambiguity of "St." -->
+<rule name="street-saint">
+  <first>
+    <seq>
+      <query match="w[.~'^[A-Z]']"/>
+      <ref name="space"/>
+      <query match="w[.~'^(st|ST|St)$']"/>
+      <query match="w[.='.']"/>
+      <ref name="space"/>
+      <query match="w[.~'^[^A-Z]']"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^(st|ST|St)$']"/>
+      <query match="w[.='.']"/>
+      <ref name="space"/>
+      <query match="w[.~'^[A-Z]']" constraint="not(lex())" suppress="true"/>
+    </seq>
+  </first>
+</rule>
+
+<!-- News specific abbreviations that don't occur sentence finally. 
+     The first gets a.m and p.m followed by time zone expression, the 
+     second gets single uppercase characters, the rest are person 
+     titles -->
+<rule name="knownabbr-news-pre">
+  <first>
+    <seq>
+      <query match="w[.~'^(a\.m|p\.m)$']"/>
+      <ref name="fullstop"/>
+      <ref name="space"/>
+      <first>
+        <query match="w[.~'^(East|West|North|South)' or .~'^[A-Z][A-Z]+T$']"/>
+        <lookup match="w" lexicon="tlex"/>
+      </first>
+    </seq>
+    <query match="w[.~'^[A-Z]$']"/>
+    <query match="w[.~'^(Dep|Rep)$']"/>
+    <query match="w[.~'^(Mr|MR)$']"/>
+    <query match="w[.~'^(Mrs|MRS)$']"/>
+    <query match="w[.~'^(Ms|MS)$']"/>
+    <query match="w[.~'^(Dr|DR)$']"/>
+    <query match="w[.~'^(Prof|PROF)$']"/>
+    <query match="w[.~'^(Lt|LT)$']"/>
+    <query match="w[.~'^(Lieut|LIEUT)$']"/>
+    <query match="w[.~'^(Sgt|SGT)$']"/>
+    <query match="w[.~'^(Sergt|SERGT)$']"/>
+    <query match="w[.~'^(Capt|CAPT)$']"/>
+    <query match="w[.~'^(Maj|MAJ)$']"/>
+    <query match="w[.~'^(Col|COL)$']"/>
+    <query match="w[.~'^(Gen|GEN)$']"/>
+    <query match="w[.~'^(Brig|BRIG)$']"/>
+    <query match="w[.~'^(Gov|GOV)$']"/>
+    <query match="w[.~'^(Adm|ADM)$']"/>
+    <query match="w[.~'^(Comdr|COMDR)$']"/>
+    <query match="w[.~'^(Cmdr|CMDR)$']"/>
+    <query match="w[.~'^(Sen|SEN)$']"/>
+    <query match="w[.~'^(Rep|REP)$']"/>
+    <query match="w[.~'^(Rev|REV)$']"/>
+    <query match="w[.~'^(Snr|SNR)$']"/>
+    <query match="w[.~'^(Messrs|MESSRS)$']"/>
+  </first>
+</rule>
+
+<!-- News specific abbreviations that can occur sentence finally. --> 
+
+<rule name="knownabbr-news-post">
+  <first>
+    <query match="w[.~'^(Rep|REP)$']"/>
+    <query match="w[.~'^(Jr|JR)$']"/>
+    <query match="w[.~'^(Sr|SR)$']"/>
+    <query match="w[.~'^(Snr|SNR)$']"/>
+    <query match="w[.~'^(Esq|ESQ)$']"/>
+    <query match="w[.~'^(plc|Plc|PLC)$']"/>
+    <query match="w[.~'^(ltd|Ltd|LTD)$']"/>
+    <query match="w[.~'^(inc|Inc|INC)$']"/>
+    <query match="w[.~'^(co|Co|CO)$']"/>
+    <query match="w[.~'^(corp|Corp|CORP)$']"/>
+  </first>
+</rule>
+
+<!-- pre-abbreviations followed by an optional fullstop. -->
+
+<rule name="knownabbr-pre">
+  <seq>
+    <first>
+      <ref name="knownabbr-general-pre"/>
+      <ref name="knownabbr-news-pre"/>
+      <ref name="street-saint"/>
+    </first>
+    <ref name="fullstop" mult="?"/>
+  </seq>
+</rule>
+
+<!-- post-abbreviations followed by a fullstop where the following 
+     word does not have an initial uc. -->
+
+<rule name="knownabbr-post">
+  <seq>
+    <seq mult="+">
+      <first>
+        <ref name="knownabbr-general-post"/>
+        <ref name="knownabbr-news-post"/>
+      </first>
+      <ref name="fullstop"/>
+      <ref name="space"/>
+    </seq>
+    <query match="w[not(.~'^[A-Z]')]" suppress="true"/>
+  </seq>
+</rule>
+
+<rule name="refparts1">
+  <first>
+    <ref name="capword"/>
+    <ref name="space"/>
+    <query match="w[.~'[0-9]']"/>
+    <ref name="fullstop"/>
+    <query match="w[.~'[,;:\-\[\]]']"/>
+    <query match="w[.='and']"/>
+    <query match="w[.='et']"/>
+    <query match="w[.='al']"/>
+    <query match="w[.='&amp;']"/>
+    <query match="w[.='amp']"/>
+    <seq>
+      <query match="w[.='(']"/>
+      <query match="w[.~'^[0-9]+$']"/>
+      <query match="w[.=')']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="refparts2">
+  <first>
+    <ref name="capword"/>
+    <ref name="space"/>
+    <query match="w[.~'[0-9]']"/>
+    <ref name="fullstop"/>
+    <query match="w[.~'[,;:\-\(\)]']"/>
+    <query match="w[.='and']"/>
+    <query match="w[.='et']"/>
+    <query match="w[.='al']"/>
+    <query match="w[.='&amp;']"/>
+    <query match="w[.='amp']"/>
+  </first>
+</rule>
+
+<!-- 8. April 1972; February 20. 2008 -->
+<rule name="dates">
+  <first>
+    <seq>
+      <lookup match="w[.~'^[A-Z]']" lexicon="lex"> 
+        <constraint test="cat='month'"/>
+      </lookup>
+      <ref name="space"/>
+      <query match="w[.~'^[0-9][0-9]?$']"/>
+      <ref name="fullstop"/>
+      <ref name="space"/>
+      <query match="w[.~'^[12][90][0-9][0-9]$']"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^[0-9][0-9]?$']"/>
+      <ref name="fullstop"/>
+      <ref name="space"/>
+      <lookup match="w[.~'^[A-Z]']" lexicon="lex"> 
+        <constraint test="cat='month'"/>
+      </lookup>
+      <ref name="space"/>
+      <query match="w[.~'^[12][90][0-9][0-9]$']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="notrbr">
+  <first>
+    <ref name="space"/>
+    <query match="w[.~'^[^()]']"/>
+  </first>
+</rule>
+
+<rule name="notsbr">
+  <first>
+    <ref name="space"/>
+    <query match="w[.~'^[^\[\]]']"/>
+  </first>
+</rule>
+
+<!-- This is the main rule which finds sequences containing fullstops which 
+     are not sentence boundaries -->
+
+<rule name="knownwordstopseq">
+  <first>
+    <ref name="w-ws-stop"/>
+    <ref name="quests"/>
+    <ref name="stop-nows"/>
+    <ref name="dates"/>
+    <ref name="knownabbr-pre"/>
+    <ref name="knownabbr-post"/>
+    <seq>
+      <query match="w[.='(']"/>
+      <ref name="refparts1" mult="+"/>
+      <first>
+        <query match="w[.=')']"/>
+        <end/>
+      </first>
+    </seq>
+    <seq>
+      <query match="w[.='[']"/>
+      <ref name="refparts2" mult="+"/>
+      <first>
+        <query match="w[.=']']"/>
+        <end/>
+      </first>
+    </seq>
+    <seq>
+      <query match="w[.='(']"/>
+      <ref name="notrbr" mult="+"/>
+      <query match="w[.=')']"/>
+    </seq>
+    <seq>
+      <query match="w[.='[']"/>
+      <ref name="notsbr" mult="+"/>
+      <query match="w[.=']']"/>
+    </seq>
+    <seq>
+      <first>
+        <ref name="capword"/>
+        <query match="w[.~'^[,;:\)\(]+$']"/>
+      </first>
+      <ref name="space" mult="*"/>
+      <query match="w[.~'^[A-Z]$']"/>
+      <seq suppress="true">
+        <ref name="fullstop"/>
+        <ref name="space" mult="+"/>
+        <lookup match="w[.~'^[A-Z]']" lexicon="lex" case="no"> 
+          <constraint test="not(cat='month')"/>
+        </lookup>
+      </seq>
+    </seq>
+    <seq>
+      <first>
+        <ref name="capword"/>
+        <query match="w[.~'^[,;:\)\(]+$']"/>
+      </first>
+      <ref name="space" mult="*"/>
+      <query match="w[.~'^[A-Z]$']"/>
+      <ref name="fullstop"/>
+      <ref name="space" mult="+"/>
+      <ref name="capword"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^[A-Z]$']"/>
+      <ref name="fullstop"/>
+      <ref name="space" mult="+"/>
+      <ref name="lcword"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="word">
+  <first>
+    <ref name="knownwordstopseq"/>
+    <query match="w[not(.~'^[\.\?]$')]"/>
+  </first>
+</rule>
+
+<rule name="wordspaceseq">
+  <seq>
+    <ref name="word"/>
+    <ref name="space" mult="*"/>
+  </seq>
+</rule>
+
+<rule name="optspaceend">
+ <seq>
+   <ref name="ws" mult="*"/>
+   <end/>
+ </seq>
+</rule>
+
+<rule name="doublenl">
+  <first>
+    <seq>
+      <ref name="space" mult="*"/>
+      <ref name="nl"/>
+    </seq>
+    <ref name="nl"/>
+  </first>
+</rule>
+
+<rule name="spacewordseq">
+  <seq>
+    <ref name="space" mult="*"/>
+    <ref name="word"/>
+  </seq>
+</rule>
+
+<rule name="spacethencapword">
+ <seq>
+   <ref name="what" mult="*"/>
+   <ref name="space" mult="+"/>
+   <ref name="quoteoropenbrack" mult="?"/>
+   <ref name="capword"/>
+ </seq>
+</rule>
+
+<rule name="spacethendigit">
+ <seq>
+   <ref name="what" mult="*"/>
+   <ref name="space" mult="+"/>
+   <ref name="quoteoropenbrack" mult="?"/>
+   <query match="w[.~'^[0-9]']"/>
+ </seq>
+</rule>
+
+<rule name="spacethenlcword">
+ <seq>
+   <ref name="what" mult="*"/>
+   <ref name="space" mult="+"/>
+   <ref name="quoteoropenbrack" mult="?"/>
+   <query match="w[.~'^[a-z]']"/>
+ </seq>
+</rule>
+
+<rule name="inlex">
+  <first>
+    <lookup match="w[.~'^[A-Z]']" lexicon="lex" case="no"> 
+      <constraint test="not(cat='month')"/>
+    </lookup>
+    <query match="w[.~'ing$']"/>
+    <query match="w[.~'ly$']"/>
+    <query match="w[.~'ed$']"/>
+    <query match="w[.~'ive$']"/>
+    <query match="w[.~'tion[s]?$']"/>
+  </first>
+</rule>
+
+<rule name="spacethennotNNPcapword">
+ <seq>
+   <ref name="what" mult="*"/>
+   <ref name="space" mult="+"/>
+   <ref name="quoteoropenbrack" mult="?"/>
+<!--   <query match="w[.~'^[A-Z]' and @p and not(@p~'^NNP')]"/>-->
+   <ref name="inlex"/>
+ </seq>
+</rule>
+
+<rule name="fullstopoptwhat">
+ <seq>
+   <first>
+     <seq>
+       <query match="w[.~'^[\?]$']"/>
+       <query match="w[.~'^[\.]$']"/>
+     </seq>
+     <seq>
+       <query match="w[.~'^[\.]$']"/>
+       <query match="w[.~'^[\?]$']"/>
+     </seq>
+     <ref name="stoporquest" attrs="sb='true'"/>
+   </first>
+   <ref name="what" mult="*"/>
+ </seq>
+</rule>
+
+<rule name="sentend">
+  <seq>
+    <ref name="fullstopoptwhat"/>
+    <ref name="quoteoropenbrack" mult="?"/>
+    <first>
+      <ref name="spacethencapword"/>
+      <ref name="spacethendigit"/>
+      <ref name="optspaceend"/>
+      <ref name="doublenl"/>
+    </first>
+  </seq>
+</rule>
+     
+<rule name="lc-stop">
+  <seq>
+    <query match="w[.~'^[a-z\-]+$' and not(.~'^(vs|ie|cf|etc|c|ca|approx|ssp|sp)$')]"/>
+    <ref name="fullstop" attrs="sb='true'"/>
+  </seq>
+</rule>
+
+<!-- Sentence rules: most specific first -->
+
+<!-- DUBAI (Reuters) - -->
+<rule name="sentxrce5" wrap="s">
+  <seq>
+    <query match="w[.~'^[A-Z]+$']"/>
+    <ref name="space" mult="+"/>
+    <query match="w[.='(']"/>
+    <query match="w[.~'^(Reuters|AP)$']"/>
+    <query match="w[.=')']"/>
+    <ref name="space" mult="+"/>
+    <query match="w[.='-']"/>
+  </seq>
+</rule>
+
+<!-- (word space)* lc-word . space lc-initial-word -->
+<rule name="sent1" wrap="s">
+  <seq>
+    <repeat-until name="wordspaceseq" min-matches="1">
+       <ref name="lc-stop"/>
+    </repeat-until>
+    <ref name="lc-stop"/>
+    <ref name="spacethenlcword" suppress='true'/> 
+  </seq>
+</rule>
+
+<rule name="singleucletterstop">
+  <seq>
+    <query match="w[.~'^[A-Z]$']"/>
+    <ref name="fullstop"/>
+  </seq>
+</rule>
+
+<!-- (word space)* single-uc-letter . space not-NNP-capword -->
+<rule name="sent2" wrap="s">
+  <seq>
+    <repeat-until name="wordspaceseq">
+      <ref name="singleucletterstop"/>
+    </repeat-until>
+    <ref name="singleucletterstop"/>
+    <first suppress='true'>
+      <ref name="spacethennotNNPcapword"/>
+    </first>
+  </seq>
+</rule>
+
+<!-- main sentence rule: (word space)* . space capword -->
+<rule name="sent3" wrap="s">
+  <seq>
+    <repeat-until name="wordspaceseq" min-matches="1">
+       <ref name="sentend"/>
+    </repeat-until>
+    <ref name="fullstopoptwhat"/>
+    <ref name="quoteorclosebrack" mult="?"/>
+    <first suppress='true'>
+      <ref name="spacethencapword"/>
+      <ref name="spacethendigit"/>
+      <ref name="optspaceend"/>
+      <ref name="doublenl"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="spaceorend">
+  <first>
+    <ref name="space"/>
+    <ref name="doublenl"/>
+    <end/>
+  </first>
+</rule>
+
+<!-- catch all rule -->
+<rule name="sent4" wrap="s">
+  <seq>
+    <ref name="word"/>
+    <ref name="spacewordseq" mult="*"/>
+    <ref name="fullstopoptwhat" mult="?"/>
+    <ref name="spaceorend" suppress="true"/>
+  </seq>
+</rule>
+
+<rule name="all">
+  <first>
+    <ref name="sentxrce5"/>
+    <ref name="sent1"/>
+<!--    <ref name="sent2"/>-->
+    <ref name="sent3"/>
+    <ref name="sent4"/>
+  </first>
+</rule>
+
+</rules>

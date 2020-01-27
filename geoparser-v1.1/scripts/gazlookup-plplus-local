@@ -1,0 +1,51 @@
+#!/bin/sh
+
+usage="gazlookup-gap-local <input.xml >output.xml"
+descr="Do gazetteer lookup on a set of placenames, using local copy of Pleiades+ data (post 2014 version), and combining this with search of geonames for alternates to try in plplus."
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+lib=$here/lib/georesolve
+
+cat >$tmp-input
+
+# use altname and abbrev-for attributes iff present
+lxreplace -q placename -t '
+<xsl:choose>
+  <xsl:when test="@abbrev-for and @altname">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/><query-text>select distinct n.nameTransliterated name,n.pid plid,p.featureTypes fclass,pp.geonames_featurecode fcode,null country,p.reprLat latitude,p.reprLong longitude,null population from name n join place p on (n.pid=p.id) left join plplus pp on (pp.pleiades_url=concat(&quot;http://pleiades.stoa.org&quot;, p.path)) where (n.nameTransliterated in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@abbrev-for"/></string>,<string><xsl:value-of select="@altname"/></string>) or n.nameAttested in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@abbrev-for"/></string>,<string><xsl:value-of select="@altname"/></string>) or p.title in (<string><xsl:value-of select="translate(@name,&quot; &quot;,&quot;&quot;)"/></string>,<string><xsl:value-of select="translate(@abbrev-for,&quot; &quot;,&quot;&quot;)"/></string>,<string><xsl:value-of select="translate(@altname,&quot; &quot;,&quot;&quot;)"/></string>)) union select distinct g.name,n.pid plid,g.fclass,g.fcode,g.country,g.latitude,g.longitude,g.population from name n join geonames.alternatename a on n.nameTransliterated=a.alternatename join geonames.geoname g on a.geonameid=g.geonameid join geonames.alternatename a2 on a2.geonameid=g.geonameid where a2.alternatename in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@abbrev-for"/></string>,<string><xsl:value-of select="@altname"/></string>) order by population desc</query-text>
+    </xsl:copy>
+  </xsl:when>
+  <xsl:when test="@abbrev-for">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/><query-text>select distinct n.nameTransliterated name,n.pid plid,p.featureTypes fclass,pp.geonames_featurecode fcode,null country,p.reprLat latitude,p.reprLong longitude,null population from name n join place p on (n.pid=p.id) left join plplus pp on (pp.pleiades_url=concat(&quot;http://pleiades.stoa.org&quot;, p.path)) where (n.nameTransliterated in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@abbrev-for"/></string>) or n.nameAttested in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@abbrev-for"/></string>) or p.title in (<string><xsl:value-of select="translate(@name,&quot; &quot;,&quot;&quot;)"/></string>,<string><xsl:value-of select="translate(@abbrev-for,&quot; &quot;,&quot;&quot;)"/></string>)) union select distinct g.name,n.pid plid,g.fclass,g.fcode,g.country,g.latitude,g.longitude,g.population from name n join geonames.alternatename a on n.nameTransliterated=a.alternatename join geonames.geoname g on a.geonameid=g.geonameid join geonames.alternatename a2 on a2.geonameid=g.geonameid where a2.alternatename in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@abbrev-for"/></string>) order by population desc</query-text>
+    </xsl:copy>
+  </xsl:when>
+  <xsl:when test="@altname">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/><query-text>select distinct n.nameTransliterated name,n.pid plid,p.featureTypes fclass,pp.geonames_featurecode fcode,null country,p.reprLat latitude,p.reprLong longitude,null population from name n join place p on (n.pid=p.id) left join plplus pp on (pp.pleiades_url=concat(&quot;http://pleiades.stoa.org&quot;, p.path)) where (n.nameTransliterated in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@altname"/></string>) or n.nameAttested in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@altname"/></string>) or p.title in (<string><xsl:value-of select="translate(@name,&quot; &quot;,&quot;&quot;)"/></string>,<string><xsl:value-of select="translate(@altname,&quot; &quot;,&quot;&quot;)"/></string>)) union select distinct g.name,n.pid plid,g.fclass,g.fcode,g.country,g.latitude,g.longitude,g.population from  name n join geonames.alternatename a on n.nameTransliterated=a.alternatename join geonames.geoname g on a.geonameid=g.geonameid join geonames.alternatename a2 on a2.geonameid=g.geonameid where a2.alternatename in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@altname"/></string>) order by population desc</query-text>
+    </xsl:copy>
+  </xsl:when>
+  <xsl:otherwise>
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/><query-text>select distinct n.nameTransliterated name,n.pid plid,p.featureTypes fclass,pp.geonames_featurecode fcode,null country,p.reprLat latitude,p.reprLong longitude,null population from name n join place p on (n.pid=p.id) left join plplus pp on (pp.pleiades_url=concat(&quot;http://pleiades.stoa.org&quot;, p.path)) where (n.nameTransliterated = <string><xsl:value-of select="@name"/></string> or p.title = <string><xsl:value-of select="@name"/></string> or n.nameAttested = <string><xsl:value-of select="translate(@name,&quot; &quot;,&quot;&quot;)"/></string>) union select distinct g.name,n.pid plid,g.fclass,g.fcode,g.country,g.latitude,g.longitude,g.population from name n join geonames.alternatename a on n.nameTransliterated=a.alternatename join geonames.geoname g on a.geonameid=g.geonameid join geonames.alternatename a2 on a2.geonameid=g.geonameid where a2.alternatename = <string><xsl:value-of select="@name"/></string> order by population desc</query-text>
+    </xsl:copy>
+  </xsl:otherwise>
+</xsl:choose>' <$tmp-input > $tmp-queries
+
+lxviewport  -q query-text "lxmysql -h ##YOUR HOSTNAME HERE## -u pipeline -d pleiades" <$tmp-queries > $tmp-dbout
+
+
+# processing exactly as for geonames-local
+lxt -s $lib/extractgeonameslocalresults.xsl < $tmp-dbout

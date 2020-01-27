@@ -1,0 +1,661 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="content-type"></meta>
+  <title>Geoparser results</title>
+  <script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAJMrGlyfwNVfUM30sWp_76RTEZhwwuW-82T6n_RFJkr4DqVuLlxQNTq5htkpjBE9F3-HlhjF7oDqfLA"></script>
+  <script type="text/javascript">
+
+    var map;
+
+     
+
+    var red_icon = new GIcon(G_DEFAULT_ICON, "http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png");
+    var green_icon = new GIcon(G_DEFAULT_ICON, "http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png");
+
+    red_icon.size = green_icon.size = new GSize(32, 32);
+    red_icon.iconAnchor = green_icon.iconAnchor = new GPoint(16,32); 
+    red_icon.shadowSize = green_icon.shadowSize = new GSize(59,32);
+    red_icon.shadow = green_icon.shadow = "http://maps.google.com/mapfiles/ms/micons/msmarker.shadow.png" 
+
+    function load() {
+      if (GBrowserIsCompatible()) {
+        var point;
+        map = new GMap2(document.getElementById("map"));
+	map.addControl(new GLargeMapControl());
+        map.setCenter(new GLatLng(37.03833,
+	                          27.42917), 4);
+	
+        point = new GLatLng(37.03833, 27.42917);
+	marker = new GMarker(point, {title: "Halicarnassus",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.75, 22.75);
+	marker = new GMarker(point, {title: "Argos",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.5, 22.5);
+	marker = new GMarker(point, {title: "Hellas",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(29.86667, 31.25);
+	marker = new GMarker(point, {title: "Memphis",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(33.27333, 35.19389);
+	marker = new GMarker(point, {title: "Tyrus",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(32.87519, 13.18746);
+	marker = new GMarker(point, {title: "Oea",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(39.5, 41.5);
+	marker = new GMarker(point, {title: "Phasis fl.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.5, 26.547619);
+	marker = new GMarker(point, {title: "Asia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(42.5, 27.5);
+	marker = new GMarker(point, {title: "Europe",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.5, 40.119045);
+	marker = new GMarker(point, {title: "Syria",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(41.5, 32.5);
+	marker = new GMarker(point, {title: "Paphlagonia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(36.75, 28.75);
+	marker = new GMarker(point, {title: "Euxine",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.75, 26.75);
+	marker = new GMarker(point, {title: "Ionia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.25, 28.25);
+	marker = new GMarker(point, {title: "Sardis",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.5, 26.547619);
+	marker = new GMarker(point, {title: "Lydia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.25, 22.75);
+	marker = new GMarker(point, {title: "Delphi",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.5, 26.547619);
+	marker = new GMarker(point, {title: "Phrygia I",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.75, 27.25);
+	marker = new GMarker(point, {title: "Miletus",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.25, 27.25);
+	marker = new GMarker(point, {title: "Smyrna",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.25, 27.25);
+	marker = new GMarker(point, {title: "Colophon",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.75, 27.25);
+	marker = new GMarker(point, {title: "Priene",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.75, 27.25);
+	marker = new GMarker(point, {title: "Maeander fl.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.94068, 22.95734);
+	marker = new GMarker(point, {title: "Corinthus",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(39.25, 26.25);
+	marker = new GMarker(point, {title: "Methymna",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(42.83333, 12.83333);
+	marker = new GMarker(point, {title: "Italia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.75, 14.25);
+	marker = new GMarker(point, {title: "Sicilia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(40.25, 17.25);
+	marker = new GMarker(point, {title: "Tarentum",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(39.25, 26.75);
+	marker = new GMarker(point, {title: "Mytilene",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.125, 23.625);
+	marker = new GMarker(point, {title: "Eleusis",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(40.09, 22.36);
+	marker = new GMarker(point, {title: "Olympus M.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(40.09, 22.36);
+	marker = new GMarker(point, {title: "Olympus M.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(39.75, 20.75);
+	marker = new GMarker(point, {title: "Dodona",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(32.5, 26.547619);
+	marker = new GMarker(point, {title: "Libya Inferior",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.75722, 26.97694);
+	marker = new GMarker(point, {title: "Samos",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.325, 23.31889);
+	marker = new GMarker(point, {title: "Thebae",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.75, 27.25);
+	marker = new GMarker(point, {title: "Hermus fl.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(39.25, 21.25);
+	marker = new GMarker(point, {title: "Pindus M.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(40.09, 22.36);
+	marker = new GMarker(point, {title: "Olympus M.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.97945, 23.71622);
+	marker = new GMarker(point, {title: "Athenae",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.4, 23.8);
+	marker = new GMarker(point, {title: "Eretria",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.25, 25.75);
+	marker = new GMarker(point, {title: "Naxos Ins.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.125, 23.625);
+	marker = new GMarker(point, {title: "Attica",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.125, 23.875);
+	marker = new GMarker(point, {title: "Marathon",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(41.25, 23.25);
+	marker = new GMarker(point, {title: "Strymon fl.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.3925, 25.26778);
+	marker = new GMarker(point, {title: "Delos",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.25, 22.25);
+	marker = new GMarker(point, {title: "Sparta",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.75, 21.75);
+	marker = new GMarker(point, {title: "Arcadia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.25, 22.25);
+	marker = new GMarker(point, {title: "Tegea",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.25, 22.25);
+	marker = new GMarker(point, {title: "Lacedaemon",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.25, 22.25);
+	marker = new GMarker(point, {title: "Laconia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.5, 40.119045);
+	marker = new GMarker(point, {title: "Cappadocia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.5, 40.119045);
+	marker = new GMarker(point, {title: "Cilicia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(34.5, 46.5);
+	marker = new GMarker(point, {title: "Media",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(39.75, 35.25);
+	marker = new GMarker(point, {title: "Pteria",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(41.25, 13.75);
+	marker = new GMarker(point, {title: "Sinope",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.6703, 26.75656);
+	marker = new GMarker(point, {title: "Phocaea",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.25, 22.75);
+	marker = new GMarker(point, {title: "Thyrea",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.25, 22.25);
+	marker = new GMarker(point, {title: "Malea",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.25, 27.75);
+	marker = new GMarker(point, {title: "Tmolus M.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.75, 22.75);
+	marker = new GMarker(point, {title: "Boeotia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.75, 27.25);
+	marker = new GMarker(point, {title: "Ephesus",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(32.5, 44.5);
+	marker = new GMarker(point, {title: "Babylon",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(34.5, 48.5);
+	marker = new GMarker(point, {title: "Ecbatana",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(31.65, 34.53333);
+	marker = new GMarker(point, {title: "Ascalon",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.5, 31.07143);
+	marker = new GMarker(point, {title: "Cyprus",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.5, 37.5);
+	marker = new GMarker(point, {title: "AsSyria",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(30.5, 53.5);
+	marker = new GMarker(point, {title: "Pasargadae",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.75, 27.25);
+	marker = new GMarker(point, {title: "Panionion",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.5, 26.547619);
+	marker = new GMarker(point, {title: "Caria",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.25, 26.75);
+	marker = new GMarker(point, {title: "Lebedos",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.25, 26.25);
+	marker = new GMarker(point, {title: "Chios",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(36.75, 27.25);
+	marker = new GMarker(point, {title: "Cos Ins.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.75, 22.75);
+	marker = new GMarker(point, {title: "Sicyon",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.75, 27.25);
+	marker = new GMarker(point, {title: "Aegae",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(39.75, 16.25);
+	marker = new GMarker(point, {title: "Crathis",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(42.5, 23.5);
+	marker = new GMarker(point, {title: "Helice",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.24861, 22.08194);
+	marker = new GMarker(point, {title: "Aigion",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.25, 21.75);
+	marker = new GMarker(point, {title: "Patrae",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.25, 21.75);
+	marker = new GMarker(point, {title: "Dyme",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.75, 23.75);
+	marker = new GMarker(point, {title: "Abantes",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.75, 23.25);
+	marker = new GMarker(point, {title: "Euboea Ins.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.25, 22.75);
+	marker = new GMarker(point, {title: "Orchomenus",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.63333, 23.16667);
+	marker = new GMarker(point, {title: "Epidauros",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.25, 22.75);
+	marker = new GMarker(point, {title: "Helicon M.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.75, 26.75);
+	marker = new GMarker(point, {title: "Cyme",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(41.25, 27.75);
+	marker = new GMarker(point, {title: "Neon Teichos",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.75, 27.25);
+	marker = new GMarker(point, {title: "Temnos",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.25, 27.25);
+	marker = new GMarker(point, {title: "Notion",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.75, 26.75);
+	marker = new GMarker(point, {title: "Pitane",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.75, 26.75);
+	marker = new GMarker(point, {title: "Myrina",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(39.75, 26.75);
+	marker = new GMarker(point, {title: "Ida M.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(39.25, 26.25);
+	marker = new GMarker(point, {title: "Lesbos Ins.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(39.25, 26.25);
+	marker = new GMarker(point, {title: "Arisba",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(39.75, 26.25);
+	marker = new GMarker(point, {title: "Tenedos Ins.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(40.5, 23);
+	marker = new GMarker(point, {title: "Macedonia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.5, 72.5);
+	marker = new GMarker(point, {title: "Sacae",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.11582, 13.35976);
+	marker = new GMarker(point, {title: "Panormus",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.75, 26.75);
+	marker = new GMarker(point, {title: "Atarneus sub Pitanem",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.75, 22.75);
+	marker = new GMarker(point, {title: "Mysia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.75, 27.25);
+	marker = new GMarker(point, {title: "Magnesia ad Sipylum",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(42.5, 43.5);
+	marker = new GMarker(point, {title: "Iberia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(41.33333, 26.75);
+	marker = new GMarker(point, {title: "Thrake",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(40.75, 24.75);
+	marker = new GMarker(point, {title: "Abdera",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(39.75, 26.75);
+	marker = new GMarker(point, {title: "Leleges",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.25, 27.75);
+	marker = new GMarker(point, {title: "Mylasa",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(36.75, 27.25);
+	marker = new GMarker(point, {title: "Triopion",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(36.75, 27.75);
+	marker = new GMarker(point, {title: "Syme Ins.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.25, 27.75);
+	marker = new GMarker(point, {title: "Lide M.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(36.33591, 29.31937);
+	marker = new GMarker(point, {title: "Xanthos",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(36.75, 28.75);
+	marker = new GMarker(point, {title: "Caunus",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(31.5, 44.5);
+	marker = new GMarker(point, {title: "Euphrates fl.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.5, 40.119045);
+	marker = new GMarker(point, {title: "Armenia Minor",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(36.25, 29.25);
+	marker = new GMarker(point, {title: "Patara",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.5, 26.547619);
+	marker = new GMarker(point, {title: "Lycia et Pamphylia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(31.5, 48.5);
+	marker = new GMarker(point, {title: "Choaspes?",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.5, 41.5);
+	marker = new GMarker(point, {title: "Tigris",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(33.5, 44.5);
+	marker = new GMarker(point, {title: "Opis",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(32.5, 44.5);
+	marker = new GMarker(point, {title: "Babylonia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.5, 39.5);
+	marker = new GMarker(point, {title: "Arabia",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(38.5, 46.5);
+	marker = new GMarker(point, {title: "Araxes fl.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(37.5, 92.5);
+	marker = new GMarker(point, {title: "Issedones",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(42.5, 43.5);
+	marker = new GMarker(point, {title: "Caucasus M.",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+      }
+    }
+
+    function goto(x, y) {
+        map.setCenter(new GLatLng(x, y), 6);
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+    </script>
+  <style>
+      .found {color: green;} 
+      table  {border-collapse: collapse; empty-cells: show;}
+      tr     {border: 1px solid black;}
+      td {color: green;}
+     </style>
+ </head>
+ <body onunload="GUnload()" onload="load()">
+  <div style="height: 400px" id="map"></div>
+ </body>
+</html>

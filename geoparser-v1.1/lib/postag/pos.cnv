@@ -1,0 +1,99 @@
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+
+<xsl:template match="s" mode="write">
+
+  <xsl:for-each select="w">	      
+
+    <xsl:apply-templates select="." mode="write"/>
+
+    <xsl:if test="following-sibling::w">
+      <xsl:text> </xsl:text>
+    </xsl:if>
+
+  </xsl:for-each>	      
+
+  <xsl:text>&#10;</xsl:text>
+    
+</xsl:template>
+
+<!-- the pos model is trained on PTB and doesn't know what to do with
+". Since tokenise identifies left and right ", we can use this to give
+the model characters that it does know about.  
+So <w c="lquote" qut="d">"</w> is written as `` and 
+<w c="rquote" qut="d">"</w> is written as '' in order that the tagger 
+will do the right thing with them. It is only when creating postag input 
+that they are changed - they are not changed in the postag module output. -->
+
+<!-- the pos tagger interprets sentence initial # as a comment marker
+     and fails. This replaces it with + when writing to the tagger -->
+<xsl:template match="s/w[1][.='#']" mode="write">
+   <xsl:text>+</xsl:text>
+</xsl:template>
+
+<xsl:template match="w[@c='lquote' and @qut='d']" mode="write">
+   <xsl:text>``</xsl:text>
+</xsl:template>
+
+<xsl:template match="w[@c='rquote' and @qut='d']" mode="write">
+   <xsl:text>''</xsl:text>
+</xsl:template>
+
+<xsl:template match="w[@c='quote' and @qut='d']" mode="write">
+   <xsl:text>''</xsl:text>
+</xsl:template>
+
+<!-- similarly, map white space and | to _ in the pos tagger input. -->
+
+<xsl:template match="w" mode="write">
+    <xsl:value-of select="translate(., ' |', '__')"/>
+</xsl:template>
+
+
+<xsl:template match="s" mode="read">
+
+  <xsl:variable name="line" select="read-line()"/>
+
+  <xsl:copy>
+    <xsl:apply-templates select="node()|@*">
+      <xsl:with-param name="line" select="$line"/>
+    </xsl:apply-templates>
+  </xsl:copy>
+
+</xsl:template>
+
+<xsl:template match="w[.='cannot']">
+  <xsl:copy>
+    <xsl:apply-templates select="@*"/>
+    <xsl:attribute name="p">MD</xsl:attribute>
+    <xsl:apply-templates select="node()"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="w[.='uh']">
+  <xsl:copy>
+    <xsl:apply-templates select="@*"/>
+    <xsl:attribute name="p">RB</xsl:attribute>
+    <xsl:apply-templates select="node()"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="w">
+  <xsl:param name="line"/>
+  <xsl:variable name="wordnum" select="count(preceding-sibling::w) + 1"/>
+  <xsl:variable name="word" select="$line[$wordnum]"/>
+  <xsl:copy>
+    <xsl:apply-templates select="@*"/>
+    <xsl:attribute name="p">
+      <xsl:value-of select="substring-after($word, '|')"/>
+    </xsl:attribute>
+    <xsl:apply-templates select="node()"/>
+  </xsl:copy>
+</xsl:template>
+
+<xsl:template match="node()|@*">
+  <xsl:copy>
+    <xsl:apply-templates select="node()|@*"/>
+  </xsl:copy>
+</xsl:template>
+
+</xsl:stylesheet>

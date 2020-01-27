@@ -1,0 +1,88 @@
+<rules name="hyphs" type="xml" apply="all">
+
+<rule name="in-num-lexs">
+    <lookup match="w[not(.='M')]" lexicon="lex" phrase="true"/>
+</rule>
+
+<rule name="word">
+  <query match="w[.~'[A-z0-9]']"/>
+</rule>
+
+<rule name="alphword">
+  <query match="w[.~'[A-Za-z]']"/>
+</rule>
+
+<!-- pre-word in hyphenated word -->
+
+<rule name="prehyph">
+  <first>
+    <query match="w[@c='abbr']"/>
+    <query match="w[@c='w' and not(.~'^[A-Z]$')]"/>
+    <query match="w[@c='ord']"/>
+    <query match="w[@c='cd' and .~'^[^0-9]+$']"/>
+  </first>
+</rule>
+
+<!-- subpart of hyphenated word -->
+
+<rule name="subhyph">
+  <seq>
+   <query match="w[@c='hyph']"/>
+   <query match="w[not(@c='aposs') and .~'[A-z0-9]']" mult="+"/>
+  </seq>
+</rule>
+
+ <!-- hyphenated word -->
+
+<rule name="hyphwrd" wrap="w" attrs="c='hyw'">
+  <first>
+    <seq>
+      <ref name="prehyph"/>
+      <ref name="subhyph" mult="+"/>
+    </seq>
+    <seq>
+      <query match="w[.='E']"/>
+      <query match="w[@c='hyph']"/>
+      <query match="w[.='mail']"/>
+    </seq>
+  </first>
+</rule>
+
+<!-- block some possibilities, e.g. Paris-based -->
+<rule name="nothyphwrd">
+  <seq>
+    <query match="w[@c='w' and .~'^[A-Z][a-z]+$']"/>
+    <query match="w[@c='hyph']"/>
+    <query match="w[@c='w' and .~'^[a-z]+ed$']"/>
+  </seq>
+</rule>
+
+<rule name="postcontext">
+  <first>
+    <query match="w[not(@qut) and not(.=')')]"/>
+    <query match="cg"/>
+  </first>
+</rule>
+
+<!-- put fullstop back in with preceding abbreviation -->
+<rule name="abbrstop" wrap="w" attrs="c='abbr'">
+  <seq>
+    <first>
+      <ref name="hyphwrd"/>
+      <ref name="alphword"/>
+    </first>
+    <query match="w[.='.']"/>
+    <ref name="postcontext" suppress="true"/>
+  </seq>
+</rule>
+
+<rule name="all">
+  <first>
+    <ref name="in-num-lexs"/>
+    <ref name="abbrstop"/>
+    <ref name="nothyphwrd"/>
+    <ref name="hyphwrd"/>
+  </first>
+</rule>
+
+</rules>

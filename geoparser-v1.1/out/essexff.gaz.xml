@@ -1,0 +1,241 @@
+<placenames>
+ <placename id="rb2" name="ESSEX">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ </placename>
+ <placename id="rb4" name="Teye">
+  
+  
+  
+  
+  <place rank="1" score="1.290513369" scaled_type="0.4" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="0.7527470000000001" lat="51.8958" deepcounty="Essex" unlockfpsrc="kepn" variantid="epns-deep-12-b-name-w720264" madsid="epns-deep-12-b-subparish-000241" uricdda="http://placenames.org.uk/id/placename/12/014562" uriins="http://epns.nottingham.ac.uk/England/Essex/Essex/Lexden%20Hundred/Great/Great%20Tey" gazetteer="Digital Exposure of English Place-names (DEEP)" type="civil" gazref="deep:27623277" name="Teye" clusteriness="16.55668024" scaled_clusteriness="0.8905133693" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0">
+   <attestations>
+    <attestation>
+     <date begin="1254" end="1254" subtype="simple">1254</date>
+     <source id="ex150" style="">FF</source>
+    </attestation>
+   </attestations>
+  </place>
+  <place rank="2" score="1.290513369" scaled_type="0.4" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="0.7527470000000001" lat="51.8958" deepcounty="Essex" unlockfpsrc="kepn" variantid="epns-deep-12-b-name-w720175" madsid="epns-deep-12-b-subparish-000241" uricdda="http://placenames.org.uk/id/placename/12/014559" uriins="http://epns.nottingham.ac.uk/England/Essex/Essex/Lexden%20Hundred/Great/Great%20Tey" gazetteer="Digital Exposure of English Place-names (DEEP)" type="civil" gazref="deep:27623280" name="Teye" clusteriness="16.55668024" scaled_clusteriness="0.8905133693" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0">
+   <attestations>
+    <attestation>
+     <date begin="1135" end="1154" subtype="simple">1135-54</date>
+     <source id="ex82" style="">Colch</source>
+    </attestation>
+   </attestations>
+  </place>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ </placename>
+ <placename id="rb5" name="Dem"/>
+ <placename id="rb8" name="West Tyllebir" altname="Tyllebir">
+  
+  
+ </placename>
+ <placename id="rb10" name="Gladefen">
+  <place rank="1" score="1.307467146" scaled_type="0.4" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="0.6398905296921135" lat="51.92495268868851" deepcounty="Essex" unlockfpsrc="unlock" variantid="epns-deep-12-c-name-w788857" madsid="epns-deep-12-c-mappedname-004396" uricdda="http://placenames.org.uk/id/placename/12/015909" uriins="http://epns.nottingham.ac.uk/England/Essex/Essex/Hinckford%20Hundred/Halstead%20Rural/Gladfen%20Hall" gazetteer="Digital Exposure of English Place-names (DEEP)" type="civil" gazref="deep:27810485" name="Gladefen" clusteriness="15.31319131" scaled_clusteriness="0.9074671459" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0">
+   <attestations>
+    <attestation>
+     <date begin="1247" end="1247" subtype="simple">1247</date>
+     <date begin="1261" end="1261" subtype="simple">1261</date>
+     <source id="ex150" style="">FF</source>
+    </attestation>
+   </attestations>
+  </place>
+ </placename>
+ <placename id="rb11" name="Alfameston">
+  
+  <place rank="1" score="1.279866216" scaled_type="0.4" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="0.729163" lat="51.9863" deepcounty="Essex" unlockfpsrc="kepn" variantid="epns-deep-12-b-name-w730203" madsid="epns-deep-12-b-subparish-000244" uricdda="http://placenames.org.uk/id/placename/12/014773" uriins="http://epns.nottingham.ac.uk/England/Essex/Essex/Hinckford%20Hundred/Alphamstone/Alphamstone" gazetteer="Digital Exposure of English Place-names (DEEP)" type="civil" gazref="deep:27809852" name="Alfameston" clusteriness="17.38871811" scaled_clusteriness="0.8798662165" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0">
+   <attestations>
+    <attestation>
+     <date begin="1223" end="1227" subtype="simple">1223-7</date>
+     <source id="ex150" style="">FF</source>
+    </attestation>
+   </attestations>
+  </place>
+ </placename>
+ <placename id="rb12" name="Pebbeners">
+  <place rank="1" score="1.300954897" scaled_type="0.4" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="0.6989919999999999" lat="51.969" deepcounty="Essex" unlockfpsrc="kepn" variantid="epns-deep-12-b-name-w814980" madsid="epns-deep-12-b-subparish-000270" uricdda="http://placenames.org.uk/id/placename/12/016451" uriins="http://epns.nottingham.ac.uk/England/Essex/Essex/Hinckford%20Hundred/Pebmarsh/Pebmarsh" gazetteer="Digital Exposure of English Place-names (DEEP)" type="civil" gazref="deep:27624294" name="Pebbeners" clusteriness="15.77938982" scaled_clusteriness="0.9009548974" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0">
+   <attestations>
+    <attestation>
+     <date begin="1205" end="1205" subtype="simple">1205</date>
+     <source id="ex106" style="">Cur</source>
+    </attestation>
+    <attestation>
+     <date begin="1227" end="1251" subtype="simple">1227-51</date>
+     <source id="ex150" style="">FF</source>
+    </attestation>
+    <attestation>
+     <date begin="1303" end="1303" subtype="simple">1303</date>
+     <source id="ex147" style="">FA</source>
+    </attestation>
+   </attestations>
+  </place>
+ </placename>
+ <placename id="rb14" name="Osbert">
+  
+  
+ </placename>
+ <placename id="rb16" name="See">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ </placename>
+ <placename id="rb18" name="Hertford">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ </placename>
+ <placename id="rb20" name="Ely">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ </placename>
+ <placename id="rb23" name="Brokesheved">
+  
+  
+  <place rank="1" score="1.148451384" scaled_type="0.4" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="0.288566" lat="51.9148" deepcounty="Essex" unlockfpsrc="kepn" variantid="epns-deep-12-b-name-w855411" madsid="epns-deep-12-b-subparish-000287" uricdda="http://placenames.org.uk/id/placename/12/017443" uriins="http://epns.nottingham.ac.uk/England/Essex/Essex/Dunmow%20Hundred/Broxted/Broxted" gazetteer="Digital Exposure of English Place-names (DEEP)" type="civil" gazref="deep:27811221" name="Brokesheved" clusteriness="31.84910495" scaled_clusteriness="0.748451384" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0">
+   <attestations>
+    <attestation>
+     <date begin="1320" end="1320" subtype="simple">1320</date>
+     <source id="ex151" style="italic">FF</source>
+    </attestation>
+    <attestation>
+     <date begin="1227" end="1227" subtype="simple">1227</date>
+     <date begin="1267" end="1267" subtype="simple">1267</date>
+     <source id="ex150" style="">FF</source>
+    </attestation>
+    <attestation>
+     <date begin="1252" end="1252" subtype="simple">1252</date>
+     <source id="ex313" style="">Pat</source>
+    </attestation>
+    <attestation>
+     <date begin="1303" end="1303" subtype="simple">1303</date>
+     <date begin="1428" end="1428" subtype="simple">1428</date>
+     <source id="ex147" style="">FA</source>
+    </attestation>
+    <attestation>
+     <date begin="1237" end="1237" subtype="simple">1237</date>
+     <source id="ex82" style="">Colch</source>
+    </attestation>
+    <attestation>
+     <date begin="1252" end="1252" subtype="simple">1252</date>
+     <source id="ex63" style="">Ch</source>
+    </attestation>
+   </attestations>
+  </place>
+ </placename>
+ <placename id="rb29" name="le Hegge">
+  
+  
+  
+  
+  
+  
+ </placename>
+ <placename id="rb33" name="Steple">
+  
+  
+  
+  
+  
+  <place rank="1" score="1.146670351" scaled_type="0.4" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="0.797988" lat="51.6879" deepcounty="Essex" unlockfpsrc="kepn" variantid="epns-deep-12-b-name-w389583" madsid="epns-deep-12-b-subparish-000130" uricdda="http://placenames.org.uk/id/placename/12/007759" uriins="http://epns.nottingham.ac.uk/England/Essex/Essex/Dengie%20Hundred/Steeple/Steeple" gazetteer="Digital Exposure of English Place-names (DEEP)" type="civil" gazref="deep:27619701" name="Steple" clusteriness="32.11140423" scaled_clusteriness="0.7466703512" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0">
+   <attestations>
+    <attestation>
+     <date begin="1194" end="1194" subtype="simple">1194</date>
+     <source id="ex107" style="">CurR</source>
+    </attestation>
+   </attestations>
+  </place>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+ </placename>
+</placenames>

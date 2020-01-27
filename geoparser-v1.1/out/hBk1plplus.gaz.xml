@@ -1,0 +1,623 @@
+<placenames>
+ <placename id="rb2" name="Halicarnassus">
+  <place rank="1" score="0.7241538863" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.42917" lat="37.03833" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211141" name="Halicarnassus" clusteriness="35.61986158" scaled_clusteriness="0.7241538863" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.7216530426" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="37.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186862" name="Halicarnassus" clusteriness="36.03246014" scaled_clusteriness="0.7216530426" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb3" name="Argos">
+  <place rank="1" score="1.32439272" scaled_type="0" scaled_pop="0.4799035941" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.75" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188135" name="Argos" pop="25091" in-cc="GR" clusteriness="20.4654712" scaled_clusteriness="0.8444891258" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="1.282279631" scaled_type="0" scaled_pop="0.4799035941" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.73333" lat="37.63333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210991" name="Argos" pop="25091" in-cc="GR" clusteriness="24.84551055" scaled_clusteriness="0.8023760373" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.7592156486" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="36.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186964" name="Argos" clusteriness="30.30879727" scaled_clusteriness="0.7592156486" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.5851650048" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="21.25" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195911" name="Argos Amphilochikon?" clusteriness="67.5569432" scaled_clusteriness="0.5851650048" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="5" score="0.5119087833" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="21.5" lat="40.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14197122" name="Argos Orestikon" clusteriness="94.66347293" scaled_clusteriness="0.5119087833" clusteriness_rank="5" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="6" score="0.4928625965" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="21.26667" lat="40.46667" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210697" name="Argos Orestikon" clusteriness="103.341511" scaled_clusteriness="0.4928625965" clusteriness_rank="6" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="7" score="0.4109563939" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="21.75" lat="41.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14196922" name="Argos" clusteriness="150.6909644" scaled_clusteriness="0.4109563939" clusteriness_rank="7" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="8" score="0.3837160356" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="34.25" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189313" name="Argos M." clusteriness="170.83149" scaled_clusteriness="0.3837160356" clusteriness_rank="8" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="9" score="0.3316091119" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="34.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187309" name="Argos?" clusteriness="217.1609717" scaled_clusteriness="0.3316091119" clusteriness_rank="9" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="10" score="0.2920898224" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="15.75" lat="41.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14198310" name="Argos Hippium" clusteriness="260.5075744" scaled_clusteriness="0.2920898224" clusteriness_rank="10" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb5" name="Hellas">
+  <place rank="1" score="0.7748116613" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195123" name="Hellas" clusteriness="28.20828464" scaled_clusteriness="0.7748116613" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.5723038821" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22" lat="39" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211538" name="Hellas" clusteriness="71.67904919" scaled_clusteriness="0.5723038821" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb10" name="Egypt">
+  <place rank="1" score="0.2618891482" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="31.25" lat="29.86667" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211436" name="Memphis" clusteriness="299.3792552" scaled_clusteriness="0.2618891482" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb13" name="Tyre" contained-by="rb14">
+  <place rank="1" score="0.9340259084" scaled_type="0" scaled_pop="0.6261979081" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="35.19389" lat="33.27333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211298" name="Tyrus" pop="135204" in-cc="LB" clusteriness="242.2947475" scaled_clusteriness="0.3078280003" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb14" name="Phoenicia" contains="rb13"/>
+ <placename id="rb16" name="Aea">
+  <place rank="1" score="0.1175392382" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="13.18746" lat="32.87519" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210244" name="Oea" clusteriness="581.9980421" scaled_clusteriness="0.1175392382" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb17" name="Phasis">
+  <place rank="1" score="0.3354411048" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="41.5" lat="39.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14193640" name="Phasis fl." clusteriness="213.3623521" scaled_clusteriness="0.3354411048" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.2718006154" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="42.5" lat="42.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14193276" name="Phasis" clusteriness="286.0215588" scaled_clusteriness="0.2718006154" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb27" name="Asia">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.547619" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195062" name="Asia" clusteriness="6.606242275" scaled_clusteriness="1" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.547619" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194949" name="Asia" clusteriness="6.606242275" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.9040650633" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186955" name="*Asia" clusteriness="15.55499491" scaled_clusteriness="0.9040650633" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.8788471386" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14209673" name="Asia Minor" clusteriness="17.47051562" scaled_clusteriness="0.8788471386" clusteriness_rank="5" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="5" score="0.8788471386" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195130" name="Asia" clusteriness="17.47051562" scaled_clusteriness="0.8788471386" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb28" name="Europe">
+  <place rank="1" score="0.3956045321" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.5" lat="42.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195111" name="Europe" clusteriness="161.73013" scaled_clusteriness="0.3956045321" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb34" name="Troy"/>
+ <placename id="rb41" name="Halys"/>
+ <placename id="rb42" name="Syria" contains="rb1028">
+  <place rank="1" score="0.7261343148" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="40.119045" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194990" name="Syria" clusteriness="35.29647785" scaled_clusteriness="0.7261343148" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.7261343148" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="40.119045" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195086" name="Syria Coele" clusteriness="35.29647785" scaled_clusteriness="0.7261343148" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.5221257647" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="20.75" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195641" name="Syria" clusteriness="90.31262606" scaled_clusteriness="0.5221257647" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.476581195" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="37.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14209506" name="Syria" clusteriness="111.3877958" scaled_clusteriness="0.476581195" clusteriness_rank="7" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="5" score="0.476581195" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="37.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195156" name="Syria I" clusteriness="111.3877958" scaled_clusteriness="0.476581195" clusteriness_rank="5" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="6" score="0.476581195" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="37.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195157" name="Syria II" clusteriness="111.3877958" scaled_clusteriness="0.476581195" clusteriness_rank="6" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="7" score="0.476581195" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="37.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14209648" name="Syria" clusteriness="111.3877958" scaled_clusteriness="0.476581195" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="8" score="0.2943096153" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="36.25" lat="34.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14190512" name="Koile Syria" clusteriness="257.8580947" scaled_clusteriness="0.2943096153" clusteriness_rank="8" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="9" score="0.2856947194" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="36.75" lat="33.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14190713" name="Coele Syria" clusteriness="268.2937534" scaled_clusteriness="0.2856947194" clusteriness_rank="9" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb43" name="Paphlagonia">
+  <place rank="1" score="0.2913122982" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="32.5" lat="41.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14193116" name="Paphlagonia" clusteriness="261.4420279" scaled_clusteriness="0.2913122982" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.2678462206" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="31.07143" lat="42.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195070" name="Paphlagonia" clusteriness="291.277916" scaled_clusteriness="0.2678462206" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.2678462206" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="31.07143" lat="42.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194981" name="Paphlagonia" clusteriness="291.277916" scaled_clusteriness="0.2678462206" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.2422986024" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="32.5" lat="42.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195143" name="Paphlagonia" clusteriness="327.6444344" scaled_clusteriness="0.2422986024" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb44" name="Euxine">
+  <place rank="1" score="0.5911242013" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="28.75" lat="36.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189695" name="Euxine" clusteriness="65.72817856" scaled_clusteriness="0.5911242013" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb52" name="Ionia">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188546" name="Ionia" clusteriness="0" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb59" name="Sardis">
+  <place rank="1" score="0.6027450414" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="28.25" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188285" name="Sardis" clusteriness="62.30313744" scaled_clusteriness="0.6027450414" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb72" name="Lydian district" altname="Lydian"/>
+ <placename id="rb100" name="Lydia">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.547619" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195067" name="Lydia" clusteriness="6.606242275" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.8788471386" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195134" name="Lydia" clusteriness="17.47051562" scaled_clusteriness="0.8788471386" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.6930811092" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.75" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188443" name="Lydia" clusteriness="41.09961764" scaled_clusteriness="0.6930811092" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb110" name="Parus"/>
+ <placename id="rb122" name="Delphi">
+  <place rank="1" score="0.7689918736" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.75" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195472" name="Delphi" clusteriness="28.97452019" scaled_clusteriness="0.7689918736" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.6939643728" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23.83333" lat="38.63333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210903" name="Dirphys M." clusteriness="40.93278123" scaled_clusteriness="0.6939643728" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb127" name="Phrygia">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.547619" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195065" name="Phrygia I" clusteriness="6.606242275" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.8788471386" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195133" name="Phrygia Pakatiane" clusteriness="17.47051562" scaled_clusteriness="0.8788471386" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.654701527" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="31.07143" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194995" name="Phrygia Paroreius" clusteriness="49.04524926" scaled_clusteriness="0.654701527" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.654701527" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="31.07143" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195073" name="Phrygia II" clusteriness="49.04524926" scaled_clusteriness="0.654701527" clusteriness_rank="5" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="5" score="0.654701527" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="31.07143" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194982" name="Phrygia" clusteriness="49.04524926" scaled_clusteriness="0.654701527" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="6" score="0.5396950666" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.75" lat="40.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14196239" name="Phrygia" clusteriness="83.29326126" scaled_clusteriness="0.5396950666" clusteriness_rank="6" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="7" score="0.4206476281" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="29.75" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189226" name="Phrygia" clusteriness="144.1135259" scaled_clusteriness="0.4206476281" clusteriness_rank="7" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="8" score="0.4180646856" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="32.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195136" name="Phrygia Saloutaria" clusteriness="145.8379762" scaled_clusteriness="0.4180646856" clusteriness_rank="8" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="9" score="0.399631596" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="29.75" lat="40.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14196238" name="Phrygia Epiktetos" clusteriness="158.7584346" scaled_clusteriness="0.399631596" clusteriness_rank="9" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb134" name="Miletus">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188850" name="Miletus" clusteriness="4.805328967" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.82559553" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.27917" lat="37.51278" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211156" name="Miletus" clusteriness="22.32589819" scaled_clusteriness="0.82559553" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb135" name="Smyrna">
+  <place rank="1" score="0.9040650633" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188259" name="Smyrna" clusteriness="15.55499491" scaled_clusteriness="0.9040650633" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.9040650633" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188373" name="Palaia Smyrna" clusteriness="15.55499491" scaled_clusteriness="0.9040650633" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.9040650633" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188372" name="Smyrna" clusteriness="15.55499491" scaled_clusteriness="0.9040650633" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.8142605392" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.13838" lat="38.41273" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210967" name="Smyrna" clusteriness="23.52225326" scaled_clusteriness="0.8142605392" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="5" score="0.8142605392" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.13838" lat="38.41273" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210977" name="Smyrna" clusteriness="23.52225326" scaled_clusteriness="0.8142605392" clusteriness_rank="5" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb136" name="Colophon">
+  <place rank="1" score="0.9040650633" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186916" name="Colophon" clusteriness="15.55499491" scaled_clusteriness="0.9040650633" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.9040650633" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186915" name="Colophon ad Mare" clusteriness="15.55499491" scaled_clusteriness="0.9040650633" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.9040650633" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186913" name="Colophon" clusteriness="15.55499491" scaled_clusteriness="0.9040650633" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb140" name="Priene">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188954" name="Priene" clusteriness="4.805328967" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb157" name="Clazomenae"/>
+ <placename id="rb165" name="Limeneion"/>
+ <placename id="rb166" name="Maeander">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186723" name="Maeander fl." clusteriness="4.805328967" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb181" name="Assesos"/>
+ <placename id="rb221" name="Corinth">
+  <place rank="1" score="1.243274378" scaled_type="0" scaled_pop="0.4979888849" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.95734" lat="37.94068" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210997" name="Corinthus" pop="30899" in-cc="GR" clusteriness="32.31684931" scaled_clusteriness="0.7452854934" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb223" name="Taenarus"/>
+ <placename id="rb225" name="Methymna">
+  <place rank="1" score="0.8527674732" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.25" lat="39.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188405" name="Methymna" clusteriness="19.69994681" scaled_clusteriness="0.8527674732" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.7769711269" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.17639" lat="39.36781" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210963" name="Methymna" clusteriness="27.92915177" scaled_clusteriness="0.7769711269" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb230" name="Italy">
+  <place rank="1" score="0.2139170059" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="12.83333" lat="42.83333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14209683" name="Italia" clusteriness="373.392842" scaled_clusteriness="0.2139170059" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb231" name="Sicily">
+  <place rank="1" score="0.3060679229" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="14.25" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211530" name="Sicilia" clusteriness="244.2666375" scaled_clusteriness="0.3060679229" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.3060679229" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="14.25" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211527" name="Sicilia" clusteriness="244.2666375" scaled_clusteriness="0.3060679229" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb234" name="Tarentum">
+  <place rank="1" score="0.2998762525" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="17.25" lat="40.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14198029" name="Tarentum" clusteriness="251.3318309" scaled_clusteriness="0.2998762525" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.2980046228" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="17.22972" lat="40.47611" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210582" name="Tarentum" clusteriness="253.5074661" scaled_clusteriness="0.2980046228" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb261" name="Aeolian cities" altname="Aeolian"/>
+ <placename id="rb265" name="Mytilene">
+  <place rank="1" score="0.8041447049" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="39.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188382" name="Mytilene" clusteriness="24.64396539" scaled_clusteriness="0.8041447049" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.7974788895" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.55472" lat="39.11" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210966" name="Mytilene" clusteriness="25.41219744" scaled_clusteriness="0.7974788895" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.7838858351" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.10901" lat="39.22906" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210959" name="Lesbos Ins." clusteriness="27.0538034" scaled_clusteriness="0.7838858351" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb312" name="Eleusis">
+  <place rank="1" score="0.830952288" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23.625" lat="38.125" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187543" name="Eleusis" clusteriness="21.78188315" scaled_clusteriness="0.830952288" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.7735452215" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23.54295" lat="38.04135" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211066" name="Eleusis" clusteriness="28.37328085" scaled_clusteriness="0.7735452215" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.4322913302" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="25.25" lat="36.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186890" name="Eleusis?" clusteriness="136.5895077" scaled_clusteriness="0.4322913302" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb364" name="Olympus">
+  <place rank="1" score="0.6911754608" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.36" lat="40.09" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210722" name="Olympus M." clusteriness="41.46188841" scaled_clusteriness="0.6911754608" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.6513891224" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.25" lat="40.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14196785" name="Olympus M." clusteriness="49.79912995" scaled_clusteriness="0.6513891224" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.4851466209" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="30.25" lat="36.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189801" name="Olympus" clusteriness="107.0796044" scaled_clusteriness="0.4851466209" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.4370879966" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="29.25" lat="40.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14196258" name="Olympus M." clusteriness="133.6053985" scaled_clusteriness="0.4370879966" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="5" score="0.3129741623" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="32.25" lat="39.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189408" name="Olympus M." clusteriness="236.6201228" scaled_clusteriness="0.3129741623" clusteriness_rank="5" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb388" name="Mount Olympus">
+  <place rank="1" score="0.6911754608" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.36" lat="40.09" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210722" name="Olympus M." clusteriness="41.46188841" scaled_clusteriness="0.6911754608" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb416" name="Phocia"/>
+ <placename id="rb417" name="Dodona">
+  <place rank="1" score="0.4680909809" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="20.75" lat="39.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195884" name="Dodona" clusteriness="115.829195" scaled_clusteriness="0.4680909809" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb422" name="Libya">
+  <place rank="1" score="0.2012661462" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.547619" lat="32.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195068" name="Libya Inferior" clusteriness="395.7926342" scaled_clusteriness="0.2012661462" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.1705071377" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.5" lat="31.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14191606" name="Libya" clusteriness="456.0219261" scaled_clusteriness="0.1705071377" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.1637397024" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.023808" lat="32.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195054" name="Libya Superior" clusteriness="470.4577154" scaled_clusteriness="0.1637397024" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.147642476" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="24.5" lat="31.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14191607" name="Libya Inferior" clusteriness="506.6581674" scaled_clusteriness="0.147642476" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb447" name="Samos">
+  <place rank="1" score="0.8096534357" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.97694" lat="37.75722" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211180" name="Samos" clusteriness="24.02664483" scaled_clusteriness="0.8096534357" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.8096534357" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.97694" lat="37.75722" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211183" name="Samos Ins." clusteriness="24.02664483" scaled_clusteriness="0.8096534357" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.7405377494" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188964" name="Samos" clusteriness="33.03121138" scaled_clusteriness="0.7405377494" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.7405377494" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211178" name="Samos" clusteriness="33.03121138" scaled_clusteriness="0.7405377494" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="5" score="0.7405377494" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188965" name="Samos Ins." clusteriness="33.03121138" scaled_clusteriness="0.7405377494" clusteriness_rank="6" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="6" score="0.7405377494" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211181" name="Samos Ins." clusteriness="33.03121138" scaled_clusteriness="0.7405377494" clusteriness_rank="5" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="7" score="0.7242613261" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.8" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211182" name="Samos Ins." clusteriness="35.602242" scaled_clusteriness="0.7242613261" clusteriness_rank="8" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="8" score="0.7242613261" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.8" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211179" name="Samos" clusteriness="35.602242" scaled_clusteriness="0.7242613261" clusteriness_rank="7" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb455" name="Thebes" contained-by="rb910">
+  <place rank="1" score="1.196397049" scaled_type="0" scaled_pop="0" scaled_contained_by="0.1" scaled_contains="0" scaled_near="0" long="23.31889" lat="38.325" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210941" name="Thebae" clusteriness="40.47677488" scaled_clusteriness="0.6963970493" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.7746776004" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="39.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188235" name="Thebes Pedion" clusteriness="28.22570507" scaled_clusteriness="0.7746776004" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.1283936412" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="32.68333" lat="25.7" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211467" name="Thebai" clusteriness="553.6212068" scaled_clusteriness="0.1283936412" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb466" name="Pytho"/>
+ <placename id="rb471" name="Hermus">
+  <place rank="1" score="0.8922600434" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188567" name="Hermus fl." clusteriness="16.42403694" scaled_clusteriness="0.8922600434" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb477" name="Phthia"/>
+ <placename id="rb478" name="Ossa"/>
+ <placename id="rb482" name="Pindus">
+  <place rank="1" score="0.5310008544" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="21.25" lat="39.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188835" name="Pindus M." clusteriness="86.69584645" scaled_clusteriness="0.5310008544" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb483" name="Dryopia"/>
+ <placename id="rb485" name="Peloponnese"/>
+ <placename id="rb487" name="city of Creston—who" altname="Creston—who"/>
+ <placename id="rb491" name="Placia"/>
+ <placename id="rb492" name="Scylace"/>
+ <placename id="rb493" name="Hellespont"/>
+ <placename id="rb494" name="Creston"/>
+ <placename id="rb500" name="Olympia">
+  <place rank="1" score="0.6911754608" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.36" lat="40.09" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210722" name="Olympus M." clusteriness="41.46188841" scaled_clusteriness="0.6911754608" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.6586430345" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="21.75" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187798" name="Olympia" clusteriness="48.16304439" scaled_clusteriness="0.6586430345" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb510" name="Nisaea"/>
+ <placename id="rb518" name="Athens">
+  <place rank="1" score="1.528261261" scaled_type="0" scaled_pop="0.7725618274" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23.71622" lat="37.97945" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211063" name="Athenae" pop="729137" in-cc="GR" clusteriness="30.80357571" scaled_clusteriness="0.7556994336" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb537" name="Eretria">
+  <place rank="1" score="0.7408064388" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23.8" lat="38.4" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211067" name="Eretria" clusteriness="32.99036515" scaled_clusteriness="0.7408064388" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.7354747781" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23.875" lat="38.375" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187538" name="Eretria" clusteriness="33.81041051" scaled_clusteriness="0.7354747781" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.5780501323" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.61667" lat="39.3" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210906" name="Eretria" clusteriness="69.80712233" scaled_clusteriness="0.5780501323" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.5766391107" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.75" lat="39.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195439" name="Eretria" clusteriness="70.26220562" scaled_clusteriness="0.5766391107" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb540" name="Naxos">
+  <place rank="1" score="0.5790620725" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="25.75" lat="37.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188868" name="Naxos Ins." clusteriness="69.48256703" scaled_clusteriness="0.5790620725" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.5265587447" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="25.47639" lat="37.05306" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211163" name="Naxos" clusteriness="88.48761925" scaled_clusteriness="0.5265587447" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.5214393635" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="25.37639" lat="37.10556" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211164" name="Naxos" clusteriness="90.59855543" scaled_clusteriness="0.5214393635" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.5156289409" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="25.25" lat="37.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188871" name="Naxos" clusteriness="93.05551526" scaled_clusteriness="0.5156289409" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="5" score="0.3036764593" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="15.25" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14197467" name="Naxos" clusteriness="246.9716376" scaled_clusteriness="0.3036764593" clusteriness_rank="5" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb544" name="Attica">
+  <place rank="1" score="0.830952288" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23.625" lat="38.125" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187566" name="Attica" clusteriness="21.78188315" scaled_clusteriness="0.830952288" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb545" name="Marathon">
+  <place rank="1" score="0.7668048343" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23.875" lat="38.125" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187458" name="Marathon" clusteriness="29.26781703" scaled_clusteriness="0.7668048343" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.7338612423" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23.96667" lat="38.15" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211073" name="Marathon" clusteriness="34.06257809" scaled_clusteriness="0.7338612423" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb564" name="Strymon">
+  <place rank="1" score="0.4462089536" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23.25" lat="41.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14196454" name="Strymon fl." clusteriness="128.1097232" scaled_clusteriness="0.4462089536" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb568" name="Delos">
+  <place rank="1" score="0.5175263261" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="25.26778" lat="37.3925" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211137" name="Delos" clusteriness="92.24595849" scaled_clusteriness="0.5175263261" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.5175263261" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="25.26778" lat="37.3925" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211138" name="Delos Ins." clusteriness="92.24595849" scaled_clusteriness="0.5175263261" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.5156289409" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="25.25" lat="37.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186906" name="Delos Ins." clusteriness="93.05551526" scaled_clusteriness="0.5156289409" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.5156289409" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="25.25" lat="37.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186907" name="Delos" clusteriness="93.05551526" scaled_clusteriness="0.5156289409" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb576" name="Sparta">
+  <place rank="1" score="1.438049527" scaled_type="0" scaled_pop="0.4380495266" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.25" lat="37.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187679" name="Sparta" pop="15497" in-cc="GR" clusteriness="7.103507795" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="1.266017696" scaled_type="0" scaled_pop="0.4380495266" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.42972" lat="37.07333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211050" name="Sparta" pop="15497" in-cc="GR" clusteriness="22.08328415" scaled_clusteriness="0.8279681696" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb586" name="Crete"/>
+ <placename id="rb591" name="Arcadia">
+  <place rank="1" score="0.6586430345" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="21.75" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188139" name="Arcadia" clusteriness="48.16304439" scaled_clusteriness="0.6586430345" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb593" name="Tegea">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.25" lat="37.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187661" name="Tegea" clusteriness="7.103507795" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.8173375828" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.41667" lat="37.45" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211053" name="Tegea" clusteriness="23.19128615" scaled_clusteriness="0.8173375828" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.174393283" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="10.75" lat="35.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14200616" name="Tegea?" clusteriness="447.9333869" scaled_clusteriness="0.174393283" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb599" name="Lacedaemon">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.25" lat="37.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187904" name="Lacedaemon" clusteriness="7.103507795" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.8279681696" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.42972" lat="37.07333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211050" name="Sparta" clusteriness="22.08328415" scaled_clusteriness="0.8279681696" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.8279681696" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.42972" lat="37.07333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211017" name="Lacedaemon" clusteriness="22.08328415" scaled_clusteriness="0.8279681696" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb632" name="Thornax" contained-by="rb633"/>
+ <placename id="rb633" name="Laconia" contains="rb632">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.25" lat="37.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187905" name="Laconia" clusteriness="7.103507795" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb645" name="Cappadocia">
+  <place rank="1" score="0.7261343148" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="40.119045" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195082" name="Cappadocia" clusteriness="35.29647785" scaled_clusteriness="0.7261343148" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.654701527" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="31.07143" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194962" name="Galatia et Cappadocia" clusteriness="49.04524926" scaled_clusteriness="0.654701527" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.4148240121" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="35.48528" lat="38.73222" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211207" name="Eusebeia" clusteriness="148.0307623" scaled_clusteriness="0.4148240121" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.4148240121" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="35.48528" lat="38.73222" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211206" name="Caesarea" clusteriness="148.0307623" scaled_clusteriness="0.4148240121" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="5" score="0.3938298937" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="35.75" lat="39.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189492" name="Cappadocia" clusteriness="163.0572872" scaled_clusteriness="0.3938298937" clusteriness_rank="5" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb658" name="Cilicia">
+  <place rank="1" score="0.7261343148" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="40.119045" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195085" name="Cilicia" clusteriness="35.29647785" scaled_clusteriness="0.7261343148" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.654701527" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="31.07143" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194950" name="Cilicia" clusteriness="49.04524926" scaled_clusteriness="0.654701527" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.4234301572" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="35.75" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189500" name="Cilicia" clusteriness="142.2786335" scaled_clusteriness="0.4234301572" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.3951064964" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="35.75" lat="37.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14190230" name="Cilicia" clusteriness="162.1014901" scaled_clusteriness="0.3951064964" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="5" score="0.3552664631" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="33.25" lat="36.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189955" name="Cilicia Tracheia" clusteriness="194.7453397" scaled_clusteriness="0.3552664631" clusteriness_rank="5" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="6" score="0.3305858151" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="34.75" lat="36.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189953" name="Cilicia Pedias" clusteriness="218.1867482" scaled_clusteriness="0.3305858151" clusteriness_rank="6" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb661" name="Euxine sea"/>
+ <placename id="rb673" name="Media">
+  <place rank="1" score="0.3098218959" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="46.5" lat="34.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194208" name="Media" clusteriness="240.0801248" scaled_clusteriness="0.3098218959" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.2720991972" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="45.5" lat="38.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14193598" name="Media Atropatene" clusteriness="285.6285437" scaled_clusteriness="0.2720991972" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb715" name="Pteria">
+  <place rank="1" score="0.3743743976" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="35.25" lat="39.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189428" name="Pteria" clusteriness="178.341003" scaled_clusteriness="0.3743743976" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb716" name="Sinope">
+  <place rank="1" score="0.296197407" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="13.75" lat="41.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14198414" name="Sinope" clusteriness="255.6260952" scaled_clusteriness="0.296197407" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb762" name="Phocaea">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75656" lat="38.6703" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210975" name="Phocaea" clusteriness="8.883004714" scaled_clusteriness="1" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188327" name="Phocaea" clusteriness="0" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb779" name="Thyrea">
+  <place rank="1" score="0.7168891133" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.75" lat="37.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187638" name="Thyrea" clusteriness="36.83170074" scaled_clusteriness="0.7168891133" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb780" name="Malea">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.25" lat="37.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187861" name="Malea" clusteriness="7.103507795" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.8041447049" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="39.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188430" name="Malea" clusteriness="24.64396539" scaled_clusteriness="0.8041447049" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.446624584" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23.25" lat="36.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187860" name="Malea Pr." clusteriness="127.8647495" scaled_clusteriness="0.446624584" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb781" name="Cythera"/>
+ <placename id="rb786" name="Thyreae"/>
+ <placename id="rb802" name="Tmolus">
+  <place rank="1" score="0.6798889533" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.75" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188219" name="Tmolus M." clusteriness="43.67391188" scaled_clusteriness="0.6798889533" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb910" name="Boeotia" contains="rb455">
+  <place rank="1" score="1.144417457" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0.1" scaled_near="0" long="22.75" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195505" name="Boeotia" clusteriness="51.42390881" scaled_clusteriness="0.6444174575" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb912" name="Ismenus"/>
+ <placename id="rb913" name="Ephesus">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186885" name="Ephesus" clusteriness="4.805328967" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.800270947" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.33364" lat="37.94223" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211139" name="Ephesus" clusteriness="25.08754162" scaled_clusteriness="0.800270947" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb917" name="Branchidae"/>
+ <placename id="rb937" name="Babylon">
+  <place rank="1" score="0.4270302982" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="44.5" lat="32.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14193921" name="Babylon" clusteriness="139.9392054" scaled_clusteriness="0.4270302982" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.2699826273" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="31.25" lat="30.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14191677" name="Babylon" clusteriness="288.4262246" scaled_clusteriness="0.2699826273" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb944" name="Gygaean lake"/>
+ <placename id="rb948" name="Tyrrhenia"/>
+ <placename id="rb991" name="Ecbatana">
+  <place rank="1" score="0.2441416762" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="48.5" lat="34.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194158" name="Ecbatana" clusteriness="324.8752656" scaled_clusteriness="0.2441416762" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1025" name="Palestine"/>
+ <placename id="rb1028" name="Ascalon" contained-by="rb42">
+  <place rank="1" score="0.2708160394" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="34.53333" lat="31.65" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211307" name="Ascalon" clusteriness="287.3213651" scaled_clusteriness="0.2708160394" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.2708160394" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="34.53333" lat="31.65" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211308" name="Ashqelon" clusteriness="287.3213651" scaled_clusteriness="0.2708160394" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.2702459733" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="34.58333" lat="31.66667" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211309" name="Ashqelon" clusteriness="288.0766469" scaled_clusteriness="0.2702459733" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.2680323154" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="34.75" lat="31.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14191063" name="Ascalon" clusteriness="291.0283984" scaled_clusteriness="0.2680323154" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1031" name="Cyprus">
+  <place rank="1" score="0.654701527" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="31.07143" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194953" name="Cyprus" clusteriness="49.04524926" scaled_clusteriness="0.654701527" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.654701527" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="31.07143" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195077" name="Cyprus" clusteriness="49.04524926" scaled_clusteriness="0.654701527" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.3051621517" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="33.25" lat="35.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14191388" name="Cyprus Ins." clusteriness="245.287658" scaled_clusteriness="0.3051621517" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1040" name="Assyria">
+  <place rank="1" score="0.476581195" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="37.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14209507" name="AsSyria" clusteriness="111.3877958" scaled_clusteriness="0.476581195" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.2963745685" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="34.5" lat="41.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14192981" name="Assyria" clusteriness="255.4176254" scaled_clusteriness="0.2963745685" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1180" name="Persia"/>
+ <placename id="rb1200" name="Pasargadae">
+  <place rank="1" score="0.1408228115" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="53.5" lat="30.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194488" name="Pasargadae" clusteriness="522.8226295" scaled_clusteriness="0.1408228115" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1296" name="Panionion">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188916" name="Panionion" clusteriness="4.805328967" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1309" name="Myus"/>
+ <placename id="rb1311" name="Caria">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.547619" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195060" name="Caria" clusteriness="6.606242275" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.7632185647" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.75" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186926" name="Caria" clusteriness="29.75519979" scaled_clusteriness="0.7632185647" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1314" name="Lebedos">
+  <place rank="1" score="0.6851802814" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186741" name="Lebedos" clusteriness="42.62255082" scaled_clusteriness="0.6851802814" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1315" name="Teos"/>
+ <placename id="rb1319" name="Ionian cities" altname="Ionian"/>
+ <placename id="rb1321" name="Chios">
+  <place rank="1" score="1.072910404" scaled_type="0" scaled_pop="0.4758719829" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.25" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188638" name="Chios" pop="23953" in-cc="GR" clusteriness="63.9621652" scaled_clusteriness="0.5970384216" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="1.070332355" scaled_type="0" scaled_pop="0.4758719829" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.13583" lat="38.36778" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210951" name="Chios" pop="23953" in-cc="GR" clusteriness="64.72607265" scaled_clusteriness="0.5944603718" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="1.048913488" scaled_type="0" scaled_pop="0.4758719829" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.02444" lat="38.40583" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210950" name="Chios" pop="23953" in-cc="GR" clusteriness="71.43597729" scaled_clusteriness="0.5730415047" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.9773617254" scaled_type="0" scaled_pop="0.4758719829" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="25.75" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188637" name="Chios Ins." pop="23953" in-cc="GR" clusteriness="99.31629618" scaled_clusteriness="0.5014897425" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1322" name="Erythrae"/>
+ <placename id="rb1344" name="Ialysus"/>
+ <placename id="rb1345" name="Camirus"/>
+ <placename id="rb1346" name="Cos">
+  <place rank="1" score="0.7592156486" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="36.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186910" name="Cos Ins." clusteriness="30.30879727" scaled_clusteriness="0.7592156486" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.723482164" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.16667" lat="36.83333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211150" name="Kos" clusteriness="35.7302185" scaled_clusteriness="0.723482164" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.723482164" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.16667" lat="36.83333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211136" name="Cos Ins." clusteriness="35.7302185" scaled_clusteriness="0.723482164" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1350" name="Sicyon">
+  <place rank="1" score="0.8444891258" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.75" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187691" name="Sicyon" clusteriness="20.4654712" scaled_clusteriness="0.8444891258" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1351" name="Aegira"/>
+ <placename id="rb1352" name="Aegae">
+  <place rank="1" score="0.8922600434" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188724" name="Aegae" clusteriness="16.42403694" scaled_clusteriness="0.8922600434" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1353" name="Crathis">
+  <place rank="1" score="0.3252020101" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="16.25" lat="39.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14197930" name="Crathis" clusteriness="223.6639445" scaled_clusteriness="0.3252020101" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1355" name="Bura"/>
+ <placename id="rb1356" name="Helice">
+  <place rank="1" score="0.3904190754" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23.5" lat="42.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14197043" name="Helice" clusteriness="165.6387137" scaled_clusteriness="0.3904190754" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1358" name="Aegion">
+  <place rank="1" score="0.6657578636" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.08194" lat="38.24861" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210985" name="Aigion" clusteriness="46.61055484" scaled_clusteriness="0.6657578636" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1359" name="Rhype"/>
+ <placename id="rb1360" name="Patrae">
+  <place rank="1" score="0.6875080434" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="21.75" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187771" name="Patrae" clusteriness="42.16808836" scaled_clusteriness="0.6875080434" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.686150923" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="21.73444" lat="38.24444" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211041" name="Patrae" clusteriness="42.43245447" scaled_clusteriness="0.686150923" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.686150923" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="21.73444" lat="38.24444" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211040" name="Patra" clusteriness="42.43245447" scaled_clusteriness="0.686150923" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1361" name="Phareae"/>
+ <placename id="rb1362" name="Olenus"/>
+ <placename id="rb1363" name="Pirus"/>
+ <placename id="rb1364" name="Dyme">
+  <place rank="1" score="0.6875080434" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="21.75" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188063" name="Dyme" clusteriness="42.16808836" scaled_clusteriness="0.6875080434" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1365" name="Tritaeae"/>
+ <placename id="rb1370" name="Abantes">
+  <place rank="1" score="0.6713795837" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23.75" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195598" name="Abantes" clusteriness="45.41934141" scaled_clusteriness="0.6713795837" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1371" name="Euboea">
+  <place rank="1" score="0.6544524017" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23.25" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195433" name="Euboea Ins." clusteriness="49.10154942" scaled_clusteriness="0.6544524017" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1373" name="Orchomenus">
+  <place rank="1" score="0.7689918736" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.75" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195240" name="Orchomenus" clusteriness="28.97452019" scaled_clusteriness="0.7689918736" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1375" name="Epidaurus">
+  <place rank="1" score="0.6874065272" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23.16667" lat="37.63333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210999" name="Epidauros" clusteriness="42.18780652" scaled_clusteriness="0.6874065272" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1381" name="Pylus"/>
+ <placename id="rb1391" name="Mykale"/>
+ <placename id="rb1393" name="Helicon">
+  <place rank="1" score="0.7689918736" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.75" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195406" name="Helicon M." clusteriness="28.97452019" scaled_clusteriness="0.7689918736" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.7503630524" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.83333" lat="38.33333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210909" name="Helicon M." clusteriness="31.56995008" scaled_clusteriness="0.7503630524" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1399" name="Cyme">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188629" name="Cyme" clusteriness="0" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1400" name="Lerisae"/>
+ <placename id="rb1401" name="Neon Teichos">
+  <place rank="1" score="0.4548851609" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.75" lat="41.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14196263" name="Neon Teichos" clusteriness="123.0919575" scaled_clusteriness="0.4548851609" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1402" name="Temnos">
+  <place rank="1" score="0.8922600434" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188247" name="Temnos" clusteriness="16.42403694" scaled_clusteriness="0.8922600434" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.8146003621" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.06938" lat="38.60754" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210978" name="Temnos" clusteriness="23.48547108" scaled_clusteriness="0.8146003621" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.4937745105" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="28.75" lat="39.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189266" name="Temnos M." clusteriness="102.9084363" scaled_clusteriness="0.4937745105" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1403" name="Cilla"/>
+ <placename id="rb1404" name="Notion">
+  <place rank="1" score="0.9040650633" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186914" name="Notion" clusteriness="15.55499491" scaled_clusteriness="0.9040650633" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1405" name="Aegiroessa"/>
+ <placename id="rb1406" name="Pitane">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188316" name="Pitane" clusteriness="0" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1407" name="Aegaeae"/>
+ <placename id="rb1408" name="Myrina">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188388" name="Myrina" clusteriness="0" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.5241740187" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="25.25" lat="39.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188389" name="Myrina" clusteriness="89.46475204" scaled_clusteriness="0.5241740187" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.4906303103" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="25.07417" lat="39.87972" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210965" name="Myrina" clusteriness="104.4093469" scaled_clusteriness="0.4906303103" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1409" name="Gryneia"/>
+ <placename id="rb1424" name="Ida">
+  <place rank="1" score="0.7746776004" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="39.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188551" name="Ida M." clusteriness="28.22570507" scaled_clusteriness="0.7746776004" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.3667449767" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="24.75" lat="35.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187232" name="Ida M." clusteriness="184.7183526" scaled_clusteriness="0.3667449767" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.3667449767" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="24.75" lat="35.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211095" name="Ida M." clusteriness="184.7183526" scaled_clusteriness="0.3667449767" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1425" name="Lesbos">
+  <place rank="1" score="0.8527674732" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.25" lat="39.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188449" name="Lesbos Ins." clusteriness="19.69994681" scaled_clusteriness="0.8527674732" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.8140281794" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.33333" lat="39.16667" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210958" name="Lesbos Ins." clusteriness="23.54743687" scaled_clusteriness="0.8140281794" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.7838858351" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.10901" lat="39.22906" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210959" name="Lesbos Ins." clusteriness="27.0538034" scaled_clusteriness="0.7838858351" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1427" name="Arisba">
+  <place rank="1" score="0.8527674732" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.25" lat="39.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188676" name="Arisba" clusteriness="19.69994681" scaled_clusteriness="0.8527674732" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1429" name="Tenedos">
+  <place rank="1" score="0.6716042329" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.25" lat="39.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188243" name="Tenedos Ins." clusteriness="45.37237724" scaled_clusteriness="0.6716042329" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.6716042329" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.25" lat="39.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188244" name="Tenedos" clusteriness="45.37237724" scaled_clusteriness="0.6716042329" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.6135843197" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.06972" lat="39.835" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210979" name="Tenedos" clusteriness="59.26951325" scaled_clusteriness="0.6135843197" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.6135843197" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.06972" lat="39.835" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210981" name="Tenedos Ins." clusteriness="59.26951325" scaled_clusteriness="0.6135843197" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="5" score="0.6083047991" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.03306" lat="39.82194" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210982" name="Tenedos Ins." clusteriness="60.72819903" scaled_clusteriness="0.6083047991" clusteriness_rank="6" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="6" score="0.6083047991" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.03306" lat="39.82194" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210980" name="Tenedos" clusteriness="60.72819903" scaled_clusteriness="0.6083047991" clusteriness_rank="5" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="7" score="0.535814734" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="30.75" lat="36.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189881" name="Tenedos" clusteriness="84.79505614" scaled_clusteriness="0.535814734" clusteriness_rank="7" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1445" name="city on Greek" altname="Greek">
+  <place rank="1" score="0.5577201453" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23" lat="40.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211526" name="Macedonia" clusteriness="76.65839275" scaled_clusteriness="0.5577201453" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.5577201453" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="23" lat="40.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211532" name="Macedonia" clusteriness="76.65839275" scaled_clusteriness="0.5577201453" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1455" name="Sacae">
+  <place rank="1" score="0" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="72.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14208715" name="Sacae" clusteriness="1372.269647" scaled_clusteriness="0" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1501" name="Panormus">
+  <place rank="1" score="0.2977689636" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="13.35976" lat="38.11582" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210660" name="Panormus" clusteriness="253.7827347" scaled_clusteriness="0.2977689636" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.2944835087" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="13.25" lat="38.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14197446" name="Panormus" clusteriness="257.6516823" scaled_clusteriness="0.2944835087" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1529" name="Atarneus">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188660" name="Atarneus sub Pitanem" clusteriness="0" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.8041447049" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="39.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188661" name="Atarneus" clusteriness="24.64396539" scaled_clusteriness="0.8041447049" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1530" name="Mysia">
+  <place rank="1" score="0.8444891258" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.75" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14187820" name="Mysia" clusteriness="20.4654712" scaled_clusteriness="0.8444891258" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.6349541948" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="39.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188384" name="Mysia" clusteriness="53.71450903" scaled_clusteriness="0.6349541948" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.6015946091" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="28.25" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188432" name="Mysia" clusteriness="62.63409142" scaled_clusteriness="0.6015946091" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.5396950666" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.75" lat="40.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14196267" name="Mysia" clusteriness="83.29326126" scaled_clusteriness="0.5396950666" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="5" score="0.3956045321" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.5" lat="42.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195118" name="Mysia II" clusteriness="161.73013" scaled_clusteriness="0.3956045321" clusteriness_rank="5" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="6" score="0.3937509053" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.5" lat="42.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195128" name="Mysia I" clusteriness="163.1166109" scaled_clusteriness="0.3937509053" clusteriness_rank="6" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1541" name="Maeandrus"/>
+ <placename id="rb1542" name="Magnesia">
+  <place rank="1" score="0.8922600434" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="38.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188438" name="Magnesia ad Sipylum" clusteriness="16.42403694" scaled_clusteriness="0.8922600434" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.7916223828" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.42646" lat="38.61202" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210961" name="Magnesia ad Sipylum" clusteriness="26.10689571" scaled_clusteriness="0.7916223828" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.7632185647" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.75" lat="37.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186721" name="Magnesia ad Maeandrum" clusteriness="29.75519979" scaled_clusteriness="0.7632185647" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.6193878672" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="22.75" lat="39.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195298" name="Magnesia" clusteriness="57.7064377" scaled_clusteriness="0.6193878672" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1553" name="Adriatic Sea"/>
+ <placename id="rb1555" name="Iberia">
+  <place rank="1" score="0.2937733636" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="43.5" lat="42.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14193237" name="Iberia" clusteriness="258.49567" scaled_clusteriness="0.2937733636" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1556" name="Tartessus"/>
+ <placename id="rb1569" name="Oenussae"/>
+ <placename id="rb1572" name="Cyrnus"/>
+ <placename id="rb1573" name="Alalia"/>
+ <placename id="rb1586" name="Rhegium"/>
+ <placename id="rb1587" name="Agylla"/>
+ <placename id="rb1593" name="Hyele"/>
+ <placename id="rb1594" name="Posidonia"/>
+ <placename id="rb1598" name="Thrace">
+  <place rank="1" score="0.4349453114" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="41.33333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211536" name="Thrake" clusteriness="134.9302662" scaled_clusteriness="0.4349453114" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1599" name="Abdera">
+  <place rank="1" score="0.421271381" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="24.75" lat="40.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14196712" name="Abdera" clusteriness="143.7001554" scaled_clusteriness="0.421271381" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.4127265326" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="24.96667" lat="40.93333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210734" name="Abdera" clusteriness="149.4675565" scaled_clusteriness="0.4127265326" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="-3.02055" lat="36.74961" gazetteer="Pleiades Plus" type="other" gazref="unlock:14210023" name="Abdera" clusteriness="1451.070031" scaled_clusteriness="0" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="-3.5" lat="36.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14202041" name="Abdera" clusteriness="1497.846073" scaled_clusteriness="0" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1620" name="Sardo"/>
+ <placename id="rb1639" name="Leleges">
+  <place rank="1" score="0.7746776004" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.75" lat="39.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188453" name="Leleges" clusteriness="28.22570507" scaled_clusteriness="0.7746776004" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1647" name="Mylasa">
+  <place rank="1" score="0.7710940717" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.75" lat="37.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188861" name="Mylasa" clusteriness="28.69537183" scaled_clusteriness="0.7710940717" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.7627427212" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.78389" lat="37.31639" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211162" name="Mylasa" clusteriness="29.82047505" scaled_clusteriness="0.7627427212" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1656" name="Calynda"/>
+ <placename id="rb1681" name="Triopion">
+  <place rank="1" score="0.7592156486" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="36.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189027" name="Triopion" clusteriness="30.30879727" scaled_clusteriness="0.7592156486" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.7592156486" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.25" lat="36.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189026" name="Triopion Pr." clusteriness="30.30879727" scaled_clusteriness="0.7592156486" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1682" name="Bubassus"/>
+ <placename id="rb1683" name="Ceramicus"/>
+ <placename id="rb1684" name="Syme">
+  <place rank="1" score="0.6665322053" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.75" lat="36.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188989" name="Syme Ins." clusteriness="46.44463876" scaled_clusteriness="0.6665322053" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.6665322053" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.75" lat="36.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14188988" name="Syme" clusteriness="46.44463876" scaled_clusteriness="0.6665322053" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.6092233805" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.83333" lat="36.58333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211185" name="Syme" clusteriness="60.47184776" scaled_clusteriness="0.6092233805" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.6092233805" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.83333" lat="36.58333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211186" name="Syme Ins." clusteriness="60.47184776" scaled_clusteriness="0.6092233805" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1685" name="Rhodes"/>
+ <placename id="rb1696" name="Lide">
+  <place rank="1" score="0.7710940717" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="27.75" lat="37.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14186730" name="Lide M." clusteriness="28.69537183" scaled_clusteriness="0.7710940717" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1698" name="Xanthus">
+  <place rank="1" score="0.5663327173" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="29.31937" lat="36.33591" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211228" name="Xanthos" clusteriness="73.67744645" scaled_clusteriness="0.5663327173" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.5663327173" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="29.31937" lat="36.33591" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211230" name="Xanthos" clusteriness="73.67744645" scaled_clusteriness="0.5663327173" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1705" name="Caunus">
+  <place rank="1" score="0.5911242013" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="28.75" lat="36.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189673" name="Caunus" clusteriness="65.72817856" scaled_clusteriness="0.5911242013" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.5779112014" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="28.63333" lat="36.83333" gazetteer="Pleiades Plus" type="other" gazref="unlock:14211219" name="Caunus" clusteriness="69.85179924" scaled_clusteriness="0.5779112014" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1720" name="Euphrates river"/>
+ <placename id="rb1722" name="Euphrates">
+  <place rank="1" score="0.3708942238" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="44.5" lat="31.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194280" name="Euphrates fl." clusteriness="181.2222642" scaled_clusteriness="0.3708942238" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1723" name="Armenia">
+  <place rank="1" score="0.7261343148" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="40.119045" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195080" name="Armenia Minor" clusteriness="35.29647785" scaled_clusteriness="0.7261343148" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.476581195" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="37.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195159" name="Armenia II" clusteriness="111.3877958" scaled_clusteriness="0.476581195" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.476581195" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="37.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195151" name="Armenia I" clusteriness="111.3877958" scaled_clusteriness="0.476581195" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.3496094734" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="40.5" lat="39.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14193376" name="Armenia" clusteriness="199.8853906" scaled_clusteriness="0.3496094734" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="5" score="0.3302177852" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="38.25" lat="39.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189481" name="Armenia Minor" clusteriness="218.5568534" scaled_clusteriness="0.3302177852" clusteriness_rank="5" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="6" score="0.2976556934" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="43.5" lat="40.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14193180" name="Armenia Maior" clusteriness="253.9151495" scaled_clusteriness="0.2976556934" clusteriness_rank="6" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="7" score="0.2826534529" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="44.642857" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194943" name="Armenia" clusteriness="272.0777918" scaled_clusteriness="0.2826534529" clusteriness_rank="7" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="8" score="0.2589753116" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="46.5" lat="39.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14193814" name="Armenia" clusteriness="303.4236139" scaled_clusteriness="0.2589753116" clusteriness_rank="8" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="9" score="0.2295928192" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="40.119045" lat="42.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194944" name="Armenia Minor" clusteriness="347.3876395" scaled_clusteriness="0.2295928192" clusteriness_rank="9" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1724" name="Red Sea"/>
+ <placename id="rb1730" name="Patara" contained-by="rb1731">
+  <place rank="1" score="0.5619409182" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="29.25" lat="36.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14189816" name="Patara" clusteriness="75.18274246" scaled_clusteriness="0.5619409182" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1731" name="Lycia" contains="rb1730">
+  <place rank="1" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.547619" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194969" name="Lycia et Pamphylia" clusteriness="6.606242275" scaled_clusteriness="1" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="1" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="26.547619" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195063" name="Lycia et Pamphylia" clusteriness="6.606242275" scaled_clusteriness="1" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1745" name="Ardericca"/>
+ <placename id="rb1754" name="Her city" altname="Her"/>
+ <placename id="rb1768" name="Choaspes river"/>
+ <placename id="rb1769" name="Susa"/>
+ <placename id="rb1770" name="Choaspes">
+  <place rank="1" score="0.2371213234" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="48.5" lat="31.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194364" name="Choaspes?" clusteriness="335.5500851" scaled_clusteriness="0.2371213234" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="72.5" lat="32.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14208925" name="Choaspes fl." clusteriness="1310.450943" scaled_clusteriness="0" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1772" name="Gyndes river"/>
+ <placename id="rb1774" name="Tigris">
+  <place rank="1" score="0.4384311643" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="41.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14193549" name="Tigris" clusteriness="132.7815309" scaled_clusteriness="0.4384311643" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.3429811607" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="46.5" lat="32.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194393" name="Tigris" clusteriness="206.0808698" scaled_clusteriness="0.3429811607" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1775" name="Opis">
+  <place rank="1" score="0.3778709704" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="44.5" lat="33.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194007" name="Opis" clusteriness="175.4922973" scaled_clusteriness="0.3778709704" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1778" name="Gyndes"/>
+ <placename id="rb1819" name="Babylonia">
+  <place rank="1" score="0.4270302982" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="44.5" lat="32.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194260" name="Babylonia" clusteriness="139.9392054" scaled_clusteriness="0.4270302982" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1827" name="Illyria"/>
+ <placename id="rb1833" name="Arabia">
+  <place rank="1" score="0.5511961175" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="39.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14193362" name="Arabia" clusteriness="78.99648456" scaled_clusteriness="0.5511961175" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.2761436263" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="31.75" lat="30.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14191671" name="Arabia Nomos" clusteriness="280.3578672" scaled_clusteriness="0.2761436263" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.2411671837" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="45.5" lat="29.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194256" name="Arabia" clusteriness="329.3560402" scaled_clusteriness="0.2411671837" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="4" score="0.2352046762" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="37.5" lat="32.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195167" name="Arabia" clusteriness="338.5249227" scaled_clusteriness="0.2352046762" clusteriness_rank="4" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="5" score="0.2255475172" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="34.75" lat="29.75" gazetteer="Pleiades Plus" type="other" gazref="unlock:14192058" name="Arabia Petraia" clusteriness="353.9198862" scaled_clusteriness="0.2255475172" clusteriness_rank="5" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="6" score="0.2003657941" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="35.25" lat="29.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14192056" name="Arabia Eudaemon" clusteriness="397.4371061" scaled_clusteriness="0.2003657941" clusteriness_rank="6" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="7" score="0.197187156" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="40.119045" lat="32.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14195089" name="Arabia" clusteriness="403.2976468" scaled_clusteriness="0.197187156" clusteriness_rank="7" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="8" score="0.1963569328" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="31.07143" lat="27.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194942" name="Arabia" clusteriness="404.8425339" scaled_clusteriness="0.1963569328" clusteriness_rank="8" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="9" score="0.1903287663" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="31.75" lat="27.25" gazetteer="Pleiades Plus" type="other" gazref="unlock:14192201" name="Arabia" clusteriness="416.2387105" scaled_clusteriness="0.1903287663" clusteriness_rank="9" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="10" score="0.108555662" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="42.5" lat="27.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14209510" name="Arabia" clusteriness="606.5808229" scaled_clusteriness="0.108555662" clusteriness_rank="10" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="11" score="0" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="47.5" lat="12.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14209426" name="Eudaimon Arabia" clusteriness="2088.583414" scaled_clusteriness="0" clusteriness_rank="11" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1841" name="Araxes">
+  <place rank="1" score="0.2507057371" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="46.5" lat="38.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14193812" name="Araxes fl." clusteriness="315.2016816" scaled_clusteriness="0.2507057371" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0.1418488127" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="52.5" lat="29.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194473" name="Araxes? fl." clusteriness="520.3581662" scaled_clusteriness="0.1418488127" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0.1408228115" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="53.5" lat="30.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14194499" name="Araxes? fl." clusteriness="522.8226295" scaled_clusteriness="0.1408228115" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1842" name="Issedones">
+  <place rank="1" score="0" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="92.5" lat="37.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14208854" name="Issedones" clusteriness="2488.111807" scaled_clusteriness="0" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+ <placename id="rb1844" name="Ister"/>
+ <placename id="rb1853" name="Atlantic"/>
+ <placename id="rb1855" name="Caspian"/>
+ <placename id="rb1858" name="Caucasus">
+  <place rank="1" score="0.2937733636" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="43.5" lat="42.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14193192" name="Caucasus M." clusteriness="258.49567" scaled_clusteriness="0.2937733636" clusteriness_rank="1" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="2" score="0" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="67.5" lat="32.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14208746" name="Caucasus M." clusteriness="1130.312069" scaled_clusteriness="0" clusteriness_rank="2" locality="0" distance-to-known="99999" scaled_known="0"/>
+  <place rank="3" score="0" scaled_type="0" scaled_pop="0" scaled_contained_by="0" scaled_contains="0" scaled_near="0" long="77.5" lat="32.5" gazetteer="Pleiades Plus" type="other" gazref="unlock:14208877" name="Caucasus M." clusteriness="1445.021987" scaled_clusteriness="0" clusteriness_rank="3" locality="0" distance-to-known="99999" scaled_known="0"/>
+ </placename>
+</placenames>

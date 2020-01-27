@@ -1,0 +1,89 @@
+#!/bin/sh
+
+usage="geoground -g gaz [-c county (deep only)] [-r begindate enddate (deep only)] [-l lat long radius score] [-o outfname] <input.xml >output.xml"
+descr="ground location entities"
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    -g)
+      gaz=$1
+      shift
+      ;;
+    -c)
+      county=$1
+      shift
+      ;;
+    -r)
+      begin="$1"
+      end="$2"
+      shift 2
+      ;;
+    -l)
+      lat="$1"
+      long="$2"
+      radius="$3"
+      lscore="$4"
+      shift 4
+      ;;
+    -lb)
+      ltype=box
+      w="$1"
+      n="$2"
+      e="$3"
+      s="$4"
+      lscore="$5"
+      shift 5
+      ;;
+    -o)
+      outfname=$1
+      shift
+      ;;
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+if [ $# -ne -0 -o -z "$gaz" ]; then
+  echo "usage: $usage" >&2
+  exit 2
+fi
+
+lib=$here/lib/georesolve
+
+cat >$tmp-input
+
+if [ ! -z "$county" -a "$gaz" = deep ]; then
+
+  $here/scripts/geogaz -g "$gaz" -c "$county" -r "$begin" "$end" <$tmp-input >$tmp-gazunres.xml
+
+else
+
+  $here/scripts/geogaz -g "$gaz" <$tmp-input >$tmp-gazunres.xml
+
+fi
+
+if [ "$ltype" ]; then
+
+  $here/scripts/georesolve -lb "$w" "$n" "$e" "$s" "$lscore" <$tmp-gazunres.xml >$tmp-gaz.xml
+
+else
+
+  $here/scripts/georesolve -l "$lat" "$long" "$radius" "$lscore" <$tmp-gazunres.xml >$tmp-gaz.xml
+
+fi
+
+cat $tmp-input |
+lxt -p georesfile $tmp-gaz.xml -s $lib/getnorms.xsl
+
+
+if [ "$outfname" ]; then
+
+  cp $tmp-gaz.xml $outfname.gaz.xml
+
+fi
+

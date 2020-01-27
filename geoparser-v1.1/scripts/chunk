@@ -1,0 +1,125 @@
+#!/bin/sh 
+
+usage="chunk -s style -f format <input.xml >output.xml"
+descr="Do chunking with lxtransduce chunk grammars; style is one of conll, nested, flat, format is one of inline, standoff, bio" 
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    -s)
+      style=$1
+      shift
+      ;;
+    -f)
+      format=$1
+      shift
+      ;;
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+if [ -z "$style" -o -z "$format" ]; then
+  echo "usage: $usage" >&2
+  exit 2
+fi
+
+lib=$here/lib/chunk
+
+lxtransduce -q s -l lex=$lib/controlverbs.lex $lib/verbg.gr |
+lxreplace -q "vg[w[@neg='yes']]" -t "<vg neg='yes'>&attrs;&children;</vg>" |
+lxreplace -q 'vg[.~"^(&apos;ll|will)[^a-z]"]' -t "<vg>&attrs;<xsl:attribute name='tense'>fut</xsl:attribute>&children;</vg>" |
+lxreplace -q "vg[not(w[2])]/w[not(@headv)]" -t "<w headv='yes'>&attrs;&children;</w>" |
+lxtransduce -q s $lib/noung.gr |
+lxtransduce -q s -l lex=$lib/other.lex $lib/otherg.gr |
+lxtransduce -q s $lib/tmlextras.gr |
+lxreplace -q "pg/vg|pg/pg|ng/vg|ng/ng" |
+lxreplace -q "phr|@conf|@edsource|@alsource|@c" >$tmp-chunked
+
+case $style in
+
+  conll)
+    cat $tmp-chunked |
+    lxreplace -q cvg -t "<vg>&children;</vg>" |
+    lxreplace -q "vg/vg" |
+    lxreplace -q "ng[cng]" -t "&children;" |
+    lxreplace -q "cng" -t "<ng>&children;</ng>" | 
+    lxreplace -q "ng[ng]" -t "&children;" |
+    lxreplace -q "url|role|numex|timex|enamex" > $tmp-style
+    ;;
+
+  flat)
+    cat $tmp-chunked |
+    lxreplace -q cvg |
+    lxreplace -q "cng|ng/ng" |
+    lxreplace -q "url|role|numex|timex|enamex" > $tmp-style
+    ;;
+
+  sync3)
+    cat $tmp-chunked |
+    lxreplace -q cvg |
+    lxreplace -q "cng|ng/ng" |
+    lxreplace -q "url|role|numex|enamex" > $tmp-style
+    ;;
+
+  nested)
+    cat $tmp-chunked |
+    lxreplace -q "cng" |
+    lxreplace -q "cvg" -n "'vg'" > $tmp-style
+    ;;
+
+  none)
+    cp $tmp-chunked $tmp-style
+    ;;
+
+  *)
+    echo "unknown style $style" >&2
+    exit 1
+    ;;
+
+esac
+
+case $format in
+
+  standoff)
+    cat $tmp-style |
+    lxt -s $lib/standoff.xsl 
+    ;;
+
+  bio)
+    if [ $style = nested -o $style = none ]; then
+      echo "incompatible style and format ($style and $format)" >&2
+      exit 1
+    fi
+    cat $tmp-style |
+    lxt -s $lib/tag2attr.xsl 
+    ;;
+
+  event)
+    if [ $style = nested -o $style = none ]; then
+      echo "incompatible style and format ($style and $format)" >&2
+      exit 1
+    fi
+    cat $tmp-style |
+    lxt -s $lib/tagandattr.xsl |
+    lxreplace -q "vg[not(@tense='fut') and w[@headv='yes' and @l~'^(be|have|do)$']]" -t "&children;" |
+    lxaddids -p "'ev'" -e "vg|ng" > $tmp-event
+
+    cat $tmp-event |
+    lxt -s $lib/standoff-event.xsl
+    ;;
+
+  inline)
+    cat $tmp-style
+    ;;
+
+  *)
+    echo "unknown format $format" >&2
+    exit 1
+    ;;
+
+esac

@@ -1,0 +1,53 @@
+<rules name="tmlextras" type="xml" apply="all"> 
+
+<rule name="pred-adj">
+  <seq>
+    <query match="vg[w[@l='be']]"/>
+    <query match="rg" mult="*"/>
+    <query match="ag" attrs="pred='yes'"/>
+    <seq mult="*">
+      <query match="w[.~'^(,|and|or)$']" mult="?"/>
+      <query match="ag" attrs="pred='yes'"/>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="att-adj">
+  <query match="w[@p~'^J']" attrs="pred='no'"/>
+</rule>
+
+<rule name="ing-prep" wrap="pg">
+  <first>
+    <seq>
+      <query match="vg[.~'^[Jj]udging$']"/>
+      <query match="pg[.~'^(from|by)$']"/>
+    </seq>
+    <seq>
+      <query match="vg[.~'^[Aa]ccording$']"/>
+      <query match="pg[.~'^to']"/>
+    </seq> 
+    <seq>
+      <query match="vg[.~'^[Dd]epending$']"/>
+      <query match="pg[.~'^on$']"/>
+    </seq>
+    <query match="vg[.~'^[Ii]ncluding']"/>
+ </first>
+</rule>
+
+<rule name="nonfinvg-ng" wrap="ng">
+  <seq>
+    <query match="vg[@tense='nonfin' and @voice='pass' and @asp='simple' and @modal='no']"/>
+    <query match="ng[not(w[2])]"/>
+  </seq>
+</rule>
+
+<rule name="all">
+  <first>
+    <ref name="pred-adj"/>
+    <ref name="att-adj"/>
+    <ref name="ing-prep"/>
+    <ref name="nonfinvg-ng"/>
+  </first>
+</rule>
+
+</rules>

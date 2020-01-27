@@ -1,0 +1,50 @@
+#!/bin/sh
+
+usage="gazmap-top locations.xml"
+descr="Display locations on a Google Map. This version only shows top-ranked candidate for each place. This is a post-processing step producing extra output files and taking the normal pipeline output file as input."
+
+. `dirname $0`/setup
+
+if [ $# -ne 1 ]; then
+  echo "usage: $usage" >&2
+  exit 2
+fi
+
+infile=$1
+datadir=`dirname $1`
+prefix=`basename $1 .gaz.xml`
+mapfile=$datadir/$prefix.gazmap-top.html
+listfile=$datadir/$prefix.gazlist-top.html
+docfile=$datadir/$prefix.geotagged.html
+displayfile=$datadir/$prefix.display-top.html
+
+#tmp=/tmp/$USER-`basename $0`-$$
+lib=$here/lib/georesolve
+
+# defkey is old-style Google Maps API key for ed.ac.uk
+defkey="ABQIAAAAJMrGlyfwNVfUM30sWp_76RTEZhwwuW-82T6n_RFJkr4DqVuLlxQNTq5htkpjBE9F3-HlhjF7oDqfLA"
+
+lxt -p key ${GOOGLEMAPKEY:-$defkey} -s $lib/gazmap-top.xsl $infile >$mapfile
+lxt -s $lib/gazlist-top.xsl $infile >$listfile
+
+cat <<EOF >$displayfile
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>Geoparser output with only top-ranked candidate</title>
+</head>
+
+<frameset rows="50%,50%">
+  <frame name="map" src="`basename $mapfile`">
+  <frameset cols="70%,30%">
+    <frame name="map" src="`basename $docfile`">
+    <frame name="list" src="`basename $listfile`">
+  </frameset>
+</frameset>
+
+</html>
+
+EOF

@@ -1,0 +1,36 @@
+#!/bin/sh
+
+usage="gazlookup-unlock <input.xml >output.xml"
+descr="Do Unlock (xwalk replacement) gazetteer lookup on a set of placenames."
+
+unlock_host='http://unlock.edina.ac.uk'
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+
+lib=$here/lib/georesolve
+
+cat >$tmp-input
+
+# get gazetteer from script name
+# (so a link to this script named "gazlookup-xyz" will use gazetteer xyz)
+gaz=`basename $0 | awk -F"-" '{print $2}'`
+
+# gazlookup-geonames is already taken, so we use "unlockgeonames"
+# for geonames through unlock
+if [ "$gaz" = "unlockgeonames" ] ; then
+    gaz='geonames'
+fi
+
+lxt -s $lib/dounlockquery.xsl -p host "$unlock_host" -p gazetteer "$gaz" <$tmp-input
+

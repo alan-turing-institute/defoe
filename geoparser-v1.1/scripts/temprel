@@ -1,0 +1,27 @@
+#!/bin/sh 
+
+usage="temprel <input.xml >output.xml"
+descr="Find temporal relations in ner-rb and chunk output"
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+lib=$here/lib/tempresolve
+
+lxtransduce -q s $lib/reldateground.gr |
+lxt -s $lib/dateground2.xsl |
+lxreplace -q '@*[. = "NaN"]' -t '' |
+lxt -s $lib/dateground.xsl |
+lxt -s $lib/durground.xsl |
+lxtransduce -q s $lib/temprel.gr |
+lxt -s $lib/standoff-rel.xsl |
+lxaddids -e "relations[@source='temprel']/relation" -p "'rbr'"

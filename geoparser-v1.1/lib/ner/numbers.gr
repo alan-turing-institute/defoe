@@ -1,0 +1,632 @@
+<rules name="numbers" type="xml" apply="all">
+
+<!-- NUMBERS -->
+
+<!-- one to nine -->
+
+<rule name="unit" attrs="c='cd'">
+  <lookup lexicon="lex" match="w" attrs="quty='$quty'">
+    <constraint test="cat='unit'"/>
+    <var name="quty" value="quty"/>
+  </lookup>
+</rule>
+
+<!-- teen -->
+
+<rule name="teen" attrs="c='cd'">
+  <lookup match="w" lexicon="lex" attrs="quty='$quty'">
+    <constraint test="cat='teen'"/>
+    <var name="quty" value="quty"/>
+  </lookup>
+</rule>
+
+<!-- ty -->
+
+<rule name="ty" attrs="c='cd'">
+  <lookup lexicon="lex" match="w" attrs="quty='$quty'">
+    <constraint test="cat='ty'"/>
+    <var name="quty" value="quty"/>
+  </lookup>
+</rule>
+
+<!-- hundred, thousand, million .. -->
+
+<rule name="big-unit" attrs="c='cd'">
+  <lookup lexicon="lex" match="w">
+    <constraint test="cat='big-unit'"/>
+  </lookup>
+</rule>
+
+<!-- digit numbers -->
+ 
+<rule name="digit" attrs="c='cd'">
+  <first>
+    <query match="w[@c='cd' and .~'^[0-9]+$']" attrs="quty='$quty'">
+      <var name="quty" value="."/>
+    </query>
+    <query match="w[@p='CD' and not(@c='ord') and .~'^[0-9]+$']" attrs="quty='$quty'">
+      <var name="quty" value="."/>
+    </query>
+    <query match="w[@p='cd' and not(@c='ord') and .~'^[0-9]+$']" attrs="quty='$quty'">
+      <var name="quty" value="."/>
+    </query>
+    <query match="w[@P='CD' and not(@c='ord') and .~'^[0-9]+$']" attrs="quty='$quty'">
+      <var name="quty" value="."/>
+    </query>
+    <query match="w[@P='cd' and not(@c='ord') and .~'^[0-9]+$']" attrs="quty='$quty'">
+      <var name="quty" value="."/>
+    </query>
+    <query match="w[.~'^[0-9]+$']" attrs="quty='$quty'">
+      <var name="quty" value="."/>
+    </query>
+  </first>
+</rule> 
+
+<rule name="minusdigit">
+  <seq>
+    <query match="w[.~'^([Mm]inus|MINUS|-)$']"/>
+    <ref name="digit"/>
+  </seq>
+</rule> 
+
+<rule name="digits">
+  <first>
+    <ref name="digit"/>
+    <ref name="minusdigit"/>
+  </first>
+</rule> 
+
+<rule name="unit-or-digits">
+  <first>
+    <ref name="unit"/>
+    <ref name="digits"/>
+  </first>
+</rule> 
+
+<!-- multi-word numbers that start with a unit -->
+
+<rule name="unit-initial-num">
+  <seq>
+    <ref name="unit-or-digits"/>
+    <ref name="big-unit" mult="*"/>
+  </seq>
+</rule> 
+
+<!-- multi-word numbers that start with a teen -->
+
+<rule name="teen-initial-num">
+  <seq>
+    <ref name="teen"/>
+    <ref name="big-unit" mult="*"/>
+  </seq>
+</rule> 
+
+<rule name="hyphen">
+  <query match="w[.='-']"/>
+</rule>
+
+<!-- multi-word numbers that start with a ty -->
+
+<rule name="ty-initial-num">
+  <seq>
+    <ref name="ty"/>
+    <ref name="hyphen" mult="?"/>
+    <ref name="unit" mult="?"/>
+    <ref name="big-unit" mult="*"/>
+  </seq>
+</rule> 
+
+<rule name="simplenum">
+  <first>
+    <ref name="unit-initial-num"/>
+    <ref name="teen-initial-num"/>
+    <ref name="ty-initial-num"/>
+  </first>
+</rule>
+
+<rule name="and-simplenum">
+  <seq>
+    <query match="w[.~'^(and|And|AND)$']"/> 
+    <ref name="simplenum" mult="+"/>
+  </seq>
+</rule> 
+
+<!-- multi-word numbers that start with a unit and possibly contain an
+     "and" -->  
+
+<rule name="unit-initial-num-and">
+  <seq>
+    <first>
+      <ref name="unit-or-digits"/>
+      <query match="w[.~'^[Aa]$']"/> 
+    </first>
+    <ref name="big-unit" mult="+"/>
+    <first mult="*">
+      <ref name="simplenum"/>
+      <ref name="and-simplenum"/>
+    </first>
+  </seq>
+</rule> 
+
+<!-- multi-word numbers that start with a teen and possibly contain an
+     "and" --> 
+
+<rule name="teen-initial-num-and">
+  <seq>
+    <ref name="teen"/>
+    <ref name="big-unit" mult="+"/>
+    <first mult="*">
+      <ref name="simplenum"/>
+      <ref name="and-simplenum"/>
+    </first>
+  </seq>
+</rule> 
+
+<!-- multi-word numbers that start with a ty and possibly contain an
+     "and" --> 
+
+<rule name="ty-initial-num-and">
+  <seq>
+    <ref name="ty"/>
+    <ref name="hyphen" mult="?"/>
+    <ref name="unit" mult="?"/>
+    <ref name="big-unit" mult="+"/>
+    <first mult="*">
+      <ref name="simplenum"/>
+      <ref name="and-simplenum"/>
+    </first>
+  </seq>
+</rule> 
+
+<!-- the last ref just makes sure that digits are marked as c='cd' to
+     make the numex and timex grammar simpler -->
+
+<rule name="numbers">
+  <first>
+    <ref name="unit-initial-num-and" wrap="phr" attrs="c='cd'"/>
+    <ref name="unit-initial-num" wrap="phr" attrs="c='cd'"/>
+    <ref name="teen-initial-num-and" wrap="phr" attrs="c='cd'"/>
+    <ref name="teen-initial-num" wrap="phr" attrs="c='cd'"/>
+    <ref name="ty-initial-num-and" wrap="phr" attrs="c='cd'"/>
+    <ref name="ty-initial-num" wrap="phr" attrs="c='cd'"/>
+    <ref name="digit"/>
+
+  </first>
+</rule>
+
+<!-- ORDINALS and FRACTIONS -->
+
+<!-- a digit fraction, eg 3/4, 5/16 -->
+ 
+<rule name="frac-digit" attrs="c='frac'">
+  <first>
+    <query match="w[.~'^[0-9]/[0-9][0-9]*$']"/>
+    <query match="w[.~'^[0-9][0-9]/[0-9][0-9][0-9]*$']"/>
+  </first>
+</rule>
+
+<!-- <w c='ord'> - recognised but not marked up any further. -->
+
+<rule name="ord-digit">
+  <query match="w[@c='ord']"/>
+</rule> 
+
+<!-- Most singular num+th words are ambiguous between fraction
+     denominator and ordinal readings: eg 'fifth' can occur as a 
+     fraction denominator (one fifth) or as an ordinal (the fifth
+     time). We use context to help disambiguate. -->
+    
+<!-- First we deal with unambiguous fraction denominators:
+     half/halves, quarter/quarters and all other plural forms, eg
+     ninths, nineteenths, ninetieths etc. These are marked in the
+     lexicon with the tag frac (and they also have the tags unith,
+     teenth, tieth, big-unith - not used here). The optional num-hyph
+     does thirty-sixths, thirty sixths etc. -->
+
+<rule name="num-hyph">
+  <seq>
+    <ref name="simplenum"/>
+    <ref name="hyphen" mult="?"/>
+  </seq>
+</rule> 
+
+<rule name="th-frac-denom-sing">
+  <seq>
+    <ref name="num-hyph" mult="?"/>
+    <lookup match="w[.~'[^s]$']" lexicon="lex">
+      <constraint test="cat='frac' or cat='ordfrac'"/>
+    </lookup>
+  </seq>
+</rule> 
+
+<rule name="th-frac-denom-plur">
+  <seq>
+    <ref name="num-hyph" mult="?"/>
+    <lookup match="w[.~'s$']" lexicon="lex">
+      <constraint test="cat='frac'"/>
+    </lookup>
+  </seq>
+</rule> 
+ 
+<!-- complete fractions -->
+
+<rule name="frac-denom-sing">
+  <first>
+    <ref name="th-frac-denom-sing"/>
+    <ref name="ord-digit"/>
+  </first>
+</rule> 
+
+<rule name="frac-denom-plur">
+  <ref name="th-frac-denom-plur"/>
+</rule> 
+
+<!-- This is the main fraction rule that puts together the
+     enumerator and the denominator, eg. three fifths, one quarter,
+     one third, three-quarters, 5 twentieths.
+     Careful with word-internal dash -->
+
+<rule name="fraction" wrap="phr" attrs="c='frac'">
+  <first>
+    <seq>
+      <query match="w[.~'^one|One|ONE|a|A$']"/>
+      <ref name="hyphen" mult="?"/>
+      <ref name="frac-denom-sing"/>
+    </seq>
+    <seq>
+      <ref name="simplenum"/>
+      <ref name="hyphen" mult="?"/>
+      <ref name="frac-denom-plur"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="fraction2" wrap="phr" attrs="c='frac'">
+  <seq>
+    <query match="w[.~'^one|One|ONE$']"/>
+    <ref name="hyphen" mult="?"/>
+    <ref name="num-hyph" mult="?"/>
+    <lookup match="w" lexicon="lex">
+      <constraint test="cat='ordfrac'"/>
+    </lookup>
+  </seq>
+</rule>
+
+<rule name="fraction3" wrap="phr" attrs="c='frac'">
+  <seq>
+    <query match="w[.~'^[Aa]$']"/>
+    <lookup match="w" lexicon="lex">
+      <constraint test="cat='frac'"/>
+    </lookup>
+  </seq>
+</rule>
+
+<rule name="fraction4" wrap="phr" attrs="c='frac'">
+  <seq>
+    <query match="w[.~'^[Aa]$']"/>
+    <ref name="hyphen" mult="?"/>
+    <ref name="num-hyph" mult="?"/>
+    <lookup match="w" lexicon="lex">
+      <constraint test="cat='ordfrac'"/>
+    </lookup>
+  </seq>
+</rule>
+
+<rule name="th-ord" wrap="phr" attrs="c='ord'">
+  <seq>
+    <ref name="num-hyph" mult="?"/>
+    <first>
+      <lookup match="w" lexicon="lex" attrs="c='ord'">
+        <constraint test="cat='ord'"/>
+      </lookup>
+      <lookup match="w" lexicon="lex" attrs="c='ord'">
+        <constraint test="cat='ordfrac'"/>
+      </lookup>
+    </first>
+  </seq>
+</rule> 
+ 
+<rule name="all-th">
+  <first>
+<!--    <ref name="fraction2"/>-->
+    <ref name="fraction"/>
+    <ref name="th-ord"/>
+  </first>
+</rule>
+
+<!-- NUMBERS AND FRACTIONS. e.g. three and three-quarters -->
+
+<rule name="num-and-frac">
+  <seq>
+    <ref name="simplenum"/>
+    <query match="w[.~'^([Aa]nd|AND)$']"/>
+    <first>
+<!--      <ref name="fraction4"/>
+      <ref name="fraction3"/>
+      <ref name="fraction2"/>-->
+      <ref name="fraction"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="digit-and-frac">
+  <seq>
+    <ref name="digit"/>
+    <ref name="frac-digit"/>
+  </seq>
+</rule>
+
+<!-- two and a half thousand -->
+
+<rule name="num-frac-thou">
+  <seq>
+    <first>
+      <ref name="num-and-frac"/>
+      <ref name="digit-and-frac"/>
+    </first>
+    <ref name="big-unit"/>
+  </seq>
+</rule>
+
+<!-- half a million, three-quarters of a million,
+     a quarter of a million -->
+
+<rule name="a">
+  <query match="w[.='a']"/>
+</rule>
+
+<rule name="of">
+  <query match="w[.~'^([Oo]f|OF)$']"/>
+</rule>
+
+<rule name="frac-illion1">
+  <seq>
+    <query match="w[.~'([Hh]alf|HALF)$']"/>
+    <query match="w[.='a']"/>
+    <query match="w[.~'illion$']"/>
+  </seq>
+</rule>
+
+<rule name="of-a">
+  <seq>
+    <ref name="of"/>
+    <query match="w[.='a']"/>
+  </seq>
+</rule>
+
+<rule name="frac-illion2">
+  <seq>
+    <first>
+      <query match="w[.~'([Qq]uarter|QUARTER)$']"/>
+<!--      <ref name="fraction2"/>-->
+      <ref name="fraction"/>
+    </first> 
+    <ref name="of-a" mult="?"/>
+    <query match="w[.~'illion$']"/>
+  </seq>
+</rule>
+
+<rule name="frac-illion3">
+  <seq>
+    <query match="w[.~'^[Aa]$']"/>
+    <ref name="th-ord"/>
+    <ref name="of-a" mult="?"/>
+    <query match="w[.~'illion$']"/>
+  </seq>
+</rule>
+
+<!--   half a dozen, quarter of a dozen -->
+
+<rule name="frac-dozen1">
+  <seq>
+    <query match="w[.~'([Hh]alf|HALF)$']"/>
+    <query match="w[.='a']"/>
+    <query match="w[.~'^dozen$']"/>
+  </seq>
+</rule>
+
+<rule name="frac-dozen2">
+  <seq>
+    <first>
+      <query match="w[.~'([Qq]uarter|QUARTER)$']"/>
+<!--      <ref name="fraction2"/>-->
+      <ref name="fraction"/>
+    </first> 
+    <ref name="of"/>
+    <query match="w[.='a']"/>
+    <query match="w[.~'^dozen$']"/>
+  </seq>
+</rule>
+
+<rule name="complexnum">
+  <first>
+    <ref name="frac-illion1" wrap="phr" attrs="c='cd'"/>
+    <ref name="frac-illion2" wrap="phr" attrs="c='cd'"/>
+    <ref name="frac-illion3" wrap="phr" attrs="c='cd'"/>
+    <ref name="frac-dozen1" wrap="phr" attrs="c='cd'"/>
+    <ref name="frac-dozen2" wrap="phr" attrs="c='cd'"/>
+    <ref name="num-frac-thou" wrap="phr" attrs="c='cd'"/>
+    <ref name="num-and-frac" wrap="phr" attrs="c='cd'"/>
+    <ref name="digit-and-frac" wrap="phr" attrs="c='cd'"/>
+  </first>
+</rule>
+
+<!-- range -->
+
+<rule name="to-dash">
+  <first>
+    <query match="w[.~'^([Tt]o|TO)$']"/>
+    <query match="w[.='-']"/>
+  </first>
+</rule>
+    
+<!-- 1920-1924. Ranges which could be year ranges are found 
+     before more general ranges. Needed for timex.gr but can
+     be removed when dates are not being found. 
+     Change so they don't get wrapped so timex.gr can handle properly -->
+
+<!--<rule name="card-to-card-yr" wrap="phr" attrs="c='yrrange'">-->
+<rule name="card-to-card-yr">
+  <seq>
+    <query match="w[.~'^[12][0-9][0-9][0-9]$']"/>
+    <ref name="to-dash"/>
+    <query match="w[.~'^[12][0-9][0-9][0-9]$']"/>
+  </seq>
+</rule>
+
+<!-- twenty to thirty, twenty - thirty, 20-30 -->
+
+<rule name="card-to-card" wrap="phr" attrs="c='range'">
+  <seq>
+    <ref name="simplenum"/>
+    <ref name="to-dash"/>
+    <ref name="simplenum"/>
+  </seq>
+</rule>
+
+<!-- 1920 or 1921. Ranges which could be year ranges are found 
+     before more general ranges. Needed for timex.gr but can
+     be removed when dates are not being found. 
+     Change so they don't get wrapped so timex.gr can handle properly -->
+
+<!--<rule name="card-or-card-yr" wrap="phr" attrs="c='yrrange'">-->
+<rule name="card-or-card-yr">
+  <seq>
+    <query match="w[.~'^[12][0-9][0-9][0-9]$']" attrs="c='cd'"/>
+    <query match="w[.~'^([Oo]r|OR)$']"/>
+    <query match="w[.~'^[12][0-9][0-9][0-9]$']" attrs="c='cd'"/>
+  </seq>
+</rule>
+
+<!-- twenty or thirty  -->
+
+<rule name="card-or-card" wrap="phr" attrs="c='range'">
+  <seq>
+    <ref name="simplenum"/>
+    <query match="w[.~'^([Oo]r|OR)$']"/>
+    <ref name="simplenum"/>
+  </seq>
+</rule>
+
+<!-- between 1920 and 1922. Ranges which could be year ranges are
+     found before more general ranges. Needed for timex.gr but can 
+     be removed when dates are not being found.
+     Change so they don't get wrapped so timex.gr can handle properly -->
+
+<!--<rule name="between-card-and-card-yr" wrap="phr" attrs="c='yrrange'">-->
+<rule name="between-card-and-card-yr">
+  <seq>
+    <query match="w[.~'^([Bb]etween|BETWEEN)$']"/>
+    <query match="w[.~'^[12][0-9][0-9][0-9]$']" attrs="c='cd'"/>
+    <query match="w[.~'^([Aa]nd|AND)$']"/>
+    <query match="w[.~'^[12][0-9][0-9][0-9]$']" attrs="c='cd'"/>
+  </seq>
+</rule>
+
+<!-- between twenty and thirty; between 20 and 30  -->
+
+<rule name="between-card-and-card" wrap="phr" attrs="c='range'">
+  <seq>
+    <query match="w[.~'^([Bb]etween|BETWEEN)$']"/>
+    <ref name="simplenum"/>
+    <query match="w[.~'^([Aa]nd|AND)$']"/>
+    <ref name="simplenum"/>
+  </seq>
+</rule>
+
+<rule name="all-range">
+  <first>
+    <ref name="card-to-card-yr"/>
+    <ref name="card-to-card"/>
+    <ref name="card-or-card-yr"/>
+    <ref name="card-or-card"/>
+    <ref name="between-card-and-card-yr"/>
+    <ref name="between-card-and-card"/>
+  </first>
+</rule>
+
+<!-- quantity -->
+
+<!-- tens, dozens, thousands ... -->
+
+<rule name="nterm">
+  <lookup match="w" lexicon="lex">
+    <constraint test="cat='big-units'"/>
+  </lookup>
+</rule>
+ 
+<!-- several, many, hundreds of ...  -->
+
+<rule name="quantifier">
+  <lookup match="w" lexicon="lex" phrase="true">
+    <constraint test="cat='quant'"/>
+  </lookup>
+</rule>
+
+<!-- several thousands (of), hundreds of thousands (of) .... -->
+
+<rule name="quantity1" wrap="phr" attrs="c='quant'">
+  <seq>
+    <ref name="quantifier" mult="+"/>
+    <ref name="nterm" mult="*"/>
+    <ref name="of" mult="?"/>
+  </seq>
+</rule>
+
+<!-- several, a few  -->
+
+<rule name="qusing">
+  <lookup match="w" lexicon="lex" phrase="true">
+    <constraint test="cat='qusing'"/>
+  </lookup>
+</rule>
+
+<!-- several thousand, a few hundred, ... -->
+
+<rule name="quantity2" wrap="phr" attrs="c='quant'">
+  <seq>
+    <ref name="qusing"/>
+    <ref name="big-unit" mult="+"/>
+  </seq>
+</rule>
+
+<!-- multi-million, multimillion ...  -->
+
+<rule name="multi">
+  <first>
+    <query match="w[.='multimillion']" attrs="c='quant'"/>
+    <seq wrap="phr" attrs="c='quant'">
+      <lookup match="w" lexicon="lex">
+        <constraint test="cat='multi'"/>
+      </lookup>
+      <ref name="hyphen" mult="?"/>
+      <ref name="big-unit"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="all-quant">
+  <first>
+    <ref name="quantity2"/>
+    <ref name="quantity1"/> 
+    <ref name="multi"/>
+  </first>
+</rule>
+
+<rule name="nonnum">
+  <query match="w">
+    <constraint test="not(lex()) and not(.~'^[0-9]') and not(.~'^(a|an|A|An|AN)$') and not(@c~'^(cd|ord)$') and not(@p='CD') and not(.~'^([Mm]inus|[Mm]ulti|[Bb]etween)')"/>
+  </query>
+</rule>
+
+<rule name="all">
+  <first>
+    <ref name="nonnum"/>
+<!--    <ref name="all-range"/>-->
+    <ref name="complexnum"/>
+    <ref name="all-th"/>
+    <ref name="numbers"/>
+  </first>
+</rule>
+
+</rules>

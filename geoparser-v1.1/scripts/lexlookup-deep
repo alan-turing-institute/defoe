@@ -1,0 +1,25 @@
+#!/bin/sh 
+
+usage="lexlookup <input.xml >output.xml"
+descr="Look up words in various lexicons and add appropriate attributes."
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+lib=$here/lib/ner
+
+lxtransduce -q s -a firstname $lib/lexlookup.gr |
+lxtransduce -q s -a wikifirstname $lib/lexlookup.gr |
+lxtransduce -q s -a commonfordeep $lib/lexlookup.gr |
+lxtransduce -q s $lib/lexlookup-deep.gr |
+lxtransduce -q s -a otherloc $lib/lexlookup.gr |
+lxtransduce -q s -a place $lib/lexlookup.gr

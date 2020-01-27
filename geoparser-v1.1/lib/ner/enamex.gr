@@ -1,0 +1,2186 @@
+<rules name="enamex" type="xml" apply="all">
+
+<rule name="the">
+  <query match="w[.~'^(THE|The|the)$']"/>
+</rule>
+
+<rule name="name">
+  <and>
+    <not>
+      <first>
+        <query match="w[@orgname='single']"/>
+        <lookup match="w" lexicon="lex" phrase="true">
+          <constraint test="cat='title' or cat='perword' or cat='perrel' or cat='locword' or cat='role' or cat='inoword' or cat='ohword'"/>
+        </lookup>
+      </first>
+    </not>
+    <first>
+      <query match="w[@p~'^(NN|NNP|NNPS)$' and .~'^[A-Z][a-z]+$']"/>
+      <query match="w[@p~'^(NN|NNP|NNPS)$' and .~'^[A-Z][A-Z]+$' and not(@common='true')]"/>
+    </first>
+  </and>
+</rule>
+
+<rule name="name-not-loc">
+  <and>
+    <not>
+      <first>
+        <query match="w[@orgname]"/>
+        <query match="w[@locname]"/>
+        <lookup match="w" lexicon="lex" phrase="true">
+          <constraint test="cat='title' or cat='perword' or cat='perrel' or cat='locword' or cat='role' or cat='inoword' or cat='ohword'"/>
+        </lookup>
+      </first>
+    </not>
+    <first>
+      <query match="w[@p~'^(NN|NNP|NNPS)$' and .~'^[A-Z][a-z]+$']"/>
+      <query match="w[@p~'^(NN|NNP|NNPS)$' and .~'^[A-Z][A-Z]+$' and not(@common='true')]"/>
+    </first>
+  </and>
+</rule>
+
+<rule name="commonword">
+  <query match="w[@p~'^N' and .~'^[A-Z]' and @common='true' and not(@pername='true')]" constraint="not(lex()[cat='title' or cat='title-incl' or cat='ohword'])"/>
+</rule>
+
+<rule name="notcommonword">
+  <query match="w[@p~'^N' and .~'^[A-Z]' and not(@common='true')]"/>
+</rule>
+
+<rule name="w-pws-no">
+  <query match="w[@pws='no']"/>
+</rule>
+
+<rule name="urlend">
+  <query match="w[.~'[A-Za-z0-9/]$' and @pws='no']"/>
+</rule>
+
+<rule name="url" wrap="url">
+  <seq>
+    <query match="w[.~'^(http|HTTP|www|WWW)']"/>
+    <backtrack>
+      <ref name="w-pws-no" mult="*"/>
+      <ref name="urlend"/>
+    </backtrack>
+  </seq>
+</rule>
+
+<!-- person -->
+
+<rule name="wikiperson" wrap="enamex" attrs="type='person'">
+  <first>
+    <seq>
+      <query match="w[not(.~'^[.:]$')]" suppress='true'/>
+      <query match="w[.='Will']"/>
+      <query match="w[@wfirstn or @wlastn]" mult="+"/>
+      <not>
+        <query match="w[.~'^[A-Z]']"/>
+      </not>
+    </seq>
+    <seq>
+      <query match="w[@wfirstn and not(.='Will')]"/>
+      <query match="w[@wfirstn or @wlastn]" mult="+"/>
+      <not>
+        <query match="w[.~'^[A-Z]']"/>
+      </not>
+    </seq>
+  </first>
+</rule>
+
+<!-- lookup w[not(@sb)] here and throughout because don't want to include 
+     sentence final fullstop (<w sb='true'>) - see sents grammar. -->
+
+<rule name="title">
+  <seq>
+    <query match="w[.~'^(Chief|CHIEF)$']" mult="?"/>
+    <first>
+      <seq>
+        <lookup match="w[.~'^[a-z]' and not(@sb) and not(.='miss')]" lexicon="lex" phrase="true" case='no'>
+          <constraint test="cat='title' or cat='role'"/>
+        </lookup>
+        <query match="w" constraint="not(lex()[cat='title' or cat='title-incl'])" suppress="true"/>
+      </seq>
+      <lookup match="w[not(@sb)]" lexicon="lex" phrase="true">
+        <constraint test="cat='title' or cat='role'"/>
+      </lookup>
+    </first>
+  </seq>
+</rule>
+
+<rule name="lc-title-incl">
+  <lookup match="w[not(@sb) and .~'^[a-z]']" lexicon="lex" phrase="true" case="no">
+    <constraint test="cat='title-incl'"/>
+  </lookup>
+</rule>
+
+<!-- uc restriction in first conjunct of <and> because of 
+     entries like 'E. of' -->
+<rule name="uc-title-incl">
+  <and>
+    <query match="w[.~'^[A-Z]']"/>
+    <lookup match="w[not(@sb)]" lexicon="lex" phrase="true">
+      <constraint test="cat='title-incl'"/>
+    </lookup>
+  </and>
+</rule>
+
+<rule name="stnameaposs">
+  <seq>
+    <first suppress="true">
+      <start/>
+      <query match="w[not(@p~'^[DP]')]"/>
+    </first>
+    <query match="w[.~'^(Saint|St|St.)$']"/>
+    <query match="w[.='.']" mult="?"/>
+    <query match="w[@p~'^N' and .~'^[A-Z]']" mult="+"/>
+    <query match="w[@c='aposs']"/>
+  </seq>
+</rule>
+
+<rule name="king" wrap="enamex" attrs="type='person'">
+  <first>
+    <!-- king George IV -->
+    <seq>
+      <ref name="lc-title-incl" suppress="true"/>
+      <query match="w[@p~'^N' and not(.~'^[IVX]+$')]" mult="+"/>
+      <seq wrap="subname" attrs="type='title'">
+        <first>
+          <query match="w[.~'^[IVX]+$']"/>
+          <seq>
+            <ref name="the" mult="?"/>
+            <query match="w[@c='ord']"/>
+          </seq>
+        </first>
+      </seq>
+    </seq>
+    <!-- King George IV -->
+    <seq>
+      <seq wrap="subname" attrs="type='title'">
+        <ref name="uc-title-incl"/>
+      </seq>
+      <query match="w[@p~'^N' and not(.~'^[IVX]+$')]" mult="+"/>
+      <seq wrap="subname" attrs="type='title'">
+        <first>
+          <query match="w[.~'^[IVX]+$']"/>
+          <seq>
+            <ref name="the" mult="?"/>
+            <query match="w[@c='ord']"/>
+          </seq>
+        </first>
+      </seq>
+    </seq>
+    <!-- George IV, Charles (the) Second, Charles (the) 2nd -->
+    <seq>
+      <query match="w[@pername='true']" mult="+"/>
+      <seq wrap="subname" attrs="type='title'">
+        <first>
+          <query match="w[.~'^[IVX]+$']"/>
+          <seq>
+            <ref name="the" mult="?"/>
+            <query match="w[@c='ord']"/>
+          </seq>
+        </first>
+      </seq>
+    </seq>
+    <!-- prince William Henry -->
+    <seq>
+      <ref name="lc-title-incl" suppress="true"/>
+      <query match="w[@pername='true']" mult="+"/>
+    </seq>
+    <!-- Prince William Henry -->
+    <seq>
+      <seq wrap="subname" attrs="type='title'">
+        <ref name="uc-title-incl"/>
+      </seq>
+      <query match="w[@pername='true']" mult="+"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="lord" wrap="enamex" attrs="type='person'">
+  <first>
+    <!-- E. of Scarsdale, Epus. St. David's., Epus. Bath & Wells -->
+    <seq>
+      <seq wrap="subname" attrs="type='title'">
+        <ref name="uc-title-incl"/>
+        <query match="w[.='of']" mult="?"/>
+      </seq>
+      <seq wrap="subname" attrs="type='surname'">
+        <query match="w[not(.='.') and not(@c='cm') and not(@c='aposs') and not(@qut) and (.~'^[A-Z]' or .~'^(de|of)$' or .~'^[^A-Za-z\.\(\)&amp;]+$')]" constraint="not(lex()[cat='title' or cat='title-incl'])" mult="+"/>
+      </seq>
+    </seq>
+    <!-- Ds. De Grey of Ruthin -->
+    <seq>
+      <seq wrap="subname" attrs="type='title'">
+        <ref name="uc-title-incl"/>
+        <query match="w[.='of']" mult="?"/>
+      </seq>
+      <seq wrap="subname" attrs="type='surname'">
+        <query match="enamex[@type='location']"/>
+        <query match="w[not(.='.') and not(@c='cm') and not(@c='aposs') and not(@qut) and (.~'^[A-Z]' or .~'^(de|of)$' or .~'^[^A-Za-z\.\(\)&amp;]+$')]" constraint="not(lex()[cat='title' or cat='title-incl'])" mult="*"/>
+      </seq>
+    </seq>
+    <!-- D. of Beauford, E. of Kent, £. of Craven, It. of Chesterfeild. -->
+    <seq>
+      <seq wrap="subname" attrs="type='title'">
+        <query match="w[.~'^(D|D.|E|E.)$']"/>
+        <query match="w[.='.']" mult="?"/>
+        <query match="w[.='of']"/>
+      </seq>
+      <seq wrap="subname" attrs="type='surname'">
+        <query match="w[not(.='.') and not(@c='cm') and not(@c='aposs') and not(@qut) and (.~'^[A-Z]' or .~'^[^A-Za-z\.\(\)&amp;]+$')]" constraint="not(lex()[cat='title' or cat='title-incl'])" mult="+"/>
+      </seq>
+    </seq>
+  </first>
+</rule>
+
+<rule name="titled">
+  <first>
+    <ref name="king"/>
+    <ref name="lord"/>
+  </first>
+</rule>
+
+<!-- full first name or initial -->
+<rule name="firstname">
+  <first>
+    <query match="w[@pername='true' and not(@locname='single')]"/>
+    <query match="w[.~'^[A-Z][\.]?$']"/>
+    <query match="w[not(.='H.M.') and .~'^[A-Z][\.]([A-Z][\.])+$']"/>
+    <seq>
+      <query match="w[.~'^[A-Z]$']"/>
+      <query match="w[.='.']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="possname">
+  <and>
+    <not>
+      <lookup match="w" lexicon="lex" phrase="true">
+        <constraint test="cat='perword' or cat='perrel' or cat='posttitle' or cat='locword' or cat='inoword' or cat='ohword'"/>
+      </lookup>
+    </not>
+    <first>
+      <seq>
+        <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$' and not(@country='true') and not(@locadj)]"/>
+        <query match="w[@c='hyph']"/>
+        <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$']"/>
+      </seq>
+      <!-- Ya ' Adua -->
+      <seq>
+        <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$' and not(@country='true') and not(@locadj)]"/>
+        <query match="w[@c='lquote' and @pws='no']"/>
+        <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$' and @pws='no']"/>
+      </seq>
+      <!-- Ya'Adua -->
+      <query match='w[@p~"^N" and .~"^[A-Z][a-z]+&apos;[A-Z][a-z]+$" and not(@country="true") and not(@locadj)]'/>
+      <!-- LaPook -->
+      <query match="w[@p~'^N' and .~'^[A-Z][a-z]+[A-Z][a-z]+$' and not(@country='true') and not(@locadj)]"/>
+      <query match="w[@p~'^N' and .~'^[A-Z][a-z]+(-[A-Z][a-z]+)?$' and not(@country='true') and not(@locadj)]"/>
+      <query match="w[@p~'^N' and .~&quot;^(Mc|Mac|O'|M'|al-|Al-)[A-Z]&quot;]"/>
+    </first>
+  </and>
+</rule>
+
+<rule name="possname-not-loc">
+  <and>
+    <not>
+      <lookup match="w" lexicon="lex" phrase="true">
+        <constraint test="cat='perword' or cat='perrel' or cat='posttitle' or cat='locword' or cat='inoword' or cat='ohword'"/>
+      </lookup>
+    </not>
+    <first>
+      <seq>
+        <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$' and not(@country='true') and not(@locadj) and not(@locname)]"/>
+        <query match="w[@c='hyph']"/>
+        <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$']"/>
+      </seq>
+      <!-- Ya ' Adua -->
+      <seq>
+        <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$' and not(@country='true') and not(@locadj) and not(@locname)]"/>
+        <query match="w[@c='lquote' and @pws='no']"/>
+        <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$' and @pws='no']"/>
+      </seq>
+      <!-- Ya'Adua -->
+      <query match='w[@p~"^N" and .~"^[A-Z][a-z]+&apos;[A-Z][a-z]+$" and not(@country="true") and not(@locadj) and not(@locname)]'/>
+      <!-- LaPook -->
+      <query match="w[@p~'^N' and .~'^[A-Z][a-z]+[A-Z][a-z]+$' and not(@country='true') and not(@locadj) and not(@locname)]"/>
+      <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$' and not(@country='true') and not(@locadj) and not(@locname)]"/>
+      <query match="w[@p~'^N' and .~&quot;^(Mc|Mac|O'|M'|al-|Al-)[A-Z]&quot;]"/>
+    </first>
+  </and>
+</rule>
+
+<rule name="possname-not-common">
+  <and>
+    <not>
+      <lookup match="w" lexicon="lex" phrase="true">
+        <constraint test="cat='perword' or cat='perrel' or cat='posttitle' or cat='locword' or cat='inoword' or cat='ohword'"/>
+      </lookup>
+    </not>
+    <first>
+      <seq>
+        <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$' and not(@country='true') and not(@locadj) and not(@common)]"/>
+        <query match="w[@c='hyph']"/>
+        <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$']"/>
+      </seq>
+      <!-- Ya ' Adua -->
+      <seq>
+        <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$' and not(@country='true') and not(@locadj) and not(@common)]"/>
+        <query match="w[@c='lquote' and @pws='no']"/>
+        <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$' and @pws='no']"/>
+      </seq>
+      <!-- Ya'Adua -->
+      <query match='w[@p~"^N" and .~"^[A-Z][a-z]+&apos;[A-Z][a-z]+$" and not(@country="true") and not(@locadj) and not(@common)]'/>
+      <!-- LaPook -->
+      <query match="w[@p~'^N' and .~'^[A-Z][a-z]+[A-Z][a-z]+$' and not(@country='true') and not(@locadj) and not(@common)]"/>
+      <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$' and not(@country='true') and not(@locadj) and not(@common)]"/>
+      <query match="w[@p~'^N' and .~&quot;^(Mc|Mac|O'|M'|al-|Al-)[A-Z]&quot;]"/>
+    </first>
+  </and>
+</rule>
+
+<rule name="posttitle">
+  <seq>
+    <query match="w[.=',']" mult="?"/>
+    <first>
+      <lookup match="w" lexicon="lex" phrase="true">
+        <constraint test="cat='posttitle'"/>
+      </lookup>
+      <seq>
+        <query match="w[.~'^[A-Z][\.]$']"/>
+        <query match="w[.~'^[A-Z][\.]$' and not(@sb)]" mult="+"/>
+      </seq>
+      <query match="w[.~'[\.]' and .~'^[A-Z][\.]?([A-Z][\.]?)+$']"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="posttitle2">
+  <first>
+    <seq>
+      <seq mult="?">
+        <query match="w[.='of']"/>
+        <first>
+          <query match="enamex[@type='location']"/>
+          <query match="w[@locname]"/>
+        </first>
+      </seq>
+      <ref name="posttitle" mult="+"/>
+    </seq>
+    <seq>
+      <query match="w[.='of']"/>
+      <first>
+        <query match="enamex[@type='location']"/>
+        <query match="w[@locname]"/>
+      </first>
+    </seq>
+  </first>
+</rule>
+
+<rule name="UC-name">
+  <and>
+    <not>
+      <lookup match="w[.~'^[A-Z][A-Z]+$']" lexicon="lex" phrase="true" case="no">
+        <constraint test="cat='title' or cat='perword' or cat='perrel' or cat='locword' or cat='role'"/>
+      </lookup>
+    </not>
+    <query match="w[@p~'^(NN|NNP|NNPS)$' and .~'^[A-Z][A-Z]+$' and not(@common='true')]"/>
+  </and>
+</rule>
+
+<rule name="UC-possname">
+  <and>
+    <not>
+      <lookup match="w[.~'^[A-Z][A-Z]+$']" lexicon="lex" phrase="true" case="no">
+        <constraint test="cat='perword' or cat='perrel' or cat='posttitle'"/>
+      </lookup>
+    </not>
+    <first>
+      <seq>
+        <query match="w[@p~'^N' and .~'^[A-Z][A-Z]+(-[A-Z][A-Z]+)?$' and not(@country='true') and not(@locadj) and not(@orgname)]"/>
+        <seq mult="*">
+          <query match="w[@c='hyph']"/>
+          <query match="w[@p~'^N' and .~'^[A-Z][A-Z]+$']"/>
+        </seq>  
+      </seq>
+      <query match="w[@p~'^N' and .~&quot;^(Mc|Mac|O'|M'|al-|Al-)[A-Z]+$&quot;]"/>
+    </first>
+  </and>
+</rule>
+
+<rule name="UC-title">
+  <lookup match="w[not(@sb)]" lexicon="lex" phrase="true" case="no">
+    <constraint test="cat='title' or cat='role'"/>
+  </lookup>
+</rule>
+
+<rule name="UC-possnameorinitial">
+  <first>
+    <ref name="UC-possname"/>
+    <query match="w[.~'^[A-Z]\.$']"/>
+  </first>
+</rule>
+
+<rule name="UC-firstname">
+  <first>
+    <query match="w[.~'^[A-Z][A-Z]+$' and @pername='true' and not(@locname='single')]"/>
+    <query match="w[.~'^[A-Z][\.]?$']"/>
+    <query match="w[not(.='H.M.') and .~'^[A-Z][\.]([A-Z][\.])+$']"/>
+    <seq>
+      <query match="w[.~'^[A-Z]$']"/>
+      <query match="w[.='.']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="UC-posttitle">
+  <seq>
+    <query match="w[.=',']" mult="?"/>
+    <first>
+      <lookup match="w[not(@sb)]" lexicon="lex" phrase="true" case="no">
+        <constraint test="cat='posttitle'"/>
+      </lookup>
+      <seq>
+        <query match="w[.~'^[A-Z][\.]?$']"/>
+        <query match="w[.~'^[A-Z][\.]?$' and not(@sb)]" mult="+"/>
+      </seq>
+      <query match="w[.~'^[A-Z]([\.][A-Z])+[\.]?$']"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="UC-firstname-morenames" wrap="enamex" attrs="type='person'">
+  <and>
+    <not>
+      <!-- to block list items like "C. Correlation" or "V. Area" -->
+      <seq>
+        <query match="w[.~'^[A-Z][\.]?$']"/>
+        <first>
+          <query match="w[@common='true']"/>
+          <query match="w[.~'^[XVIC]+$']"/>
+        </first>
+      </seq>
+    </not>
+    <seq>
+      <backtrack wrap="subname" attrs="type='fullname'">
+        <ref name="UC-firstname" mult="+"/>
+        <ref name="UC-possname" mult="+"/>
+      </backtrack>
+      <ref name="UC-posttitle" mult="*"/>
+    </seq>
+  </and>
+</rule>
+
+<rule name="UC-firstname-middlebit-lastname" wrap="enamex" attrs="type='person'">
+  <seq>
+    <ref name="UC-name"/>
+    <seq wrap="subname" attrs="type='surname'">
+      <first>
+        <seq>
+          <query match="w[.='VAN']"/>
+          <query match="w[.~'^DE']" mult="?"/>
+        </seq>
+        <seq>
+          <query match="w[.~'^(Al|AL)$']"/>
+          <query match="w[.='-']"/>
+        </seq>
+        <query match="w[.='VON']"/>
+        <query match="w[.='DES']"/>
+        <query match="w[.='DEL']"/>
+        <query match="w[.='DU']"/>
+        <query match="w[.='ZU']"/>
+        <query match="w[.='DELLA']"/>
+        <seq>
+          <query match="w[.='DE']"/>
+          <query match="w[.~'^L']" mult="?"/>
+        </seq>
+      </first>
+      <ref name="UC-possname"/>
+    </seq>
+    <ref name="UC-posttitle" mult="*"/>
+  </seq>
+</rule>
+
+<rule name="UC-firstname-mcsurname" wrap="enamex" attrs="type='person'">
+  <seq>
+    <ref name="UC-name" mult="+"/>
+    <query match="w[@p~'^N' and .~&quot;^(Mc|Mac|O'|M'|al-|Al-)[A-Z]+$&quot;]"/>
+    <ref name="UC-posttitle" mult="*"/>
+  </seq>
+</rule>
+
+<rule name="UC-title-pername" wrap="enamex" attrs="type='person'">
+  <seq>
+    <query match="w[.~'^[A-Z][A-Z]+$' and @pername='true' and not(.~'^(Earl|EARL)$')]" mult="*"/>
+    <ref name="UC-title" mult="+"/>
+    <first>
+      <backtrack wrap="subname" attrs="type='fullname'">
+        <ref name="UC-possnameorinitial" mult="*"/>
+        <ref name="UC-possname"/>
+      </backtrack>
+      <query match="w[.~'^[A-Z][A-Z]+$']" mult="+"/>
+    </first>
+    <ref name="UC-posttitle" mult="*"/>
+  </seq>
+</rule>
+
+<rule name="firstname-morenames" wrap="enamex" attrs="type='person'">
+  <and>
+    <not>
+      <!-- to block list items like "C. Correlation" or "V. Area" -->
+      <seq>
+        <query match="w[.~'^[A-Z][\.]?$']"/>
+        <query match="w[@common='true']"/>
+      </seq>
+    </not>
+    <first>
+      <seq>
+        <seq wrap="subname" attrs="type='fullname'">
+          <ref name="firstname" mult="*"/>
+          <ref name="possname" mult="+"/>
+        </seq>
+        <ref name="posttitle" mult="+"/>
+      </seq>
+      <seq wrap="subname" attrs="type='fullname'">
+        <ref name="firstname"/>
+        <backtrack>
+          <ref name="firstname" mult="*"/>
+          <ref name="possname-not-common"/>
+        </backtrack>
+      </seq>
+      <seq wrap="subname" attrs="type='fullname'">
+        <query match="w[@pername='true' and not(@locname)]"/>
+        <query match="w[@pername='true' and not(@edsource)]" mult="*"/>
+        <backtrack>
+          <ref name="possname" mult="*"/>
+          <ref name="possname-not-common"/>
+        </backtrack>
+      </seq>
+    </first>
+  </and>
+</rule>
+
+<rule name="middlebit-lastname">
+  <seq>
+    <seq wrap="subname" attrs="type='surname'">
+      <first>
+        <seq>
+          <query match="w[.='van']"/>
+          <query match="w[.~'^de']" mult="?"/>
+        </seq>
+        <seq>
+          <query match="w[.='Al']"/>
+          <query match="w[.='-']"/>
+        </seq>
+        <seq>
+          <query match="w[.='al']"/>
+          <query match="w[.='-']"/>
+        </seq>
+        <query match="w[.='von']"/>
+        <query match="w[.='des']"/>
+        <query match="w[.='del']"/>
+        <query match="w[.='du']"/>
+        <query match="w[.='zu']"/>
+        <query match="w[.='della']"/>
+        <seq>
+          <query match="w[.='de']"/>
+          <query match="w[.~'^l']" mult="?"/>
+        </seq>
+      </first>
+      <ref name="possname"/>
+    </seq>
+    <ref name="posttitle2" mult="*"/>
+  </seq>
+</rule>
+
+<!-- Charles de Gaulle, Jan van den Berg -->
+<rule name="firstname-middlebit-lastname" wrap="enamex" attrs="type='person'">
+  <seq>
+    <backtrack>
+      <ref name="name" mult="+"/>
+      <ref name="middlebit-lastname"/>
+    </backtrack>
+  </seq>
+</rule>
+
+<!-- Don McKinnon -->
+<rule name="firstname-mcsurname" wrap="enamex" attrs="type='person'">
+  <seq>
+    <ref name="name" mult="+"/>
+    <query match="w[@p~'^N' and .~&quot;^(Mc|Mac|O'|M'|al-|Al-)[A-Z]&quot;]"/>
+    <ref name="posttitle2" mult="*"/>
+  </seq>
+</rule>
+
+<rule name="possnameorinitial">
+  <first>
+    <ref name="possname"/>
+    <query match="w[.~'^[A-Z]\.$']"/>
+  </first>
+</rule>
+
+<rule name="lastname-initials" wrap="enamex" attrs="type='person'">
+  <seq>
+    <seq wrap="subname" attrs="type='surname'">
+      <ref name="possname"/>
+    </seq>
+    <query match="w[.=',']"/>
+    <query match="w[.~'^[A-Z][\.]?$' and not(.~'^[IA]$')]" mult="+"/>
+  </seq>
+</rule>
+
+<rule name="lastname-firstname" wrap="enamex" attrs="type='person'">
+  <seq>
+    <seq wrap="subname" attrs="type='surname'">
+      <ref name="possname"/>
+    </seq>
+    <query match="w[.=',']"/>
+    <seq wrap="subname" attrs="type='firstname'">
+      <query match="w[@pername='true' and not(@country)]" mult="+"/>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="pername-notitle">
+  <first>
+    <ref name="firstname-morenames"/>
+    <ref name="firstname-middlebit-lastname"/>
+    <ref name="firstname-mcsurname"/>
+    <seq>
+      <first>
+        <seq>
+          <query match="w[.='van']"/>
+          <query match="w[.~'^de']" mult="?"/>
+        </seq>
+        <seq>
+          <query match="w[.~'^(al|Al)$']"/>
+          <query match="w[.='-']"/>
+        </seq>
+        <query match="w[.='von']"/>
+        <query match="w[.='des']"/>
+        <query match="w[.='del']"/>
+        <query match="w[.='du']"/>
+        <query match="w[.='zu']"/>
+        <query match="w[.='della']"/>
+        <seq>
+          <query match="w[.='de']"/>
+          <query match="w[.~'^l']" mult="?"/>
+        </seq>
+      </first>
+      <ref name="possname"/>
+    </seq>
+  </first>
+</rule>
+
+<!-- Mr. Smith -->
+<rule name="title-pername" wrap="enamex" attrs="type='person'">
+  <seq>
+    <query match="w[@pername='true' and not(.~'^(Earl|EARL)$')]" mult="*"/>
+    <ref name="title" mult="+"/>
+    <first wrap="subname" attrs="type='fullname'">
+      <backtrack>
+        <ref name="possnameorinitial" mult="*"/>
+        <ref name="possname"/>
+      </backtrack>
+      <ref name="pername-notitle"/>
+      <query match="w[.~'^[A-Z].*[A-Z]$']" mult="+"/>
+    </first>
+    <ref name="posttitle2" mult="*"/>
+  </seq>
+</rule>
+
+<rule name="pername0">
+  <first>
+    <ref name="title-pername"/>
+    <ref name="firstname-morenames"/>
+    <ref name="firstname-middlebit-lastname"/>
+    <ref name="firstname-mcsurname"/>
+    <ref name="lastname-initials"/>
+    <ref name="lastname-firstname"/>
+  </first>
+</rule>
+
+<rule name="UC-pername0">
+  <first>
+    <ref name="UC-title-pername"/>
+    <ref name="UC-firstname-morenames"/>
+    <ref name="UC-firstname-middlebit-lastname"/>
+    <ref name="UC-firstname-mcsurname"/>
+  </first>
+</rule>
+
+<rule name="UC-title-incl">
+  <and>
+    <query match="w[.~'^[A-Z]+$']"/>
+    <lookup match="w[not(@sb)]" lexicon="lex" phrase="true">
+      <constraint test="cat='title-incl'"/>
+    </lookup>
+  </and>
+</rule>
+
+<rule name="UC-pername-comma-title-pername" wrap="enamex" attrs="type='person'">
+  <seq>
+    <first mult="?">
+      <ref name="UC-title"/>
+      <ref name="UC-title-incl"/>
+    </first>
+    <first>
+      <seq>
+        <backtrack>
+          <ref name="UC-firstname" mult="+"/>
+          <ref name="UC-possname" mult="+"/>
+        </backtrack>
+      </seq>
+      <ref name="UC-firstname-middlebit-lastname"/>
+      <ref name="UC-firstname-mcsurname"/>
+    </first>
+    <query match="w[.=',']" mult="?"/>
+    <query match="w[.='THE']" mult="?"/>
+    <query match="w[.~'^[A-Z]+$' and @c='ord']" mult="?"/>
+    <ref name="UC-title-pername"/>
+  </seq>
+</rule>
+
+<rule name="possname-restr">
+  <first>
+    <query match="w[@p~'^N' and .~'^[A-Z][a-z]+$' and not(@country='true') and not(@locadj)]" constraint="not(lex()[cat='perword' or cat='perrel' or cat='role' or cat='title' or cat='title-incl' or cat='posttitle'])"/>
+    <query match="w[@p~'^N' and .~&quot;^(Mc|Mac|O'|M'|al-|Al-)[A-Z]&quot;]"/>
+  </first>
+</rule>
+
+<!-- John Smith, third Duke of York -->
+<rule name="pername-comma-title-pername" wrap="enamex" attrs="type='person'">
+  <seq>
+    <first mult="?">
+      <ref name="title"/>
+      <ref name="uc-title-incl"/>
+    </first>
+    <first>
+      <seq>
+        <backtrack>
+          <ref name="firstname" mult="+"/>
+          <ref name="possname-restr" mult="+"/>
+        </backtrack>
+      </seq>
+      <ref name="firstname-middlebit-lastname"/>
+      <ref name="firstname-mcsurname"/>
+    </first>
+    <query match="w[.=',']" mult="?"/>
+    <query match="w[.='the']" mult="?"/>
+    <query match="w[@c='ord']" mult="?"/>
+    <ref name="title-pername"/>
+  </seq>
+</rule>
+
+<rule name="pername">
+  <first>
+    <ref name="pername-comma-title-pername"/>
+    <ref name="pername0"/>
+    <ref name="UC-pername-comma-title-pername"/>
+    <ref name="UC-pername0"/>
+  </first>
+</rule>
+
+<rule name="coord-person0">
+  <seq>
+    <ref name="pername"/>
+    <query match="w[.=',']"/>
+    <ref name="pername"/>
+    <query match="w[.=',']"/>
+    <ref name="pername"/>
+    <seq mult="*">
+      <query match="w[.=',']"/>
+      <seq wrap="enamex" attrs="type='person'">
+        <query match="w[.~'^[A-Z]']" mult="+"/>
+      </seq>
+    </seq>
+    <seq>
+      <query match="w[.=',']" mult="?"/>
+      <query match="w[.~'^(and|or)$']"/>
+      <first>
+        <ref name="pername"/>
+        <seq wrap="enamex" attrs="type='person'">
+          <query match="w[.~'^[A-Z]']" mult="+"/>
+        </seq>
+      </first>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="coord-person1">
+  <seq>
+    <seq wrap="enamex" attrs="type='person'">
+      <ref name="possname" wrap="subname" attrs="type='surname'"/>
+    </seq>
+    <query match="w[.='and']"/>
+    <seq wrap="enamex" attrs="type='person'">
+      <ref name="possname" wrap="subname" attrs="type='surname'"/>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="coord-person">
+  <seq>
+    <ref name="pername"/>
+    <seq mult="*">
+      <query match="w[.=',']"/>
+      <seq wrap="enamex" attrs="type='person'">
+        <query match="w[@pername='true']"/>
+        <query match="w[.~'^[A-Z]']" mult="+"/>
+      </seq>
+    </seq>
+    <seq>
+      <query match="w[.=',']" mult="?"/>
+      <query match="w[.~'^(and|or)$']"/>
+      <first>
+        <seq wrap="enamex" attrs="type='person'">
+          <query match="w[@pername='true']"/>
+          <query match="w[.~'^[A-Z]']" mult="+"/>
+        </seq>
+        <seq wrap="enamex" attrs="type='person'">
+          <ref name="name-not-loc"/>
+        </seq>
+      </first>
+    </seq>
+    <first suppress="true">
+      <query match="*[not(self::w)]"/>
+      <end/>
+      <seq>
+        <query match="w[@c='aposs']" mult="?"/>
+        <query match="w[not(.~'^[A-Z]')]"/>
+      </seq>
+    </first>
+  </seq>
+</rule>
+
+<!-- Smithers resigned .. -->
+<rule name="pername-perverb" wrap="enamex" attrs="type='person'">
+  <seq>
+    <ref name="possname-not-loc"/>
+    <first suppress="true">
+      <query match="w[@p~'^V' and .~'^[a-z]+$']" constraint="lex(@l)[cat='perverb']"/>
+      <seq>
+        <query match="w[@p~'^VBZ' and @l='be']"/>
+        <query match="w[@p~'^V' and .~'^[a-z]+$']" constraint="lex(@l)[cat='passperverb']"/>
+      </seq>
+    </first>
+  </seq>
+</rule>
+
+<!-- organization -->
+
+<rule name="plc">
+  <seq>
+    <query match="w[.=',']" mult="?"/>
+    <lookup match="w[not(@sb)]" lexicon="lex" phrase="true" case="no">
+      <constraint test="cat='plc'"/>
+    </lookup>
+  </seq>
+</rule>
+
+<rule name="lessrestrname">
+  <seq>
+    <query match="w[@p~'^N' and .~'^[A-Z]']" constraint="not(lex()[cat='perword' or cat='perrel'])"/>
+    <query match="w[.=',' or .='&amp;']" mult="?"/>
+  </seq>
+</rule>
+
+<!-- ABC Books Ltd -->
+<rule name="org-plc" wrap="enamex" attrs="type='organization'">
+  <and>
+    <query match="w[.~'^[A-Z]']|enamex"/>
+    <first>
+      <seq>
+        <query match="w[.='Messrs.']" mult="?"/>
+        <backtrack>
+          <ref name="lessrestrname" mult="+"/>
+          <ref name="plc" mult="+"/>
+        </backtrack>
+      </seq>
+      <seq>
+        <query match="w[.='Messrs.']"/>
+        <ref name="lessrestrname" mult="+"/>
+        <seq mult="?">
+          <query match="w[.~'^(and|And|AND|,)$']"/>
+          <ref name="lessrestrname" mult="+"/>
+        </seq>
+      </seq>
+      <seq>
+        <query match="enamex[@type='location']"/>
+        <ref name="plc" mult="+"/>
+      </seq>
+      <seq>
+        <query match="enamex[@type='person']"/>
+        <ref name="plc" mult="+"/>
+      </seq>
+    </first>
+  </and>
+</rule>
+
+<rule name="pername-in-org-plc" wrap="enamex" attrs="type='organization'">
+  <seq>
+    <ref name="pername"/>
+    <ref name="plc" mult="+"/>
+  </seq>
+</rule>
+
+<rule name="locabbr">
+  <lookup match="w[not(@sb)]" lexicon="lex" phrase="true" attrs="locabbr='true'">
+    <constraint test="cat='locabbr'"/>
+  </lookup>
+</rule>
+
+<rule name="orgword">
+  <lookup match="w[not(@sb)]" lexicon="lex" mult="+">
+    <constraint test="cat='ohword' or cat='inoword'"/>
+  </lookup>
+</rule>
+
+<rule name="orgheadword">
+  <lookup match="w[.~'^[A-Z]']" lexicon="lex">
+    <constraint test="cat='ohword'"/>
+  </lookup>
+</rule>
+
+<rule name="name-or-orgword-or-poss">
+  <first>
+    <ref name="orgword"/>
+    <ref name="name"/>
+    <ref name="locabbr"/>
+    <query match="w[@p='POS']"/>
+    <query match="w[.~'^(OF|Of|of|FOR|For|for|AND|And|and)$']"/>
+    <query match="w[.='&amp;']"/>
+  </first>
+</rule>
+
+<rule name="name-or-poss">
+  <first>
+    <ref name="name"/>
+    <ref name="locabbr"/>
+    <query match="w[@p='POS']"/>
+    <query match="w[.~'^(OF|Of|of|FOR|For|for|AND|And|and)$']"/>
+    <query match="w[.='&amp;']"/>
+  </first>
+</rule>
+
+<rule name="name-or-orgword">
+  <first>
+    <ref name="orgword"/>
+    <ref name="name"/>
+    <ref name="locabbr"/>
+  </first>
+</rule>
+
+<rule name="name-and-common">
+  <and>
+    <query match="w[@common='true']"/>
+    <ref name="name"/>
+  </and>
+</rule>
+
+<!--  Animal Rescue Society -->
+<rule name="org-orgword1" wrap="enamex" attrs="type='organization'">
+  <seq>
+    <first>
+      <ref name="name"/>
+      <ref name="locabbr"/>
+    </first>
+    <backtrack>
+      <ref name="name-or-orgword-or-poss" mult="*"/>
+      <ref name="orgword"/>
+    </backtrack>
+    <backtrack>
+      <ref name="name-or-poss" mult="*"/>
+      <ref name="name-and-common"/>
+    </backtrack>
+    <first suppress="true">
+      <query match="*[not(self::w)]"/>
+      <end/>
+      <seq>
+        <query match="w[@c='aposs']" mult="?"/>
+        <query match="w[not(.~'^[A-Z]')]"/>
+      </seq>
+    </first>
+  </seq>
+</rule>
+
+<!-- Hemel Hempstead Animal Rescue Society -->
+<rule name="org-orgword2" wrap="enamex" attrs="type='organization'">
+  <seq>
+    <first>
+      <ref name="name"/>
+      <ref name="locabbr"/>
+      <query match="enamex[@type='location']"/>
+    </first>
+    <backtrack>
+      <ref name="name-or-orgword-or-poss" mult="*"/>
+      <ref name="orgword"/>
+    </backtrack>
+    <first suppress="true">
+      <query match="*[not(self::w)]"/>
+      <end/>
+      <seq>
+        <query match="w[@c='aposs']" mult="?"/>
+        <query match="w[not(.~'^[A-Z]')]"/>
+      </seq>
+    </first>
+  </seq>
+</rule>
+
+<rule name="org-orgword3" wrap="enamex" attrs="type='organization'">
+  <seq>
+    <ref name="orgword"/>
+    <backtrack>
+      <ref name="name-or-orgword-or-poss" mult="*"/>
+      <ref name="name-or-orgword"/>
+    </backtrack>
+  </seq>
+</rule>
+
+<rule name="org-orgword">
+  <seq>
+    <best>
+      <ref name="org-orgword1"/>
+      <ref name="org-orgword2"/>
+<!--      <ref name="org-orgword3"/>-->
+    </best>
+  </seq>
+</rule>
+
+<rule name="capword-in-org">
+  <query match="w[@p~'^N' and .~'^[A-Z]' and not(@pername='true') and not(@c='abbr')]"/>
+</rule>
+
+<rule name="capword-in-org-coord">
+  <seq>
+    <ref name="capword-in-org" mult="+"/>
+    <seq mult="*">
+      <query match="w[.~'^(and|or|,)$']"/>
+      <ref name="capword-in-org" mult="+"/>
+    </seq>
+  </seq>
+</rule>
+
+<!-- the Bank -->
+<rule name="the-orgword" wrap="enamex" attrs="type='organization'">
+  <seq>
+    <ref name="the" suppress="true"/>
+    <ref name="orgheadword" mult="+"/>
+    <seq mult="?">
+      <query match="w[.~'^(OF|Of|of|FOR|For|for)$']"/>
+      <query match="w[.~'^(THE|The|the)$']" mult="?"/>
+      <ref name="capword-in-org-coord"/>
+    </seq>
+    <seq mult="*">
+      <query match="w[@p='IN']"/>
+      <query match="w[.~'^(THE|The|the)$']" mult="?"/>
+      <ref name="capword-in-org-coord"/>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="commonwordnotplace">
+  <query match="w[@p~'^N' and .~'^[A-Z]' and @common='true' and not(@pername='true') and not(@locname)]"/>
+</rule>
+
+<!-- Friends of the Earth -->
+<rule name="org-of" wrap="enamex" attrs="type='organization'">
+  <seq>
+    <query match="w[.~'^(THE|The|the)$']" mult="?"/>
+    <ref name="commonword" mult="+"/>
+    <query match="w[.~'^(OF|Of|of|FOR|For|for)$']"/>
+    <query match="w[.~'^(THE|The|the)$']" mult="?"/>
+    <ref name="commonwordnotplace" mult="+"/>
+  </seq>
+</rule>
+
+<!-- Coca Cola -->
+<rule name="multi-org" wrap="enamex" attrs="type='organization'">
+  <repeat min-matches="2">
+    <query match="w[@orgname='multi' or @orgname='brand']"/>
+  </repeat>
+</rule>
+
+<!-- location -->
+
+<rule name="single-place" wrap="enamex" attrs="type='location'">
+  <seq>
+    <query match="w[@locname='single' and not(@pername='true') and not(@orgname)]"/>
+  </seq>
+</rule>
+
+<rule name="just-single-place" wrap="enamex" attrs="type='location'">
+  <seq>
+    <query match="w[@locname='single']"/>
+  </seq>
+</rule>
+
+<rule name="possible-multi-place1" wrap="enamex" attrs="type='location'">
+  <seq>
+    <query match="w[@locname='single' and not(@country)]"/>
+    <first>
+      <ref name="commonword" mult="+"/>
+      <lookup match="w" lexicon="lex">
+        <constraint test="cat='locword'"/>
+      </lookup>
+    </first>
+  </seq>
+</rule>
+
+<rule name="possible-multi-place2" wrap="enamex" attrs="type='location'">
+  <seq>
+    <query match="w[.='Isle']"/>
+    <query match="w[.='of']"/>
+    <query match="w[@p~'^N' and .~'^[A-Z]']" mult="+"/>
+  </seq>
+</rule>
+
+<rule name="the-singleplace" wrap="enamex" attrs="type='location'">
+  <seq>
+    <query match="w[.~'^(THE|The|the)$']" suppress="true"/>
+    <query match="w[@p~'^N' and .~'^[A-Z]' and @locname='single' and not(@locadj) and not(@abb)]"/>
+    <first suppress="true">
+      <query match="*[not(self::w)]"/>
+      <end/>
+      <seq>
+        <query match="w[@c='aposs']" mult="?"/>
+        <query match="w[not(.~'^[A-Z]') and not(@p~'^N')]"/>
+      </seq>
+    </first>
+  </seq>
+</rule>
+
+<rule name="possible-multi-place">
+  <first>
+    <ref name="possible-multi-place1"/>
+    <ref name="possible-multi-place2"/>
+  </first>
+</rule>
+
+<rule name="county-place" wrap="enamex" attrs="type='location'">
+  <seq>
+    <query match="w[.~'^(County|COUNTY|Co.|CO.)$']"/>
+    <first>
+      <query match="enamex[@type='location']"/>
+      <first>
+        <ref name="possible-multi-place"/>
+        <query match="w[@locname='single']"/>
+        <query match="w[.='Down']"/>
+      </first>
+    </first>
+  </seq>
+</rule>
+
+<!-- dummy suppressed left context is to make sure this takes
+     precedence over other rules such as list-place which have a real
+     suppressed left context -->
+<rule name="place-state1">
+  <seq>
+    <seq suppress="true" mult="?">
+      <query match="w"/>
+    </seq>
+    <first wrap="enamex" attrs="type='location' reln='contained'">
+      <query match="enamex[@type='location']"/>
+      <ref name="possible-multi-place"/>
+      <ref name="just-single-place"/>
+    </first>
+    <query match="w[.=',']" mult="?"/>
+    <first>
+      <ref name="county-place" wrap="enamex" attrs="type='location' reln='container'"/>
+      <query match="w[.~'shire$']" wrap="enamex" attrs="type='location' reln='container'"/>
+      <seq wrap="enamex" attrs="type='location' reln='container'">
+        <lookup match="w[not(@sb)]" lexicon="lex" phrase="true">
+          <constraint test="cat='state'"/>
+        </lookup>
+      </seq>
+    </first> 
+  </seq>
+</rule>
+
+<!-- don't allow state abbrev with possible-multi-place (Massey Energy Co.)-->
+<rule name="place-state2">
+  <seq>
+    <seq suppress="true" mult="?">
+      <query match="w"/>
+    </seq>
+    <first wrap="enamex" attrs="type='location' reln='contained'">
+      <query match="enamex[@type='location']"/>
+      <ref name="just-single-place"/>
+    </first>
+    <query match="w[.=',']" mult="?"/>
+    <seq wrap="enamex" attrs="type='location' reln='container' abbrev-for='$a'">
+      <lookup match="w[not(@sb) and not(@p='IN')]" lexicon="lex" phrase="true">
+        <constraint test="cat='state-abbr'"/>
+        <var name="a" value="abbr"/>
+      </lookup>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="place-state">
+  <first>
+    <ref name="place-state1"/>
+    <ref name="place-state2"/>
+  </first>
+</rule>
+
+<rule name="place-in-place">
+  <seq>
+    <first wrap="enamex" attrs="type='location' reln='contained'">
+      <query match="enamex[@type='location']"/>
+      <ref name="possible-multi-place"/>
+      <ref name="single-place"/>
+    </first>
+    <query match="w[.='in']"/>
+    <ref name="the" mult="?"/>
+    <first wrap="enamex" attrs="type='location' reln='container'">
+      <query match="enamex[@type='location']"/>
+      <ref name="possible-multi-place"/>
+      <ref name="single-place"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="place-near-place">
+  <seq>
+    <first wrap="enamex" attrs="type='location' reln='nearl'">
+      <query match="enamex[@type='location']"/>
+      <ref name="possible-multi-place"/>
+      <ref name="single-place"/>
+    </first>
+    <query match="w[.='near']"/>
+    <ref name="the" mult="?"/>
+    <first wrap="enamex" attrs="type='location' reln='nearr'">
+      <query match="enamex[@type='location']"/>
+      <ref name="possible-multi-place"/>
+      <ref name="single-place"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="from-place-to-place">
+  <seq>
+    <query match="w[.='from']"/>
+    <first wrap="enamex" attrs="type='location'">
+      <query match="enamex[@type='location']"/>
+      <ref name="possible-multi-place"/>
+      <ref name="single-place"/>
+    </first>
+    <query match="w[.='to']"/>
+    <ref name="the" mult="?"/>
+    <first wrap="enamex" attrs="type='location'">
+      <query match="enamex[@type='location']"/>
+      <ref name="possible-multi-place"/>
+      <ref name="single-place"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="point-place1" wrap="enamex" attrs="type='location'">
+  <seq>
+    <first>
+      <seq>
+        <first>
+          <query match="w[.~'^North$']"/>
+          <query match="w[.~'^South$']"/>
+        </first>
+        <first>
+          <query match="w[.~'^East$']"/>
+          <query match="w[.~'^West$']"/>
+        </first>
+      </seq>
+      <query match="w[.~'^(North|South|East|West|Mid)$' and not(@country)]"/>
+    </first>
+    <seq wrap="substring">
+      <first>
+        <query match="enamex[@type='location']"/>
+        <first>
+          <ref name="possible-multi-place"/>
+          <ref name="single-place"/>
+        </first>
+      </first>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="point-place2">
+  <seq>
+    <first>
+      <seq>
+        <first>
+          <query match="w[.~'^(north|North|NORTH)$']"/>
+          <query match="w[.~'^(south|South|SOUTH)$']"/>
+        </first>
+        <first>
+          <query match="w[.~'^(east|East|EAST)$']"/>
+          <query match="w[.~'^(west|West|WEST)$']"/>
+        </first>
+      </seq>
+      <query match="w[.~'^(north|North|NORTH)$' and not(@country)]"/>
+      <query match="w[.~'^(south|South|SOUTH)$' and not(@country)]"/>
+      <query match="w[.~'^(east|East|EAST)$' and not(@country)]"/>
+      <query match="w[.~'^(west|West|WEST)$' and not(@country)]"/>
+      <query match="w[.~'^(northern|Northern|NORTHERN)$' and not(@country)]"/>
+      <query match="w[.~'^(southern|Southern|SOUTHERN)$' and not(@country)]"/>
+      <query match="w[.~'^(easter[n]?|Easter[n]?|EASTER[N]?)$' and not(@country)]"/>
+      <query match="w[.~'^(wester[n]?|Wester[n]?|WESTER[N]/)$' and not(@country)]"/>
+    </first>
+    <query match="w[.~'^(of|Of|OF)$']" mult="?"/>
+    <first>
+      <query match="enamex[@type='location']"/>
+      <ref name="possible-multi-place"/>
+      <ref name="single-place"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="single-place-bothgaz" wrap="enamex" attrs="type='location'">
+  <seq>
+    <query match="w[@locname='single' and @edsource and @alsource]"/>
+  </seq>
+</rule>
+
+<rule name="coord-place">
+  <seq>
+    <seq suppress="true">
+      <query match="w[.~'^[^A-Z]']"/>
+    </seq>
+    <first wrap="enamex" attrs="type='location' reln='conjfirst'">
+      <query match="enamex[@type='location']"/>
+      <ref name="possible-multi-place"/>
+      <ref name="single-place"/>
+      <ref name="single-place-bothgaz"/>
+      <ref name="point-place1"/>
+      <ref name="point-place2"/>
+    </first>
+    <seq mult="*">
+      <query match="w[.=',']"/>
+      <ref name="the" mult="?"/>
+      <first wrap="enamex" attrs="type='location' reln='conjrest'">
+        <query match="enamex[@type='location']"/>
+        <ref name="possible-multi-place"/>
+        <ref name="single-place"/>
+        <ref name="single-place-bothgaz"/>
+        <query match="w[.~'^[A-Z]']"/>
+      </first>
+    </seq>
+    <seq mult="+">
+      <query match="w[.=',']" mult="?"/>
+      <query match="w[.~'^(and|or)$']"/>
+      <ref name="the" mult="?"/>
+      <first wrap="enamex" attrs="type='location' reln='conjrest'">
+        <query match="enamex[@type='location']"/>
+        <ref name="possible-multi-place"/>
+        <ref name="single-place"/>
+        <ref name="single-place-bothgaz"/>
+      </first>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="list-place">
+  <seq>
+    <seq suppress="true">
+      <query match="w[.~'^[^A-Z]']"/>
+    </seq>
+    <first wrap="enamex" attrs="type='location' reln='conjfirst'">
+      <query match="enamex[@type='location']"/>
+      <ref name="possible-multi-place"/>
+      <ref name="single-place"/>
+      <ref name="point-place1"/>
+      <ref name="point-place2"/>
+    </first>
+    <seq mult="+">
+      <query match="w[.=',']"/>
+      <first wrap="enamex" attrs="type='location' reln='conjrest'">
+        <query match="enamex[@type='location']"/>
+        <ref name="possible-multi-place"/>
+        <ref name="single-place"/>
+<!--        <query match="w[.~'^[A-Z]' and @p='NNP' and not(@c='abbr') and not(@common) and not(lex())]"/>-->
+      </first>
+    </seq>
+    <first suppress="true">
+      <query match="w[.~'^[^A-Z]']"/>
+      <query match="*[not(self::w)]"/>
+      <end/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="list-place2">
+  <seq>
+    <first wrap="enamex" attrs="type='location' reln='conjfirst'">
+      <query match="enamex[@type='location']"/>
+      <query match="w[@locname='single']"/>
+    </first>
+    <first wrap="enamex" attrs="type='location' reln='conjrest'">
+      <query match="enamex[@type='location']"/>
+      <query match="w[@locname='single']"/>
+    </first>
+    <seq mult="+">
+      <first wrap="enamex" attrs="type='location' reln='conjrest'">
+        <query match="enamex[@type='location']"/>
+        <query match="w[@locname='single']"/>
+      </first>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="place-bracket-place">
+  <seq>
+    <first wrap="enamex" attrs="type='location' reln='conjfirst'">
+      <query match="enamex[@type='location']"/>
+      <ref name="possible-multi-place"/>
+      <ref name="single-place"/>
+    </first>
+    <query match="w[.='(']"/>
+    <first wrap="enamex" attrs="type='location' reln='conjrest'">
+      <query match="enamex[@type='location']"/>
+      <ref name="possible-multi-place"/>
+      <ref name="single-place"/>
+    </first>
+    <query match="w[.=')']"/>
+  </seq>
+</rule>
+
+<rule name="country-continent" wrap="enamex" attrs="type='location'">
+  <first>
+    <query match="w[@country='true']"/>
+    <lookup match="w" phrase="true" lexicon="lex">
+      <constraint test="cat='continent'"/>
+    </lookup>
+  </first>
+</rule>
+
+<rule name="name-locword1" wrap="enamex" attrs="type='location'">
+  <seq>
+    <seq>
+      <query match="w[.='St.' or .='St']"/>
+      <query match="w[.='.']" mult="?"/>
+      <query match="w[@pername='true']"/>
+      <query match="w[@c='aposs']"/>
+    </seq>
+    <ref name="name" mult="*"/>
+    <lookup match="w" lexicon="lex">
+      <constraint test="cat='locword'"/>
+    </lookup>
+  </seq>
+</rule>
+
+<rule name="name2">
+  <query match="w[@p~'^(NN|NNP|NNPS)$' and .~'^[A-Z][a-z]+$' and not(@locadj) and not(@common)]" constraint="not(lex()[cat='perword' or cat='perrel' or cat~'title'])"/>
+</rule>
+
+<rule name="name-locword2">
+  <seq>
+    <backtrack>
+      <ref name="name2" mult="+" wrap="enamex" attrs="type='location'"/>
+      <lookup match="w" lexicon="lex">
+        <constraint test="cat='locword'"/>
+      </lookup>
+    </backtrack>
+    <first suppress="true">
+      <query match="*[not(self::w)]"/>
+      <end/>
+      <seq>
+        <query match="w[@c='aposs']" mult="?"/>
+        <query match="w[not(.~'^[A-Z]')]"/>
+      </seq>
+      <lookup match="w" lexicon="lex" phrase="true">
+        <constraint test="cat='perword' or cat='role'"/>
+      </lookup>
+    </first>
+  </seq>
+</rule>
+
+<rule name="name-locword">
+  <seq>
+    <first>
+      <ref name="name-locword1"/>
+      <ref name="name-locword2"/>
+    </first>
+    <seq mult="?">
+      <query match="w[.=',']"/>
+      <ref name="single-place"/>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="misc-org" wrap="enamex" attrs="type='organization'">
+  <lookup match="w[@p~'^N' and not(@sb)]" lexicon="lex" phrase="true">
+    <constraint test="cat='org'"/>
+  </lookup>
+</rule>
+
+<rule name="certs">
+  <first>
+    <ref name="titled"/>
+    <ref name="pername-in-org-plc"/>
+    <ref name="coord-place"/>
+    <ref name="list-place"/>
+    <ref name="list-place2"/>
+    <ref name="org-orgword"/>
+    <ref name="pername"/>
+    <ref name="pername-perverb"/>
+    <ref name="place-bracket-place"/>
+    <ref name="place-in-place"/>
+    <ref name="place-near-place"/>
+    <ref name="from-place-to-place"/>
+    <ref name="point-place1"/>
+    <ref name="point-place2"/>
+    <ref name="county-place"/>
+    <ref name="org-plc"/>
+    <ref name="the-orgword"/>
+    <ref name="name-locword"/>
+    <ref name="misc-org"/>
+  </first>
+</rule>
+
+<rule name="misc-place" wrap="enamex" attrs="type='location'">
+  <lookup match="w[@p~'^N' and not(@sb)]" lexicon="lex" phrase="true">
+    <constraint test="cat='loc'"/>
+  </lookup>
+</rule>
+
+<rule name="perrel">
+  <lookup match="w[@p~'^N' and not(@sb)]" lexicon="lex" phrase="true">
+    <constraint test="cat='perrel'"/>
+  </lookup>
+</rule>
+
+<rule name="per-descrip1">
+  <seq>
+    <first>
+      <ref name="the"/>
+      <query match="w[@p='PRP$']"/>
+    </first>
+    <query match="w[.~'^(right|Right|RIGHT)$']" mult="?"/>
+    <query match="w[.~'^(hon.|Hon.|HON.)$']" mult="?"/>
+    <lookup match="w[@p~'^N' and not(@sb)]" lexicon="lex" phrase="true">
+      <constraint test="cat='descrip'"/>
+    </lookup>
+    <seq mult="?">
+      <query match="w[.~'^(of|Of|OF|for|For|FOR)$']"/>
+      <query match="w[.~'^[A-Z]']" mult="+"/>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="per-descrip2">
+  <seq>
+    <query match="w[.~'^(mr.|Mr.|MR.|madam|Madam|MADAM)$']"/>
+    <first>
+      <lookup match="w[not(@sb)]" lexicon="lex" phrase="true">
+        <constraint test="cat='role'"/>
+      </lookup>
+      <lookup match="w[not(@sb)]" lexicon="lex" phrase="true">
+        <constraint test="cat='perword'"/>
+      </lookup>
+    </first>
+  </seq>
+</rule>
+
+<rule name="per-descrip" wrap="enamex" attrs="type='per-descrip'">
+  <first>
+    <seq>
+      <ref name="per-descrip1"/>
+      <query match="w[.=',']" mult="?"/>
+      <ref name="per-descrip2"/>
+    </seq>
+    <seq>
+      <ref name="per-descrip1"/>
+      <query match="w[.=',']" mult="?"/>
+      <ref name="per-descrip1"/>
+    </seq>
+    <ref name="per-descrip1"/>
+    <ref name="per-descrip2"/>
+  </first>
+</rule>
+
+<rule name="role" wrap="role">
+  <seq>
+    <query match="w[.~'^[A-Z][a-z]+$' and @locadj]" mult="?"/>
+    <seq mult="+">
+      <first>
+        <lookup match="w[not(@sb)]" lexicon="lex" phrase="true">
+          <constraint test="cat='role'"/>
+        </lookup>
+        <lookup match="w[not(@sb)]" lexicon="lex" phrase="true">
+          <constraint test="cat='perword'"/>
+        </lookup>
+      </first>
+    </seq>
+    <seq mult="?">
+      <query match="w[.='of']"/>
+      <seq>
+        <query match="w[.~'^[A-Z][a-z]+$' and @common='true' and not(@pername='true')]"/>
+        <seq mult="*">
+          <query match="w[.=',']"/>
+          <query match="w[.~'^[A-Z][a-z]+$' and @common='true' and not(@pername='true')]"/>
+        </seq>
+        <seq>
+          <query match="w[.~'^(and|or)$']"/>
+          <query match="w[.~'^[A-Z][a-z]+$' and @common='true' and not(@pername='true')]"/>
+        </seq>
+      </seq>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="perword">
+  <first>
+    <and>
+      <not>
+        <ref name="title"/>
+      </not>
+      <ref name="role"/>
+    </and>
+    <ref name="perrel"/>
+    <query match="w[@p~'^N' and .~'^[a-z][aeiouy].*[yi]st$']"/>
+  </first>
+</rule>
+
+<!--  ... brother/chairman , [ John Smith ] ... -->
+<rule name="perword-pername">
+  <seq>
+   <seq>
+      <ref name="perword"/>
+      <query match="w[.=',']" mult="?"/>
+    </seq>
+    <first>
+      <ref name="pername"/>
+      <seq wrap="enamex" attrs="type='person'">
+        <ref name="name-not-loc" mult="+"/>
+        <ref name="name" mult="*"/>
+      </seq>
+      <ref name="name" wrap="enamex" attrs="type='person'" mult="+"/>
+    </first>
+  </seq>
+</rule>
+
+<!-- ... [ John Smith ] , brother/chairman ... -->
+<rule name="pername-perword">
+  <seq>
+    <first>
+      <seq wrap="enamex" attrs="type='person'">
+        <ref name="name"/>
+        <ref name="name" mult="+"/>
+      </seq>
+      <ref name="name-not-loc" wrap="enamex" attrs="type='person'"/>
+    </first>
+    <seq suppress="true">
+      <query match="w[.=',']"/>
+      <first>
+        <ref name="perword"/>
+        <seq>
+          <query match="w[.~'^[A-Z]']" mult="+"/>
+          <ref name="perword"/>
+        </seq>
+      </first>
+    </seq>
+  </seq>
+</rule>
+
+<!-- brother of [ John Smith ] -->
+<rule name="per-perrelcontext" wrap="enamex" attrs="type='person'">
+  <seq>
+    <first suppress="true">
+      <seq>
+        <ref name="perrel"/>
+        <query match="w[.='of']"/>
+      </seq>
+      <query match="w[.='aka']"/>
+      <query match="w[.='alias']"/>
+      <seq>
+        <query match="w[.='with']"/>
+        <query match="w[.='aliases']"/>
+      </seq>
+    </first>
+    <first>
+      <ref name="pername"/>
+      <ref name="possname" mult="+"/>
+    </first>
+  </seq>
+</rule>
+
+<rule name="perword2">
+  <first>
+    <lookup match="w[@p~'^N' and not(@sb)]" lexicon="lex" phrase="true">
+      <constraint test="cat='perword'"/>
+    </lookup>
+    <query match="w[@p~'^N' and .~'[aeiouy].*[yi]st$']"/>
+  </first>
+</rule>
+
+<rule name="name-restr">
+  <and>
+    <not>
+      <lookup match="w" lexicon="lex" phrase="true">
+        <constraint test="cat='title' or cat='perword' or cat='perrel' or cat='locword' or cat='role'"/>
+      </lookup>
+    </not>
+    <query match="w[@p~'^(NN|NNP|NNPS)$' and .~'^[A-Z][A-Za-z]+$' and not(@common='true') and not(@locname)]"/>
+  </and>
+</rule>
+
+<!-- analyst at [ ABC Industries ] -->
+<rule name="org-perwordcontext">
+  <seq>
+    <seq suppress="true">
+      <ref name="perword2"/>
+      <query match="w[.~'^(for|at|with|of)$']"/>
+    </seq>
+    <first>
+      <ref name="org-plc"/>
+      <ref name="org-orgword"/>
+      <ref name="the-orgword"/>
+      <ref name="place-state"/>
+      <ref name="org-of"/>
+      <ref name="misc-org"/>
+      <ref name="name-restr" mult="+" wrap="enamex" attrs="type='organization'"/>
+    </first>
+  </seq>
+</rule>
+
+<!-- David Mayhew, Cazenove chairman -->
+<!-- David Mayhew, chairman of Cazenove -->
+<!-- Cazenove chairman, David Mayhew -->
+<rule name="pername-comma-org">
+  <first>
+    <seq>
+      <ref name="pername"/>
+      <query match="w[.=',']" mult="?"/>
+      <seq wrap="enamex" attrs="type='organization'">
+        <ref name="name" mult="+"/>
+      </seq>
+      <ref name="perword2"/>
+    </seq>
+    <seq>
+      <ref name="pername"/>
+      <query match="w[.=',']" mult="?"/>
+      <query match="w[.='the']" mult="?"/>
+      <ref name="perword2"/>
+      <query match="w[.='of']"/>
+      <seq wrap="enamex" attrs="type='organization'">
+        <ref name="name" mult="+"/>
+      </seq>
+    </seq>
+    <seq>
+      <seq wrap="enamex" attrs="type='organization'">
+        <ref name="name" mult="+"/>
+      </seq>
+      <ref name="perword2"/>
+      <query match="w[.=',']" mult="?"/>
+      <ref name="pername"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="postcontext">
+  <first>
+    <seq>
+      <query match="w[.=',']"/>
+      <query match="w[.='who']"/>
+    </seq>
+    <seq>
+      <query match="w[.=',']"/>
+      <ref name="perword"/>
+    </seq>
+  </first>
+</rule>
+
+<!-- [ John Smith ] , who ...; [ John Smith ] , chairman .... -->
+<rule name="pername-postcontext">
+  <seq>
+    <first>
+      <ref name="pername"/>
+      <seq wrap="enamex" attrs="type='person'">
+        <ref name="name-not-loc"/>
+        <ref name="name-not-loc" mult="+"/>
+      </seq>
+<!--      <ref name="name" wrap="enamex" attrs="type='person'"/>-->
+    </first>
+    <ref name="postcontext" suppress="true"/>
+  </seq>
+</rule>
+
+<!-- for nfo - reporter names (CHATER,JOHN) -->
+<rule name="nforeporter">
+  <first>
+    <seq>
+      <query match="w[.='(']"/>
+      <seq wrap="enamex" attrs="type='person'">
+        <query match="w[@pws='no' and .~'^[^0-9\), ]+$']"/>
+        <query match="w[@pws='no' and .=',']"/>
+        <query match="w[@pws='no' and .~'^[^0-9\), ]+$']"/>
+      </seq>
+      <query match="w[@pws='no' and .=')']"/>
+    </seq>
+    <seq wrap="enamex" attrs="type='person'">
+      <query match="w[.~'^[A-Z\-]+$']"/>
+      <query match="w[.=',']"/>
+      <query match="w[@pws='no' and .~'^[A-Z\-]+$']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="not-enamex">
+  <first>
+    <lookup match="w[not(@sb)]" lexicon="lex" phrase="true">
+      <constraint test="cat='not-enamex'"/>
+    </lookup>
+    <ref name="url"/>
+    <and>
+      <not>
+        <lookup match="w" lexicon="lex" phrase="true">
+          <constraint test="cat='title'"/>
+        </lookup>
+      </not>
+      <repeat min-matches="2">
+        <query match="w[.~'^[A-Z]' and not(@font) and @common='true' and not(@orgname) and not(.~'^(North|South|East|West)')]"/>
+      </repeat>
+    </and>
+  </first>
+</rule>
+
+<!-- for histpop naming conventions to provide an alternative string
+     to look up. Parallels test data - see
+     GeoDigRef/annotation/scripts/mmax2xml/altname.gr -->
+
+<rule name="point">
+  <first>
+    <query match="w[.~'([Nn]orth|NORTH)$']"/>
+    <query match="w[.~'([Ss]outh|SOUTH)$']"/>
+    <query match="w[.~'([Ww]est|WEST)$']"/>
+    <query match="w[.~'([Ee]ast|EAST)$']"/>
+    <query match="w[.~'([Ww]ester[n]?|WESTER[N]?)$']"/>
+    <query match="w[.~'([Ee]aster[n]?|EASTER[N]?)$']"/>
+    <query match="w[.~'([Nn]orthern|NORTHERN)$']"/>
+    <query match="w[.~'([Ss]outhern|SOUTHERN)$']"/>
+  </first>
+</rule>
+
+<rule name="county">
+  <first>
+    <seq>
+      <query match="w[.~'^([Aa]dministrative|ADMINISTRATIVE|Adm.)$']"/>
+      <query match="w[.~'^([Cc]ounty|COUNTY)$']"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^([Cc]ounty|COUNTY)$']"/>
+      <query match="w[.~'^([Bb]orough|BOROUGH|[Bb]oroughs|BOROUGHS)$']"/>
+    </seq>
+    <query match="w[.~'^([Cc]ounty|COUNTY|[Cc]ounties|COUNTIES)$']"/>
+    <query match="w[.~'^([Cc]ity|CITY|[Cc]ities|CITIES)$']"/>
+    <query match="w[.~'^([Cc]omity|COMITY)$']"/>
+    <query match="w[.~'^([Pp]rovince|PROVINCE|[Pp]rovinces|PROVINCES)$']"/>
+    <query match="w[.~'^([Pp]arish|PARISH|[Pp]arishes|PARISHES)$']"/>
+    <query match="w[.~'^([Bb]urgh|BURGH|[Bb]urghs|BURGHS)$']"/>
+    <query match="w[.~'^([Bb]orough|BOROUGH|[Bb]oroughs|BOROUGHS)$']"/>
+    <query match="w[.~'^([Dd]istrict|DISTRICT|[Dd]istricts|DISTRICTS)$']"/>
+    <query match="w[.~'^([Ss]oke|SOKE|[Ss]okes|SOKES)$']"/>
+    <query match="w[.~'^([Ww]ard|WARD|[Ww]ards|WARDS)$']"/>
+    <query match="w[.~'^([Dd]iocese|DIOCESE|[Dd]ioceses|DIOCESES)$']"/>
+    <seq>
+      <ref name="point"/>
+      <query match="w[.~'^([R]iding|RIDING|[Rr]idings|RIDINGS)$']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="final">
+  <first>
+    <query match="w[.~'^([Rr]ural|RURAL)$']"/>
+    <query match="w[.~'^([Uu]rban|URBAN)$']"/>
+    <query match="w[.~'^([Dd]ivision|DIVISION)$']"/>
+    <query match="w[.~'^([Rr]egion|REGION)$']"/>
+    <query match="w[.~'^([Pp]arliamentary|PARLIAMENTARY)$']"/>
+    <query match="w[.~'^([Mm]etropolitan|METROPOLITAN)$']"/>
+<!--    <query match="w[.~'^([Pp]olice|POLICE)$']"/>-->
+    <query match="w[.~'^([Cc]o|CO)$']"/>
+    <query match="w[.~'^(U.D.|U.D)$']"/>
+    <query match="w[.~'^(M.B.|M.B)$']"/>
+    <query match="w[.~'^(R.D.|R.D)$']"/>
+  </first>
+</rule>
+
+<rule name="countyorfinal">
+  <first>
+    <ref name="county"/>
+    <ref name="final"/>
+  </first>
+</rule>
+
+<rule name="notcountyinit">
+  <and>
+    <not>
+      <ref name="county"/>
+    </not>
+    <query match="w[.~'[A-Z]']"/>
+  </and>
+</rule>
+
+<rule name="notcounty">
+  <and>
+    <not>
+      <ref name="county"/>
+    </not>
+    <query match="w[.~'[A-Za-z]']"/>
+  </and>
+</rule>
+
+<rule name="notcountyorfinalinit">
+  <and>
+    <not>
+      <first>
+        <ref name="countyorfinal"/>
+        <query match="w[@c='aposs']"/>
+      </first>
+    </not>
+    <query match="w[.~'^[A-Z]']"/>
+  </and>
+</rule>
+
+<rule name="notcountyorfinal">
+  <and>
+    <not>
+      <first>
+        <ref name="countyorfinal"/>
+        <query match="w[@c='aposs']"/>
+      </first>
+    </not>
+    <seq>
+      <query match="w[.~'^(and|And|AND)$']" mult="?"/>
+      <query match="w[.~'^[A-Z]' and @p~'^N']"/>
+    </seq>
+  </and>
+</rule>
+
+<!-- County Tyrone -->
+<rule name="county-place2" wrap="enamex" attrs="type='location'">
+  <seq>
+    <query match="w[.~'^([Cc]ounty|COUNTY|Co|Co.)$']"/>
+    <seq wrap="substring">
+      <ref name="single-place"/>
+    </seq>
+  </seq>
+</rule>
+
+<!-- Essex County, Aberdeen (County) -->
+<rule name="place-county" wrap="enamex" attrs="type='location'">
+  <seq>
+    <seq wrap="substring">
+      <ref name="point" mult="?"/>
+      <query match="w[.~'^[A-Z]' and not(.~'^(County|COUNTY)$') and not(@common='true') and not(@p~'^[DIC]') and not(@locadj)]"/>
+    </seq>
+    <query match="w[.='(']" mult="?"/>
+    <ref name="countyorfinal"/>
+  </seq>
+</rule>
+
+<!-- County Borough of West Hartlepool -->
+<rule name="county-of" wrap="enamex" attrs="type='location'">
+  <seq>
+    <ref name="county"/>
+    <first mult="?">
+      <seq>
+        <query match="w[.=',']" mult="?"/>
+        <query match="w[.~'^([Aa]nd|AND)$']"/>
+        <query match="w[.~'^([Cc]ity|CITY|[Ss]uburbs|SUBURBS)$']"/>
+      </seq>
+      <query match="w[.~'^Borough$']"/>
+    </first>
+    <query match="w[.~'^(Of|OF|of|o.|O.)$']"/>
+    <seq mult="?">
+      <query match="w[.~'^the$']"/>
+      <query match="w[.~'^(Soke|town)$']"/>
+      <query match="w[.='of']"/>
+    </seq>
+    <seq wrap="substring">
+      <seq>
+        <ref name="notcountyorfinalinit"/>
+        <ref name="notcountyorfinal" mult="*"/>
+      </seq>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="exceptions">
+  <first>
+<!--    <lookup match="w[not(.='Down')]" lexicon="fwlex" phrase="true"/>-->
+    <seq>
+      <query match="w[.='Will']"/>
+      <query match="w[.='the']"/>
+    </seq>
+    <seq>
+      <query match="w[.='Lake']"/>
+      <query match="w[.='District']"/>
+    </seq>
+    <seq>
+      <query match="w[.='Prince']"/>
+      <query match="w[.='Regent']"/>
+    </seq>
+    <seq>
+      <query match="w[.='Lord']"/>
+      <query match="w[.~'^(Ordinary|Justice)$']"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^(General|GENERAL)$']"/>
+      <first>
+        <query match="w[@p~'^N' and .~'^[A-Z]' and @common='true' and not(@pername='true')]" constraint="not(lex()[cat='title' or cat='title-incl'])"/>
+        <query match="w[not(@p~'^N')]"/>
+      </first>
+    </seq>
+    <seq>
+      <ref name="point"/>
+      <ref name="countyorfinal"/>
+    </seq>
+    <seq>
+      <query match="w[.~'^[A-Z]' and not(.='Report')]" mult="+"/>
+      <query match="w[.='Report']"/>
+    </seq>
+    <seq>
+      <first>
+        <query match="w[.~'^(Page|Diagram|Volume|Order|Table|Part|Section|Schedule|Division|Group|Report|Supplement)[s]?$']"/>
+        <query match="w[.~'^Class|Classes$']"/>
+        <query match="w[.~'^Appendix|Appendices$']"/>
+      </first>
+      <query match="w[.~'^[IVXC]+[\.]?$']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="saint" wrap="enamex" attrs="type='person'">
+  <seq wrap="subname" attrs="type='title'">
+    <first suppress="true">
+      <start/>
+      <query match="w[not(@p~'^[DP]')]"/>
+    </first>
+    <query match="w[.='St.' or .='St' or .='Saint']"/>
+    <query match="w[@pername='true']"/>
+  </seq>
+</rule>
+
+<!-- Huddersfield, P.B. -->
+<rule name="place-letters" wrap="enamex" attrs="type='location'">
+  <seq>
+    <first>
+      <query match="enamex[@type='location']"/>
+      <ref name="single-place"/>
+    </first>
+    <query match="w[.=',']" mult="?"/>
+    <first>
+      <seq>
+        <query match="w[.~'^[A-Z][\.]?$']"/>
+        <query match="w[.~'^[A-Z][\.]?$' and not(@sb)]" mult="+"/>
+      </seq>
+      <first>
+        <query match="w[.~'^[A-Z][\.]([A-Z][\.]?)+$']"/>
+        <query match="w[.~'^[A-Z][\.]?([A-Z][\.])+([A-Z][\.]?)*$']"/>
+        <query match="w[.~'^[A-Z][\.]+[A-Z][\.]$']"/>
+      </first>
+    </first>
+  </seq>
+</rule>
+
+<rule name="all">
+  <first>
+    <ref name="nforeporter"/>
+    <ref name="wikiperson"/>
+    <ref name="exceptions"/>
+    <ref name="county-of"/>
+    <ref name="place-county"/>
+    <ref name="place-state"/>
+    <ref name="place-letters"/>
+    <ref name="county-place2"/>
+    <ref name="not-enamex"/>
+<!--    <ref name="per-descrip"/>-->
+    <ref name="coord-person0"/>
+    <ref name="coord-person1"/>
+    <ref name="coord-person"/>
+    <ref name="pername-comma-title-pername"/>
+    <ref name="perword-pername"/>
+    <ref name="pername-perword"/>
+    <ref name="pername-comma-org"/>
+    <ref name="pername-postcontext"/>
+    <ref name="per-perrelcontext"/>
+    <ref name="org-perwordcontext"/>
+    <ref name="certs"/>
+    <ref name="stnameaposs"/>
+    <ref name="saint"/>
+    <ref name="multi-org"/>
+    <ref name="locabbr" wrap="enamex" attrs="type='location'"/>
+    <ref name="country-continent"/>
+    <ref name="misc-place"/>
+    <ref name="possible-multi-place2"/>
+    <ref name="the-singleplace"/>
+    <ref name="role"/>
+    <ref name="org-of"/>
+  </first>
+</rule>
+
+<rule name="notall">
+  <first>
+    <ref name="nforeporter"/>
+    <ref name="wikiperson"/>
+    <ref name="exceptions"/>
+    <ref name="county-of"/>
+    <ref name="place-county"/>
+    <ref name="place-state"/>
+    <ref name="place-letters"/>
+    <ref name="county-place2"/>
+    <ref name="not-enamex"/>
+<!--    <ref name="per-descrip"/>-->
+    <ref name="coord-person0"/>
+    <ref name="coord-person1"/>
+    <ref name="coord-person"/>
+    <ref name="pername-comma-title-pername"/>
+<!--    <ref name="perword-pername"/>-->
+    <ref name="pername-perword"/>
+<!--    <ref name="pername-comma-org"/>-->
+    <ref name="pername-postcontext"/>
+    <ref name="per-perrelcontext"/>
+    <ref name="org-perwordcontext"/>
+    <ref name="titled"/>
+    <ref name="pername-in-org-plc"/>
+    <ref name="coord-place"/>
+    <ref name="list-place"/>
+    <ref name="list-place2"/>
+    <ref name="org-orgword"/>
+    <ref name="pername-comma-title-pername"/>
+<!--    <ref name="title-pername"/>-->
+    <ref name="firstname-morenames"/>
+    <ref name="firstname-middlebit-lastname"/>
+    <ref name="firstname-mcsurname"/>
+    <ref name="lastname-initials"/>
+    <ref name="lastname-firstname"/>
+    <ref name="UC-pername-comma-title-pername"/>
+    <ref name="UC-pername0"/>
+    <ref name="pername-perverb"/>
+    <ref name="place-bracket-place"/>
+    <ref name="place-in-place"/>
+    <ref name="place-near-place"/>
+    <ref name="from-place-to-place"/>
+    <ref name="point-place1"/>
+    <ref name="point-place2"/>
+    <ref name="county-place"/>
+    <ref name="org-plc"/>
+    <ref name="the-orgword"/>
+    <ref name="name-locword"/>
+    <ref name="misc-org"/>
+    <ref name="stnameaposs"/>
+    <ref name="saint"/>
+    <ref name="multi-org"/>
+    <ref name="locabbr" wrap="enamex" attrs="type='location'"/>
+    <ref name="country-continent"/>
+    <ref name="misc-place"/>
+    <ref name="possible-multi-place2"/>
+    <ref name="the-singleplace"/>
+    <ref name="role"/>
+    <ref name="org-of"/>
+  </first>
+</rule>
+
+</rules>

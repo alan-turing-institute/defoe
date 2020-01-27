@@ -1,0 +1,103 @@
+<rules name="lexlookup" type="xml" apply="all">
+
+<lexicon name="deep" href="deep.mmlex"/>
+
+<rule name="deepmultiplace" wrap="enamex" attrs="type='location' deepsource='true' counties='$counties'">
+  <lookup match="w" lexicon="deep" phrase="true">
+    <constraint test="@word~' '"/>
+    <var name="counties" value="cat"/>
+  </lookup>
+</rule>
+  
+<rule name="deepsingleplace" wrap="enamex" attrs="type='location' deepsource='true' counties='$counties'">
+  <lookup match="w[not(@pername or @common or @wfirstn)]" lexicon="deep">
+    <var name="counties" value="cat"/>
+  </lookup>
+</rule>
+
+<rule name="deepplace">
+  <first>
+    <ref name="deepmultiplace"/>
+    <ref name="deepsingleplace"/>
+  </first>
+</rule>
+
+<rule name="deepplacenowrap">
+  <first>
+    <lookup match="w" lexicon="deep" phrase="true">
+      <constraint test="@word~' '"/>
+    </lookup>
+    <lookup match="w[not(@pername or @common or @wfirstn)]" lexicon="deep"/>
+  </first>
+</rule>
+
+<rule name="nondeepplace">
+  <seq>
+    <first>
+      <seq>
+        <query match="w[.~'^(,|freehold|land|forest|mill|vill|manor(s)?|township|wood|park)$']"/>
+        <query match="w[.='of']"/>
+      </seq>
+      <seq>
+        <query match="w[.~'^(acres|close|situated|land|rent|meadow|wood|pasture|fee|water|mill)$']"/>
+        <query match="w[.='in' or .='at']"/>
+      </seq>
+      <seq>
+        <query match="w[.~'^(field|meadow)$']"/>
+        <query match="w[.='called']"/>
+      </seq>
+    </first>
+    <seq wrap="enamex" attrs="type='location' deepsource='false'">
+      <query match="w[.~'^[A-Z][a-z]' and not(@pername or @wfirstn)]" mult="+"/>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="notplace" wrap="notplace">
+  <first>
+    <lookup match="w[@p='IN' and .~'^[a-z]+$']" lexicon="deep"/>
+    <lookup match="w[(@p~'^J' or @pername or @common or @wfirstn) and .~'^[a-z]+$']" lexicon="deep"/>
+    <seq>
+      <query match="w[.~'^(Archdeacon|Prioress|feast|octave)$']"/>
+      <query match="w[.='of']"/>
+      <ref name="deepplacenowrap"/>
+    </seq>
+    <seq>
+      <query match="w[@pername or @wfirstn]"/>
+      <query match="w[.='de' or .='le']"/>
+      <first>
+        <ref name="deepplacenowrap"/>
+        <query match="w[.~'^[A-Z][a-z]']" mult="+"/>
+      </first>
+    </seq>
+    <seq>
+      <query match="w[@pername or @wfirstn]"/>
+      <ref name="deepplacenowrap"/>
+      <query match="w[.=',']"/>
+    </seq>
+    <seq>
+      <query match="w[.='of']"/>
+      <query match="w[.='the']"/>
+      <ref name="deepplacenowrap"/>
+      <query match="w[.=',']"/>
+    </seq>
+    <seq>
+      <ref name="deepplacenowrap"/>
+      <query match="w[.=',']"/>
+      <query match="w[.~'^(tenent|plaintiff)s?$']"/>
+      <query match="w[.=',']"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="all">
+  <first>
+    <ref name="notplace"/>
+    <ref name="deepplace"/>
+    <ref name="nondeepplace"/>
+  </first>
+</rule>
+
+</rules>
+
+

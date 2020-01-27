@@ -1,0 +1,47 @@
+<rules name="enamex" type="xml" apply="all">
+
+<rule name="reln-contain">
+  <seq>
+    <query match="enamex[@reln='contained']" attrs="contained-by='$rid'">
+      <var name="lid" value="@id"/>
+      <var name="rid" value="following-sibling::enamex[@reln][1]/@id"/>
+    </query>
+    <query match="*[not(@reln)]" mult="*"/>
+    <query match="enamex[@reln='container']" attrs="contains='$lid'"/>
+  </seq>
+</rule>
+
+<rule name="reln-near">
+  <seq>
+    <query match="enamex[@reln='nearl']" attrs="near='$rid'">
+      <var name="lid" value="@id"/>
+      <var name="rid" value="following-sibling::enamex[@reln][1]/@id"/>
+    </query>
+    <query match="*[not(@reln)]" mult="*"/>
+    <query match="enamex[@reln='nearr']" attrs="near='$lid'"/>
+  </seq>
+</rule>
+
+<rule name="reln-coord">
+  <seq>
+    <query match="enamex[@reln='conjfirst']" attrs="coord='$fid'">
+      <var name="fid" value="@id"/>
+    </query>
+    <seq mult="+">
+      <query match="*[not(@reln)]" mult="*"/>
+      <query match="enamex[@reln='conjrest']" attrs="coord='$fid'"/>
+    </seq>
+  </seq>
+</rule>
+
+<rule name="all">
+  <first>
+    <ref name="reln-contain"/>
+    <ref name="reln-near"/>
+    <ref name="reln-coord"/>
+  </first>
+</rule>
+
+</rules>
+
+

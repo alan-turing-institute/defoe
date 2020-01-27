@@ -1,0 +1,216 @@
+#!/bin/sh
+
+usage="run -t type -g gaz [-top] [-c county (deep only)] [-r begindate enddate (deep only)] [-l lat long radius score] [-lb W N E S score] [-o outdirname outprefix] [-d docdate] <input >output.xml"
+
+descr="Run all the components over a document. Specify the document type and gazetteer as follows:
+ doc type  -t  ltgxml | plain | gb (for Google Books)
+ gazetteer -g  unlock | geonames | geonames-local | plplus | plplus-local | deep | os | naturalearth "
+
+. `dirname $0`/setup
+
+county=""
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    -g)
+      gaz=$1
+      shift
+      ;;
+    -t)
+      type=$1
+      shift
+      ;;
+    -top)
+      top="Y"
+      ;;
+    -c)
+      county="$county,$1" #county=$1  
+      shift
+      ;;
+    -r)
+      begin="$1"
+      end="$2"
+      shift 2
+      ;;
+    -l)
+      lat="$1"
+      long="$2"
+      radius="$3"
+      lscore="$4"
+      shift 4
+      ;;
+    -lb)
+      ltype=box
+      w="$1"
+      n="$2"
+      e="$3"
+      s="$4"
+      lscore="$5"
+      shift 5
+      ;;
+    -o)
+      outdirname=$1
+      outprefix=$2
+      shift 2
+      ;;
+    -d)
+      docdate=$1
+      shift
+      ;;
+    -*)
+      echo "usage: $usage" >&2
+      exit 2
+      ;;
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+# check document type and gazetteer parameters
+
+if [ $# -ne -0 -o -z "$type" -o -z "$gaz" ]; then
+  echo "usage: $usage" >&2
+  exit 2
+fi
+
+if [ $type != ltgxml -a $type != plain -a $type != gb ]; then
+  echo -e "\nUnknown document type '$type'\n" >&2
+  echo -e "usage: $usage\n" >&2
+  echo -e "$descr\n" >&2
+  exit 2
+fi
+
+if [ ! -x "$here/scripts/gazlookup-$gaz" ]; then
+  echo -e "\nUnknown gazetteer name '$gaz'\n" >&2
+  echo -e "usage: $usage\n" >&2
+  echo -e "$descr\n" >&2
+  exit 2
+fi
+
+# --------- STEP 1: Geotagging -----------------------------------------------
+
+# prepare document
+
+if [ $type = ltgxml ]; then
+  cat >$tmp-prepared 
+fi
+
+if [ $type = plain ]; then
+  cat >$tmp-input
+  if [ "$docdate" ]; then
+    $here/scripts/prepare-plain -d $docdate <$tmp-input >$tmp-prepared
+  else
+    $here/scripts/prepare-plain <$tmp-input >$tmp-prepared
+  fi
+fi
+
+if [ $type = gb ]; then
+  # Google books
+  cat >$tmp-input
+  if [ "$docdate" ]; then
+    $here/scripts/prepare-gb -d $docdate <$tmp-input >$tmp-tokenised
+  else
+    $here/scripts/prepare-gb <$tmp-input >$tmp-tokenised
+  fi
+fi
+
+# tokenise document
+
+if [ $type != gb ]; then
+  # gb tokenised above
+  $here/scripts/tokenise <$tmp-prepared >$tmp-tokenised
+fi
+
+# POS tag and lemmatise document
+
+$here/scripts/postag -m $here/models/pos <$tmp-tokenised >$tmp-postagged
+$here/scripts/lemmatise <$tmp-postagged >$tmp-lemmatised
+
+# do NER (special versions for ancient and DEEP)
+
+if [ $gaz = plplus -o $gaz = plplus-local ]; then
+  # Adapt NER step for ancient places/people
+  $here/scripts/ner-ancient <$tmp-lemmatised >$tmp-nertagged
+else
+  if [ $gaz = deep ]; then
+    # Adapt NER step for deep
+    $here/scripts/ner-deep <$tmp-lemmatised >$tmp-nertagged
+  else
+    $here/scripts/ner <$tmp-lemmatised >$tmp-nertagged
+  fi
+fi
+
+# do chunking and temporal relations
+
+$here/scripts/chunk -s sync3 -f event <$tmp-nertagged >$tmp-chunked
+$here/scripts/temprel <$tmp-chunked >$tmp-temprel
+
+# --------- STEP 2: Georesolution --------------------------------------------
+
+# multiple files output if -o is used
+
+if [ "$outdirname" ]; then
+  out=$outdirname/$outprefix
+
+  # bounding box if ltype set
+  if [ "ltype" ]; then
+    $here/scripts/geoground -g "$gaz" -c "$county" -r "$begin" "$end" -lb "$w" "$n" "$e" "$s" "$lscore" -o "$out" <$tmp-temprel >$tmp-geogrounded
+
+  # otherwise bounding circle if specified
+  else
+    $here/scripts/geoground -g "$gaz" -c "$county" -r "$begin" "$end" -l "$lat" "$long" "$radius" "$lscore" -o "$out" <$tmp-temprel >$tmp-geogrounded
+
+  fi
+
+  # create geotagged output file for visualisation
+  if [ $gaz = deep ]; then
+    # special DEEP ner visualisation to add links to placenames.org to 
+    # grounded placenames
+    cat $tmp-nertagged |
+    lxt -s $here/lib/georesolve/deepplainvis.xsl -p georesfile $out.gaz.xml > $out.geotagged.html
+
+  else
+    cat $tmp-nertagged |
+    lxt -s $here/lib/georesolve/plainvis.xsl > $out.geotagged.html
+
+  fi
+
+  # create the map visualisation
+  $here/scripts/gazmap $out.gazmap.html $out.gazlist.html $out.geotagged.html $out.display.html <$out.gaz.xml
+
+  # Post-process if display files with only top candidate are required
+  if [ $top ]; then
+    $here/scripts/gazmap-top $out.gaz.xml
+  fi
+
+  # create the timeline visualisation
+  cat $tmp-geogrounded |
+  $here/scripts/timeline -o $outdirname $outprefix -n $tmp-nertagged
+
+  # keep the NER tagged output file
+  cp $tmp-nertagged $out.nertagged.xml
+
+  # write the geogrounding output to file
+  cp $tmp-geogrounded $out.out.xml
+
+
+# single output to stdout if -o is not used
+else
+
+  # bounding box if ltype set
+  if [ "ltype" ]; then
+    $here/scripts/geoground -g "$gaz" -c "$county" -r "$begin" "$end" -lb "$w" "$n" "$e" "$s" "$lscore" <$tmp-temprel >$tmp-geogrounded
+
+  # otherwise bounding circle if specified
+  else
+    $here/scripts/geoground -g "$gaz" -c "$county" -r "$begin" "$end" -l "$lat" "$long" "$radius" "$lscore" <$tmp-temprel >$tmp-geogrounded
+
+  fi
+
+  # write the geogrounding output to stdout
+  cat $tmp-geogrounded
+
+fi

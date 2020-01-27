@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document version="3">
+<meta>
+<attr wdaynum="5" day="Friday" day-number="737440" sdate="2020-01-17" date="17" month="01" year="2020" id="docdate" name="docdate">20200117</attr>
+<attr date="20151216" name="tokeniser_version"/></meta>
+<text>
+
+
+
+<p><s id="s1"><enamex type="person" id="rb1"><w p="NNP" id="w16" c="w" pws="yes" l="nadal">Nadal</w></enamex> <w p="CC" id="w22" c="w" pws="yes">and</w> <enamex type="person" id="rb2"><w wfirstn="true" p="NNP" id="w26" c="w" pws="yes" l="murray" locname="single" alsource="true" wlastn="true">Murray</w></enamex> <w p="VBD" id="w33" c="w" pws="yes" l="set">set</w> <w p="RP" id="w37" c="w" pws="yes">up</w> <w event="true" p="NN" id="w40" c="w" pws="yes" l="semus">semi</w> <w tmln="true" event="true" p="NN" id="w45" c="w" pws="yes" l="showdown">showdown</w>
+<w p="(" id="w54" c="br" pws="yes">(</w><enamex type="organization" id="rb3"><w orgname="single" p="NNP" id="w55" pws="no" c="w" l="cnn">CNN</w></enamex><w p=")" id="w58" pws="no" c="br">)</w> <w p=":" id="w60" c="dash" pws="yes">--</w> <enamex type="person" id="rb4"><w wfirstn="true" pername="true" p="NNP" id="w63" c="w" pws="yes" l="rafael" wiki="B-wper">Rafael</w> <w p="NNP" id="w70" c="w" pws="yes" l="nadal" wiki="I-wper">Nadal</w></enamex> <w p="CC" id="w76" c="w" pws="yes">and</w> <enamex type="person" id="rb5"><w wfirstn="true" pername="true" p="NNP" id="w80" c="w" pws="yes" l="andy" wiki="B-wper">Andy</w> <w wfirstn="true" p="NNP" id="w85" c="w" pws="yes" l="murray" locname="single" alsource="true" wlastn="true" wiki="I-wper">Murray</w></enamex> <w p="VBP" id="w92" c="w" pws="yes" l="be">are</w> <w p="DT" id="w96" c="w" pws="yes">both</w> <w p="IN" id="w101" c="w" pws="yes">through</w> <w p="TO" id="w109" c="w" pws="yes">to</w> <w p="DT" id="w112" c="w" pws="yes">the</w> <w event="true" p="NNS" id="w116" c="w" pws="yes" l="semifinal">semifinals</w> <w p="IN" id="w127" c="w" pws="yes">of</w> <w p="DT" id="w130" c="w" pws="yes">the</w> <w wfirstn="true" p="NNP" id="w134" c="w" pws="yes" l="roger" wlastn="true">Rogers</w> <w p="NNP" id="w141" c="w" pws="yes" l="cup" common="true">Cup</w> <w p="IN" id="w145" c="w" pws="yes">in</w> <enamex type="location" conf="high" id="rb6"><w p="NNP" id="w148" c="w" pws="yes" l="toronto" locname="single" alsource="true" edsource="true">Toronto</w></enamex><w p="," id="w155" pws="no" c="cm">,</w> <w p="WRB" id="w157" c="w" pws="yes">where</w> <w p="PRP" id="w163" c="w" pws="yes">they</w> <w p="MD" id="w168" c="w" pws="yes" l="will">will</w> <w p="VB" id="w173" c="w" pws="yes" l="face">face</w> <w p="DT" id="w178" c="w" pws="yes">each</w> <w p="JJ" id="w183" c="w" pws="yes">other</w> <w p="IN" id="w189" c="w" pws="yes">for</w> <w p="DT" id="w193" c="w" pws="yes">a</w> <w tmln="true" p="NN" id="w195" c="w" pws="yes" l="place">place</w> <w p="IN" id="w201" c="w" pws="yes">in</w> <timex wdaynum="7" day="Sunday" type="date" id="rb7"><w wdaynum="7" day="Sunday" p="NNP" id="w204" c="w" pws="yes" l="sunday">Sunday</w></timex><w p="POS" id="w210" pws="no" c="aposs">'s</w> <w p="JJ" id="w213" c="w" pws="yes">final</w><w p="." id="w218" pws="no" sb="true" c=".">.</w></s>
+<s id="s2"><enamex type="person" subtype="otf" id="rb8"><w wfirstn="true" p="NNP" id="w220" c="w" pws="yes" l="murray" locname="single" alsource="true" wlastn="true">Murray</w></enamex> <w p="VBD" id="w227" c="w" pws="yes" l="play">played</w> <w p="DT" id="w234" c="w" pws="yes">some</w> <w p="JJ" id="w239" c="w" pws="yes">superb</w> <w event="true" p="NN" id="w246" c="w" pws="yes" l="tennis">tennis</w> <w p="IN" id="w253" c="w" pws="yes">in</w> <w p="VBG" id="w256" c="w" pws="yes" l="crush">crushing</w> <w p="DT" id="w265" c="w" pws="yes">the</w> <w p="JJ" id="w269" c="hyw" pws="yes">in-form</w> <enamex type="person" id="rb9"><w wfirstn="true" pername="true" p="NNP" id="w277" c="w" pws="yes" l="david" wlastn="true" wiki="B-wper">David</w> <w p="NNP" id="w283" c="w" pws="yes" l="nalbandian" wiki="I-wper">Nalbandian</w></enamex> <w p="CC" id="w294" c="w" pws="yes">but</w> <enamex type="person" subtype="otf" id="rb10"><w p="NNP" id="w298" c="w" pws="yes" l="nadal">Nadal</w></enamex> <w p="VBD" id="w304" c="w" pws="yes" l="have">had</w> <w p="TO" id="w308" c="w" pws="yes">to</w> <w p="VB" id="w311" c="w" pws="yes" l="recover">recover</w> <w p="IN" id="w319" c="w" pws="yes">from</w> <w p="VBG" id="w324" c="w" pws="yes" l="drop">dropping</w> <w p="DT" id="w333" c="w" pws="yes">the</w> <w tmln="true" p="NN" id="w337" c="w" pws="yes" l="opening" vstem="open">opening</w> <w tmln="true" p="NN" id="w345" c="w" pws="yes" l="set">set</w> <w p="TO" id="w349" c="w" pws="yes">to</w> <w p="VB" id="w352" c="w" pws="yes" l="get">get</w> <w p="JJ" id="w356" c="w" pws="yes">past</w> <enamex type="location" id="rb11"><w country="true" p="NNP" id="w361" c="w" pws="yes" l="germany" locname="single" alsource="true">Germany</w></enamex><w p="POS" id="w368" pws="no" c="aposs">'s</w> <enamex type="person" id="rb12"><w wfirstn="true" p="NNP" id="w371" c="w" pws="yes" l="philipp" locname="single" alsource="true" wiki="B-wper">Philipp</w> <w p="NNP" id="w379" c="w" pws="yes" l="kohlschreiber" wiki="I-wper">Kohlschreiber</w></enamex><w p="." id="w392" pws="no" sb="true" c=".">.</w></s>
+<s id="s3"><enamex type="person" subtype="otf" id="rb13"><w p="NNP" id="w394" c="w" pws="yes" l="nalbandian">Nalbandian</w></enamex> <w p="VBD" id="w405" c="w" pws="yes" l="win">won</w> <w p="DT" id="w409" c="w" pws="yes">the</w> <w p="NNP" id="w413" c="w" pws="yes" l="atp">ATP</w> <w p="NN" id="w417" c="w" pws="yes" l="title">title</w> <w p="IN" id="w423" c="w" pws="yes">in</w> <enamex type="location" conf="high" id="rb14"><w wfirstn="true" p="NNP" id="w426" c="w" pws="yes" l="washington" locname="single" alsource="true" edsource="true" wlastn="true">Washington</w></enamex> <timex quty="1" unit="weekend" trel="before" type="date" id="rb15"><w quty="1" trel="before" p="JJ" id="w437" c="w" pws="yes">last</w> <w unit="weekend" p="NN" id="w442" c="w" pws="yes" l="weekend">weekend</w></timex> <w p="CC" id="w450" c="w" pws="yes">and</w> <w p="VBD" id="w454" c="w" pws="yes" l="come">came</w> <w p="IN" id="w459" c="w" pws="yes">into</w> <timex wdaynum="5" day="Friday" type="date" id="rb16"><w wdaynum="5" day="Friday" p="NNP" id="w464" c="w" pws="yes" l="friday">Friday</w></timex><w p="POS" id="w470" pws="no" c="aposs">'s</w> <w event="true" p="NN" id="w473" c="w" pws="yes" l="encounter" vstem="encounter">encounter</w> <w p="IN" id="w483" c="w" pws="yes">on</w> <w p="DT" id="w486" c="w" pws="yes">an</w> <w quty="11" p="CD" id="w489" c="cd" pws="yes">11</w><w p=":" id="w491" pws="no" c="hyph">-</w><w p="NN" id="w492" pws="no" c="w" l="match">match</w> <w p="JJ" id="w498" c="w" pws="yes" l="unbeaten" vstem="unbeaten">unbeaten</w> <w p="NN" id="w507" c="w" pws="yes" l="streak">streak</w><w p="." id="w513" pws="no" sb="true" c=".">.</w></s>
+<s id="s4"><w p="CC" id="w515" c="w" pws="yes">But</w> <w p="DT" id="w519" c="w" pws="yes">the</w> <w p="JJ" id="w523" c="ord" pws="yes">fourth</w><w p=":" id="w529" pws="no" c="hyph">-</w><w p="JJ" id="w530" pws="no" c="w" l="seeded" vstem="seed">seeded</w> <w wfirstn="true" p="NNP" id="w537" c="w" pws="yes" l="briton">Briton</w><w p="," id="w543" pws="no" c="cm">,</w> <w p="WP" id="w545" c="w" pws="yes">who</w> <w p="VBZ" id="w549" c="w" pws="yes" l="have">has</w> <w p="VBN" id="w553" c="w" pws="yes" l="struggle">struggled</w> <w p="TO" id="w563" c="w" pws="yes">to</w> <w p="VB" id="w566" c="w" pws="yes" l="find">find</w> <w p="PRP$" id="w571" c="w" pws="yes">his</w> <w p="JJ" id="w575" c="w" pws="yes">top</w> <w p="NN" id="w579" c="w" pws="yes" l="form">form</w> <timex quty="1" unit="season" trel="same" type="date" id="rb17"><w quty="1" trel="same" p="DT" id="w584" c="w" pws="yes">this</w> <w unit="season" p="NN" id="w589" c="w" pws="yes" l="season">season</w></timex><w p="," id="w595" pws="no" c="cm">,</w> <w p="VBD" id="w597" c="w" pws="yes" l="brush">brushed</w> <w p="RB" id="w605" c="w" pws="yes">aside</w> <w p="DT" id="w611" c="w" pws="yes">the</w> <w locadj="true" p="JJ" id="w615" c="w" pws="yes" common="true">Argentine</w> <w p="IN" id="w625" c="w" pws="yes">in</w> <w p="JJ" id="w628" c="w" pws="yes">impressive</w> <w p="NN" id="w639" c="w" pws="yes" l="fashion">fashion</w><w p="," id="w646" pws="no" c="cm">,</w> <w p="VBG" id="w648" c="w" pws="yes" l="secure">securing</w> <w p="DT" id="w657" c="w" pws="yes">a</w> <w p="JJ" id="w659" c="w" pws="yes">6-2</w> <w p="CD" id="w663" c="w" pws="yes">6-2</w> <w tmln="true" event="true" p="NN" id="w667" c="w" pws="yes" l="victory">victory</w> <w p="IN" id="w675" c="w" pws="yes">in</w> <w p="RB" id="w678" c="w" pws="yes">just</w> <timex tval="69" quty="69" unit="minute" type="time" id="rb18"><w quty="69" p="CD" id="w683" c="cd" pws="yes">69</w> <w unit="minute" p="NNS" id="w686" c="w" pws="yes" l="minute">minutes</w></timex><w p="." id="w693" pws="no" sb="true" c=".">.</w></s>
+<s id="s5"><w p="``" id="w695" qut="d" c="lquote" pws="yes">"</w><w p="PRP" id="w696" pws="no" c="w">It</w> <w p="VBD" id="w699" c="w" pws="yes" l="be">was</w> <w p="RB" id="w703" c="w" pws="yes">probably</w> <w quty="1" p="CD" id="w712" c="cd" pws="yes">one</w> <w p="IN" id="w716" c="w" pws="yes">of</w> <w p="DT" id="w719" c="w" pws="yes">the</w> <w p="JJS" id="w723" c="w" pws="yes">best</w> <w p="NNS" id="w728" c="w" pws="yes" l="match">matches</w> <w p="PRP" id="w736" c="w" pws="yes">I</w><w p="VBP" id="w737" pws="no" c="w" l="have">'ve</w> <w p="VBN" id="w741" c="w" pws="yes" l="play">played</w> <timex quty="1" unit="year" trel="same" type="date" id="rb19"><w quty="1" trel="same" p="DT" id="w748" c="w" pws="yes">this</w> <w unit="year" p="NN" id="w753" c="w" pws="yes" l="year">year</w></timex><w p="," id="w757" pws="no" c="cm">,</w><w p="``" id="w758" pws="no" qut="d" c="lquote">"</w> <enamex type="person" subtype="otf" id="rb20"><w wfirstn="true" p="NNP" id="w760" c="w" pws="yes" l="murray" locname="single" alsource="true" wlastn="true">Murray</w></enamex> <w class="reporting" p="VBD" id="w767" c="w" pws="yes" l="tell">told</w> <w p="DT" id="w772" c="w" pws="yes">the</w> <w p="JJ" id="w776" c="w" pws="yes">official</w> <w p="NNP" id="w785" c="w" pws="yes" l="atp">ATP</w> <w tmln="true" event="true" p="NNP" id="w789" c="w" pws="yes" l="tour" vstem="tour" common="true">Tour</w> <w p="NN" id="w794" c="w" pws="yes" l="website">website</w><w p="." id="w801" pws="no" sb="true" c=".">.</w></s>
+<s id="s6"><w p="``" id="w803" qut="d" c="lquote" pws="yes">"</w><w p="PRP" id="w804" pws="no" c="w">I</w> <w p="VBD" id="w806" c="w" pws="yes" l="serve">served</w> <w p="RB" id="w813" c="w" pws="yes">well</w> <w p="CC" id="w818" c="w" pws="yes">and</w> <w p="VBD" id="w822" c="w" pws="yes" l="get">got</w> <w p="DT" id="w826" c="w" pws="yes">the</w> <w p="JJ" id="w830" c="ord" pws="yes">first</w> <w p="JJ" id="w836" c="w" pws="yes" tmla="true">good</w> <w event="true" p="NNS" id="w841" c="w" pws="yes" l="hit" vstem="hit">hits</w> <w p="IN" id="w846" c="w" pws="yes">in</w> <w p="DT" id="w849" c="w" pws="yes">a</w> <w p="NN" id="w851" c="w" pws="yes" l="lot">lot</w> <w p="IN" id="w855" c="w" pws="yes">of</w> <w p="DT" id="w858" c="w" pws="yes">the</w> <w tmln="true" p="NNS" id="w862" c="w" pws="yes" l="rally">rallies</w><w p="," id="w869" pws="no" c="cm">,</w> <w p="RB" id="w871" c="w" pws="yes">so</w> <w p="PRP" id="w874" c="w" pws="yes">I</w> <w p="VBD" id="w876" c="w" pws="yes" l="be">was</w> <w p="JJ" id="w880" c="w" pws="yes" tmla="true">able</w> <w p="TO" id="w885" c="w" pws="yes">to</w> <w p="VB" id="w888" c="w" pws="yes" l="dictate">dictate</w> <w p="DT" id="w896" c="w" pws="yes">a</w> <w p="NN" id="w898" c="w" pws="yes" l="lot">lot</w> <w p="IN" id="w902" c="w" pws="yes">of</w> <w p="DT" id="w905" c="w" pws="yes">the</w> <w p="NNS" id="w909" c="w" pws="yes" l="point">points</w><w p="," id="w915" pws="no" c="cm">,</w><w p="``" id="w916" pws="no" qut="d" c="lquote">"</w> <w class="reporting" p="VBD" id="w918" c="w" pws="yes" l="add">added</w> <enamex type="person" subtype="otf" id="rb21"><w wfirstn="true" p="NNP" id="w924" c="w" pws="yes" l="murray" locname="single" alsource="true" wlastn="true">Murray</w></enamex> <w p=":" id="w931" c="dash" pws="yes">--</w> <w p="WP" id="w934" c="w" pws="yes">who</w> <w p="VBZ" id="w938" c="w" pws="yes" l="be">is</w> <w p="DT" id="w941" c="w" pws="yes">the</w> <w p="VBG" id="w945" c="w" pws="yes" l="defend">defending</w> <w p="NN" id="w955" c="w" pws="yes" l="champion">champion</w> <w p="IN" id="w964" c="w" pws="yes">after</w> <w p="VBG" id="w970" c="w" pws="yes" l="win">winning</w> <w p="DT" id="w978" c="w" pws="yes">the</w> <w event="true" p="NN" id="w982" c="w" pws="yes" l="tournament">tournament</w> <w p="IN" id="w993" c="w" pws="yes">in</w> <enamex type="location" conf="high" id="rb22"><w p="NNP" id="w996" c="w" pws="yes" l="montreal" locname="single" alsource="true" edsource="true">Montreal</w></enamex> <timex quty="1" unit="year" trel="before" type="date" id="rb23"><w quty="1" trel="before" p="JJ" id="w1005" c="w" pws="yes">last</w> <w unit="year" p="NN" id="w1010" c="w" pws="yes" l="year">year</w></timex><w p="." id="w1014" pws="no" sb="true" c=".">.</w></s>
+<s id="s7"><w p="RB" id="w1016" c="w" pws="yes">Meanwhile</w><w p="," id="w1025" pws="no" c="cm">,</w> <w p="JJ" id="w1027" c="w" pws="yes">top</w> <w p="NN" id="w1031" c="w" pws="yes" l="seed" prof="true">seed</w> <enamex type="person" subtype="otf" id="rb24"><w p="NNP" id="w1036" c="w" pws="yes" l="nadal">Nadal</w></enamex> <w p="RB" id="w1042" c="w" pws="yes">also</w> <w p="VBD" id="w1047" c="w" pws="yes" l="secure">secured</w> <w p="PRP$" id="w1055" c="w" pws="yes">his</w> <w tmln="true" p="NN" id="w1059" c="w" pws="yes" l="place">place</w> <w p="IN" id="w1065" c="w" pws="yes">in</w> <w p="DT" id="w1068" c="w" pws="yes">the</w> <w p="JJ" id="w1072" c="w" pws="yes">last</w> <w quty="4" p="CD" id="w1077" c="cd" pws="yes">four</w><w p="," id="w1081" pws="no" c="cm">,</w> <w p="CC" id="w1083" c="w" pws="yes">but</w> <w p="PRP" id="w1087" c="w" pws="yes">he</w> <w p="VBD" id="w1090" c="w" pws="yes" l="be">was</w> <w p="RB" id="w1094" c="w" pws="yes">not</w> <w p="RB" id="w1098" c="w" pws="yes">as</w> <w p="JJ" id="w1101" c="w" pws="yes">impressive</w> <w p="IN" id="w1112" c="w" pws="yes">as</w> <enamex type="person" subtype="otf" id="rb25"><w wfirstn="true" p="NNP" id="w1115" c="w" pws="yes" l="murray" locname="single" alsource="true" wlastn="true">Murray</w></enamex> <w p="IN" id="w1122" c="w" pws="yes">in</w> <w p="DT" id="w1125" c="w" pws="yes">a</w> <w p="JJ" id="w1127" c="w" pws="yes">3-6</w> <w p="JJ" id="w1131" c="w" pws="yes">6-3</w> <w p="JJ" id="w1135" c="w" pws="yes">6-4</w> <w tmln="true" event="true" p="NN" id="w1139" c="w" pws="yes" l="victory">victory</w> <w p="IN" id="w1147" c="w" pws="yes">over</w> <enamex type="person" subtype="otf" id="rb26"><w p="NNP" id="w1152" c="w" pws="yes" l="kohlschreiber">Kohlschreiber</w></enamex>
+<w p="IN" id="w1166" c="w" pws="yes">In</w> <w p="DT" id="w1169" c="w" pws="yes">the</w> <w p="NN" id="w1173" c="w" pws="yes" l="evening" vstem="even">evening</w> <w tmln="true" p="NN" id="w1181" c="w" pws="yes" l="session">session</w><w p="," id="w1188" pws="no" c="cm">,</w> <w p="JJ" id="w1190" c="ord" pws="yes">third</w> <w p="NN" id="w1196" c="w" pws="yes" l="seed" prof="true">seed</w> <enamex type="person" id="rb27"><w p="NNP" id="w1201" c="w" pws="yes" l="federer" wlastn="true">Federer</w></enamex> <w p="MD" id="w1209" c="w" pws="yes" l="will">will</w> <w p="VB" id="w1214" c="w" pws="yes" l="face">face</w> <w p="DT" id="w1219" c="w" pws="yes">a</w> <enamex type="location" conf="high" id="rb28"><w p="NNP" id="w1221" c="w" pws="yes" l="wimbledon" locname="single" alsource="true" edsource="true">Wimbledon</w></enamex> <w p="NN" id="w1231" c="hyw" pws="yes" l="re-match">re-match</w> <w p="IN" id="w1240" c="w" pws="yes">with</w> <w locadj="true" p="JJ" id="w1245" c="w" pws="yes">Czech</w> <enamex type="person" id="rb29"><w wfirstn="true" pername="true" p="NNP" id="w1251" c="w" pws="yes" l="toma">Tomas</w> <w p="NNP" id="w1257" c="w" pws="yes" l="berdych">Berdych</w></enamex><w p="," id="w1264" pws="no" c="cm">,</w> <w p="WP" id="w1266" c="w" pws="yes">who</w> <w p="VBD" id="w1270" c="w" pws="yes" l="beat">beat</w> <w p="PRP" id="w1275" c="w" pws="yes">him</w> <w p="IN" id="w1279" c="w" pws="yes">in</w> <w p="DT" id="w1282" c="w" pws="yes">the</w> <w event="true" p="NNS" id="w1286" c="w" pws="yes" l="quarterfinal">quarterfinals</w> <w p="IN" id="w1300" c="w" pws="yes">of</w> <w p="DT" id="w1303" c="w" pws="yes">the</w> <w p="NN" id="w1307" c="w" pws="yes" l="grasscourt">grasscourt</w> <w event="true" p="NN" id="w1318" c="w" pws="yes" l="tournament">tournament</w><w p="." id="w1328" pws="no" sb="true" c=".">.</w></s>
+<s id="s8"><w p="DT" id="w1330" c="w" pws="yes">The</w> <w p="NN" id="w1334" c="w" pws="yes" l="winner">winner</w> <w p="IN" id="w1341" c="w" pws="yes">of</w> <w p="DT" id="w1344" c="w" pws="yes">that</w> <w p="NN" id="w1349" c="w" pws="yes" l="match">match</w> <w p="MD" id="w1355" c="w" pws="yes" l="will">will</w> <w p="VB" id="w1360" c="w" pws="yes" l="face">face</w> <w p="DT" id="w1365" c="w" pws="yes">either</w> <w p="JJ" id="w1372" c="ord" pws="yes">second</w> <w p="NN" id="w1379" c="w" pws="yes" l="seed" prof="true">seed</w> <enamex type="person" id="rb30"><w wfirstn="true" p="NNP" id="w1384" c="w" pws="yes" l="novak" locname="single" alsource="true" wiki="B-wper">Novak</w> <w p="NNP" id="w1390" c="w" pws="yes" l="djokovic" wiki="I-wper">Djokovic</w></enamex> <w p="CC" id="w1399" c="w" pws="yes">or</w> <enamex type="person" id="rb31"><w wfirstn="true" pername="true" p="NNP" id="w1402" c="w" pws="yes" l="jeremy" wiki="B-wper">Jeremy</w> <w p="NNP" id="w1409" c="w" pws="yes" l="chardy" wiki="I-wper">Chardy</w></enamex> <w p="IN" id="w1416" c="w" pws="yes">of</w> <enamex type="location" id="rb32"><w wfirstn="true" country="true" p="NNP" id="w1419" c="w" pws="yes" l="france" locname="single" alsource="true">France</w></enamex> <w p="IN" id="w1426" c="w" pws="yes">for</w> <w p="DT" id="w1430" c="w" pws="yes">a</w> <w tmln="true" p="NN" id="w1432" c="w" pws="yes" l="place">place</w> <w p="IN" id="w1438" c="w" pws="yes">in</w> <w p="DT" id="w1441" c="w" pws="yes">the</w> <w p="JJ" id="w1445" c="w" pws="yes">final</w><w p="." id="w1450" pws="no" sb="true" c=".">.</w></s></p>
+
+
+            </text>
+<standoff>
+<ents source="ner-rb">
+  <ent type="person" id="rb1">
+    <parts>
+      <part sw="w16" ew="w16">Nadal</part>
+    </parts>
+  </ent>
+  <ent type="person" id="rb2">
+    <parts>
+      <part sw="w26" ew="w26">Murray</part>
+    </parts>
+  </ent>
+  <ent type="person" id="rb4">
+    <parts>
+      <part sw="w63" ew="w70">Rafael Nadal</part>
+    </parts>
+  </ent>
+  <ent type="person" id="rb5">
+    <parts>
+      <part sw="w80" ew="w85">Andy Murray</part>
+    </parts>
+  </ent>
+  <ent type="location" conf="high" id="rb6">
+    <parts>
+      <part sw="w148" ew="w148">Toronto</part>
+    </parts>
+  </ent>
+  <ent wdaynum="7" day="Sunday" type="date" id="rb7">
+    <parts>
+      <part sw="w204" ew="w204">Sunday</part>
+    </parts>
+  </ent>
+  <ent type="person" subtype="otf" id="rb8">
+    <parts>
+      <part sw="w220" ew="w220">Murray</part>
+    </parts>
+  </ent>
+  <ent type="person" id="rb9">
+    <parts>
+      <part sw="w277" ew="w283">David Nalbandian</part>
+    </parts>
+  </ent>
+  <ent type="person" subtype="otf" id="rb10">
+    <parts>
+      <part sw="w298" ew="w298">Nadal</part>
+    </parts>
+  </ent>
+  <ent type="location" id="rb11">
+    <parts>
+      <part sw="w361" ew="w361">Germany</part>
+    </parts>
+  </ent>
+  <ent type="person" id="rb12">
+    <parts>
+      <part sw="w371" ew="w379">Philipp Kohlschreiber</part>
+    </parts>
+  </ent>
+  <ent type="person" subtype="otf" id="rb13">
+    <parts>
+      <part sw="w394" ew="w394">Nalbandian</part>
+    </parts>
+  </ent>
+  <ent type="location" conf="high" id="rb14">
+    <parts>
+      <part sw="w426" ew="w426">Washington</part>
+    </parts>
+  </ent>
+  <ent quty="1" unit="weekend" trel="before" type="date" id="rb15">
+    <parts>
+      <part sw="w437" ew="w442">last weekend</part>
+    </parts>
+  </ent>
+  <ent wdaynum="5" day="Friday" type="date" id="rb16">
+    <parts>
+      <part sw="w464" ew="w464">Friday</part>
+    </parts>
+  </ent>
+  <ent quty="1" unit="season" trel="same" type="date" id="rb17">
+    <parts>
+      <part sw="w584" ew="w589">this season</part>
+    </parts>
+  </ent>
+  <ent tval="69" quty="69" unit="minute" type="time" id="rb18">
+    <parts>
+      <part sw="w683" ew="w686">69 minutes</part>
+    </parts>
+  </ent>
+  <ent quty="1" unit="year" trel="same" type="date" id="rb19">
+    <parts>
+      <part sw="w748" ew="w753">this year</part>
+    </parts>
+  </ent>
+  <ent type="person" subtype="otf" id="rb20">
+    <parts>
+      <part sw="w760" ew="w760">Murray</part>
+    </parts>
+  </ent>
+  <ent type="person" subtype="otf" id="rb21">
+    <parts>
+      <part sw="w924" ew="w924">Murray</part>
+    </parts>
+  </ent>
+  <ent type="location" conf="high" id="rb22">
+    <parts>
+      <part sw="w996" ew="w996">Montreal</part>
+    </parts>
+  </ent>
+  <ent quty="1" unit="year" trel="before" type="date" id="rb23">
+    <parts>
+      <part sw="w1005" ew="w1010">last year</part>
+    </parts>
+  </ent>
+  <ent type="person" subtype="otf" id="rb24">
+    <parts>
+      <part sw="w1036" ew="w1036">Nadal</part>
+    </parts>
+  </ent>
+  <ent type="person" subtype="otf" id="rb25">
+    <parts>
+      <part sw="w1115" ew="w1115">Murray</part>
+    </parts>
+  </ent>
+  <ent type="person" subtype="otf" id="rb26">
+    <parts>
+      <part sw="w1152" ew="w1152">Kohlschreiber</part>
+    </parts>
+  </ent>
+  <ent type="person" id="rb27">
+    <parts>
+      <part sw="w1201" ew="w1201">Federer</part>
+    </parts>
+  </ent>
+  <ent type="location" conf="high" id="rb28">
+    <parts>
+      <part sw="w1221" ew="w1221">Wimbledon</part>
+    </parts>
+  </ent>
+  <ent type="person" id="rb29">
+    <parts>
+      <part sw="w1251" ew="w1257">Tomas Berdych</part>
+    </parts>
+  </ent>
+  <ent type="person" id="rb30">
+    <parts>
+      <part sw="w1384" ew="w1390">Novak Djokovic</part>
+    </parts>
+  </ent>
+  <ent type="person" id="rb31">
+    <parts>
+      <part sw="w1402" ew="w1409">Jeremy Chardy</part>
+    </parts>
+  </ent>
+  <ent type="location" id="rb32">
+    <parts>
+      <part sw="w1419" ew="w1419">France</part>
+    </parts>
+  </ent>
+</ents></standoff></document>

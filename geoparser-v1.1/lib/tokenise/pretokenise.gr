@@ -1,0 +1,270 @@
+<!DOCTYPE rules SYSTEM "lxtransduce.dtd">
+
+<rules apply="all">
+
+<!-- Commas, colons and semi-colons are all marked as c='cm' -->
+<rule name="comma" rewrite="&xlt;cg c='cm'&xgt;&S-VAL;&xlt;/cg&xgt;">
+ <regex match="(,|:|;)"/>
+</rule>
+
+<!-- Percent marked as c='pct'. -->
+<rule name="percent" rewrite="&xlt;cg c='pct'&xgt;&S-VAL;&xlt;/cg&xgt;">
+ <regex match="%"/>
+</rule>
+
+<!-- single quotes of various kinds marked as c='qut' qut='s' -->
+<rule name="squote" rewrite="&xlt;cg c='qut' qut='s'&xgt;&S-VAL;&xlt;/cg&xgt;">
+  <first>
+    <regex match="[`']"/>
+    <regex match="&#226;&#8364;&#8482;"/>
+  </first>
+</rule>
+
+<!-- double quotes of various kinds marked as c='qut' qut='d' -->
+<rule name="dquote" rewrite="&xlt;cg c='qut' qut='d'&xgt;&S-VAL;&xlt;/cg&xgt;">
+ <first>
+  <regex match="(``|'')"/>
+  <regex match='["]'/>
+  <regex match="&#226;&#8364;&#339;"/>
+  <regex match="&#226;&#8364;&#65533;"/>
+ </first>
+</rule>
+
+<rule name="quote">
+ <first>
+  <ref name="dquote"/>
+  <ref name="squote"/>
+ </first>
+</rule>
+
+<!-- Brackets of various kinds marked as c='br' -->
+<rule name="bracket" rewrite="&xlt;cg c='brk'&xgt;&S-VAL;&xlt;/cg&xgt;">
+ <first>
+  <regex match="[{}]"/>
+  <regex match="[\(\)]"/>
+  <regex match="\["/>
+  <regex match="\]"/>
+ </first>
+</rule>
+
+<!-- less than marked as c='lt' -->
+<rule name="lt" rewrite="&xlt;cg c='lt'&xgt;&S-VAL;&xlt;/cg&xgt;">
+    <regex match="&lt;"/>
+</rule>
+
+<!-- greater than marked as c='gt' -->
+<rule name="gt" rewrite="&xlt;cg c='gt'&xgt;&S-VAL;&xlt;/cg&xgt;">
+ <first>
+  <regex match="[>]"/>
+  <regex match="&gt;"/>
+ </first>
+</rule>
+
+<!-- Ampersand marked as c='amp'. -->
+<rule name="ampersand" rewrite="&xlt;cg c='amp'&xgt;&S-VAL;&xlt;/cg&xgt;">
+ <first>
+   <regex match="&amp;"/>
+ </first>
+</rule>
+
+<!-- equal, plus, minus, star and other symbols marked as c="sym" -->
+<rule name="syms" rewrite="&xlt;cg c='sym'&xgt;&S-VAL;&xlt;/cg&xgt;">
+ <first>
+  <regex match="[=\+\*\-]"/>
+  <regex match="[#@\^$]"/>
+ </first>
+</rule>
+
+<!-- slashes marked as c="slash" -->
+<rule name="slash" rewrite="&xlt;cg c='slash'&xgt;&S-VAL;&xlt;/cg&xgt;">
+ <first>
+  <regex match="[/]"/>
+  <regex match="[\\]"/>
+ </first>
+</rule>
+
+<!-- Sequence of dots marked as c="dots" -->
+<rule name="dots" rewrite="&xlt;cg c='dots'&xgt;&S-VAL;&xlt;/cg&xgt;">
+  <first>
+    <regex match="[\.]([ ]?[\.])+"/>
+    <regex match="&#226;&#8364;&#166;"/>
+  </first>
+</rule>
+
+<!-- Sequence of dash marked as c="dash" -->
+<rule name="dashes" rewrite="&xlt;cg c='dash'&xgt;&S-VAL;&xlt;/cg&xgt;">
+ <first>
+   <regex match="[\-][\-]+"/>
+   <regex match="&#226;&#8364;&#8220;"/>
+ </first>
+</rule>
+
+<!-- Fullstop, question mark and exclamation mark marked as c='stop' -->
+<rule name="stops" rewrite="&xlt;cg c='stop'&xgt;&S-VAL;&xlt;/cg&xgt;">
+ <regex match="[?!\.]"/>
+</rule>
+
+<!-- numbers are marked as c='cd' -->
+<rule name="cd" rewrite="&xlt;cg c='cd'&xgt;&S-VAL;&xlt;/cg&xgt;">
+ <regex match="[0-9]+"/>
+</rule>
+
+<!-- aux words -->
+<rule name="aux-lc" rewrite="&xlt;cg c='lca'&xgt;&S-VAL;&xlt;/cg&xgt;">
+  <first>
+     <regex match="(ai|are|is|was|were|have|has|had|does|do|did)"/>
+     <regex match="(could|ca|would|wo|should|sha|might|must|may|ought|need)"/>
+  </first>
+</rule>
+
+<rule name="aux-uc" rewrite="&xlt;cg c='uca'&xgt;&S-VAL;&xlt;/cg&xgt;">
+  <first>
+     <regex match="(AI|ARE|IS|WAS|WERE|HAVE|HAS|HAD|DOES|DO|DID)"/>
+     <regex match="(COULD|CA|WOULD|WO|SHOULD|SHA|MIGHT|MUST|MAY|OUGHT|NEED)"/>
+  </first>
+</rule>
+
+<rule name="aux-lc-after-uc" rewrite="&xlt;cg c='lca'&xgt;&S-VAL;&xlt;/cg&xgt;"> 
+  <first>
+      <regex match="(ould|hould|ight|ught)"/>
+      <regex match="(ust|eed|ere|ave|oes)"/>
+      <regex match="(re|as|ad|id)"/>
+      <regex match="(i|s|a|o)"/>
+  </first>
+</rule>
+
+<rule name="nt-lc" rewrite="&xlt;cg c='lc-nt'&xgt;&S-VAL;&xlt;/cg&xgt;">
+  <first>
+    <regex match="n't"/>
+    <regex match="n&#226;&#8364;&#8482;t"/>
+  </first>
+</rule>
+
+<rule name="nt-uc" rewrite="&xlt;cg c='uc-nt'&xgt;&S-VAL;&xlt;/cg&xgt;">
+  <first>
+    <regex match="N'T"/>
+    <regex match="N&#226;&#8364;&#8482;T"/>
+  </first>
+</rule>
+
+<!-- n't words -->
+<rule name="ntwrd">
+  <first>
+    <seq>
+      <ref name="aux-lc"/>
+      <ref name="nt-lc"/>
+    </seq>
+    <seq>
+      <ref name="aux-uc"/>
+      <ref name="nt-uc"/>
+    </seq>
+    <seq>
+      <ref name="aux-lc-after-uc"/>
+      <ref name="nt-lc"/>
+    </seq>
+  </first>
+</rule>
+
+<!-- split cannot -->
+<rule name="can-lc" rewrite="&xlt;cg c='lca'&xgt;&S-VAL;&xlt;/cg&xgt;">
+  <regex match="can"/>
+</rule>
+
+<rule name="can-uc" rewrite="&xlt;cg c='uca'&xgt;&S-VAL;&xlt;/cg&xgt;">
+  <regex match="CAN"/>
+</rule>
+
+<rule name="can-lc-after-uc">
+  <seq>
+    <regex match="C" rewrite="&xlt;cg c='uca'&xgt;&S-VAL;&xlt;/cg&xgt;"/>
+    <regex match="an" rewrite="&xlt;cg c='lca'&xgt;&S-VAL;&xlt;/cg&xgt;"/>
+  </seq>
+</rule>
+
+<rule name="not-lc" rewrite="&xlt;cg c='lc-nt'&xgt;&S-VAL;&xlt;/cg&xgt;">
+  <regex match="not"/>
+</rule>
+
+<rule name="not-uc" rewrite="&xlt;cg c='uc-nt'&xgt;&S-VAL;&xlt;/cg&xgt;">
+  <regex match="NOT"/>
+</rule>
+
+<!-- cannot -->
+<rule name="cannot">
+  <first>
+    <seq>
+      <ref name="can-lc"/>
+      <ref name="not-lc"/>
+    </seq>
+    <seq>
+      <ref name="can-uc"/>
+      <ref name="not-uc"/>
+    </seq>
+    <seq>
+      <ref name="can-lc-after-uc"/>
+      <ref name="not-lc"/>
+    </seq>
+  </first>
+</rule>
+
+<!-- lower case alphabetic -->
+<rule name="lc-alph-seq" rewrite="&xlt;cg c='lca'&xgt;&S-VAL;&xlt;/cg&xgt;">
+ <regex match="[a-z]+"/>
+</rule>
+
+<!-- upper case alphabetic -->
+<rule name="uc-alph-seq" rewrite="&xlt;cg c='uca'&xgt;&S-VAL;&xlt;/cg&xgt;">
+ <regex match="[A-Z]+"/>
+</rule>
+
+<!-- white space -->
+<rule name="ws" rewrite="&xlt;cg c='ws'&xgt;&S-VAL;&xlt;/cg&xgt;">
+  <first>
+    <regex match="[ ]+"/>
+    <regex match="&#xA0;" mult="+"/>
+  </first>
+</rule>
+
+<!-- new line -->
+<rule name="nl" rewrite="&xlt;cg c='nl'&xgt;&S-VAL;&xlt;/cg&xgt;">
+ <regex match="(\n)+"/>
+</rule>
+
+<!-- tab -->
+<rule name="tab" rewrite="&xlt;cg c='tab'&xgt;&S-VAL;&xlt;/cg&xgt;">
+ <regex match="[\t]+"/>
+</rule>
+
+<!-- missed anything? -->
+<rule name="whatsthis" rewrite="&xlt;cg c='what'&xgt;&S-VAL;&xlt;/cg&xgt;">
+ <regex match="."/>
+</rule>
+
+<rule name="all">
+ <first>
+  <ref name="comma"/>
+  <ref name="percent"/>
+  <ref name="ntwrd"/>
+  <ref name="cannot"/>
+  <ref name="quote"/>
+  <ref name="lt"/>
+  <ref name="gt"/>
+  <ref name="ampersand"/>
+  <ref name="dashes"/>
+  <ref name="bracket"/>
+  <ref name="syms"/>
+  <ref name="slash"/>
+  <ref name="dots"/>
+  <ref name="stops"/>
+  <ref name="cd"/>
+  <ref name="lc-alph-seq"/>
+  <ref name="uc-alph-seq"/>
+  <ref name="ws"/>
+  <ref name="nl"/>
+  <ref name="tab"/>
+  <ref name="whatsthis"/>
+ </first>
+</rule>
+
+</rules>
+

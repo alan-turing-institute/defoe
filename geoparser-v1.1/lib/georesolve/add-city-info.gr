@@ -1,0 +1,22 @@
+<!-- Add populations to cities.
+     If there's a place with the same name that's near enough, assume it's right.
+-->
+
+<!-- "near enough" currently means with 1 degree
+     XXX improve this to depend on size (ie population). -->
+
+<rules type="xml" apply="place"> 
+
+<rule name="place" attrs="pop='$pop' in-cc='$country'">
+  <query match="place">
+     <var name="lat" value="@lat"/>
+     <var name="long" value="@long"/>
+     <var name="entries" value="cities(../@name)/*"/>
+     <var name="near" value="$entries[($lat - @lat)*($lat - @lat) + ($long - @long)*($long - @long) &lt; 1][1]"/>
+     <var name="pop" value="$near/@pop"/>
+     <var name="country" value="$near/@country"/>
+     <constraint test="$near"/>
+  </query>
+</rule>
+
+</rules>

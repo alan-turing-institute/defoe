@@ -1,0 +1,48 @@
+#!/bin/sh -e
+
+rxpflag='-o d'
+junk=''
+diffargs=''
+
+usage="lxdiff [-m] [-j junk-xpath] file1.xml file2.xml"
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  case $arg in
+   -m)
+      rxpflag='-o D'
+      ;;
+   -j)
+      junk="$2"
+      shift
+      ;;
+   -*)
+      diffargs="$diffargs $arg"
+      ;;
+    *)
+      break
+      ;;
+  esac
+  shift
+done
+
+if [ ! $# = 2 ]; then
+  echo "usage: $usage" >&2
+  exit 2
+fi
+
+prefix="/tmp/lxdiff-$$"
+
+trap "rm $prefix*" 0 1 2 3
+
+rxp -a -m $rxpflag $1 >${prefix}-1
+rxp -a -m $rxpflag $2 >${prefix}-2
+
+if [ "$junk" != "" ]; then
+  mv ${prefix}-1 ${prefix}-1a
+  mv ${prefix}-2 ${prefix}-2a
+  lxreplace -q "$junk" -t "" <${prefix}-1a >${prefix}-1
+  lxreplace -q "$junk" -t "" <${prefix}-2a >${prefix}-2
+fi
+
+diff $diffargs ${prefix}-1 ${prefix}-2

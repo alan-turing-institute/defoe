@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="content-type"></meta>
+  <title>Geoparser results</title>
+  <script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=ABQIAAAAJMrGlyfwNVfUM30sWp_76RTEZhwwuW-82T6n_RFJkr4DqVuLlxQNTq5htkpjBE9F3-HlhjF7oDqfLA"></script>
+  <script type="text/javascript">
+
+    var map;
+
+     
+
+    var red_icon = new GIcon(G_DEFAULT_ICON, "http://www.google.com/intl/en_us/mapfiles/ms/micons/red-dot.png");
+    var green_icon = new GIcon(G_DEFAULT_ICON, "http://www.google.com/intl/en_us/mapfiles/ms/micons/green-dot.png");
+
+    red_icon.size = green_icon.size = new GSize(32, 32);
+    red_icon.iconAnchor = green_icon.iconAnchor = new GPoint(16,32); 
+    red_icon.shadowSize = green_icon.shadowSize = new GSize(59,32);
+    red_icon.shadow = green_icon.shadow = "http://maps.google.com/mapfiles/ms/micons/msmarker.shadow.png" 
+
+    function load() {
+      if (GBrowserIsCompatible()) {
+        var point;
+        map = new GMap2(document.getElementById("map"));
+	map.addControl(new GLargeMapControl());
+        map.setCenter(new GLatLng(41.125,
+	                          29.125), 4);
+	
+        point = new GLatLng(41.125, 29.125);
+	marker = new GMarker(point, {title: "Bosphorus",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(41.33333, 26.75);
+	marker = new GMarker(point, {title: "Thrake",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(46.5, 36.5);
+	marker = new GMarker(point, {title: "Maeotis",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+        point = new GLatLng(47.5, 39.5);
+	marker = new GMarker(point, {title: "Tanais",
+	                             icon: green_icon});
+	map.addOverlay(marker);
+
+      }
+    }
+
+    function goto(x, y) {
+        map.setCenter(new GLatLng(x, y), 6);
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+    </script>
+  <style>
+      .found {color: green;} 
+      table  {border-collapse: collapse; empty-cells: show;}
+      tr     {border: 1px solid black;}
+      td {color: green;}
+     </style>
+ </head>
+ <body onunload="GUnload()" onload="load()">
+  <div style="height: 400px" id="map"></div>
+ </body>
+</html>

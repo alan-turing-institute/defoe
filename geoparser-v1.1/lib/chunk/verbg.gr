@@ -1,0 +1,1585 @@
+<rules name="tensevg" type="xml" apply="all"> 
+
+<rule name="be-pres-pos">
+  <first>
+    <query match="w[@p~'^V' and .~'^(Am|AM|am)$']"/>
+    <query match="w[.~&quot;^'[Mm]$&quot;]"/>
+    <query match="w[.~'^(Are|ARE|are)$']"/>
+    <query match="w[.~&quot;^'(RE|re)$&quot;]"/>
+    <query match="w[.~'^(Is|IS|is)$']"/>
+    <query match="w[@p='VBZ' and .~&quot;^'[Ss]$&quot;]"/>
+    <seq>
+      <query match="w[.=&quot;'&quot;]"/>
+      <query match="w[.~'^(RE|re|m|M)$']" attrs="l='be'"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="adv-neg" attrs="neg='yes'">
+  <first>
+    <query match="w[@p='RB' and .~'^(not|NOT|Not)$']"/>
+    <query match="w[.~&quot;^(n't|N'T)$&quot;]"/>
+    <query match="w[@p='RB' and .~'^(never|NEVER|Never)$']"/>
+    <seq>
+      <query match="w[.='n']"/>
+      <query match="w[.~&quot;^('t|'T)$&quot;]"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="be-pres-neg-headv">
+  <first>
+    <query match="w[.~&quot;^(Aren|AREN|aren)'[Tt]$&quot;]" attrs="neg='yes' headv='yes'"/>
+    <query match="w[.~&quot;^(Isn|ISN|isn)'[Tt]$&quot;]" attrs="neg='yes' headv='yes'"/>
+    <seq>
+      <ref name="be-pres-pos" attrs="headv='yes'"/>
+      <ref name="adv-neg"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="be-pres-neg-aux">
+  <first>
+    <query match="w[.~&quot;^(Aren|AREN|aren)'[Tt]$&quot;]" attrs="neg='yes'"/>
+    <query match="w[.~&quot;^(Isn|ISN|isn)'[Tt]$&quot;]" attrs="neg='yes'"/>
+    <seq>
+      <ref name="be-pres-pos"/>
+      <ref name="adv-neg"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="be-pres">
+  <first>
+    <ref name="be-pres-neg-aux"/>
+    <ref name="be-pres-pos"/>
+  </first>
+</rule>
+
+<rule name="be-modal-pres">
+  <first>
+    <ref name="be-pres-neg-aux"/>
+    <ref name="be-pres-pos"/>
+  </first>
+</rule>
+
+<rule name="be-past-pos">
+  <first>
+    <query match="w[.~'^(Was|WAS|was)$']"/>
+    <query match="w[.~'^(Were|WERE|were)$']"/>
+  </first>
+</rule>
+
+<rule name="be-past-neg-headv">
+  <first>
+    <query match="w[.~&quot;^(Wasn|WASN|wasn)'[Tt]$&quot;]" attrs="neg='yes' headv='yes'"/>
+    <query match="w[.~&quot;^(Weren|WEREN|weren)'[Tt]$&quot;]" attrs="neg='yes' headv='yes'"/>
+    <seq>
+      <ref name="be-past-pos" attrs="headv='yes'"/>
+      <ref name="adv-neg"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="be-past-neg-aux">
+  <first>
+    <query match="w[.~&quot;^(Wasn|WASN|wasn)'[Tt]$&quot;]" attrs="neg='yes'"/>
+    <query match="w[.~&quot;^(Weren|WEREN|weren)'[Tt]$&quot;]" attrs="neg='yes'"/>
+    <seq>
+      <ref name="be-past-pos"/>
+      <ref name="adv-neg"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="be-past">
+  <first>
+    <ref name="be-past-neg-aux"/>
+    <ref name="be-past-pos"/>
+  </first>
+</rule>
+
+<rule name="be-modal-past">
+  <first>
+    <ref name="be-past-neg-aux"/>
+    <ref name="be-past-pos"/>
+  </first>
+</rule>
+
+<!-- this does egs like "the president is to make a speech" but
+     ambiguity with egs like "the solution is to make a speech" and
+     "to be president is to be powerful" means we have to choose
+     whether to include it or not - for the moment not (see rule
+     modalto) . -->
+<rule name="be-modal">
+  <first>
+    <ref name="be-modal-pres"/>
+    <ref name="be-modal-past"/>
+  </first>
+</rule>
+
+<rule name="been">
+   <query match="w[.~'^(Been|BEEN|been)$']"/>
+</rule>
+
+<rule name="be">
+   <query match="w[.~'^(Be|BE|be)$']"/>
+</rule>
+
+<rule name="being">
+   <query match="w[.~'^(Being|BEING|being)$']"/>
+</rule>
+
+<rule name="have-pres-pos">
+  <first>
+    <query match="w[.~'^(Have|HAVE|have)$']"/>
+    <query match="w[.~&quot;^'(VE|ve)$&quot;]"/>
+    <seq>
+      <query match="w[.=&quot;'&quot;]"/>
+      <query match="w[.~'^(VE|ve)$']" attrs="l='be'"/>
+    </seq>
+    <query match="w[.~'^(Has|HAS|has)$']"/>
+    <query match="w[@p='VBZ' and .~&quot;^'[Ss]$&quot;]"/>
+  </first>
+</rule>
+
+<rule name="have-pres-neg" attrs="neg='yes'">
+  <first>
+    <query match="w[.~&quot;^(Haven|HAVEN|haven)'[Tt]$&quot;]"/>
+    <query match="w[.~&quot;^(Hasn|HASN|hasn)'[Tt]$&quot;]"/>
+    <seq>
+      <ref name="have-pres-pos"/>
+      <ref name="adv-neg"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="have-pres">
+  <first>
+    <ref name="have-pres-neg"/>
+    <ref name="have-pres-pos"/>
+  </first>
+</rule>
+
+<rule name="have-modal-pres">
+  <first>
+    <ref name="have-pres-neg"/>
+    <ref name="have-pres-pos"/>
+  </first>
+</rule>
+
+<rule name="have-past-pos">
+  <first>
+    <query match="w[.~'^(Had|HAD|had)$']"/>
+    <query match="w[.~&quot;^'[Dd]$&quot;]"/>
+  </first>
+</rule>
+
+<rule name="have-past-neg" attrs="neg='yes'">
+  <first>
+    <query match="w[.~&quot;^(Hadn|HADN|hadn)'[Tt]$&quot;]"/>
+    <seq>
+      <ref name="have-past-pos"/>
+      <ref name="adv-neg"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="have-past">
+  <first>
+    <ref name="have-past-neg"/>
+    <ref name="have-past-pos"/>
+  </first>
+</rule>
+
+<rule name="have-modal-past">
+  <first>
+    <ref name="have-past-neg"/>
+    <ref name="have-past-pos"/>
+  </first>
+</rule>
+
+<rule name="have-modal">
+  <first>
+    <ref name="have-modal-pres"/>
+    <ref name="have-modal-past"/>
+  </first>
+</rule>
+
+<rule name="have">
+   <query match="w[.~'^(Have|HAVE|have)$']"/>
+</rule>
+
+<rule name="having">
+   <query match="w[.~'^(Having|HAVING|having)$']"/>
+</rule>
+
+<rule name="do-pres-pos">
+  <first>
+    <query match="w[.~'^(Do|DO|do)$']"/>
+    <query match="w[.~'^(Does|DOES|does)$']"/>
+  </first>
+</rule>
+
+<rule name="do-pres-neg" attrs="neg='yes'">
+  <first>
+    <query match="w[.~&quot;^(Don|DON|don)'[Tt]$&quot;]"/>
+    <query match="w[.~&quot;^(Doesn|DOESN|doesn)'[Tt]$&quot;]"/>
+    <seq>
+      <ref name="do-pres-pos"/>
+      <ref name="adv-neg"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="do-pres">
+  <first>
+    <ref name="do-pres-neg"/>
+    <ref name="do-pres-pos"/>
+  </first>
+</rule>
+
+<rule name="do-past-pos">
+    <query match="w[.~'^(Did|DID|did)$']"/>
+</rule>
+
+<rule name="do-past-neg" attrs="neg='yes'">
+  <first>
+    <query match="w[.~&quot;^(Didn|DIDN|didn)'[Tt]$&quot;]"/>
+    <seq>
+      <ref name="do-past-pos"/>
+      <ref name="adv-neg"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="do-past">
+  <first>
+    <ref name="do-past-neg"/>
+    <ref name="do-past-pos"/>
+  </first>
+</rule>
+
+<rule name="adv">
+  <first>
+    <ref name="adv-neg"/>
+    <query match="w[@p='DT' and .~'^[Bb]oth$']"/>
+    <query match="w[@p='RB' and 
+       not(.~'^(shortly|so|So|SO|very|Very|VERY|therefore|Therefore|THEREFORE|thus|Thus|THUS|much|Much|MUCH|less|Less|LESS|here|Here|HERE|there|There|THERE|then|Then|THEN|than|Than|as|As|AS|this|This|THIS)$')]"/>
+    <query match="w[@p='``' or @p~'^[LR]QU$']"/>
+  </first>
+</rule>
+
+<rule name="advorpart">
+  <first>
+<!--    <ref name="adv"/> -->
+    <query match="w[@p='RP']"/>
+  </first>
+</rule>
+
+<rule name="conj-headverb">
+  <seq>
+    <query match="w[.~'^(and|And|AND|or|Or|OR)$']"/>
+    <ref name="adv" mult="?"/>
+    <query match="w" constraint="@p = $subs_tag" attrs="headv='yes'"/>
+  </seq>
+</rule>
+
+<rule name="coordinate-headverb">
+  <seq>
+    <query match="w[@p~'^V']" attrs="headv='yes'">
+      <constraint test="@p = $pos"/>
+      <var name="first_tag" value="@p"/>
+    </query>
+    <ref name="conj-headverb" mult="+">
+      <with-param name="subs_tag" value="$first_tag"/>
+    </ref>
+  </seq>
+</rule>
+
+<rule name="never" attrs="neg='yes'">
+  <seq>
+    <query match="w[.~'^(never|NEVER|Never)$']"/>
+    <query match="w[@p='RB']" mult="?"/>
+  </seq>
+</rule>
+
+<rule name="headverb-presact">
+  <seq>
+    <ref name="never" mult="?"/>
+    <first>
+       <ref name="coordinate-headverb">
+         <with-param name="pos" value="'VBZ'"/>
+       </ref>
+       <ref name="be-pres-neg-headv"/>
+       <ref name="be-pres-pos" attrs="headv='yes'"/>
+       <query match="w[@p='VBZ']" attrs="headv='yes'"/>
+    </first>
+    <not>
+      <ref name="adv-neg"/>
+    </not>
+  </seq>
+</rule>
+
+<!-- takes -->
+
+<rule name="simplepresact" wrap="vg" attrs="tense='pres' voice='act' asp='simple' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="headverb-presact"/> 
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<rule name="headverb-pastact">
+  <seq>
+    <ref name="never" mult="?"/>
+    <first>
+        <ref name="coordinate-headverb">
+          <with-param name="pos" value="'VBD'"/>
+        </ref>
+        <ref name="be-past-neg-headv"/>
+        <ref name="be-past-pos" attrs="headv='yes'"/>
+        <query match="w[@p='VBD']" attrs="headv='yes'"/>
+    </first>
+    <not>
+      <ref name="adv-neg"/>
+    </not>
+  </seq>
+</rule>
+
+<!-- took -->
+
+<!-- to block VBD's in egs like block-booked from being marked as vgs -->
+<rule name="blocksimplepastact">
+  <seq>
+    <query match="w[.='-']"/>
+    <ref name="headverb-pastact"/> 
+  </seq>
+</rule>
+
+<rule name="simplepastact" wrap="vg" attrs="tense='past' voice='act' asp='simple' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="headverb-pastact"/> 
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<rule name="headverb-ger">
+  <seq>
+    <ref name="never" mult="?"/>
+    <first>
+       <ref name="coordinate-headverb">
+         <with-param name="pos" value="'VBG'"/>
+       </ref>
+       <query match="w[@p='VBG']" attrs="headv='yes'"/>
+    </first>
+  </seq>
+</rule>
+
+<!-- taking -->
+
+<!-- this rule not currently in use -->
+<rule name="simplegeract" wrap="vg" attrs="tense='nonfin' voice='act' asp='prog' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="headverb-ger"/> 
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- when simple gerunds occur without an auxiliary they can be part of a
+     nominal (eg "alarming news", "John's leaving"), so can't just
+     mark all of them as vg. This rule gets "being" and
+     "having". lonevb1 gets some more. Leave the rest until after
+     the noun grammar has applied. -->
+
+<rule name="headverb-being">
+  <seq>
+    <ref name="never" mult="?"/>
+    <query match="w[.~'^(Being|BEING|being)$']" attrs="headv='yes'"/>
+  </seq>
+</rule>
+
+<rule name="headverb-having">
+  <seq>
+    <ref name="never" mult="?"/>
+    <query match="w[.~'^(Having|HAVING|having)$']" attrs="headv='yes'"/>
+  </seq>
+</rule>
+
+<rule name="lonesimplegeract" wrap="vg" attrs="tense='nonfin' voice='act' asp='prog' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+      <ref name="adv-neg" mult="?"/>
+      <first>
+        <ref name="headverb-being"/> 
+        <ref name="headverb-having"/> 
+      </first>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<rule name="headverb-baseact">
+  <seq>
+    <first>
+       <ref name="coordinate-headverb">
+         <with-param name="pos" value="'VB'"/>
+       </ref>
+       <ref name="coordinate-headverb">
+         <with-param name="pos" value="'VBP'"/>
+       </ref>
+       <query match="w[@p='VB']" attrs="headv='yes'"/>
+       <query match="w[@p='VBP']" attrs="headv='yes'"/>
+    </first>
+    <not>
+      <ref name="adv-neg"/>
+    </not>
+  </seq>
+</rule>
+
+<!-- take -->
+
+<rule name="simplebaseact-sub">
+  <seq> 
+    <ref name="adv" mult="*"/> 
+    <ref name="headverb-baseact"/> 
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- take -->
+
+<rule name="simplebaseact" wrap="vg" attrs="tense='presorbase' voice='act' asp='simple' modal='no'">
+    <ref name="simplebaseact-sub"/>
+</rule>
+
+<!-- no adverbial premodifiers for standalone base verbs -->
+<rule name="simplebaseact-standalone" wrap="vg" attrs="tense='presorbase' voice='act' asp='simple' modal='no'">
+  <seq>
+    <ref name="never" mult="?"/>
+    <ref name="headverb-baseact"/> 
+  </seq>
+</rule>
+
+
+<!-- does take -->
+
+<rule name="dopresact" wrap="vg" attrs="tense='pres' voice='act' asp='simple' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="never" mult="?"/>
+    <ref name="do-pres"/>
+    <ref name="simplebaseact-sub"/>
+  </seq>
+</rule>
+
+<!-- did take -->
+
+<rule name="dopastact" wrap="vg" attrs="tense='pres' voice='act' asp='simple' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="never" mult="?"/>
+    <ref name="do-past"/>
+    <ref name="simplebaseact-sub"/>
+  </seq>
+</rule>
+
+<rule name="modal-pos">
+    <query match="w[@p='MD']"/>
+</rule>
+
+<rule name="modal-neg" attrs="neg='yes'">
+  <first>
+    <query match="w[@p='MD' and .~&quot;[Nn]'[Tt]$&quot;]"/>
+    <query match="w[.~'^(Cannot|CANNOT|cannot)$']"/>
+    <seq>
+      <ref name="modal-pos"/>
+      <ref name="adv-neg"/>
+    </seq>
+  </first>
+</rule>
+
+<rule name="modal">
+  <first>
+    <ref name="modal-neg"/>
+    <ref name="modal-pos"/>
+  </first>
+</rule>
+
+<rule name="modalto">
+  <first>
+    <ref name="modal"/>
+    <ref name="have-modal"/>
+<!--    <ref name="be-modal"/> -->
+  </first>
+</rule>
+
+<!-- would take -->
+
+<rule name="modalsimplebaseact" wrap="vg" attrs="tense='pres' voice='act' asp='simple' modal='yes'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="never" mult="?"/>
+    <ref name="modal"/>
+    <ref name="simplebaseact-sub"/>
+  </seq>
+</rule>
+
+<!-- would seldom take - presence of adverb pushed past
+     interpretation of could and would -->
+
+<rule name="modaladvsimplebaseact" wrap="vg" attrs="tense='past' voice='act' asp='simple' modal='yes'">
+  <seq>
+    <query match="w[@p='MD' and @l~'^(could|would)']"/>
+    <ref name="adv"/> 
+    <ref name="headverb-baseact"/> 
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- ought to take -->
+
+<rule name="modaltosimplebaseact" wrap="vg" attrs="tense='pres' voice='act' asp='simple' modal='yes'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="never" mult="?"/>
+    <ref name="modalto"/>
+    <ref name="adv" mult="*"/> 
+    <query match="w[@p='TO']"/>
+    <ref name="simplebaseact-sub"/>
+  </seq>
+</rule>
+
+<!-- to take -->
+
+<rule name="infsimplebaseact" wrap="vg" attrs="tense='inf' voice='act' asp='simple' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="never" mult="?"/>
+    <query match="w[@p='TO']"/>
+    <ref name="simplebaseact-sub"/>
+  </seq>
+</rule>
+
+<rule name="headverb-pass">
+  <first>
+    <ref name="coordinate-headverb">
+      <with-param name="pos" value="'VBN'"/>
+    </ref>
+    <query match="w[@p='VBN']" attrs="headv='yes'"/>
+    <query match="w[@p='VBD']" attrs="headv='yes'"/>
+  </first>
+</rule>
+
+<!-- is taken -->
+
+<rule name="simpleprespass" wrap="vg" attrs="tense='pres' voice='pass' asp='simple' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="never" mult="?"/>
+    <ref name="be-pres"/>
+    <ref name="adv" mult="*"/> 
+    <ref name="headverb-pass"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- was taken -->
+
+<rule name="simplepastpass" wrap="vg" attrs="tense='past' voice='pass' asp='simple' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="never" mult="?"/>
+    <ref name="be-past"/>
+    <ref name="adv" mult="*"/> 
+    <ref name="headverb-pass"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- being taken -->
+
+<rule name="simplegerpass" wrap="vg" attrs="tense='nonfin' voice='pass' asp='simple' modal='no'">
+  <seq>
+    <ref name="adv" mult="*"/> 
+    <ref name="being"/>
+    <ref name="adv" mult="*"/> 
+    <ref name="headverb-pass"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- be taken -->
+
+<rule name="simplebasepass-sub">
+  <seq> 
+    <ref name="adv" mult="*"/> 
+    <ref name="be"/>
+    <ref name="adv" mult="*"/> 
+    <ref name="headverb-pass"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- be taken -->
+
+<rule name="simplebasepass" wrap="vg" attrs="tense='base' voice='pass' asp='simple' modal='no'">
+    <ref name="simplebasepass-sub"/>
+</rule>
+
+<!-- would be taken -->
+
+<rule name="modalsimplebasepass" wrap="vg" attrs="tense='pres' voice='pass' asp='simple' modal='yes'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="modal"/>
+    <ref name="simplebasepass-sub"/>
+  </seq>
+</rule>
+
+<!-- ought to be taken -->
+
+<rule name="modaltosimplebasepass" wrap="vg" attrs="tense='pres' voice='pass' asp='simple' modal='yes'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="modalto"/>
+    <ref name="adv" mult="*"/> 
+    <query match="w[@p='TO']"/>
+    <ref name="simplebasepass-sub"/>
+  </seq>
+</rule>
+
+<!-- to be taken -->
+
+<rule name="infsimplebasepass" wrap="vg" attrs="tense='inf' voice='pass' asp='simple' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <query match="w[@p='TO']"/>
+    <ref name="simplebasepass-sub"/>
+  </seq>
+</rule>
+
+<!-- is taking -->
+
+<rule name="progpresact" wrap="vg" attrs="tense='pres' voice='act' asp='prog' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="be-pres"/>
+    <ref name="adv" mult="*"/> 
+    <ref name="headverb-ger"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- was taking -->
+
+<rule name="progpastact" wrap="vg" attrs="tense='past' voice='act' asp='prog' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="be-past"/>
+    <ref name="adv" mult="*"/> 
+    <ref name="headverb-ger"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- be taking -->
+
+<rule name="progbaseact-sub">
+  <seq> 
+    <ref name="adv" mult="*"/>
+    <ref name="be"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-ger"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- be taking -->
+
+<rule name="progbaseact" wrap="vg" attrs="tense='base' voice='act' asp='prog' modal='no'">
+    <ref name="progbaseact-sub"/>
+</rule>
+
+<!-- would be taking -->
+
+<rule name="modalprogbaseact" wrap="vg" attrs="tense='pres' voice='act' asp='prog' modal='yes'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="modal"/>
+    <ref name="progbaseact-sub"/>
+  </seq>
+</rule>
+
+<!-- ought to be taking -->
+
+<rule name="modaltoprogbaseact" wrap="vg" attrs="tense='pres' voice='act' asp='prog' modal='yes'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="modalto"/>
+    <ref name="adv" mult="*"/> 
+    <query match="w[@p='TO']"/>
+    <ref name="progbaseact-sub"/>
+  </seq>
+</rule>
+
+<!-- to be taking -->
+
+<rule name="infprogbaseact" wrap="vg" attrs="tense='inf' voice='act' asp='prog' modal='no'">
+  <seq>
+    <ref name="adv" mult="*"/>
+    <query match="w[@p='TO']"/>
+    <ref name="progbaseact-sub"/>
+  </seq>
+</rule>
+
+<!-- is being taken -->
+
+<rule name="progprespass" wrap="vg" attrs="tense='pres' voice='pass' asp='prog' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="be-pres"/>
+    <ref name="adv" mult="*"/>
+    <ref name="being"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-pass"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- was being taken -->
+
+<rule name="progpastpass" wrap="vg" attrs="tense='past' voice='pass' asp='prog' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="be-past"/>
+    <ref name="adv" mult="*"/>
+    <ref name="being"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-pass"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- be being taken -->
+
+<rule name="progbasepass-sub">
+  <seq> 
+    <ref name="adv" mult="*"/>
+    <ref name="be"/>
+    <ref name="adv" mult="*"/>
+    <ref name="being"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-pass"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- be being taken -->
+
+<rule name="progbasepass" wrap="vg" attrs="tense='base' voice='pass' asp='prog' modal='no'">
+    <ref name="progbasepass-sub"/>
+</rule>
+
+<!-- would be being taken -->
+
+<rule name="modalprogbasepass" wrap="vg" attrs="tense='pres' voice='pass' asp='prog' modal='yes'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="modal"/>
+    <ref name="progbasepass-sub"/>
+  </seq>
+</rule>
+
+<!-- ought to be being taken -->
+
+<rule name="modaltoprogbasepass" wrap="vg" attrs="tense='pres' voice='pass' asp='prog' modal='yes'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="modalto"/>
+    <ref name="adv" mult="*"/> 
+    <query match="w[@p='TO']"/>
+    <ref name="progbasepass-sub"/>
+  </seq>
+</rule>
+
+<!-- to be being taken -->
+
+<rule name="infprogbasepass" wrap="vg" attrs="tense='inf' voice='pass' asp='prog' modal='no'">
+  <seq>
+    <ref name="adv" mult="*"/>
+    <query match="w[@p='TO']"/>
+    <ref name="progbasepass-sub"/>
+  </seq>
+</rule>
+
+<rule name="headverb-perf">
+  <first>
+    <ref name="coordinate-headverb">
+      <with-param name="pos" value="'VBN'"/>
+    </ref>
+    <query match="w[@p='VBN']" attrs="headv='yes'"/>
+    <query match="w[@p='VBD']" attrs="headv='yes'"/>
+  </first>
+</rule>
+
+<!-- has taken -->
+
+<rule name="perfpresact" wrap="vg" attrs="tense='pres' voice='act' asp='perf' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="have-pres"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-perf"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- had taken -->
+
+<rule name="perfpastact" wrap="vg" attrs="tense='past' voice='act' asp='perf' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="have-past"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-perf"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- having taken -->
+
+<rule name="perfgeract" wrap="vg" attrs="tense='nonfin' voice='act' asp='perf' modal='no'">
+  <seq>
+    <ref name="adv" mult="*"/>
+    <ref name="having"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-perf"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- have taken -->
+
+<rule name="perfbaseact-sub">
+  <seq> 
+    <ref name="adv" mult="*"/>
+    <ref name="have"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-perf"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- have taken -->
+
+<rule name="perfbaseact" wrap="vg" attrs="tense='presorbase' voice='act' asp='perf' modal='no'">
+    <ref name="perfbaseact-sub"/>
+</rule>
+
+<!-- would have taken -->
+
+<rule name="modalperfbaseact" wrap="vg" attrs="tense='pres' voice='act' asp='perf' modal='yes'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="modal"/>
+    <ref name="perfbaseact-sub"/>
+  </seq>
+</rule>
+
+<!-- ought to have taken -->
+
+<rule name="modaltoperfbaseact" wrap="vg" attrs="tense='pres' voice='act' asp='perf' modal='yes'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="modalto"/>
+    <ref name="adv" mult="*"/> 
+    <query match="w[@p='TO']"/>
+    <ref name="perfbaseact-sub"/>
+  </seq>
+</rule>
+
+<!-- to have taken -->
+
+<rule name="infperfbaseact" wrap="vg" attrs="tense='inf' voice='act' asp='perf' modal='no'">
+  <seq>
+    <ref name="adv" mult="*"/>
+    <query match="w[@p='TO']"/>
+    <ref name="perfbaseact-sub"/>
+  </seq>
+</rule>
+
+<!-- has been taken -->
+
+<rule name="perfprespass" wrap="vg" attrs="tense='pres' voice='pass' asp='perf' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="have-pres"/>
+    <ref name="adv" mult="*"/>
+    <ref name="been"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-perf"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- had been taken -->
+
+<rule name="perfpastpass" wrap="vg" attrs="tense='past' voice='pass' asp='perf' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="have-past"/>
+    <ref name="adv" mult="*"/>
+    <ref name="been"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-perf"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- having been taken -->
+
+<rule name="perfgerpass" wrap="vg" attrs="tense='nonfin' voice='pass' asp='perf' modal='no'">
+  <seq>
+    <ref name="adv" mult="*"/>
+    <ref name="having"/>
+    <ref name="adv" mult="*"/>
+    <ref name="been"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-perf"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- have been taken -->
+
+<rule name="perfbasepass-sub">
+  <seq> 
+    <ref name="adv" mult="*"/>
+    <ref name="have"/>
+    <ref name="adv" mult="*"/>
+    <ref name="been"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-perf"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- have been taken -->
+
+<rule name="perfbasepass" wrap="vg" attrs="tense='presorbase' voice='pass' asp='perf' modal='no'">
+    <ref name="perfbasepass-sub"/>
+</rule>
+
+<!-- would have been taken -->
+
+<rule name="modalperfbasepass" wrap="vg" attrs="tense='pres' voice='pass' asp='perf' modal='yes'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="modal"/>
+    <ref name="perfbasepass-sub"/>
+  </seq>
+</rule>
+
+<!-- ought to have been taken -->
+
+<rule name="modaltoperfbasepass" wrap="vg" attrs="tense='pres' voice='pass' asp='perf' modal='yes'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="modalto"/>
+    <ref name="adv" mult="*"/> 
+    <query match="w[@p='TO']"/>
+    <ref name="perfbasepass-sub"/>
+  </seq>
+</rule>
+
+<!-- to have been taken -->
+
+<rule name="infperfbasepass" wrap="vg" attrs="tense='inf' voice='pass' asp='perf' modal='no'">
+  <seq>
+    <ref name="adv" mult="*"/>
+    <query match="w[@p='TO']"/>
+    <ref name="perfbasepass-sub"/>
+  </seq>
+</rule>
+
+<!-- has been taking -->
+
+<rule name="perfprogpresact" wrap="vg" attrs="tense='pres' voice='act' asp='perfprog' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="have-pres"/>
+    <ref name="adv" mult="*"/>
+    <ref name="been"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-ger"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- had been taking -->
+
+<rule name="perfprogpastact" wrap="vg" attrs="tense='past' voice='act' asp='perfprog' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="have-past"/>
+    <ref name="adv" mult="*"/>
+    <ref name="been"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-ger"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- having been taking -->
+
+<rule name="perfproggeract" wrap="vg" attrs="tense='nonfin' voice='act' asp='perfprog' modal='no'">
+  <seq>
+    <ref name="adv" mult="*"/>
+    <ref name="having"/>
+    <ref name="adv" mult="*"/>
+    <ref name="been"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-ger"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- have been taking -->
+
+<rule name="perfprogbaseact-sub">
+  <seq> 
+    <ref name="adv" mult="*"/>
+    <ref name="have"/>
+    <ref name="adv" mult="*"/>
+    <ref name="been"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-ger"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- have been taking -->
+
+<rule name="perfprogbaseact" wrap="vg" attrs="tense='presorbase' voice='act' asp='perfprog' modal='no'">
+    <ref name="perfprogbaseact-sub"/>
+</rule>
+
+<!-- would have been taking -->
+
+<rule name="modalperfprogbaseact" wrap="vg" attrs="tense='pres' voice='act' asp='perfprog' modal='yes'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="modal"/>
+    <ref name="perfprogbaseact-sub"/>
+  </seq>
+</rule>
+
+<!-- ought to have been taking -->
+
+<rule name="modaltoperfprogbaseact" wrap="vg" attrs="tense='pres' voice='act' asp='perfprog' modal='yes'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="modalto"/>
+    <ref name="adv" mult="*"/> 
+    <query match="w[@p='TO']"/>
+    <ref name="perfprogbaseact-sub"/>
+  </seq>
+</rule>
+
+<!-- to have been taking -->
+
+<rule name="infperfprogbaseact" wrap="vg" attrs="tense='inf' voice='act' asp='perfprog' modal='no'">
+  <seq>
+    <ref name="adv" mult="*"/>
+    <query match="w[@p='TO']"/>
+    <ref name="perfprogbaseact-sub"/>
+  </seq>
+</rule>
+
+<!-- has been being taken -->
+
+<rule name="perfprogprespass" wrap="vg" attrs="tense='pres' voice='pass' asp='perfprog' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="have-pres"/>
+    <ref name="adv" mult="*"/>
+    <ref name="been"/>
+    <ref name="adv" mult="*"/>
+    <ref name="being"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-pass"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- had been being taken -->
+
+<rule name="perfprogpastpass" wrap="vg" attrs="tense='past' voice='pass' asp='perfprog' modal='no'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="have-past"/>
+    <ref name="adv" mult="*"/>
+    <ref name="been"/>
+    <ref name="adv" mult="*"/>
+    <ref name="being"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-pass"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- having been being taken -->
+
+<rule name="perfproggerpass" wrap="vg" attrs="tense='nonfin' voice='pass' asp='perfprog' modal='no'">
+  <seq>
+    <ref name="adv" mult="*"/>
+    <ref name="having"/>
+    <ref name="adv" mult="*"/>
+    <ref name="been"/>
+    <ref name="adv" mult="*"/>
+    <ref name="being"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-pass"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- have been being taken -->
+
+<rule name="perfprogbasepass-sub">
+  <seq> 
+    <ref name="adv" mult="*"/>
+    <ref name="have"/>
+    <ref name="adv" mult="*"/>
+    <ref name="been"/>
+    <ref name="adv" mult="*"/>
+    <ref name="being"/>
+    <ref name="adv" mult="*"/>
+    <ref name="headverb-pass"/>
+    <ref name="advorpart" mult="*"/>
+  </seq>
+</rule>
+
+<!-- have been being taken -->
+
+<rule name="perfprogbasepass" wrap="vg" attrs="tense='presorbase' voice='pass' asp='perfprog' modal='no'">
+    <ref name="perfprogbasepass-sub"/>
+</rule>
+
+<!-- would have been being taken -->
+
+<rule name="modalperfprogbasepass" wrap="vg" attrs="tense='pres' voice='pass' asp='perfprog' modal='yes'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="modal"/>
+    <ref name="perfprogbasepass-sub"/>
+  </seq>
+</rule>
+
+<!-- ought to have been being taken -->
+
+<rule name="modaltoperfprogbasepass" wrap="vg" attrs="tense='pres' voice='pass' asp='perfprog' modal='yes'">
+  <seq>
+<!--    <ref name="adv" mult="*"/> -->
+    <ref name="modalto"/>
+    <ref name="adv" mult="*"/> 
+    <query match="w[@p='TO']"/>
+    <ref name="perfprogbasepass-sub"/>
+  </seq>
+</rule>
+
+<!-- to have been being taken -->
+
+<rule name="infperfprogbasepass" wrap="vg" attrs="tense='inf' voice='pass' asp='perfprog' modal='no'">
+  <seq>
+    <ref name="adv" mult="*"/>
+    <query match="w[@p='TO']"/>
+    <ref name="perfprogbasepass-sub"/>
+  </seq>
+</rule>
+
+<rule name="vg">
+  <first>
+    <ref name="infperfprogbasepass"/>
+    <ref name="modaltoperfprogbasepass"/>
+    <ref name="modalperfprogbasepass"/>
+    <ref name="perfprogbasepass"/>
+    <ref name="perfproggerpass"/>
+    <ref name="perfprogprespass"/>
+    <ref name="perfprogpastpass"/>
+    <ref name="infperfprogbaseact"/>
+    <ref name="modaltoperfprogbaseact"/>
+    <ref name="modalperfprogbaseact"/>
+    <ref name="perfprogbaseact"/>
+    <ref name="perfproggeract"/>
+    <ref name="perfprogpresact"/>
+    <ref name="perfprogpastact"/>
+    <ref name="infperfbasepass"/>
+    <ref name="modaltoperfbasepass"/>
+    <ref name="modalperfbasepass"/>
+    <ref name="perfbasepass"/>
+    <ref name="perfgerpass"/>
+    <ref name="perfprespass"/>
+    <ref name="perfpastpass"/>
+    <ref name="infperfbaseact"/>
+    <ref name="modaltoperfbaseact"/>
+    <ref name="modalperfbaseact"/>
+    <ref name="perfbaseact"/>
+    <ref name="perfgeract"/>
+    <ref name="perfpresact"/>
+    <ref name="perfpastact"/>
+    <ref name="infprogbasepass"/>
+    <ref name="modaltoprogbasepass"/>
+    <ref name="modalprogbasepass"/>
+    <ref name="progbasepass"/>
+    <ref name="progprespass"/>
+    <ref name="progpastpass"/>
+    <ref name="infprogbaseact"/>
+    <ref name="modaltoprogbaseact"/>
+    <ref name="modalprogbaseact"/>
+    <ref name="progbaseact"/>
+    <ref name="progpresact"/>
+    <ref name="progpastact"/>
+    <ref name="infsimplebasepass"/>
+    <ref name="modaltosimplebasepass"/>
+    <ref name="modalsimplebasepass"/>
+    <ref name="simplebasepass"/>
+    <ref name="simplegerpass"/>
+    <ref name="simpleprespass"/>
+    <ref name="simplepastpass"/>
+    <ref name="infsimplebaseact"/>
+    <ref name="modaltosimplebaseact"/>
+    <ref name="modaladvsimplebaseact"/>
+    <ref name="modalsimplebaseact"/>
+    <ref name="dopresact"/>
+    <ref name="dopastact"/>
+    <ref name="lonesimplegeract"/>
+    <ref name="simplepresact"/>
+    <ref name="blocksimplepastact"/>
+    <ref name="simplepastact"/>
+    <ref name="simplebaseact-standalone"/>
+  </first>
+</rule>
+
+<rule name="infvp">
+  <first>
+    <ref name="infperfprogbasepass"/>
+    <ref name="infperfprogbaseact"/>
+    <ref name="infperfbasepass"/>
+    <ref name="infperfbaseact"/>
+    <ref name="infprogbasepass"/>
+    <ref name="infprogbaseact"/>
+    <ref name="infsimplebasepass"/>
+    <ref name="infsimplebaseact"/>
+  </first>
+</rule>
+
+<!-- The following rules wrap control verbs and their complements as cvg:
+    <cvg><vg>expect</vg> <vg>to go</vg></cvg>
+    Use lxreplace after the chunker to remove cvgs if they are not wanted, 
+    or rename cvg as vg and remove inner vgs if they are wanted. -->
+
+<rule name="controlstr" wrap="cvg">
+  <seq>
+    <first>   
+      <ref name="vg"/>
+      <ref name="simplegeract"/>
+    </first>
+    <ref name="adv" mult="*"/>
+    <ref name="infvp" mult="+"/>
+  </seq>
+</rule>
+
+<!-- help wash up -->
+<rule name="controlstr2" wrap="cvg">
+  <seq>
+    <ref name="vg"/>
+    <and>
+      <query match="w" constraint="lex(preceding-sibling::*[1][self::w]/@l)[cat='BSE']"/>
+      <seq>
+        <ref name="infvp" mult="*"/>
+        <ref name="adv" mult="*"/>
+        <query match="w[@p='VB']" wrap="vg" attrs="tense='base' voice='act' asp='simple' modal='no'"/>
+      </seq>
+    </and>
+  </seq>
+</rule>
+
+<!-- continue selling -->
+<rule name="controlstr3" wrap="cvg">
+  <seq>
+    <ref name="vg"/>
+    <and>
+      <query match="w" constraint="lex(preceding-sibling::*[1][self::w]/@l)[cat='ING']"/>
+      <seq>
+        <ref name="infvp" mult="*"/>
+        <ref name="adv" mult="*"/>
+        <query match="w[@p='VBG']" wrap="vg" attrs="tense='base' voice='act' asp='prog' modal='no'"/>
+      </seq>
+    </and>
+  </seq>
+</rule>
+
+<!-- lone VBG (e.g. "while humming a tune") -->
+
+<rule name="precontext1">
+  <query match="w[@p='IN' and .~'(by|while|before|upon)']"/>
+</rule>
+
+<rule name="precontext2">
+  <query match="w[@p='IN' and .='of']"/>
+</rule>
+
+<rule name="precontext1or2">
+  <first>
+    <ref name="precontext1"/>
+    <ref name="precontext2"/>
+  </first>
+</rule>
+
+<rule name="precontext3">
+  <seq>
+    <query match="w[@p~'^NN']"/>
+    <query match="w[@p='IN' and .='of']"/>
+  </seq>
+</rule>
+
+<rule name="lonevbn1" wrap="vg" attrs="tense='nonfin' voice='pass' asp='simple' modal='no'">
+  <seq>
+     <ref name="precontext1or2" suppress="true"/>
+     <ref name="headverb-pass"/>
+  </seq>
+</rule>
+
+<!-- correct wrongly tagged VBGs -->
+
+<rule name="miss-vbg" attrs="p='VBG' prevtag='$pos' l='$vst' headv='yes'">
+  <query match="w[@p~'^[NJ]' and @vstem and .~'ing$']">
+    <var name="pos" value="@p"/>
+    <var name="vst" value="@vstem"/>
+  </query>
+</rule>
+
+<rule name="miss-vbg-incoord">
+  <first>
+    <ref name="miss-vbg"/>
+    <query match="w[@p='VBG']" attrs="headv='yes'"/>
+  </first>
+</rule>
+
+<rule name="sub-coord-ingwords">
+ <seq>
+  <ref name="miss-vbg-incoord"/>
+  <query match="w[.=',']"/>
+ </seq>
+</rule>
+
+<rule name="coord-ingwords">
+ <seq>
+  <ref name="sub-coord-ingwords" mult="*"/>
+  <ref name="miss-vbg-incoord"/>
+  <query match="w[.~'^(and|And|AND|or|Or|OR)$']"/>
+  <ref name="miss-vbg-incoord"/>
+ </seq>
+</rule>
+
+<rule name="misstaggedvbg">
+  <first>
+    <ref name="coord-ingwords"/>
+    <ref name="miss-vbg"/>
+  </first>
+</rule>
+
+<rule name="notof">
+  <query match="w[not(.~'^(of|Of|OF)$')]"/>
+</rule>
+
+<rule name="lonevbg1" wrap="vg" attrs="tense='nonfin' voice='act' asp='prog' modal='no'">
+  <seq>
+     <ref name="precontext1" suppress="true"/>
+     <first>
+       <ref name="headverb-ger"/>
+       <ref name="misstaggedvbg"/>
+     </first>
+     <ref name="notof" suppress="true"/>
+  </seq>
+</rule>
+
+<rule name="lonevbg2" wrap="vg" attrs="tense='nonfin' voice='act' asp='prog' modal='no'">
+  <seq>
+     <ref name="precontext3" suppress="true"/>
+     <first>
+       <ref name="headverb-ger"/>
+       <ref name="misstaggedvbg"/>
+     </first>
+     <ref name="notof" suppress="true"/>
+  </seq>
+</rule>
+
+<rule name="postcontext1">
+  <first>
+     <query match="w[@p='DT']"/>
+     <query match="w[@p='IN' and not(.~'^(by|of)$')]"/>
+     <query match="w[@p='TO']"/>
+  </first>
+</rule>
+
+<rule name="postcontext2">
+  <first>
+    <ref name="postcontext1"/>
+<!--    <query match="w[@p='.']"/>-->
+  </first>
+</rule>
+
+<rule name="lonevbn2" wrap="vg" attrs="tense='nonfin' voice='pass' asp='simple' modal='no'">
+  <seq>
+     <ref name="headverb-pass"/>
+     <ref name="postcontext2" suppress="true"/>
+  </seq>
+</rule>
+
+<rule name="det">
+  <first>
+    <query match="w[@p='CD']"/>
+    <query match="w[@p~'^DT']"/>
+    <query match="w[@p='PRP$']"/>
+    <query match="w[@p='PDT']"/>
+  </first>
+</rule>
+
+<!-- -ing NN or JJ after determiner is *not* a verb - this will block lonevbg4       --> 
+<rule name="lonevbg3">
+  <seq>
+    <ref name="det"/>
+    <query match="w[@p~'^[NJ]']"/>
+  </seq>
+</rule>
+
+<rule name="lonevbg4" wrap="vg" attrs="tense='nonfin' voice='act' asp='prog' modal='no'">
+  <seq>
+     <first>
+       <ref name="headverb-ger"/>
+       <ref name="misstaggedvbg"/>
+     </first>
+     <ref name="postcontext1" suppress="true"/>
+  </seq>
+</rule>
+
+<rule name="lonemodal1" wrap="vg" attrs="tense='pres' voice='act' asp='simple' modal='yes'">
+  <and>
+    <query match="w[.~'^(ca|can|could|may|must|shall|should)$']"/>
+    <first>
+      <query match="w[.~'^(Cannot|CANNOT|cannot)$']" attrs="headv='yes'"/>
+      <seq>
+        <ref name="modal-pos" attrs="headv='yes'"/>
+        <ref name="adv-neg"/>
+      </seq>
+      <query match="w[@p='MD']" attrs="headv='yes'"/>
+    </first>
+  </and>
+</rule>
+
+<rule name="lonemodal2" wrap="vg" attrs="tense='fut' voice='act' asp='simple' modal='yes'">
+  <and>
+    <query match="w[.~'^(wo|will|would|might)$']"/>
+    <first>
+      <seq>
+        <ref name="modal-pos" attrs="headv='yes'"/>
+        <ref name="adv-neg"/>
+      </seq>
+      <query match="w[@p='MD']" attrs="headv='yes'"/>
+    </first>
+  </and>
+</rule>
+
+<rule name="loneaux1" wrap="vg" attrs="tense='pres' voice='act' asp='simple' modal='no'">
+  <and>
+    <query match="w[.~'^(do|does|has|have)$']"/>
+    <first>
+      <seq>
+        <ref name="have-pres-pos" attrs="headv='yes'"/>
+        <ref name="adv-neg" mult="?"/>
+      </seq>
+      <seq>
+        <ref name="do-pres-pos" attrs="headv='yes'"/>
+        <ref name="adv-neg" mult="?"/>
+      </seq>
+    </first>
+  </and>
+</rule>
+
+<rule name="loneaux2" wrap="vg" attrs="tense='past' voice='act' asp='simple' modal='no'">
+  <and>
+    <query match="w[.~'^(did|had)$']"/>
+    <first>
+      <seq>
+        <ref name="have-past-pos" attrs="headv='yes'"/>
+        <ref name="adv-neg" mult="?"/>
+      </seq>
+      <seq>
+        <ref name="do-past-pos" attrs="headv='yes'"/>
+        <ref name="adv-neg" mult="?"/>
+      </seq>
+    </first>
+  </and>
+</rule>
+
+<rule name="lonevb">
+  <first>
+    <ref name="lonevbn1"/>
+    <ref name="lonevbn2"/>
+    <ref name="lonevbg1"/>
+    <ref name="lonevbg2"/>
+    <ref name="lonevbg3"/>
+    <ref name="lonevbg4"/>
+    <ref name="lonemodal1"/>
+    <ref name="lonemodal2"/>
+    <ref name="loneaux1"/>
+    <ref name="loneaux2"/>
+  </first>
+</rule>
+
+
+<!-- egs like "compared with", "combined with" shouldn't be vgs -->
+
+<rule name="pps">
+  <seq>
+    <first>
+      <query match="w[.~'^[Cc]ompared$']"/>
+      <query match="w[.~'^[Cc]ombined$']"/>
+    </first>
+    <seq suppress="true">
+      <query match="w[@p='IN' and .='with']"/>
+    </seq>
+  </seq>
+</rule>
+
+
+<!-- catch all for remaining sequences of verbs -->
+
+<rule name="verbword">
+  <query match="w[@p~'^V']"/>
+</rule>
+
+<rule name="catch-all" wrap="vg">
+  <seq>
+    <ref name="verbword"/>
+    <ref name="verbword" mult="+"/>
+  </seq>
+</rule>
+
+<rule name="all">
+  <first>
+    <ref name="pps"/>
+    <ref name="controlstr2"/>
+    <ref name="controlstr3"/>
+    <ref name="controlstr"/>
+    <ref name="vg"/>
+    <ref name="lonevb"/>
+  </first>
+</rule>
+
+</rules>

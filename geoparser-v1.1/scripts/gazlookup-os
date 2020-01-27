@@ -1,0 +1,30 @@
+#!/bin/sh
+
+usage="gazlookup-os <input.xml >output.xml"
+descr="Access OS gazetteer through Unlock."
+
+unlock_host='http://unlock.edina.ac.uk'
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+
+lib=$here/lib/georesolve
+
+cat >$tmp-input
+
+lxt -s $lib/dounlockquery.xsl -p host "$unlock_host" -p gazetteer os <$tmp-input |
+lxt -s $lib/addxwalkextras.xsl
+
+# NB addxwalkextras.xsl is used to add geonames records for larger
+# placenames that are not in GB but which may occur in texts that you
+# want to resolve using OS.

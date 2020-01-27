@@ -1,0 +1,67 @@
+#!/bin/sh
+
+usage="prepare-gb [-d docdate] [-f infile] <input.html >output.xml"
+descr="Convert Google books html document to pipeline input format."
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    -d)
+      docdate=$1
+      shift
+      ;;
+    -f)
+      infile=$1
+      shift
+      ;;
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+lib=$here/lib/prepare
+temp=$here/lib/tempresolve
+
+if [ "$docdate" ]; then
+
+ddate=`echo $docdate | $SED 's/-//g'`
+year=`echo $docdate | $SED 's/^(....)-.*/\1/'`
+month=`echo $docdate | $SED 's/^....-(..).*/\1/'`
+date=`echo $docdate | $SED 's/.*(..)$/\1/'`
+
+else
+
+ddate=`date +%Y%m%d`
+year=`date +%Y`
+month=`date +%m`
+date=`date +%d`
+
+fi
+
+if [ "$infile" ]; then
+  filename=`basename $infile .html`
+else
+  filename="notset"
+fi
+
+cat > $tmp-in
+
+cat $tmp-in |
+  # deal with invalid bytes in ranges 10000000-10111111, 11000000-11111111
+  tr '\200-\377' ' ' |
+  egrep -v DOCTYPE |
+  $SED 's/&shy;/<w shy="yes"\/>/g' |
+  $SED 's/<br>/<br\/>/g' |
+  lxgrep body |
+  lxt -p filename $filename -s $lib/gbformat.xsl |
+  # detach trailing punctuation into separate token (non alphanumerics):
+  $SED 's/>([^<>]+)([^a-z0-9]+)<\/span>/>\1<\/span>\2/g' |
+  lxreplace -q "span" -n "'w'" |
+  $here/scripts/tokenise |
+  lxreplace -q "w[@shy]" -t "<w>&attrs;<xsl:text>-</xsl:text></w>" 
+
+

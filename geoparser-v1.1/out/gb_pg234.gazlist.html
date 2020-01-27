@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta content="text/html; charset=utf-8" http-equiv="content-type"></meta>
+  <title>Geoparser results</title>
+  <style>
+      .found {color: red;} 
+      table  {border-collapse: collapse; empty-cells: show;}
+      tr     {border: 1px solid black;}
+      td[best="true"] {color: green;}
+      td[best="false"] {color: red;}
+    </style>
+ </head>
+ <body>
+  <div id="instr">
+   <p>
+        Click on a lat/long to centre the map there.
+      </p>
+  </div>
+  <div id="table">
+   <table cellpadding="3">
+    <tr>
+     <td>Bosphorus</td>
+     <td best="true">
+      <a onClick="parent.map.goto(41.125,29.125)">
+       <span style="white-space:nowrap">41.125,29.125</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(41.05722,29.04333)">
+       <span style="white-space:nowrap">41.057,29.043</span>
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>Thrace</td>
+     <td best="true">
+      <a onClick="parent.map.goto(41.33333,26.75)">
+       <span style="white-space:nowrap">41.333,26.750</span>
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>Ister</td>
+    </tr>
+    <tr>
+     <td>Agathyrsi</td>
+    </tr>
+    <tr>
+     <td>Persia</td>
+    </tr>
+    <tr>
+     <td>Maeotis</td>
+     <td best="true">
+      <a onClick="parent.map.goto(46.5,36.5)">
+       <span style="white-space:nowrap">46.500,36.500</span>
+      </a>
+     </td>
+    </tr>
+    <tr>
+     <td>Tanais</td>
+     <td best="true">
+      <a onClick="parent.map.goto(47.5,39.5)">
+       <span style="white-space:nowrap">47.500,39.500</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(47.5,40.5)">
+       <span style="white-space:nowrap">47.500,40.500</span>
+      </a>
+     </td>
+     <td best="false">
+      <a onClick="parent.map.goto(42.5,72.5)">
+       <span style="white-space:nowrap">42.500,72.500</span>
+      </a>
+     </td>
+    </tr>
+   </table>
+  </div>
+ </body>
+</html>

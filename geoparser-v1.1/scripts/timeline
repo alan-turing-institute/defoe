@@ -1,0 +1,44 @@
+#!/bin/sh
+usage="timeline -o outdirname outprefix -n nertaggedfile <geogroundedfile "
+descr="Create timelines for news event clusters"
+
+. `dirname $0`/setup
+
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    -o)
+      outdirname=$1
+      outprefix=$2
+      shift 2
+      ;;
+    -n)
+      nerfname=$1
+      shift
+      ;;
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+if [ -z "$outdirname" -o -z "$nerfname" ]; then
+  echo "usage: $usage" >&2
+  exit 2
+fi
+
+lib=$here/lib/tempresolve
+out=$outdirname/$outprefix
+
+cp $lib/timeline.js $outdirname/timeline.js
+cp $lib/htaccess $outdirname/.htaccess
+#cp $lib/__history__.html $outdirname/__history__.html
+
+cat >$tmp-input
+
+lxt -s $lib/timelineevents.xsl <$tmp-input >$out.events.xml
+
+lxt -s $lib/timelinepage.xsl -p jsfile $outdirname/timeline.js -p outfname $outprefix -p nerfname $nerfname <$tmp-input >$out.timeline.html
+

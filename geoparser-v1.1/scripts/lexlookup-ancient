@@ -1,0 +1,35 @@
+#!/bin/sh 
+
+usage="lexlookup-ancient <input.xml >output.xml"
+descr="Look up words in various lexicons and add appropriate attributes. This version is for ancient places and people."
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+lib=$here/lib/ner
+
+lxtransduce -q s -a ancpeople $lib/lexlookup-ancient.gr |
+lxtransduce -q s -a ancplaces $lib/lexlookup-ancient.gr |
+lxtransduce -q s -a firstname $lib/lexlookup-ancient.gr |
+lxtransduce -q s -a common $lib/lexlookup-ancient.gr |
+lxtransduce -q s -a otherloc $lib/lexlookup-ancient.gr |
+lxtransduce -q s -a org $lib/lexlookup-ancient.gr |
+lxtransduce -q s -a prof $lib/lexlookup-ancient.gr |
+lxtransduce -q s -a eventn $lib/lexlookup-ancient.gr |
+lxtransduce -q s -a staten $lib/lexlookup-ancient.gr |
+lxtransduce -q s -a tmln $lib/lexlookup-ancient.gr |
+lxtransduce -q s -a tmla $lib/lexlookup-ancient.gr |
+lxtransduce -q s -a class $lib/lexlookup-ancient.gr |
+lxtransduce -q s -a wikilastname $lib/lexlookup-ancient.gr |
+lxtransduce -q s -a wikifirstname $lib/lexlookup-ancient.gr |
+lxtransduce -q s -a wper $lib/lexlookup-ancient.gr |
+lxreplace -q "enamex/w[@wiki][1]" -t "<xsl:copy>&attrs;<xsl:attribute name='wiki'>B-wper</xsl:attribute>&children;</xsl:copy>"

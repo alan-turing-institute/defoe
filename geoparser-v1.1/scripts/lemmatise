@@ -1,0 +1,24 @@
+#!/bin/sh 
+
+usage="lemmatise <input.xml >output.xml"
+descr="Use morpha to do lemmatisation (encoded in the l attribute) and add vstem attribute to nominalisations."
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+lib=$here/lib/lemmatise
+
+cat >$tmp-in 
+
+lxconvert -w -q w -s $lib/lemmatise.cnv <$tmp-in |
+morpha -f $lib/verbstem.list |
+lxconvert -r -q w -s $lib/lemmatise.cnv -x $tmp-in

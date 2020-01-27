@@ -1,0 +1,49 @@
+#!/bin/sh
+
+usage="gazlookup-geonames-local <input.xml >output.xml"
+descr="Do Geonames gazetteer lookup on a set of placenames, using a local copy of the database rather than the webservice."
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+lib=$here/lib/georesolve
+
+cat >$tmp-input
+
+# use altname and abbrev-for attributes iff present
+lxreplace -q placename -t '
+<xsl:choose>
+  <xsl:when test="@abbrev-for and @altname">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/><query-text>select name,g.geonameId,fclass,fcode,country,latitude,longitude,population from geoname g, alternatename a where g.geonameid=a.geonameid and a.alternateName in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@abbrev-for"/></string>,<string><xsl:value-of select="@altname"/></string>) union select name,geonameId,fclass,fcode,country,latitude,longitude,population from geoname where name in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@abbrev-for"/></string>,<string><xsl:value-of select="@altname"/></string>) or asciiname in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@abbrev-for"/></string>,<string><xsl:value-of select="@altname"/></string>) order by population desc</query-text>
+    </xsl:copy>
+  </xsl:when>
+  <xsl:when test="@abbrev-for">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/><query-text>select name,g.geonameId,fclass,fcode,country,latitude,longitude,population from geoname g, alternatename a where g.geonameid=a.geonameid and a.alternateName in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@abbrev-for"/></string>) union select name,geonameId,fclass,fcode,country,latitude,longitude,population from geoname where name in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@abbrev-for"/></string>) or asciiname in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@abbrev-for"/></string>) order by population desc</query-text>
+    </xsl:copy>
+  </xsl:when>
+  <xsl:when test="@altname">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/><query-text>select name,g.geonameId,fclass,fcode,country,latitude,longitude,population from geoname g, alternatename a where g.geonameid=a.geonameid and a.alternateName in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@altname"/></string>) union select name,geonameId,fclass,fcode,country,latitude,longitude,population from geoname where name in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@altname"/></string>) or asciiname in (<string><xsl:value-of select="@name"/></string>,<string><xsl:value-of select="@altname"/></string>) order by population desc</query-text>
+    </xsl:copy>
+  </xsl:when>
+  <xsl:otherwise>
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/><query-text>select name,g.geonameId,fclass,fcode,country,latitude,longitude,population from geoname g, alternatename a where g.geonameid=a.geonameid and a.alternateName = <string><xsl:value-of select="@name"/></string> union select name,geonameId,fclass,fcode,country,latitude,longitude,population from geoname where name = <string><xsl:value-of select="@name"/></string> or asciiname =  <string><xsl:value-of select="@name"/></string> order by population desc</query-text>
+    </xsl:copy>
+  </xsl:otherwise>
+</xsl:choose>' <$tmp-input >$tmp-queries
+
+lxviewport -q query-text "lxmysql -h ##YOUR HOSTNAME HERE## -u pipeline -d geonames" <$tmp-queries > $tmp-dbout
+
+lxt -s $lib/extractgeonameslocalresults.xsl < $tmp-dbout

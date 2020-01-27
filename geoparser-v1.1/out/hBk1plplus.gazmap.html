@@ -1,0 +1,3086 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/xhtml">
+ <head>
+  <meta content="application/xhtml+xml; charset=utf-8" http-equiv="content-type"></meta>
+  <title>Geoparser results</title>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAj9ut_juj_t10klD3II_Giw-ZD9NxK2Kk&amp;sensor=false"></script>
+  <script type="text/javascript">
+
+    var map;
+    var markers = new Array();
+
+    var icondir = "http://www.google.com/intl/en_us/mapfiles/ms/micons/";
+    var red_icon = icondir+"red-dot.png";
+    var green_icon = icondir+"green-dot.png";
+
+    function load() {
+        var center = new google.maps.LatLng(37.03833,
+                                            27.42917);
+	map = new google.maps.Map(document.getElementById("map"),
+                               {center: center,
+                                zoom: 6,
+                                overviewMapControl: true,
+                                overviewMapControlOptions: {opened: true}
+                               });
+	
+        point = new google.maps.LatLng(37.03833, 27.42917);
+        var marker = new google.maps.Marker({
+	    title: "Halicarnassus",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.25, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Halicarnassus",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 22.75);
+        var marker = new google.maps.Marker({
+	    title: "Argos",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.63333, 22.73333);
+        var marker = new google.maps.Marker({
+	    title: "Argos",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.75, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Argos",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 21.25);
+        var marker = new google.maps.Marker({
+	    title: "Argos Amphilochikon?",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.5, 21.5);
+        var marker = new google.maps.Marker({
+	    title: "Argos Orestikon",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.46667, 21.26667);
+        var marker = new google.maps.Marker({
+	    title: "Argos Orestikon",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.75, 21.75);
+        var marker = new google.maps.Marker({
+	    title: "Argos",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 34.25);
+        var marker = new google.maps.Marker({
+	    title: "Argos M.",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(34.75, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Argos?",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.75, 15.75);
+        var marker = new google.maps.Marker({
+	    title: "Argos Hippium",
+	    icon: 10 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 10
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 22.5);
+        var marker = new google.maps.Marker({
+	    title: "Hellas",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39, 22);
+        var marker = new google.maps.Marker({
+	    title: "Hellas",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(29.86667, 31.25);
+        var marker = new google.maps.Marker({
+	    title: "Memphis",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(33.27333, 35.19389);
+        var marker = new google.maps.Marker({
+	    title: "Tyrus",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(32.87519, 13.18746);
+        var marker = new google.maps.Marker({
+	    title: "Oea",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.5, 41.5);
+        var marker = new google.maps.Marker({
+	    title: "Phasis fl.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.5, 42.5);
+        var marker = new google.maps.Marker({
+	    title: "Phasis",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 26.547619);
+        var marker = new google.maps.Marker({
+	    title: "Asia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 26.547619);
+        var marker = new google.maps.Marker({
+	    title: "Asia",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "*Asia",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 27.5);
+        var marker = new google.maps.Marker({
+	    title: "Asia Minor",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 27.5);
+        var marker = new google.maps.Marker({
+	    title: "Asia",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.5, 27.5);
+        var marker = new google.maps.Marker({
+	    title: "Europe",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 40.119045);
+        var marker = new google.maps.Marker({
+	    title: "Syria",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 40.119045);
+        var marker = new google.maps.Marker({
+	    title: "Syria Coele",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 20.75);
+        var marker = new google.maps.Marker({
+	    title: "Syria",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 37.5);
+        var marker = new google.maps.Marker({
+	    title: "Syria",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 37.5);
+        var marker = new google.maps.Marker({
+	    title: "Syria I",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 37.5);
+        var marker = new google.maps.Marker({
+	    title: "Syria II",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 37.5);
+        var marker = new google.maps.Marker({
+	    title: "Syria",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(34.25, 36.25);
+        var marker = new google.maps.Marker({
+	    title: "Koile Syria",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(33.75, 36.75);
+        var marker = new google.maps.Marker({
+	    title: "Coele Syria",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.5, 32.5);
+        var marker = new google.maps.Marker({
+	    title: "Paphlagonia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.5, 31.07143);
+        var marker = new google.maps.Marker({
+	    title: "Paphlagonia",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.5, 31.07143);
+        var marker = new google.maps.Marker({
+	    title: "Paphlagonia",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.5, 32.5);
+        var marker = new google.maps.Marker({
+	    title: "Paphlagonia",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.75, 28.75);
+        var marker = new google.maps.Marker({
+	    title: "Euxine",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Ionia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 28.25);
+        var marker = new google.maps.Marker({
+	    title: "Sardis",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 26.547619);
+        var marker = new google.maps.Marker({
+	    title: "Lydia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 27.5);
+        var marker = new google.maps.Marker({
+	    title: "Lydia",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 27.75);
+        var marker = new google.maps.Marker({
+	    title: "Lydia",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 22.75);
+        var marker = new google.maps.Marker({
+	    title: "Delphi",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.63333, 23.83333);
+        var marker = new google.maps.Marker({
+	    title: "Dirphys M.",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 26.547619);
+        var marker = new google.maps.Marker({
+	    title: "Phrygia I",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 27.5);
+        var marker = new google.maps.Marker({
+	    title: "Phrygia Pakatiane",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 31.07143);
+        var marker = new google.maps.Marker({
+	    title: "Phrygia Paroreius",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 31.07143);
+        var marker = new google.maps.Marker({
+	    title: "Phrygia II",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 31.07143);
+        var marker = new google.maps.Marker({
+	    title: "Phrygia",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.25, 27.75);
+        var marker = new google.maps.Marker({
+	    title: "Phrygia",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 29.75);
+        var marker = new google.maps.Marker({
+	    title: "Phrygia",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 32.5);
+        var marker = new google.maps.Marker({
+	    title: "Phrygia Saloutaria",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.25, 29.75);
+        var marker = new google.maps.Marker({
+	    title: "Phrygia Epiktetos",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Miletus",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.51278, 27.27917);
+        var marker = new google.maps.Marker({
+	    title: "Miletus",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Smyrna",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Palaia Smyrna",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Smyrna",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.41273, 27.13838);
+        var marker = new google.maps.Marker({
+	    title: "Smyrna",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.41273, 27.13838);
+        var marker = new google.maps.Marker({
+	    title: "Smyrna",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Colophon",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Colophon ad Mare",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Colophon",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Priene",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Maeander fl.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.94068, 22.95734);
+        var marker = new google.maps.Marker({
+	    title: "Corinthus",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.25, 26.25);
+        var marker = new google.maps.Marker({
+	    title: "Methymna",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.36781, 26.17639);
+        var marker = new google.maps.Marker({
+	    title: "Methymna",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.83333, 12.83333);
+        var marker = new google.maps.Marker({
+	    title: "Italia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 14.25);
+        var marker = new google.maps.Marker({
+	    title: "Sicilia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 14.25);
+        var marker = new google.maps.Marker({
+	    title: "Sicilia",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.25, 17.25);
+        var marker = new google.maps.Marker({
+	    title: "Tarentum",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.47611, 17.22972);
+        var marker = new google.maps.Marker({
+	    title: "Tarentum",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.25, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Mytilene",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.11, 26.55472);
+        var marker = new google.maps.Marker({
+	    title: "Mytilene",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.22906, 26.10901);
+        var marker = new google.maps.Marker({
+	    title: "Lesbos Ins.",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.125, 23.625);
+        var marker = new google.maps.Marker({
+	    title: "Eleusis",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.04135, 23.54295);
+        var marker = new google.maps.Marker({
+	    title: "Eleusis",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.25, 25.25);
+        var marker = new google.maps.Marker({
+	    title: "Eleusis?",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.09, 22.36);
+        var marker = new google.maps.Marker({
+	    title: "Olympus M.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.25, 22.25);
+        var marker = new google.maps.Marker({
+	    title: "Olympus M.",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.25, 30.25);
+        var marker = new google.maps.Marker({
+	    title: "Olympus",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.25, 29.25);
+        var marker = new google.maps.Marker({
+	    title: "Olympus M.",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.75, 32.25);
+        var marker = new google.maps.Marker({
+	    title: "Olympus M.",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.09, 22.36);
+        var marker = new google.maps.Marker({
+	    title: "Olympus M.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.75, 20.75);
+        var marker = new google.maps.Marker({
+	    title: "Dodona",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(32.5, 26.547619);
+        var marker = new google.maps.Marker({
+	    title: "Libya Inferior",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(31.5, 26.5);
+        var marker = new google.maps.Marker({
+	    title: "Libya",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(32.5, 22.023808);
+        var marker = new google.maps.Marker({
+	    title: "Libya Superior",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(31.5, 24.5);
+        var marker = new google.maps.Marker({
+	    title: "Libya Inferior",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75722, 26.97694);
+        var marker = new google.maps.Marker({
+	    title: "Samos",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75722, 26.97694);
+        var marker = new google.maps.Marker({
+	    title: "Samos Ins.",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Samos",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Samos",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Samos Ins.",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Samos Ins.",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 26.8);
+        var marker = new google.maps.Marker({
+	    title: "Samos Ins.",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 26.8);
+        var marker = new google.maps.Marker({
+	    title: "Samos",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.325, 23.31889);
+        var marker = new google.maps.Marker({
+	    title: "Thebae",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.75, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Thebes Pedion",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(25.7, 32.68333);
+        var marker = new google.maps.Marker({
+	    title: "Thebai",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Hermus fl.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.25, 21.25);
+        var marker = new google.maps.Marker({
+	    title: "Pindus M.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.09, 22.36);
+        var marker = new google.maps.Marker({
+	    title: "Olympus M.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 21.75);
+        var marker = new google.maps.Marker({
+	    title: "Olympia",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.97945, 23.71622);
+        var marker = new google.maps.Marker({
+	    title: "Athenae",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.4, 23.8);
+        var marker = new google.maps.Marker({
+	    title: "Eretria",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.375, 23.875);
+        var marker = new google.maps.Marker({
+	    title: "Eretria",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.3, 22.61667);
+        var marker = new google.maps.Marker({
+	    title: "Eretria",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.25, 22.75);
+        var marker = new google.maps.Marker({
+	    title: "Eretria",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.25, 25.75);
+        var marker = new google.maps.Marker({
+	    title: "Naxos Ins.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.05306, 25.47639);
+        var marker = new google.maps.Marker({
+	    title: "Naxos",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.10556, 25.37639);
+        var marker = new google.maps.Marker({
+	    title: "Naxos",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.25, 25.25);
+        var marker = new google.maps.Marker({
+	    title: "Naxos",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 15.25);
+        var marker = new google.maps.Marker({
+	    title: "Naxos",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.125, 23.625);
+        var marker = new google.maps.Marker({
+	    title: "Attica",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.125, 23.875);
+        var marker = new google.maps.Marker({
+	    title: "Marathon",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.15, 23.96667);
+        var marker = new google.maps.Marker({
+	    title: "Marathon",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.25, 23.25);
+        var marker = new google.maps.Marker({
+	    title: "Strymon fl.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.3925, 25.26778);
+        var marker = new google.maps.Marker({
+	    title: "Delos",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.3925, 25.26778);
+        var marker = new google.maps.Marker({
+	    title: "Delos Ins.",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.25, 25.25);
+        var marker = new google.maps.Marker({
+	    title: "Delos Ins.",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.25, 25.25);
+        var marker = new google.maps.Marker({
+	    title: "Delos",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.25, 22.25);
+        var marker = new google.maps.Marker({
+	    title: "Sparta",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.07333, 22.42972);
+        var marker = new google.maps.Marker({
+	    title: "Sparta",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 21.75);
+        var marker = new google.maps.Marker({
+	    title: "Arcadia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.25, 22.25);
+        var marker = new google.maps.Marker({
+	    title: "Tegea",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.45, 22.41667);
+        var marker = new google.maps.Marker({
+	    title: "Tegea",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(35.75, 10.75);
+        var marker = new google.maps.Marker({
+	    title: "Tegea?",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.25, 22.25);
+        var marker = new google.maps.Marker({
+	    title: "Lacedaemon",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.07333, 22.42972);
+        var marker = new google.maps.Marker({
+	    title: "Sparta",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.07333, 22.42972);
+        var marker = new google.maps.Marker({
+	    title: "Lacedaemon",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.25, 22.25);
+        var marker = new google.maps.Marker({
+	    title: "Laconia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 40.119045);
+        var marker = new google.maps.Marker({
+	    title: "Cappadocia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 31.07143);
+        var marker = new google.maps.Marker({
+	    title: "Galatia et Cappadocia",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.73222, 35.48528);
+        var marker = new google.maps.Marker({
+	    title: "Eusebeia",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.73222, 35.48528);
+        var marker = new google.maps.Marker({
+	    title: "Caesarea",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.25, 35.75);
+        var marker = new google.maps.Marker({
+	    title: "Cappadocia",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 40.119045);
+        var marker = new google.maps.Marker({
+	    title: "Cilicia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 31.07143);
+        var marker = new google.maps.Marker({
+	    title: "Cilicia",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 35.75);
+        var marker = new google.maps.Marker({
+	    title: "Cilicia",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.25, 35.75);
+        var marker = new google.maps.Marker({
+	    title: "Cilicia",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.25, 33.25);
+        var marker = new google.maps.Marker({
+	    title: "Cilicia Tracheia",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.75, 34.75);
+        var marker = new google.maps.Marker({
+	    title: "Cilicia Pedias",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(34.5, 46.5);
+        var marker = new google.maps.Marker({
+	    title: "Media",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.5, 45.5);
+        var marker = new google.maps.Marker({
+	    title: "Media Atropatene",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.75, 35.25);
+        var marker = new google.maps.Marker({
+	    title: "Pteria",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.25, 13.75);
+        var marker = new google.maps.Marker({
+	    title: "Sinope",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.6703, 26.75656);
+        var marker = new google.maps.Marker({
+	    title: "Phocaea",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Phocaea",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.25, 22.75);
+        var marker = new google.maps.Marker({
+	    title: "Thyrea",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.25, 22.25);
+        var marker = new google.maps.Marker({
+	    title: "Malea",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.25, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Malea",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.25, 23.25);
+        var marker = new google.maps.Marker({
+	    title: "Malea Pr.",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 27.75);
+        var marker = new google.maps.Marker({
+	    title: "Tmolus M.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 22.75);
+        var marker = new google.maps.Marker({
+	    title: "Boeotia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Ephesus",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.94223, 27.33364);
+        var marker = new google.maps.Marker({
+	    title: "Ephesus",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(32.5, 44.5);
+        var marker = new google.maps.Marker({
+	    title: "Babylon",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(30.25, 31.25);
+        var marker = new google.maps.Marker({
+	    title: "Babylon",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(34.5, 48.5);
+        var marker = new google.maps.Marker({
+	    title: "Ecbatana",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(31.65, 34.53333);
+        var marker = new google.maps.Marker({
+	    title: "Ascalon",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(31.65, 34.53333);
+        var marker = new google.maps.Marker({
+	    title: "Ashqelon",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(31.66667, 34.58333);
+        var marker = new google.maps.Marker({
+	    title: "Ashqelon",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(31.75, 34.75);
+        var marker = new google.maps.Marker({
+	    title: "Ascalon",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 31.07143);
+        var marker = new google.maps.Marker({
+	    title: "Cyprus",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 31.07143);
+        var marker = new google.maps.Marker({
+	    title: "Cyprus",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(35.25, 33.25);
+        var marker = new google.maps.Marker({
+	    title: "Cyprus Ins.",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 37.5);
+        var marker = new google.maps.Marker({
+	    title: "AsSyria",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.5, 34.5);
+        var marker = new google.maps.Marker({
+	    title: "Assyria",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(30.5, 53.5);
+        var marker = new google.maps.Marker({
+	    title: "Pasargadae",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Panionion",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 26.547619);
+        var marker = new google.maps.Marker({
+	    title: "Caria",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 27.75);
+        var marker = new google.maps.Marker({
+	    title: "Caria",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Lebedos",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 26.25);
+        var marker = new google.maps.Marker({
+	    title: "Chios",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.36778, 26.13583);
+        var marker = new google.maps.Marker({
+	    title: "Chios",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.40583, 26.02444);
+        var marker = new google.maps.Marker({
+	    title: "Chios",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 25.75);
+        var marker = new google.maps.Marker({
+	    title: "Chios Ins.",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.75, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Cos Ins.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.83333, 27.16667);
+        var marker = new google.maps.Marker({
+	    title: "Kos",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.83333, 27.16667);
+        var marker = new google.maps.Marker({
+	    title: "Cos Ins.",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 22.75);
+        var marker = new google.maps.Marker({
+	    title: "Sicyon",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Aegae",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.75, 16.25);
+        var marker = new google.maps.Marker({
+	    title: "Crathis",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.5, 23.5);
+        var marker = new google.maps.Marker({
+	    title: "Helice",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.24861, 22.08194);
+        var marker = new google.maps.Marker({
+	    title: "Aigion",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 21.75);
+        var marker = new google.maps.Marker({
+	    title: "Patrae",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.24444, 21.73444);
+        var marker = new google.maps.Marker({
+	    title: "Patrae",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.24444, 21.73444);
+        var marker = new google.maps.Marker({
+	    title: "Patra",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 21.75);
+        var marker = new google.maps.Marker({
+	    title: "Dyme",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 23.75);
+        var marker = new google.maps.Marker({
+	    title: "Abantes",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 23.25);
+        var marker = new google.maps.Marker({
+	    title: "Euboea Ins.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 22.75);
+        var marker = new google.maps.Marker({
+	    title: "Orchomenus",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.63333, 23.16667);
+        var marker = new google.maps.Marker({
+	    title: "Epidauros",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 22.75);
+        var marker = new google.maps.Marker({
+	    title: "Helicon M.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.33333, 22.83333);
+        var marker = new google.maps.Marker({
+	    title: "Helicon M.",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Cyme",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.25, 27.75);
+        var marker = new google.maps.Marker({
+	    title: "Neon Teichos",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Temnos",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.60754, 27.06938);
+        var marker = new google.maps.Marker({
+	    title: "Temnos",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.25, 28.75);
+        var marker = new google.maps.Marker({
+	    title: "Temnos M.",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Notion",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Pitane",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Myrina",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.75, 25.25);
+        var marker = new google.maps.Marker({
+	    title: "Myrina",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.87972, 25.07417);
+        var marker = new google.maps.Marker({
+	    title: "Myrina",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.75, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Ida M.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(35.25, 24.75);
+        var marker = new google.maps.Marker({
+	    title: "Ida M.",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(35.25, 24.75);
+        var marker = new google.maps.Marker({
+	    title: "Ida M.",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.25, 26.25);
+        var marker = new google.maps.Marker({
+	    title: "Lesbos Ins.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.16667, 26.33333);
+        var marker = new google.maps.Marker({
+	    title: "Lesbos Ins.",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.22906, 26.10901);
+        var marker = new google.maps.Marker({
+	    title: "Lesbos Ins.",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.25, 26.25);
+        var marker = new google.maps.Marker({
+	    title: "Arisba",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.75, 26.25);
+        var marker = new google.maps.Marker({
+	    title: "Tenedos Ins.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.75, 26.25);
+        var marker = new google.maps.Marker({
+	    title: "Tenedos",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.835, 26.06972);
+        var marker = new google.maps.Marker({
+	    title: "Tenedos",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.835, 26.06972);
+        var marker = new google.maps.Marker({
+	    title: "Tenedos Ins.",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.82194, 26.03306);
+        var marker = new google.maps.Marker({
+	    title: "Tenedos Ins.",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.82194, 26.03306);
+        var marker = new google.maps.Marker({
+	    title: "Tenedos",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.75, 30.75);
+        var marker = new google.maps.Marker({
+	    title: "Tenedos",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.5, 23);
+        var marker = new google.maps.Marker({
+	    title: "Macedonia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.5, 23);
+        var marker = new google.maps.Marker({
+	    title: "Macedonia",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 72.5);
+        var marker = new google.maps.Marker({
+	    title: "Sacae",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.11582, 13.35976);
+        var marker = new google.maps.Marker({
+	    title: "Panormus",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.25, 13.25);
+        var marker = new google.maps.Marker({
+	    title: "Panormus",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Atarneus sub Pitanem",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.25, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Atarneus",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 22.75);
+        var marker = new google.maps.Marker({
+	    title: "Mysia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.75, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Mysia",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 28.25);
+        var marker = new google.maps.Marker({
+	    title: "Mysia",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.25, 27.75);
+        var marker = new google.maps.Marker({
+	    title: "Mysia",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.5, 27.5);
+        var marker = new google.maps.Marker({
+	    title: "Mysia II",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.5, 22.5);
+        var marker = new google.maps.Marker({
+	    title: "Mysia I",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.75, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Magnesia ad Sipylum",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.61202, 27.42646);
+        var marker = new google.maps.Marker({
+	    title: "Magnesia ad Sipylum",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.75, 27.75);
+        var marker = new google.maps.Marker({
+	    title: "Magnesia ad Maeandrum",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.75, 22.75);
+        var marker = new google.maps.Marker({
+	    title: "Magnesia",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.5, 43.5);
+        var marker = new google.maps.Marker({
+	    title: "Iberia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(41.33333, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Thrake",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.75, 24.75);
+        var marker = new google.maps.Marker({
+	    title: "Abdera",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.93333, 24.96667);
+        var marker = new google.maps.Marker({
+	    title: "Abdera",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.74961, -3.02055);
+        var marker = new google.maps.Marker({
+	    title: "Abdera",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.5, -3.5);
+        var marker = new google.maps.Marker({
+	    title: "Abdera",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.75, 26.75);
+        var marker = new google.maps.Marker({
+	    title: "Leleges",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.25, 27.75);
+        var marker = new google.maps.Marker({
+	    title: "Mylasa",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.31639, 27.78389);
+        var marker = new google.maps.Marker({
+	    title: "Mylasa",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.75, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Triopion",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.75, 27.25);
+        var marker = new google.maps.Marker({
+	    title: "Triopion Pr.",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.75, 27.75);
+        var marker = new google.maps.Marker({
+	    title: "Syme Ins.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.75, 27.75);
+        var marker = new google.maps.Marker({
+	    title: "Syme",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.58333, 27.83333);
+        var marker = new google.maps.Marker({
+	    title: "Syme",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.58333, 27.83333);
+        var marker = new google.maps.Marker({
+	    title: "Syme Ins.",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.25, 27.75);
+        var marker = new google.maps.Marker({
+	    title: "Lide M.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.33591, 29.31937);
+        var marker = new google.maps.Marker({
+	    title: "Xanthos",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.33591, 29.31937);
+        var marker = new google.maps.Marker({
+	    title: "Xanthos",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.75, 28.75);
+        var marker = new google.maps.Marker({
+	    title: "Caunus",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.83333, 28.63333);
+        var marker = new google.maps.Marker({
+	    title: "Caunus",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(31.5, 44.5);
+        var marker = new google.maps.Marker({
+	    title: "Euphrates fl.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 40.119045);
+        var marker = new google.maps.Marker({
+	    title: "Armenia Minor",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 37.5);
+        var marker = new google.maps.Marker({
+	    title: "Armenia II",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 37.5);
+        var marker = new google.maps.Marker({
+	    title: "Armenia I",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.5, 40.5);
+        var marker = new google.maps.Marker({
+	    title: "Armenia",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.25, 38.25);
+        var marker = new google.maps.Marker({
+	    title: "Armenia Minor",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(40.5, 43.5);
+        var marker = new google.maps.Marker({
+	    title: "Armenia Maior",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 44.642857);
+        var marker = new google.maps.Marker({
+	    title: "Armenia",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(39.5, 46.5);
+        var marker = new google.maps.Marker({
+	    title: "Armenia",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.5, 40.119045);
+        var marker = new google.maps.Marker({
+	    title: "Armenia Minor",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(36.25, 29.25);
+        var marker = new google.maps.Marker({
+	    title: "Patara",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 26.547619);
+        var marker = new google.maps.Marker({
+	    title: "Lycia et Pamphylia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 26.547619);
+        var marker = new google.maps.Marker({
+	    title: "Lycia et Pamphylia",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(31.5, 48.5);
+        var marker = new google.maps.Marker({
+	    title: "Choaspes?",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(32.5, 72.5);
+        var marker = new google.maps.Marker({
+	    title: "Choaspes fl.",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 41.5);
+        var marker = new google.maps.Marker({
+	    title: "Tigris",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(32.5, 46.5);
+        var marker = new google.maps.Marker({
+	    title: "Tigris",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(33.5, 44.5);
+        var marker = new google.maps.Marker({
+	    title: "Opis",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(32.5, 44.5);
+        var marker = new google.maps.Marker({
+	    title: "Babylonia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 39.5);
+        var marker = new google.maps.Marker({
+	    title: "Arabia",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(30.75, 31.75);
+        var marker = new google.maps.Marker({
+	    title: "Arabia Nomos",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(29.5, 45.5);
+        var marker = new google.maps.Marker({
+	    title: "Arabia",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(32.5, 37.5);
+        var marker = new google.maps.Marker({
+	    title: "Arabia",
+	    icon: 4 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 4
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(29.75, 34.75);
+        var marker = new google.maps.Marker({
+	    title: "Arabia Petraia",
+	    icon: 5 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 5
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(29.25, 35.25);
+        var marker = new google.maps.Marker({
+	    title: "Arabia Eudaemon",
+	    icon: 6 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 6
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(32.5, 40.119045);
+        var marker = new google.maps.Marker({
+	    title: "Arabia",
+	    icon: 7 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 7
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(27.5, 31.07143);
+        var marker = new google.maps.Marker({
+	    title: "Arabia",
+	    icon: 8 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 8
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(27.25, 31.75);
+        var marker = new google.maps.Marker({
+	    title: "Arabia",
+	    icon: 9 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 9
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(27.5, 42.5);
+        var marker = new google.maps.Marker({
+	    title: "Arabia",
+	    icon: 10 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 10
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(12.5, 47.5);
+        var marker = new google.maps.Marker({
+	    title: "Eudaimon Arabia",
+	    icon: 11 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 11
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(38.5, 46.5);
+        var marker = new google.maps.Marker({
+	    title: "Araxes fl.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(29.5, 52.5);
+        var marker = new google.maps.Marker({
+	    title: "Araxes? fl.",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(30.5, 53.5);
+        var marker = new google.maps.Marker({
+	    title: "Araxes? fl.",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(37.5, 92.5);
+        var marker = new google.maps.Marker({
+	    title: "Issedones",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(42.5, 43.5);
+        var marker = new google.maps.Marker({
+	    title: "Caucasus M.",
+	    icon: 1 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 1
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(32.5, 67.5);
+        var marker = new google.maps.Marker({
+	    title: "Caucasus M.",
+	    icon: 2 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 2
+      });
+      markers.push(marker);
+
+        point = new google.maps.LatLng(32.5, 77.5);
+        var marker = new google.maps.Marker({
+	    title: "Caucasus M.",
+	    icon: 3 == 1 ? green_icon : red_icon,
+            position: point,
+            map: map,
+	    zIndex: google.maps.Marker.MAX_ZINDEX + 1000 - 3
+      });
+      markers.push(marker);
+
+
+	adjust_locations(markers);
+    }
+
+    function goto(x, y) {
+        map.setCenter(new google.maps.LatLng(x, y), 10);
+    }
+
+    function show_info(name) {
+	var para = document.getElementById("message").firstChild;
+	para.nodeValue = name;
+    }
+
+    
+//<![CDATA[
+
+// adjust the locations of identically-positioned candidates so they are
+// distinguishable on the map.
+
+function adjust_locations(markers)
+{
+    markers.sort(compare_locations);
+
+    var dups = new Array();
+
+    var lastlat = 99999, lastlng = 9999;
+    for(var i=0; i < markers.length; i++)
+    {
+        var l = markers[i].getPosition();
+        if(l.lat() == lastlat && l.lng() == lastlng)
+        {
+//            alert("match: " + l.lat() + "," + l.lng() + " = " + lastlat + ","  + lastlng);
+            dups.push(markers[i]);
+        }
+        else
+        {
+            if(dups.length > 1)
+                spread(dups);
+            dups.length = 0;
+            dups.push(markers[i]);
+        }
+        lastlat = l.lat();
+        lastlng = l.lng();
+    }
+    if(dups.length > 1)
+        spread(dups);
+}
+
+// spread an array of identically-positioned markers into a 0.005 degree circle
+
+function spread(dups)
+{
+    var latlng = dups[0].getPosition();
+    var lat = latlng.lat(), lng = latlng.lng();
+//    alert("Spreading " + dups.length + " markers from " + lat + "," + lng);
+    for(var i=0; i < dups.length; i++)
+    {
+        var point = new google.maps.LatLng(55.944696, -3.187004);
+
+        var newlatlng = new google.maps.LatLng(
+            lat + Math.sin((2 * 3.14159 * i) / dups.length) * 0.005,
+            lng + Math.cos((2 * 3.14159 * i) / dups.length) * 0.005);
+        dups[i].setPosition(newlatlng);
+//        alert(lat + " -> " + newlatlng.lat() + "   " + lng + " -> " + newlatlng.lng());
+    }
+}
+
+// comparison function for sorting
+
+function compare_locations(m1, m2)
+{
+    var l1 = m1.getPosition(), l2 = m2.getPosition();
+    if(l1.lat() == l2.lat())
+        return l1.lng() - l2.lng();
+    else
+        return l1.lat() - l2.lat();
+}
+//]]>
+      </script>
+  <style>
+      .found {color: red;} 
+      table  {border-collapse: collapse; empty-cells: show;}
+      tr     {border: 1px solid black;}
+      td[best="true"] {color: green;}
+      td[best="false"] {color: red;}
+    </style>
+ </head>
+ <body onload="load()">
+  <div style="height: 400px" id="map"></div>
+ </body>
+</html>

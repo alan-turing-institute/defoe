@@ -1,0 +1,34 @@
+#!/bin/sh 
+
+usage="lexlookup <input.xml >output.xml"
+descr="Look up words in various lexicons and add appropriate attributes."
+
+. `dirname $0`/setup
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+lib=$here/lib/ner
+
+lxtransduce -q s -a firstname $lib/lexlookup.gr |
+lxtransduce -q s -a common $lib/lexlookup.gr |
+lxtransduce -q s -a otherloc $lib/lexlookup.gr |
+lxtransduce -q s -a place $lib/lexlookup.gr |
+lxtransduce -q s -a org $lib/lexlookup.gr |
+lxtransduce -q s -a prof $lib/lexlookup.gr |
+lxtransduce -q s -a eventn $lib/lexlookup.gr |
+lxtransduce -q s -a staten $lib/lexlookup.gr |
+lxtransduce -q s -a tmln $lib/lexlookup.gr |
+lxtransduce -q s -a tmla $lib/lexlookup.gr |
+lxtransduce -q s -a class $lib/lexlookup.gr |
+lxtransduce -q s -a wikilastname $lib/lexlookup.gr |
+lxtransduce -q s -a wikifirstname $lib/lexlookup.gr |
+lxtransduce -q s -a wper $lib/lexlookup.gr |
+lxreplace -q "enamex/w[@wiki][1]" -t "<xsl:copy>&attrs;<xsl:attribute name='wiki'>B-wper</xsl:attribute>&children;</xsl:copy>"

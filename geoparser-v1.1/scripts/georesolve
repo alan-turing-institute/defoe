@@ -1,0 +1,71 @@
+#!/bin/sh
+
+usage="georesolve [-s score-xpath] [-l lat long radius score] <input.xml >output.xml"
+descr="Run the toponym resolver part of the geoparser pipeline."
+
+. `dirname $0`/setup
+
+ltype=circle
+lat=0
+long=0
+radius=0
+lscore=0
+
+while [ $# -gt 0 ]; do
+  arg=$1
+  shift
+  case $arg in
+    -s)
+      sxp="$1"
+      shift
+      ;;
+    -l)
+      lat="$1"
+      long="$2"
+      radius="$3"
+      lscore="$4"
+      shift 4
+      ;;
+    -lb)
+      ltype=box
+      w="$1"
+      n="$2"
+      e="$3"
+      s="$4"
+      lscore="$5"
+      shift 5
+      ;;
+    *)
+      echo "usage: $usage" >&2
+      exit 2
+  esac
+done
+
+if [ $# -ne -0 -o -z "$sxp" ]; then
+  sxp="@scaled_pop + @scaled_type + @scaled_clusteriness + 5 * @scaled_contains + 5 * @scaled_contained_by + 3 * @scaled_near + @locality + 10 * @scaled_known"
+fi
+
+lib=$here/lib/georesolve
+
+cat >$tmp-input
+
+cat $tmp-input |
+lxtransduce -l cities=$lib/cities15000.lex -q placename $lib/add-city-info.gr |
+lxtransduce -l cities=$lib/extra-cities.lex -q placename $lib/add-city-info.gr |
+lxtransduce -l civila=$lib/civila.lex -q placename $lib/add-civila-info.gr |
+lxtransduce -l countries=$lib/countries.lex -q placename $lib/add-country-info.gr |
+lxtransduce -l countries=$lib/extra-countries.lex -q placename $lib/add-country-info.gr |
+lxtransduce -l continents=$lib/continents.lex -q placename $lib/add-continent-info.gr |
+cluster |
+coloc |
+if [ $ltype = circle ]; then
+  locality "$lat" "$long" "$radius" "$lscore";
+else
+  locality -b "$w" "$n" "$e" "$s" "$lscore";
+fi |
+scalemisc |
+known-gridref |
+score "$sxp" |
+lxsort -n placename place @rank >$tmp-out
+
+cat $tmp-out
