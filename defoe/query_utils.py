@@ -6,7 +6,13 @@ import os
 import subprocess
 import re
 import enum
+from lxml import etree
 from nltk.stem import PorterStemmer, WordNetLemmatizer
+import spacy
+from spacy import displacy
+import time
+from spacy.tokens import Doc
+from spacy.vocab import Vocab
 
 NON_AZ_REGEXP = re.compile('[^a-z]')
 
@@ -249,3 +255,180 @@ def longsfix_sentence(sentence):
     else:
         fix_final = sentence
     return fix_final
+
+
+def spacy_nlp(text, lang_model):
+   nlp = spacy.load(lang_model)
+   doc = nlp(text)
+   return doc
+
+def serialize_doc(doc):
+   nlp = spacy.load('en')
+   vocab_bytes = nlp.vocab.to_bytes()
+   doc_bytes = doc.to_bytes()
+   return doc_bytes, vocab_bytes
+
+
+def serialize_spacy(text):
+    doc = spacy_nlp(text)
+    doc_bytes, vocab_bytes = serialize_doc(doc)
+    return [doc_bytes, vocab_bytes]
+
+
+def deserialize_doc(serialized_bytes):
+    vocab = Vocab()
+    doc_bytes = serialized_bytes[0]
+    vocab_bytes= serialized_bytes[1]
+    vocab.from_bytes(vocab_bytes)
+    doc = Doc(vocab).from_bytes(doc_bytes)
+    return doc
+
+def display_spacy(doc):
+    disp_ent=''
+    if doc.ents:
+        disp_ent=displacy.render(doc, style="ent")
+    return disp_ent
+   
+def spacy_entities(doc):
+    output_total=[]
+    entities=[(i, i.label_, i.label) for i in doc.ents]
+    return entities
+
+def xml_geo_entities(doc):
+    id=0
+    xml_doc='<placenames> '
+    flag=0
+    for ent in doc.ents:
+       if ent.label_ == "LOC" or ent.label_ == "GPE":
+            id=id+1
+            toponym = ent.text
+            child ='<placename id="' + str(id) + '" name="' + toponym + '"/> '
+            xml_doc= xml_doc+child
+            flag=1
+    xml_doc=xml_doc+ '</placenames>'
+    return flag, xml_doc
+
+def georesolve_cmd(in_xml):
+    georesolve_xml =''
+    atempt=0
+    flag = 1
+    if "'" in in_xml:
+        in_xml=in_xml.replace("'", "\'\\\'\'")
+    #cmd = 'printf \'%s\' \''+ in_xml + '\' | ./georesolve/scripts/geoground -g unlock -top'
+    cmd = 'printf \'%s\' \''+ in_xml + ' \' | ./georesolve/scripts/geoground -g unlock -lb -8.6500, 54.6330, -0.7321, 60.8547. 2 -top '
+    while (len(georesolve_xml) < 5) and (atempt < 500) and (flag == 1): 
+        proc=subprocess.Popen(cmd.encode('utf-8'), shell=True,
+                               stdin=subprocess.PIPE,
+                               stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE)
+        proc.terminate()
+        atempt= atempt + 1
+        stdout, stderr = proc.communicate()
+        if "Error" in str(stderr):
+            flag = 0
+            print("err: '{}'".format(stderr))
+            georesolve_xml = ''
+        else:
+            georesolve_xml = stdout
+    return georesolve_xml
+
+
+def coord_xml(geo_xml):
+    dResolvedLocs = {}
+    try:
+        root = etree.fromstring(geo_xml)
+        for child in root:
+            toponymName = child.attrib["name"]
+            toponymId = child.attrib["id"]
+            for subchild in child:
+                latitude = subchild.attrib["lat"]
+                longitude = subchild.attrib["long"]
+                dResolvedLocs[toponymName+"-"+toponymId] = (latitude, longitude)
+    except:
+        dResolvedLocs["cmd"]=geo_xml
+    return dResolvedLocs
+
+def geomap_cmd(in_xml):
+    geomap_html = ''
+    atempt=0
+    if "'" in in_xml:
+        in_xml=in_xml.replace("'", "\'\\\'\'")
+    cmd = 'printf \'%s\' \''+ in_xml + ' \' | ./georesolve/scripts/geoground -g unlock -lb -8.6500, 54.6330, -0.7321, 60.8547. 2 -top | ./georesolve/bin/sys-i386-64/lxt -s ./georesolve/lib/georesolve/gazmap-leaflet.xsl'
+    while (len(geomap_html) < 5) and (atempt < 500): 
+        proc=subprocess.Popen(cmd.encode('utf-8'), shell=True,
+                               stdin=subprocess.PIPE,
+                               stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE)
+        proc.terminate()
+        geomap_html = proc.communicate(timeout=100)[0]
+        atempt= atempt + 1
+    return geomap_html.decode("utf-8")
+
+
+def geoparser_cmd(text):
+    atempt=0
+    flag = 1
+    geoparser_xml = ''
+    if "'" in text:
+        text=text.replace("'", "\'\\\'\'")
+    cmd = 'echo \'%s\' \''+ text + ' \' | ./geoparser-v1.1/scripts/run -t plain -g unlock -lb -8.6500, 54.6330, -0.7321, 60.8547. 2 -top' 
+    while (len(geoparser_xml) < 5) and (atempt < 500) and (flag == 1): 
+        proc=subprocess.Popen(cmd.encode('utf-8'), shell=True,
+                               stdin=subprocess.PIPE,
+                               stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE)
+        proc.terminate()
+        stdout, stderr = proc.communicate()
+        if "Error" in str(stderr):
+            flag = 0
+            print("err: '{}'".format(stderr))
+            geoparser_xml = ''
+        else:
+            geoparser_xml = stdout
+    return geoparser_xml
+
+def geoparser_coord_xml(geo_xml):
+    dResolvedLocs = dict()
+    try:
+        root = etree.fromstring(geo_xml)
+        for element in root.iter():
+            if element.tag == "ent":
+                if element.attrib["type"] == "location":
+                    latitude = element.attrib["lat"]
+                    longitude = element.attrib["long"]
+                    toponymId = element.attrib["id"]
+                    for subchild in element:
+                        if subchild.tag == "parts":
+                            for subsubchild in subchild:
+                                toponymName = subsubchild.text
+                                dResolvedLocs[toponymName+"-"+toponymId] = (latitude, longitude)
+    except:
+        pass
+    return dResolvedLocs
+
+def geoparser_text_xml(geo_xml):
+    text_ER=[]
+    try:
+        root = etree.fromstring(geo_xml)
+        for element in root.iter():
+            if element.tag == "text":
+                for subchild in element:
+                    if subchild.tag == "p":
+                        for subsubchild in subchild:
+                            for subsubsubchild in subsubchild:
+                                if subsubsubchild.tag == "w":
+                                    inf={}
+                                    inf['p']= subsubsubchild.attrib["p"]
+                                    inf['group'] = subsubsubchild.attrib["group"]
+                                    inf['id'] = subsubsubchild.attrib["id"]
+                                    inf['pws'] = subsubsubchild.attrib["pws"]
+                                    if "locname" in subsubsubchild.attrib.keys():
+                                        inf['locname'] = subsubsubchild.attrib["locname"]
+                                    text_ER.append((subsubsubchild.text,inf))
+                   
+
+    except:
+        pass
+    return text_ER
+
+

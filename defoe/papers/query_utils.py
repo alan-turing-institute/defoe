@@ -143,7 +143,7 @@ def get_article_as_string(article,
     return article_string
 
 
-def get_sentences_list_matches(text, keysentence):
+def get_sentences_list_matches_2(text, keysentence):
     """
     Check which key-sentences from occurs within a string
     and return the list of matches.
@@ -273,7 +273,7 @@ def preprocess_clean_article(clean_article,
             article_string += (' ' + preprocessed_word)
     return article_string
 
-def get_sentences_list_matches(text, keysentence):
+def get_sentences_list_matches(text, sentence):
     """
     Check which key-sentences from occurs within a string
     and return the list of matches.
@@ -286,17 +286,17 @@ def get_sentences_list_matches(text, keysentence):
     """
     match = []
     text_list= text.split()
-    for sentence in keysentence:
-        if len(sentence.split()) > 1:
-            if sentence in text:
-                count = text.count(sentence)
-                for i in range(0, count):
-                    match.append(sentence)
-        else:
-            pattern = re.compile(r'^%s$'%sentence)
-            for word in text_list:
-                if re.search(pattern, word):
-                    match.append(sentence)
+    if len(sentence.split(" ")) > 1:
+        if sentence in text:
+            count = text.count(sentence)
+            for i in range(0, count):
+                match.append(sentence)
+    else:
+        pattern = re.compile(r'^%s$'%sentence)
+        for word in text_list:
+            if re.search(pattern, word):
+                match.append(sentence)
+    #print("Rosaaaaaa final match: %s" %match)
     return sorted(match)
 
 

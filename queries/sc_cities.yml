@@ -1,2 +1,2 @@
-preprocess: lemmatize
+preprocess: normalize
 data: sc_cities.txt

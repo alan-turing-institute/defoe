@@ -3,9 +3,12 @@ Query-related utility functions.
 """
 
 from defoe import query_utils
-from defoe.query_utils import PreprocessWordType, longsfix_sentence
+from defoe.query_utils import PreprocessWordType, longsfix_sentence, xml_geo_entities, georesolve_cmd,  coord_xml, geomap_cmd, geoparser_cmd, geoparser_coord_xml
 from nltk.corpus import words
 import re
+import spacy
+NON_AZ_REGEXP = re.compile('[^a-z]')
+
 
 def get_page_matches(document,
                      keywords,
@@ -241,3 +244,57 @@ def get_sentences_list_matches(text, keysentence):
     return sorted(match)
 
 
+def preprocess_clean_page_spacy(clean_page,
+                          preprocess_type=PreprocessWordType.LEMMATIZE):
+
+
+    clean_list = clean_page.split(' ')
+    page_string = ''
+    for word in clean_list:
+        preprocessed_word = query_utils.preprocess_word(word,
+                                                         preprocess_type)
+        if page_string == '':
+            page_string = preprocessed_word
+        else:
+            page_string += (' ' + preprocessed_word)
+    return page_string
+
+
+def preprocess_clean_page_spacy(clean_page):
+    nlp = spacy.load('en')
+    doc = nlp(clean_page)
+    page_nlp_spacy=[]
+    for i, word in enumerate(doc):
+        word_normalized=re.sub(NON_AZ_REGEXP, '', word.text.lower())
+        output="%d\t%s\t%s\t%s\t%s\t%s\t%s\t"%( i+1, word, word_normalized, word.lemma_, word.pos_, word.tag_, word.ent_type_)
+        page_nlp_spacy.append(output)
+    return page_nlp_spacy
+
+
+def georesolve_page(doc):
+    if doc.ents:
+        flag,in_xml = xml_geo_entities(doc)
+        if flag == 1:
+            geo_xml=georesolve_cmd(in_xml)
+            dResolved_loc= coord_xml(geo_xml)
+            return dResolved_loc
+        else:
+           return {}
+    else:
+        return {}
+
+def geoparser_page(text):
+    geo_xml=geoparser_cmd(text)
+    dResolved_loc= geoparser_coord_xml(geo_xml)
+    return dResolved_loc
+
+
+
+def geomap_page(doc):
+    geomap_html = ''
+    if doc.ents:
+        flag,in_xml = xml_geo_entities(doc)
+        if flag == 1:
+            geomap_html=geomap_cmd(in_xml)
+    #return str(geomap_html)
+    return geomap_html
