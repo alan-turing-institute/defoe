@@ -56,7 +56,8 @@ def do_query(archives, config_file=None, logger=None, context=None):
                                clean_page[12], preprocess_clean_page(clean_page[12], preprocess_normalize),\
                                preprocess_clean_page(clean_page[12], preprocess_lemmatize), preprocess_clean_page(clean_page[12], preprocess_stem), clean_page[13])])
 
-    nlsRow=Row("title",  "edition", "year", "place", "archive_filename",  "source_text_filename", "text_unit", "text_unit_id", "num_text_unit", "type_archive", "model", "source_text_raw", "source_text_clean", "source_text_norm", "source_text_lemmatize", "source_text_stem", "num_words")
+
+    nlsRow=Row("title",  "edition", "year", "place", "archive_filename",  "source_text_filename", "text_unit", "text_unit_id", "num_text_unit", "type_archive", "model", "source_text_raw", "source_text_clean", "source_text_norm", "source_text_lemmatize", "source_text_stem","num_words")
     sqlContext = SQLContext(context)
     df = sqlContext.createDataFrame(pages,nlsRow)
     df = df.drop('_id')
