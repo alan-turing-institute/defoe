@@ -16,6 +16,14 @@ def do_query(df, config_file=None, logger=None, context=None):
     """
     Gets concordance for keywords and groups by date.
 
+    Data in ES have the following colums:
+
+    "title",  "edition", "year", "place", "archive_filename", 
+    "source_text_filename", "text_unit", "text_unit_id", 
+    "num_text_unit", "type_archive", "model", "source_text_raw", 
+    "source_text_clean", "source_text_norm", "source_text_lemmatize", "source_text_stem",
+    "num_words"
+
     config_file must be the path to a configuration file with a list
     of the keywords to search for, one per line.
 
@@ -25,16 +33,14 @@ def do_query(df, config_file=None, logger=None, context=None):
     Returns result of form:
 
         {
-          <DATE>:
+          <YEAR>:
           [
-            {
-              "title": <TITLE>,
-              "page_ids": <PAGE_IDS>,
-              "content": <PAGE_CONTENT>,
-              "word": <WORD>,
-              "article_id": <ARTICLE_ID>,
-              "issue_id": <ISSUE_ID>,
-              "filename": <FILENAME>
+            {"title": 
+            "edition": 
+            "archive_name": 
+            "filename": 
+            "text": 
+            "keysentence": 
             },
             ...
           ],
@@ -62,16 +68,16 @@ def do_query(df, config_file=None, logger=None, context=None):
     # Filter out the pages that are null, which model is nls, and select only 2 columns: year and the page as string (either raw or preprocessed).
     if preprocess_config == "normalize":
         fdf = df.withColumn("source_text_norm", blank_as_null("source_text_norm"))
-        newdf=fdf.filter(fdf.source_text_norm.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.title, fdf.edition, fdf.archive_filename, fdf.source_text_norm)
+        newdf=fdf.filter(fdf.source_text_norm.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.title, fdf.edition, fdf.archive_filename, fdf.source_text_filename, fdf.source_text_norm)
     elif preprocess_config == "lemmatize":
         fdf = df.withColumn("source_text_lemmatize", blank_as_null("source_text_lemmatize"))
-        newdf=fdf.filter(fdf.source_text_lemmatize.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.title, fdf.edition, fdf.archive_filename, fdf.source_text_lemmatize)
+        newdf=fdf.filter(fdf.source_text_lemmatize.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.title, fdf.edition, fdf.archive_filename, fdf.source_text_filename, fdf.source_text_lemmatize)
     elif preprocess_config == "stem":
         fdf = df.withColumn("source_text_stem", blank_as_null("source_text_stem"))
-        newdf=fdf.filter(fdf.source_text_stem.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.title, fdf.edition, fdf.archive_filename, fdf.source_text_stem)
+        newdf=fdf.filter(fdf.source_text_stem.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.title, fdf.edition, fdf.archive_filename, fdf.source_text_filename, fdf.source_text_stem)
     else: 
         fdf = df.withColumn("source_text_clean", blank_as_null("source_text_clean"))
-        newdf=fdf.filter(fdf.source_text_clean.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.title, fdf.edition, fdf.archive_filename, fdf.source_text_clean)
+        newdf=fdf.filter(fdf.source_text_clean.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.title, fdf.edition, fdf.archive_filename, fdf.source_text_filename, fdf.source_text_clean)
 
 
     pages=newdf.rdd.map(tuple)
@@ -93,12 +99,12 @@ def do_query(df, config_file=None, logger=None, context=None):
     filter_pages = pages.filter(
         lambda year_page: any( keysentence in year_page[4] for keysentence in keysentences))
 
-    # [(year, title, edition, filename, text, keysentence), ...]
+    # [(year, title, edition, archive, filename, text, keysentence), ...]
     # We also need to convert the string as an integer spliting first the '.
     matching_pages = filter_pages.map(
-        lambda year_page: (year_page[0], get_pages_matches_no_prep(year_page[1], year_page[2], year_page[3], year_page[4], keysentences)))
+        lambda year_page: (year_page[0], get_pages_matches_no_prep(year_page[1], year_page[2], year_page[3], year_page[4], year_page[5], keysentences)))
 
-    # [[(year, [title, edition, filename, text, keysentence]), (year, [title, edition, filename, text, keysentence]) ..] 
+    # [[(year, [title, edition, archive, filename, text, keysentence]), (year, [title, edition, archive, filename, text, keysentence]) ..] 
     
     matching_sentences = matching_pages.flatMap(
         lambda year_sentence: [(year_sentence[0], data_sentence) for data_sentence in year_sentence[1]])
@@ -108,9 +114,10 @@ def do_query(df, config_file=None, logger=None, context=None):
         (date_page[0],
          {"title": date_page[1][0],
           "edition": date_page[1][1],
-          "filename": date_page[1][2],
-          "text": date_page[1][3],
-          "keysentence": date_page[1][4]}))
+          "archive_name": date_page[1][2]
+          "filename": date_page[1][3],
+          "text": date_page[1][4],
+          "keysentence": date_page[1][5]}))
 
     # [(date, {"title": title, ...}), ...]
     # =>

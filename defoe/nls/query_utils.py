@@ -12,13 +12,13 @@ NON_AZ_REGEXP = re.compile('[^a-z]')
 
 
 
-def get_pages_matches_no_prep(title, edition, filename, text, keysentences):
+def get_pages_matches_no_prep(title, edition, archive, filename, text, keysentences):
     """
     Get pages within a document that include one or more keywords.
     For each page that includes a specific keyword, add a tuple of
     form:
 
-        (<TITLE>, <EDITION>, <FILENAME>, <TEXT>, <KEYWORD>)
+        (<TITLE>, <EDITION>, <ARCHIVE>, <FILENAME>, <TEXT>, <KEYWORD>)
 
     If a keyword occurs more than once on a page, there will be only
     one tuple for the page for that keyword.
@@ -31,7 +31,7 @@ def get_pages_matches_no_prep(title, edition, filename, text, keysentences):
     for keysentence in keysentences:
         sentence_match = get_sentences_list_matches(text, keysentence)
         if sentence_match: 
-            match = (title, edition, filename, text, keysentence)
+            match = (title, edition, archive, filename, text, keysentence)
             matches.append(match) 
     return matches
 
