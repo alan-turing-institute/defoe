@@ -114,7 +114,7 @@ def do_query(df, config_file=None, logger=None, context=None):
         (date_page[0],
          {"title": date_page[1][0],
           "edition": date_page[1][1],
-          "archive_name": date_page[1][2]
+          "archive_name": date_page[1][2],
           "filename": date_page[1][3],
           "text": date_page[1][4],
           "keysentence": date_page[1][5]}))
