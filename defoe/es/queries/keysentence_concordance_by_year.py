@@ -97,7 +97,7 @@ def do_query(df, config_file=None, logger=None, context=None):
     
 
     filter_pages = pages.filter(
-        lambda year_page: any( keysentence in year_page[4] for keysentence in keysentences))
+        lambda year_page: any( keysentence in year_page[5] for keysentence in keysentences))
 
     # [(year, title, edition, archive, filename, text, keysentence), ...]
     # We also need to convert the string as an integer spliting first the '.
