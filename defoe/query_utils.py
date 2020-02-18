@@ -242,20 +242,28 @@ def preprocess_word(word, preprocess_type=PreprocessWordType.NONE):
     return preprocessed_word
 
 def longsfix_sentence(sentence):
-    cmd = 'echo " + sentence + " | ./lxtransduce -l spelling=f-to-s.lex fix-spelling.gr'
+    if "'" in sentence:
+        sentence=sentence.replace("'", "\'\\\'\'")
+    cmd = 'printf \'%s\' \''+ sentence + '\' | ./long_s_fix/lxtransduce -l spelling=./long_s_fix/f-to-s.lex ./long_s_fix/fix-spelling.gr'
+    #cmd = 'echo " + sentence + " | ./long_s_fix/lxtransduce -l spelling=./long_s_fix/f-to-s.lex ./long_s_fix/fix-spelling.gr'
     proc=subprocess.Popen(cmd.encode('utf-8'), shell=True,
                         stdin=subprocess.PIPE,
                         stdout=subprocess.PIPE,
                         stderr=subprocess.PIPE)
+    stdout, stderr = proc.communicate()
+    if "Error" in str(stderr):
+        print("---Err: '{}'".format(stderr))
+        stdout_value = sentence
+    else:
+        stdout_value = stdout
+
     proc.terminate()
-    stdout_value = proc.communicate(timeout=1.3)[0]
     fix_s= stdout_value.decode('utf-8').split('\n')[0]
     if re.search('[aeiou]fs', fix_s):
         fix_final=re.sub('fs', 'ss', fix_s)
     else:
-        fix_final = sentence
+        fix_final = fix_s
     return fix_final
-
 
 def spacy_nlp(text, lang_model):
    nlp = spacy.load(lang_model)
@@ -314,8 +322,8 @@ def georesolve_cmd(in_xml):
     flag = 1
     if "'" in in_xml:
         in_xml=in_xml.replace("'", "\'\\\'\'")
-    #cmd = 'printf \'%s\' \''+ in_xml + '\' | ./georesolve/scripts/geoground -g unlock -top'
-    cmd = 'printf \'%s\' \''+ in_xml + ' \' | ./georesolve/scripts/geoground -g unlock -lb -8.6500, 54.6330, -0.7321, 60.8547. 2 -top '
+    #cmd = 'printf \'%s\' \''+ in_xml + ' \' | ./georesolve/scripts/geoground -g unlock -lb -8.6500, 54.6330, -0.7321, 60.8547. 2 -top '
+    cmd = 'printf \'%s\' \''+ in_xml + '\' | ./georesolve/scripts/geoground -g unlockgeonames -top'
     while (len(georesolve_xml) < 5) and (atempt < 500) and (flag == 1): 
         proc=subprocess.Popen(cmd.encode('utf-8'), shell=True,
                                stdin=subprocess.PIPE,
@@ -371,7 +379,8 @@ def geoparser_cmd(text):
     geoparser_xml = ''
     if "'" in text:
         text=text.replace("'", "\'\\\'\'")
-    cmd = 'echo \'%s\' \''+ text + ' \' | ./geoparser-v1.1/scripts/run -t plain -g unlock -lb -8.6500, 54.6330, -0.7321, 60.8547. 2 -top' 
+    #cmd = 'echo \'%s\' \''+ text + ' \' | ./geoparser-v1.1/scripts/run -t plain -g unlock -lb -8.6500, 54.6330, -0.7321, 60.8547. 2 -top' 
+    cmd = 'echo \'%s\' \''+ text + ' \' | ./geoparser-v1.1/scripts/run -t plain -g unlockgeonames -top' 
     while (len(geoparser_xml) < 5) and (atempt < 500) and (flag == 1): 
         proc=subprocess.Popen(cmd.encode('utf-8'), shell=True,
                                stdin=subprocess.PIPE,
@@ -382,7 +391,6 @@ def geoparser_cmd(text):
         if "Error" in str(stderr):
             flag = 0
             print("err: '{}'".format(stderr))
-            geoparser_xml = ''
         else:
             geoparser_xml = stdout
     return geoparser_xml
@@ -401,6 +409,7 @@ def geoparser_coord_xml(geo_xml):
                         if subchild.tag == "parts":
                             for subsubchild in subchild:
                                 toponymName = subsubchild.text
+                                #print(toponymName, latitude, longitude)
                                 dResolvedLocs[toponymName+"-"+toponymId] = (latitude, longitude)
     except:
         pass
@@ -431,4 +440,161 @@ def geoparser_text_xml(geo_xml):
         pass
     return text_ER
 
+def create_es_index(es_index, force_creation):
+        """
+        Create specified index if it doesn't already exist
+        :param es_index: the name of the ES index
+        :param force_creation: delete the original index and create a brand new index
+        :return: bool created
+        """
+        created = False
+        es_index_settings = {
+            "settings": {
+                "number_of_shards": 1,
+                "number_of_replicas": 0
+            },
+            "mappings": {
+                "properties": {
+                    settings.TITLE: {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword"
+                            }
+                        }},
+                    settings.AUTHOR: {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword"
+                            }
+                        }},
+                    settings.EDITION: {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword"
+                            }
+                        }},
+                    settings.YEAR: {
+                        "type": "text",
+                        "fields": {
+                            "date": {
+                                "type": "date",
+                                "format": "yyyy"
+                            }
+                        }
+                    },
+                    settings.PLACE: {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    settings.ARCHIVE_FILENAME: {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    settings.SOURCE_TEXT_FILENAME: {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    settings.TEXT_UNIT: {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    settings.TEXT_UNIT_ID: {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    settings.NUM_TEXT_UNIT: {
+                        "type": "long",
+                    },
+                    settings.TYPE_ARCHIVE: {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    settings.MODEL: {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    settings.SOURCE_TEXT_CLEAN: {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                    settings.NUM_WORDS: {
+                        "type": "text",
+                        "fields": {
+                            "integer": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    settings.BOOK_ID: {
+                        "type": "text",
+                        "fields": {
+                            "integer": {
+                                "type": "integer"
+                            }
+                        }
+                    },
+                    "misc": {
+                        "type": "text",
+                        "fields": {
+                            "keyword": {
+                                "type": "keyword"
+                            }
+                        }
+                    },
+                }
+            }
+        }
+        try:
+            # Overwrite without checking if force param supplied
+            if force_creation:
+                # Explicitly delete in this case
+                if Elasticsearch.get_instance().indices.exists(es_index):
+                    Elasticsearch.get_instance().indices.delete(index=es_index)
+                # Ignore 400 means to ignore "Index Already Exist" error.
+                Elasticsearch.get_instance().indices.create(index=es_index, ignore=400, body=es_index_settings)
+                # self.es.indices.create(index=es_index, ignore=400)
+                created = True
+            else:
+                # Doesn't already exist so we can create it
+                Elasticsearch.get_instance().indices.create(index=es_index, ignore=400, body=es_index_settings)
+                created = True
+        except Exception as ex:
+            print('Error creating %s: %s' %(es_index, ex))
+        finally:
+            return created
 

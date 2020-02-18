@@ -3,7 +3,7 @@ Identify the locations per page and geo-resolve them.
 """
 
 from defoe import query_utils
-from defoe.nls.query_utils import clean_page_as_string, georesolve_page
+from defoe.nls.query_utils import clean_page_as_string, georesolve_page_2
 from pyspark.sql import Row, SparkSession, SQLContext
 
 import yaml, os
@@ -32,53 +32,25 @@ def do_query(archives, config_file=None, logger=None, context=None):
         config = yaml.load(f)
     
     lang_model = config["lang_model"]
-    text_unit = "page"
-    # [(tittle, edition, year, place, archive filename, num pages, 
-    # type of archive, model, document)]
     documents = archives.flatMap(
         lambda archive: [(document.title, document.edition, document.year, \
-                          document.place, document.archive.filename, document.num_pages, \
-                           document.document_type, document.model, document) for document in list(archive)])
-    
-    # [(tittle, edition, year, place, archive filename, page filename, text_unit, text_unit_id, 
-    #   num_text_unit, type of archive, type of disribution, model, clean_page)]
+                          document) for document in list(archive)])
     
     pages_clean = documents.flatMap(
         lambda year_document: [(year_document[0], year_document[1], year_document[2],\
-                               year_document[3], year_document[4], page.code, text_unit, page.page_id, \
-                               year_document[5], year_document[6], year_document[7], \
-                               clean_page_as_string(page)) for page in year_document[8]])
+                               page.code, page.page_id, clean_page_as_string(page)) for page in year_document[3]])
 
-    # [(tittle, edition, year, place, archive filename, page filename, text_unit, text_unit_id, 
-    #   num_text_unit, type of archive, type of disribution, model, clean_page, georesolution_loc)]
-    spacy_docs = pages_clean.flatMap(
-        lambda clean_page: [(clean_page[0], clean_page[1], clean_page[2],\
-                               clean_page[3], clean_page[4], clean_page[5], clean_page[6], clean_page[7], \
-                               clean_page[8], clean_page[9], clean_page[10], clean_page[11],\
-                               query_utils.spacy_nlp(clean_page[11], lang_model))])
-
-    matching_docs = spacy_docs.map(
-        lambda spacy_doc:
-        (spacy_doc[0],
-         {"edition": spacy_doc[1],
-          "year": spacy_doc[2], 
-          "place": spacy_doc[3],
-          "archive_filename": spacy_doc[4],
-          "page_filename": spacy_doc[5],
-          "text_unit": spacy_doc[6],
-          "text_unit id": spacy_doc[7],
-          "num_text_unit": spacy_doc[8],
-          "type_distribution": spacy_doc[9],
-          "model": spacy_doc[10],
-          "clean_text": spacy_doc[11],
-          "display_doc": query_utils.display_spacy(spacy_doc[12]),
+    matching_pages = pages_clean.map(
+        lambda geo_page:
+        (geo_page[0],
+         {"edition": geo_page[1],
+          "year": geo_page[2], 
+          "page_filename": geo_page[3],
+          "text_unit id": geo_page[4],
           "lang_model": lang_model,
-          "georesolution_page": georesolve_page(spacy_doc[12])}))
-
-    # [(title, {"edition": edition, ...}), ...]
-    # =>
-    # [(title, [{"edition": edition, ...], {...}), ...)]
-    result = matching_docs \
+          "georesolution_page": georesolve_page_2(geo_page[5],lang_model)}))
+    
+    result = matching_pages \
         .groupByKey() \
         .map(lambda date_context:
              (date_context[0], list(date_context[1]))) \

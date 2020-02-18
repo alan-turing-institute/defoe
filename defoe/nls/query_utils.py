@@ -7,6 +7,8 @@ from defoe.query_utils import PreprocessWordType, longsfix_sentence, xml_geo_ent
 from nltk.corpus import words
 import re
 import spacy
+from spacy.tokens import Doc
+from spacy.vocab import Vocab
 NON_AZ_REGEXP = re.compile('[^a-z]')
 
 
@@ -298,12 +300,27 @@ def preprocess_clean_page_spacy(clean_page):
     return page_nlp_spacy
 
 
+def georesolve_page_2(text, lang_model):
+    nlp = spacy.load(lang_model)
+    doc = nlp(text)
+    if doc.ents:
+        flag,in_xml = xml_geo_entities(doc)
+        if flag == 1:
+            geo_xml=georesolve_cmd(in_xml)
+            dResolved_loc= coord_xml(geo_xml)
+            return dResolved_loc
+        else:
+           return {}
+    else:
+        return {}
+
 def georesolve_page(doc):
     if doc.ents:
         flag,in_xml = xml_geo_entities(doc)
         if flag == 1:
             geo_xml=georesolve_cmd(in_xml)
             dResolved_loc= coord_xml(geo_xml)
+            print(dResolved_loc)
             return dResolved_loc
         else:
            return {}
