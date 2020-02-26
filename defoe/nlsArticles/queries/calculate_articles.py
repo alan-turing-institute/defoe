@@ -28,11 +28,6 @@ def do_query(archives, config_file=None, logger=None, context=None):
     :rtype: string
     """
     
-    preprocess_none = query_utils.parse_preprocess_word_type("none")
-    preprocess_normalize = query_utils.parse_preprocess_word_type("normalize")
-    preprocess_lemmatize = query_utils.parse_preprocess_word_type("lemmatize")
-    preprocess_stem = query_utils.parse_preprocess_word_type("stem")
-    text_unit = "page"
     # [(tittle, edition, year, archive filename)]
     documents = archives.flatMap(
         lambda archive: [(document.title, document.edition, document.year, \
@@ -44,17 +39,21 @@ def do_query(archives, config_file=None, logger=None, context=None):
                                 year_document[3], page.code, page.page_id, \
                                 clean_page_as_string(page)) for page in year_document[4]])
 
-    articles_pages = pages_clean.map(
-              lambda page_document:
-              (page_document[0], 
-               { "edition": page_document[1], 
-                  "year":   page_document[2],
-                  "archive_name": page_document[3], 
-                  "page_filename":    page_document[4],
-                  "text_unit id": page_document[5], 
-                  "articles": get_articles_nls(page_document[6])} ))
+    articles_clean = pages_clean.map(
+              lambda page_document: (page_document[0], page_document[1], page_document[2], page_document[3], page_document[4], page_document[5], get_articles_nls(page_document[6])))
     
-    result = articles_pages \
+    r_articles_pages = articles_clean.map(
+              lambda articles_page:
+              (articles_page[0], 
+               { "edition": articles_page[1], 
+                  "year":   articles_page[2],
+                  "archive_name": articles_page[3],
+                  "page_filename": articles_page[4],
+                  "text_unit id": articles_page[5], 
+                  "articles": articles_page[6],
+                  "num_articles": len(articles_page[6].keys())}))
+    
+    result = r_articles_pages \
         .groupByKey() \
         .map(lambda date_context:
              (date_context[0], list(date_context[1]))) \

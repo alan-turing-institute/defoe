@@ -10,7 +10,7 @@ import spacy
 from spacy.tokens import Doc
 from spacy.vocab import Vocab
 NON_AZ_REGEXP = re.compile('[^a-z]')
-
+from nltk.corpus import words
 
 
 
@@ -216,20 +216,35 @@ def clean_page_as_string(page):
     :rtype: string or unicode
     """
     page_string = ''
-    for word in page.words:
+    for word in page.words[3:-3]:
         if page_string == '':
-            page_string = word
+            page_string = word 
         else:
             page_string += (' ' + word)
 
-    page_separete = page_string.split('- ')
-    page_combined = ''.join(page_separete)
-   
+    page_separeted = page_string.split('- ')
+    page_combined = ''.join(page_separeted)
+    
     if (len(page_combined) > 1) and ('f' in page_combined): 
+       
        page_clean = longsfix_sentence(page_combined) 
-       return page_clean
     else:
-        return page_combined
+        page_clean= page_combined
+
+    page_final=page_clean.split()
+    page_string_final = ''
+    for word in page_final:
+        if "." not in word:
+            separated_str = re.sub(r'([a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))', r'\1 ', word)
+        else:
+            separated_str = word
+
+        if page_string_final == '':
+            page_string_final = separated_str
+        else:
+            page_string_final += (' ' + separated_str)
+ 
+    return page_string_final
 
 def preprocess_clean_page(clean_page,
                           preprocess_type=PreprocessWordType.LEMMATIZE):
@@ -347,30 +362,147 @@ def geomap_page(doc):
 def get_articles_nls(text):
     text_list= text.split()
     terms_view=[s.isupper() for s in text_list]
+    latin_view=[s in words.words() for s in text_list]
+    num_words= len(terms_view)
     articles_page={}
-    key='previous_page'
-    half_key=''
-    cont = 0
-    for i in range(0, len(terms_view)):
-        if terms_view[i]== True:
-            if ',' not in text_list[i]:
-                half_key=half_key+text_list[i]
-                
-            else:
-                if half_key!='':
-                    key=half_key + text_list[i]
-                    half_key=''
+    if num_words > 10:
+
+        key='previous_page'
+        articles_page[key]=''
+        half_key=''
+        latin_key=''
+        cont = 0
+        repeated_key={}
+        for i in range(0, len(terms_view)):
+            flag = 0
+            word= text_list[i].split(",")[0]
+            #term in uppercase
+            print("Studyng: %s - current key: %s, current half_key: %s, current lating_key: %s, current text in the key: %s" %(text_list[i], key, half_key, latin_key, articles_page[key]))
+            if terms_view[i]:
+                # UPPERCASE WITHOUT COMMA
+                if ',' not in text_list[i]:
+                    #ACQUIENTANDIS plegiis, - managing ACQUIETANDIS - normally uppercase in latin too.
+                    # EXCLUDING N. W. of Genova  
+                    if (not latin_view[i]) and ('.' not in text_list[i]):
+                        if (i< num_words -1):
+                            #checking that the next one is lowe case - e.g. pleggis
+                            print("Importante: Palabra: %s, Capital de la siguiente %s, Latin de la siguiente %s" %(text_list[i], terms_view[i+1], latin_view[i+1]))
+                            if (not terms_view[i+1]):
+                                if (not latin_view[i+1]) or (text_list[i+1] == "de"):
+                                    latin_key= latin_key + text_list[i]
+                                    print("Actualizando latin key %s" %(latin_key))
+                                else:
+                                    half_key = half_key + text_list[i]
+                                    print("Entro-0 a guardar half_key %s" % half_key)
+                            else:
+                                half_key = half_key + text_list[i]
+                                print("Entro-1 a guardar half_key %s" % half_key)
+
+                    #See ZEUS. - managing ZEUS.
+                    elif ("." in text_list[i]) and ('See' == text_list[i-1]):
+                        articles_page[key]= articles_page[key] + ' ' + text_list[i]
+
+                    # ABACISCUS. See ABACUS. - Managing ABACISCUS.
+                    elif ("." in text_list[i]): 
+                        if (i< num_words -1):
+                           #checking that the next one is See
+                           if ("See" == text_list[i+1]):
+                               word= text_list[i].split(".")[0]
+                               key = word
+                               # Managing key repitions
+                               if key in articles_page.keys():
+                                   repeated_key[key] += 1
+                                   key=key+"-"+str(repeated_key[key])
+                               else:
+                                   repeated_key[key] = 0
+                               # Updating the articles dictionary with the new key
+                               articles_page[key] = ''
+                           #ignoring the header of the first page - second half
+                           if(half_key == "DCOMPLETEONARYFCIENCE"): 
+                               half_key='' 
+
+                    
+
+                    # AB ACO, - recording AB (of AB ACO,) 
+                    else:
+		           
+                       half_key=half_key+text_list[i]
+                       print("Entro-2 a guardar half_key %s" % half_key)
+           
+                #UPPERCASE WITH COMMA     
                 else:
-                    key=text_list[i]
-                if key in articles_page:
-                     cont = cont +1 
-                     key=key+"-"+cont
-                 
-            articles_page[key] = ''
-        else:
-            if articles_page[key] != '' :
-                articles_page[key]= articles_page[key] + ' ' + text_list[i]
+                    # AATTER, or AT TER - managing TER,   
+                    if ('or' == text_list[i-1]) or ('or' == text_list[i-2] and terms_view[i-1]):
+                        if half_key!='':
+                            articles_page[key]= articles_page[key] + ' ' + half_key + ' ' + text_list[i]
+                            half_key = ''
+                        else:
+                            articles_page[key]= articles_page[key] + ' ' + text_list[i]
+                        print("!Entro en - or UPPERCASE,- : key %s - text %s:" %(key, articles_page[key]))
+                    #See ASTRONOMY, - managing ASTRONOMY,
+                    elif ('See' == text_list[i-1]):
+                        articles_page[key]= articles_page[key] + ' ' + text_list[i]
+                    else:
+                        # AB ACO, - recording ACO, (of AB ACO,)
+                        # key= ABACO,
+                        if half_key!='':
+                            key=half_key + word
+                            half_key=''
+                            flag = 1
+                        else:
+                            # double A, but - Avoiding to create a new key when UPPERCASE, after a but 
+                            if (i < num_words -1):
+                                if text_list[i+1] == "but":
+                                    articles_page[key]= articles_page[key] + ' ' + text_list[i] 
+                                # RECORDING THE KEY, in the normal case
+                                else:
+                                    key=word
+                                    flag = 1
+                            # RECORDING THE KEY, in the normal case
+                            else:
+                                key = word
+                                flag = 1
+                        #DEALING WITH THE FIRST PAGE
+                        if key == "SABAA":
+                            key=word[-2:]
+                            flag = 1 
+                        if flag == 1 :
+                            print(" Entro cuando encuentra nueva key: %s" % key)
+                            # Managing key repitions
+                            if key in articles_page.keys():
+                                repeated_key[key] += 1
+                                key=key+"-"+str(repeated_key[key])
+                            else:
+                                repeated_key[key] = 0
+                            #Updating the articles dictionary with the new key
+                            articles_page[key] = ''
+
+            #term in lowercase
             else:
-                articles_page[key]= text_list[i]
+                #UpperCase in the middle of the text
+                ##ACQUIETANDIS plegiis, - managin plegiis,
+                if latin_key!='':
+                    if ',' in text_list[i]:
+                        key=latin_key+ " " +word
+                        articles_page[key]= ''
+                        latin_key=''
+                    # ACQUIETANTIA de Jhiris et hundredh, - manaing several latin terms before the last one with comma. 
+                    else:
+                        latin_key= latin_key + " " + text_list[i]
+
+                elif half_key!='':
+                    if (half_key != "ANEWADICTI"):
+                        articles_page[key]= articles_page[key] + ' ' + half_key + ' ' + text_list[i]
+                        print("Entro para darle el half_key %s al articles_page[%s]:%s" %(half_key, key, articles_page[key]))
+                    half_key=''
+
+                elif articles_page[key] != '' :
+                    articles_page[key]= articles_page[key] + ' ' + text_list[i]
+                else:
+                    articles_page[key]= text_list[i]
+        # deleting empty keys:
+        empty_keys = [k for k,v in articles_page.items() if not v]
+        for k in empty_keys:
+            del articles_page[k]
     return articles_page
 
