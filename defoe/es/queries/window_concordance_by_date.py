@@ -96,7 +96,7 @@ def do_query(df, config_file=None, logger=None, context=None):
              year_page[2],
              year_page[3],
              year_page[4],
-             year_page[5]
+             year_page[5],
              get_text_keyword_idx(year_page[5],
                                      keysentences))
         )
@@ -106,7 +106,7 @@ def do_query(df, config_file=None, logger=None, context=None):
     concordance_words = matching_idx.flatMap(
         lambda year_idx: [
             (year_idx[0],
-             (year_idx[1]
+             (year_idx[1],
               year_idx[2],
               year_idx[3],
               year_idx[4],
