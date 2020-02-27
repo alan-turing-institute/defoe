@@ -31,7 +31,7 @@ def get_pages_matches_no_prep(title, edition, archive, filename, text, keysenten
     """  
     matches = []
     for keysentence in keysentences:
-        sentence_match = get_sentences_list_matches(text, keysentence)
+        sentence_match_idx = get_text_keyword_idx(text, keysentence)
         if sentence_match: 
             match = (title, edition, archive, filename, text, keysentence)
             matches.append(match) 
@@ -506,3 +506,62 @@ def get_articles_nls(text):
             del articles_page[k]
     return articles_page
 
+
+
+def get_text_keyword_idx(text,
+                            keywords):
+    """
+    Gets a list of keywords (and their position indices) within an
+    article.
+
+    :param text: text
+    :type article: string
+    :param keywords: keywords
+    :type keywords: list(str or unicode)
+    :return: sorted list of keywords and their indices
+    :rtype: list(tuple(str or unicode, int))
+    """
+    text_list= text.split()
+    matches = set()
+    for idx, word in enumerate(text_list):
+        if  word in keywords:
+            match = (word, idx)
+            matches.add(match)
+    return sorted(list(matches))
+
+def get_concordance(text,
+                    keyword,
+                    idx,
+                    window):
+    """
+    For a given keyword (and its position in an article), return
+    the concordance of words (before and after) using a window.
+
+    :param text: text
+    :type text: string 
+    :param keyword: keyword
+    :type keyword: str or unicode
+    :param idx: keyword index (position) in list of article's words
+    :type idx: int
+    :window: number of words to the right and left
+    :type: int
+    :return: concordance
+    :rtype: list(str or unicode)
+    """
+    text_list= text.split()
+    text_size = len(text_list)
+
+    if idx >= window:
+        start_idx = idx - window
+    else:
+        start_idx = 0
+
+    if idx + window >= text_size:
+        end_idx = text_size
+    else:
+        end_idx = idx + window + 1
+
+    concordance_words = []
+    for word in text_list[start_idx:end_idx]:
+        concordance_words.append(word)
+    return concordance_words

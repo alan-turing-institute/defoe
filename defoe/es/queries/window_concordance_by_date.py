@@ -4,7 +4,7 @@ Gets concordance of window for keysentence and groups by date.
 
 from operator import add
 from defoe import query_utils
-from defoe.nls.query_utils import get_pages_matches_no_prep
+from defoe.nls.query_utils import get_text_keyword_idx, get_concordance
 from defoe.hdfs.query_utils import blank_as_null
 from pyspark.sql import SQLContext
 from pyspark.sql.functions import col, when
@@ -45,7 +45,7 @@ def do_query(df, config_file=None, logger=None, context=None):
     by date
     :rtype: dict
     """
-
+    window = 10
     with open(config_file, "r") as f:
         config = yaml.load(f)
     preprocess_type = query_utils.extract_preprocess_word_type(config)
@@ -103,20 +103,12 @@ def do_query(df, config_file=None, logger=None, context=None):
     )
 
     # [(year, [(title, edition, archive_filename, filename, word, [concordance, ...]), ...])]
-    concordance_words = matching_idx.flatMap(
+    concordance_words = maching_idx.flatMap(
         lambda year_idx: [
             (year_idx[0],
-             (year_idx[1],
-              year_idx[2],
-              year_idx[3],
-              year_idx[4],
-              word_idx[0],
-              get_concordance(year_idx[5],
-                              word_idx[0],
-                              word_idx[1],
-                              window))
-            for word_idx in year_idx[6]])
-
+             (year_idx[1], year_idx[2], year_idx[3], year_idx[4], word_idx[0],\
+              get_concordance(year_idx[5], word_idx[0], word_idx[1], window)))\
+              for word_idx in year_idx[6]])
 
 
     # [(year, [(title, edition, archive_filename, filename, word,corcondance),
