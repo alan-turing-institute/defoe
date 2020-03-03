@@ -377,7 +377,7 @@ def get_articles_nls(text):
             flag = 0
             word= text_list[i].split(",")[0]
             #term in uppercase
-            print("Studyng: %s - current key: %s, current half_key: %s, current lating_key: %s, current text in the key: %s" %(text_list[i], key, half_key, latin_key, articles_page[key]))
+            #print("Studyng: %s - current key: %s, current half_key: %s, current lating_key: %s, current text in the key: %s" %(text_list[i], key, half_key, latin_key, articles_page[key]))
             if terms_view[i]:
                 # UPPERCASE WITHOUT COMMA
                 if ',' not in text_list[i]:
@@ -386,17 +386,17 @@ def get_articles_nls(text):
                     if (not latin_view[i]) and ('.' not in text_list[i]):
                         if (i< num_words -1):
                             #checking that the next one is lowe case - e.g. pleggis
-                            print("Importante: Palabra: %s, Capital de la siguiente %s, Latin de la siguiente %s" %(text_list[i], terms_view[i+1], latin_view[i+1]))
+                            #print("Importante: Palabra: %s, Capital de la siguiente %s, Latin de la siguiente %s" %(text_list[i], terms_view[i+1], latin_view[i+1]))
                             if (not terms_view[i+1]):
                                 if (not latin_view[i+1]) or (text_list[i+1] == "de"):
                                     latin_key= latin_key + text_list[i]
-                                    print("Actualizando latin key %s" %(latin_key))
+                                    #print("Actualizando latin key %s" %(latin_key))
                                 else:
                                     half_key = half_key + text_list[i]
-                                    print("Entro-0 a guardar half_key %s" % half_key)
+                                    #print("Entro-0 a guardar half_key %s" % half_key)
                             else:
                                 half_key = half_key + text_list[i]
-                                print("Entro-1 a guardar half_key %s" % half_key)
+                                #print("Entro-1 a guardar half_key %s" % half_key)
 
                     #See ZEUS. - managing ZEUS.
                     elif ("." in text_list[i]) and ('See' == text_list[i-1]):
@@ -427,7 +427,7 @@ def get_articles_nls(text):
                     else:
 		           
                        half_key=half_key+text_list[i]
-                       print("Entro-2 a guardar half_key %s" % half_key)
+                       #print("Entro-2 a guardar half_key %s" % half_key)
            
                 #UPPERCASE WITH COMMA     
                 else:
@@ -438,7 +438,7 @@ def get_articles_nls(text):
                             half_key = ''
                         else:
                             articles_page[key]= articles_page[key] + ' ' + text_list[i]
-                        print("!Entro en - or UPPERCASE,- : key %s - text %s:" %(key, articles_page[key]))
+                        #print("!Entro en - or UPPERCASE,- : key %s - text %s:" %(key, articles_page[key]))
                     #See ASTRONOMY, - managing ASTRONOMY,
                     elif ('See' == text_list[i-1]):
                         articles_page[key]= articles_page[key] + ' ' + text_list[i]
@@ -467,7 +467,7 @@ def get_articles_nls(text):
                             key=word[-2:]
                             flag = 1 
                         if flag == 1 :
-                            print(" Entro cuando encuentra nueva key: %s" % key)
+                            #print(" Entro cuando encuentra nueva key: %s" % key)
                             # Managing key repitions
                             if key in articles_page.keys():
                                 repeated_key[key] += 1
@@ -493,7 +493,7 @@ def get_articles_nls(text):
                 elif half_key!='':
                     if (half_key != "ANEWADICTI"):
                         articles_page[key]= articles_page[key] + ' ' + half_key + ' ' + text_list[i]
-                        print("Entro para darle el half_key %s al articles_page[%s]:%s" %(half_key, key, articles_page[key]))
+                        #print("Entro para darle el half_key %s al articles_page[%s]:%s" %(half_key, key, articles_page[key]))
                     half_key=''
 
                 elif articles_page[key] != '' :
