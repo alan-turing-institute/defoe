@@ -2,7 +2,7 @@
 """
 
 from defoe import query_utils
-from defoe.nlsArticles.query_utils import clean_page_as_string, get_articles_nls
+from defoe.nlsArticles.query_utils import clean_page_as_string, get_articles_eb
 from pyspark.sql import Row, SparkSession, SQLContext
 
 import yaml, os
@@ -40,7 +40,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
                                 clean_page_as_string(page)) for page in year_document[4]])
 
     articles_clean = pages_clean.map(
-              lambda page_document: (page_document[0], page_document[1], page_document[2], page_document[3], page_document[4], page_document[5], get_articles_nls(page_document[6])))
+              lambda page_document: (page_document[0], page_document[1], page_document[2], page_document[3], page_document[4], page_document[5], get_articles_eb(page_document[6][0],page_document[6][1],page_document[6][2]),page_document[6][0],page_document[6][1]))
     
     r_articles_pages = articles_clean.map(
               lambda articles_page:
@@ -51,6 +51,8 @@ def do_query(archives, config_file=None, logger=None, context=None):
                   "page_filename": articles_page[4],
                   "text_unit id": articles_page[5], 
                   "articles": articles_page[6],
+                  "header_left_page": articles_page[7],
+                  "header_right_page": articles_page[8],
                   "num_articles": len(articles_page[6].keys())}))
     
     result = r_articles_pages \
