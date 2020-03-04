@@ -109,7 +109,7 @@ class Page(object):
         if not self.page_header_left_words:
             page_header_left_words=[]
             f_line = self.tree.find('.//{%s}TextLine' % self.namespaces)
-            if f_line not None:
+            if f_line is not None:
                 for line in f_line.findall('{%s}String' % self.namespaces):
                     text = line.attrib.get('CONTENT')
                     page_header_left_words.append(text)
@@ -124,7 +124,7 @@ class Page(object):
             page_header_right_words=[]
             lines= list(self.tree.iterfind('.//{%s}TextLine' % self.namespaces))
             f_line = self.tree.find('.//{%s}TextLine' % self.namespaces)
-            if f_line not None:
+            if f_line is not None:
                 vpos = int(f_line.attrib.get('VPOS'))
                 ln = 0
                 flag = 1
