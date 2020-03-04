@@ -2,7 +2,7 @@
 Given a filename create a defoe.books.archive.Archive.
 """
 
-from defoe.nls.archive import Archive
+from defoe.nlsArticles.archive import Archive
 
 
 def filename_to_object(filename):

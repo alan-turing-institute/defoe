@@ -38,6 +38,9 @@ class Page(object):
         self.page_id = self.alto_page_id()
         self.image_nr = self.alto_image_nr()
         self.page_words = None
+        self.page_header_left_words = None
+        self.page_header_right_words = None
+
         self.page_strings = None
         self.page_images = None
         self.page_wc = None
@@ -90,14 +93,60 @@ class Page(object):
     def words(self):
         if not self.page_words:
             page_words=[]
-            for lines in self.tree.iterfind('.//{%s}TextLine' % self.namespaces)[1:]:
-                for line in lines.findall('{%s}String' % self.namespaces):
-                    text = line.attrib.get('CONTENT')
-                    page_words.append(text)
+            skip = 1
+            for lines in self.tree.iterfind('.//{%s}TextLine' % self.namespaces):
+                if skip == 1:
+                    skip = 0
+                else:
+                    for line in lines.findall('{%s}String' % self.namespaces):
+                        text = line.attrib.get('CONTENT')
+                        page_words.append(text)
             self.page_words = list(map(str,page_words))
         return self.page_words
     
-
+    @property
+    def header_left_words(self):
+        if not self.page_header_left_words:
+            page_header_left_words=[]
+            f_line = self.tree.find('.//{%s}TextLine' % self.namespaces)
+            if f_line not None:
+                for line in f_line.findall('{%s}String' % self.namespaces):
+                    text = line.attrib.get('CONTENT')
+                    page_header_left_words.append(text)
+                self.page_header_left_words = list(map(str,page_header_left_words))
+            else:
+                self.page_header_left_words=[]
+        return self.page_header_left_words
+    
+    @property
+    def header_right_words(self):
+        if not self.page_header_right_words:
+            page_header_right_words=[]
+            lines= list(self.tree.iterfind('.//{%s}TextLine' % self.namespaces))
+            f_line = self.tree.find('.//{%s}TextLine' % self.namespaces)
+            if f_line not None:
+                vpos = int(f_line.attrib.get('VPOS'))
+                ln = 0
+                flag = 1
+                num_lines = len(lines)
+                while (flag == 1) and (ln < num_lines):
+                    current_vpos = int (lines[ln].attrib.get('VPOS'))
+                    if current_vpos >= vpos:
+                        vpos = current_vpos
+                        ln += 1
+                    else:
+                        flag = 0
+                if flag == 0 :
+                    for line in lines[ln].findall('{%s}String' % self.namespaces):
+                        text = line.attrib.get('CONTENT')
+                        page_header_right_words.append(text)
+                    self.page_header_right_words = list(map(str,page_header_right_words))
+                else:
+                    self.page_header_right_words=[]
+            else:
+                self.page_header_right_words=[]
+        return self.page_header_right_words
+    
 
     @property
     def wc(self):

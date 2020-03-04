@@ -5,7 +5,7 @@ of XML files in METS/MODS format.
 import re
 
 from lxml import etree
-from defoe.nls.page import Page
+from defoe.nlsArticles.page import Page
 
 
 class Document(object):
@@ -50,7 +50,7 @@ class Document(object):
             self.year = None
         self.date = self.single_query('//mods:dateIssued/text()')
         self.document_type = "book"
-        self.model = "nls"
+        self.model = "nlsArticles"
 
     @staticmethod
     def parse_year(text):
@@ -209,6 +209,28 @@ class Document(object):
             for word in page.words:
                 yield page, word
     
+    def scan_header_left_words(self):
+        """
+        Iterate over header_left_words in pages.
+
+        :return: page and word
+        :rtype: tuple(defoe.alto.page.Page, str or unicode)
+        """
+        for page in self:
+            for header_left_word in page.header_left_words:
+                yield page, header_left_word
+    
+    def scan_header_right_words(self):
+        """
+        Iterate over header_left_words in pages.
+
+        :return: page and word
+        :rtype: tuple(defoe.alto.page.Page, str or unicode)
+        """
+        for page in self:
+            for header_right_word in page.header_right_words:
+                yield page, header_right_word
+    
     def scan_wc(self):
         """
         Iterate over words cualities in pages.
@@ -261,6 +283,26 @@ class Document(object):
         """
         for _, word in self.scan_words():
             yield word
+    
+    def header_left_words(self):
+        """
+        Iterate over strings.
+
+        :return: word
+        :rtype: str or unicode
+        """
+        for _, header_left_word in self.scan_header_left_words():
+            yield header_left_word
+    
+    def header_right_words(self):
+        """
+        Iterate over strings.
+
+        :return: word
+        :rtype: str or unicode
+        """
+        for _, header_right_word in self.scan_header_right_words():
+            yield header_right_word
 
     def images(self):
         """

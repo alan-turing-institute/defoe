@@ -7,7 +7,7 @@ import abc
 import re
 import zipfile
 
-from defoe.nls.document import Document
+from defoe.nlsArticles.document import Document
 from defoe.spark_utils import open_stream
 from os import listdir
 from os.path import isfile, join

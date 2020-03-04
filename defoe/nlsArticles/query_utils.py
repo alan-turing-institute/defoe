@@ -32,6 +32,7 @@ def get_pages_matches_no_prep(title, edition, archive, filename, text, keysenten
     matches = []
     for keysentence in keysentences:
         sentence_match = get_sentences_list_matches(text, keysentence)
+        #sentence_match_idx = get_text_keyword_idx(text, keysentence)
         if sentence_match: 
             match = (title, edition, archive, filename, text, keysentence)
             matches.append(match) 
@@ -204,8 +205,52 @@ def get_page_as_string(page,
     return page_string
 
 
+def clean_text_as_string(text, flag):
+    """
+    Clean a text as a single string,
+    Handling hyphenated words: combine and split and also fixing the long-s
+
+    """
+    text_string = ''
+    for word in text:
+        if text_string == '':
+            text_string = word 
+        else:
+            text_string += (' ' + word)
+
+   
+    text_separeted = text_string.split('- ')
+    text_combined = ''.join(text_separeted)
+   
+    if (len(text_combined) > 1) and ('f' in text_combined): 
+       
+       text_clean = longsfix_sentence(text_combined) 
+    else:
+        text_clean= text_combined
+
+    text_final=text_clean.split()
+    text_string_final = ''
+    for word in text_final:
+        if flag == 0 :
+            if "." not in word:
+                separated_str = re.sub(r'([a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))', r'\1 ', word)
+            else:
+                separated_str = word
+
+            if text_string_final == '':
+                 text_string_final = separated_str
+            else:
+                text_string_final += (' ' + separated_str)
+        else:
+            separated_str = re.sub(r'([a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))', r'\1 ', word)
+            if text_string_final == '':
+                 text_string_final = separated_str
+            else:
+                text_string_final += separated_str
+
+    return text_string_final
+
 def clean_page_as_string(page):
-        
     """
     Clean a page as a single string,
     Handling hyphenated words: combine and split and also fixing the long-s
@@ -215,36 +260,13 @@ def clean_page_as_string(page):
     :return: clean page words as a string
     :rtype: string or unicode
     """
-    page_string = ''
-    for word in page.words[3:-3]:
-        if page_string == '':
-            page_string = word 
-        else:
-            page_string += (' ' + word)
-
-    page_separeted = page_string.split('- ')
-    page_combined = ''.join(page_separeted)
-    
-    if (len(page_combined) > 1) and ('f' in page_combined): 
-       
-       page_clean = longsfix_sentence(page_combined) 
-    else:
-        page_clean= page_combined
-
-    page_final=page_clean.split()
-    page_string_final = ''
-    for word in page_final:
-        if "." not in word:
-            separated_str = re.sub(r'([a-z](?=[A-Z])|[A-Z](?=[A-Z][a-z]))', r'\1 ', word)
-        else:
-            separated_str = word
-
-        if page_string_final == '':
-            page_string_final = separated_str
-        else:
-            page_string_final += (' ' + separated_str)
- 
-    return page_string_final
+    page_words=page.words
+    page_string_final=clean_text_as_string(page_words, 0)
+    header_left_words=page.header_left_words
+    header_left_string_final=clean_text_as_string(header_left_words, 1)
+    header_right_words=page.header_right_words
+    header_right_string_final=clean_text_as_string(header_right_words, 1)
+    return header_left_string_final, header_right_string_final, page_string_final
 
 def preprocess_clean_page(clean_page,
                           preprocess_type=PreprocessWordType.LEMMATIZE):
@@ -359,7 +381,7 @@ def geomap_page(doc):
     return geomap_html
 
 
-def get_articles_nls(text):
+def get_articles_eb(header_left, header_right, text):
     text_list= text.split()
     terms_view=[s.isupper() for s in text_list]
     latin_view=[s in words.words() for s in text_list]
@@ -368,11 +390,13 @@ def get_articles_nls(text):
     if num_words > 10:
 
         key='previous_page'
-        articles_page[key]=''
+        articles_page[key]=[]
+        articles_page[key].append('')
+        list_key={}
+        list_key[key] = 0
         half_key=''
         latin_key=''
         cont = 0
-        repeated_key={}
         for i in range(0, len(terms_view)):
             flag = 0
             word= text_list[i].split(",")[0]
@@ -400,7 +424,7 @@ def get_articles_nls(text):
 
                     #See ZEUS. - managing ZEUS.
                     elif ("." in text_list[i]) and ('See' == text_list[i-1]):
-                        articles_page[key]= articles_page[key] + ' ' + text_list[i]
+                        articles_page[key][list_key[key]]= articles_page[key][list_key[key]] + ' ' + text_list[i]
 
                     # ABACISCUS. See ABACUS. - Managing ABACISCUS.
                     elif ("." in text_list[i]): 
@@ -411,12 +435,11 @@ def get_articles_nls(text):
                                key = word
                                # Managing key repitions
                                if key in articles_page.keys():
-                                   repeated_key[key] += 1
-                                   key=key+"-"+str(repeated_key[key])
+                                   list_key[key] += 1
                                else:
-                                   repeated_key[key] = 0
-                               # Updating the articles dictionary with the new key
-                               articles_page[key] = ''
+                                   list_key[key] = 0
+                                   articles_page[key]= []
+                               articles_page[key].append('')
                            #ignoring the header of the first page - second half
                            if(half_key == "DCOMPLETEONARYFCIENCE"): 
                                half_key='' 
@@ -434,14 +457,14 @@ def get_articles_nls(text):
                     # AATTER, or AT TER - managing TER,   
                     if ('or' == text_list[i-1]) or ('or' == text_list[i-2] and terms_view[i-1]):
                         if half_key!='':
-                            articles_page[key]= articles_page[key] + ' ' + half_key + ' ' + text_list[i]
+                            articles_page[key][list_key[key]]= articles_page[key][list_key[key]] + ' ' + half_key + ' ' + text_list[i]
                             half_key = ''
                         else:
-                            articles_page[key]= articles_page[key] + ' ' + text_list[i]
+                            articles_page[key][list_key[key]]= articles_page[key][list_key[key]] + ' ' + text_list[i]
                         #print("!Entro en - or UPPERCASE,- : key %s - text %s:" %(key, articles_page[key]))
                     #See ASTRONOMY, - managing ASTRONOMY,
                     elif ('See' == text_list[i-1]):
-                        articles_page[key]= articles_page[key] + ' ' + text_list[i]
+                        articles_page[key][list_key[key]]= articles_page[key][list_key[key]] + ' ' + text_list[i]
                     else:
                         # AB ACO, - recording ACO, (of AB ACO,)
                         # key= ABACO,
@@ -453,7 +476,7 @@ def get_articles_nls(text):
                             # double A, but - Avoiding to create a new key when UPPERCASE, after a but 
                             if (i < num_words -1):
                                 if text_list[i+1] == "but":
-                                    articles_page[key]= articles_page[key] + ' ' + text_list[i] 
+                                    articles_page[key][list_key[key]]= articles_page[key][list_key[key]] + ' ' + text_list[i] 
                                 # RECORDING THE KEY, in the normal case
                                 else:
                                     key=word
@@ -470,12 +493,12 @@ def get_articles_nls(text):
                             #print(" Entro cuando encuentra nueva key: %s" % key)
                             # Managing key repitions
                             if key in articles_page.keys():
-                                repeated_key[key] += 1
-                                key=key+"-"+str(repeated_key[key])
+                                list_key[key] += 1
                             else:
-                                repeated_key[key] = 0
+                                list_key[key] = 0
+                                articles_page[key]= []
                             #Updating the articles dictionary with the new key
-                            articles_page[key] = ''
+                            articles_page[key].append('')
 
             #term in lowercase
             else:
@@ -484,7 +507,12 @@ def get_articles_nls(text):
                 if latin_key!='':
                     if ',' in text_list[i]:
                         key=latin_key+ " " +word
-                        articles_page[key]= ''
+                        if key in articles_page.keys():
+                            list_key[key] += 1
+                        else:
+                            list_key[key] = 0
+                            articles_page[key]= []
+                        articles_page[key].append('')
                         latin_key=''
                     # ACQUIETANTIA de Jhiris et hundredh, - manaing several latin terms before the last one with comma. 
                     else:
@@ -492,17 +520,74 @@ def get_articles_nls(text):
 
                 elif half_key!='':
                     if (half_key != "ANEWADICTI"):
-                        articles_page[key]= articles_page[key] + ' ' + half_key + ' ' + text_list[i]
+                        articles_page[key][list_key[key]]= articles_page[key][list_key[key]] + ' ' + half_key + ' ' + text_list[i]
                         #print("Entro para darle el half_key %s al articles_page[%s]:%s" %(half_key, key, articles_page[key]))
                     half_key=''
 
-                elif articles_page[key] != '' :
-                    articles_page[key]= articles_page[key] + ' ' + text_list[i]
+                elif articles_page[key][list_key[key]] != '' :
+                    articles_page[key][list_key[key]]= articles_page[key][list_key[key]] + ' ' + text_list[i]
                 else:
-                    articles_page[key]= text_list[i]
+                    articles_page[key][list_key[key]]= text_list[i]
         # deleting empty keys:
-        empty_keys = [k for k,v in articles_page.items() if not v]
-        for k in empty_keys:
-            del articles_page[k]
+        #empty_keys = [k for k,v in articles_page.items() if not v]
+        #for k in empty_keys:
+        #    del articles_page[k]
     return articles_page
 
+def get_text_keyword_idx(text,
+                            keywords):
+    """
+    Gets a list of keywords (and their position indices) within an
+    article.
+
+    :param text: text
+    :type article: string
+    :param keywords: keywords
+    :type keywords: list(str or unicode)
+    :return: sorted list of keywords and their indices
+    :rtype: list(tuple(str or unicode, int))
+    """
+    text_list= text.split()
+    matches = set()
+    for idx, word in enumerate(text_list):
+        if  word in keywords:
+            match = (word, idx)
+            matches.add(match)
+    return sorted(list(matches))
+
+def get_concordance(text,
+                    keyword,
+                    idx,
+                    window):
+    """
+    For a given keyword (and its position in an article), return
+    the concordance of words (before and after) using a window.
+
+    :param text: text
+    :type text: string 
+    :param keyword: keyword
+    :type keyword: str or unicode
+    :param idx: keyword index (position) in list of article's words
+    :type idx: int
+    :window: number of words to the right and left
+    :type: int
+    :return: concordance
+    :rtype: list(str or unicode)
+    """
+    text_list= text.split()
+    text_size = len(text_list)
+
+    if idx >= window:
+        start_idx = idx - window
+    else:
+        start_idx = 0
+
+    if idx + window >= text_size:
+        end_idx = text_size
+    else:
+        end_idx = idx + window + 1
+
+    concordance_words = []
+    for word in text_list[start_idx:end_idx]:
+        concordance_words.append(word)
+    return concordance_words

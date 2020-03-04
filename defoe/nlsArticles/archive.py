@@ -19,7 +19,7 @@ where:
 * <FILE_CODE> is [0-9_]*
 """
 
-from defoe.nls.archive_combine import AltoArchive
+from defoe.nlsArticles.archive_combine import AltoArchive
 from defoe.spark_utils import open_stream
 
 class Archive(AltoArchive):
