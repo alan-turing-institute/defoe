@@ -690,7 +690,7 @@ def get_articles_eb(header_left, header_right, text):
     articles_page={}
 
     if type == "Empty" and num_words < 10:
-       return type, header, articles_page
+       return type, header, articles_page, len(articles_page)
  
     elif type == "FullPage":
        articles_page[header]= text
