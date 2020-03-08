@@ -71,7 +71,7 @@ def do_query(archives, config_file=None, logger=None, context=None):
     pages_header_articles = pages_articles.flatMap(
         lambda articles_page: [(articles_page[0], articles_page[1], articles_page[2],\
                                articles_page[3], articles_page[4], articles_page[5], articles_page[6], articles_page[7], \
-                               articles_page[8], articles_page[9], articles_page[10],\ 
+                               articles_page[8], articles_page[9], articles_page[10], \
                                articles_page[11][0], articles_page[11][1], articles_page[11][2], articles_page[11][3],\
                                articles_page[12])]) 
 
