@@ -250,7 +250,7 @@ def clean_text_as_string(text, flag):
 
     return text_string_final
 
-def clean_page_as_string(page):
+def clean_headers_page_as_string(page):
     """
     Clean a page as a single string,
     Handling hyphenated words: combine and split and also fixing the long-s
@@ -381,14 +381,148 @@ def geomap_page(doc):
     return geomap_html
 
 
-def get_articles_eb(header_left, header_right, text):
-    text_list= text.split()
-    terms_view=[s.isupper() for s in text_list]
-    latin_view=[s in words.words() for s in text_list]
-    num_words= len(terms_view)
-    articles_page={}
-    if num_words > 10:
+def get_text_keyword_idx(text,
+                            keywords):
+    """
+    Gets a list of keywords (and their position indices) within an
+    article.
 
+    :param text: text
+    :type article: string
+    :param keywords: keywords
+    :type keywords: list(str or unicode)
+    :return: sorted list of keywords and their indices
+    :rtype: list(tuple(str or unicode, int))
+    """
+    text_list= text.split()
+    matches = set()
+    for idx, word in enumerate(text_list):
+        if  word in keywords:
+            match = (word, idx)
+            matches.add(match)
+    return sorted(list(matches))
+
+def get_concordance(text,
+                    keyword,
+                    idx,
+                    window):
+    """
+    For a given keyword (and its position in an article), return
+    the concordance of words (before and after) using a window.
+
+    :param text: text
+    :type text: string 
+    :param keyword: keyword
+    :type keyword: str or unicode
+    :param idx: keyword index (position) in list of article's words
+    :type idx: int
+    :window: number of words to the right and left
+    :type: int
+    :return: concordance
+    :rtype: list(str or unicode)
+    """
+    text_list= text.split()
+    text_size = len(text_list)
+
+    if idx >= window:
+        start_idx = idx - window
+    else:
+        start_idx = 0
+
+    if idx + window >= text_size:
+        end_idx = text_size
+    else:
+        end_idx = idx + window + 1
+
+    concordance_words = []
+    for word in text_list[start_idx:end_idx]:
+        concordance_words.append(word)
+    return concordance_words
+
+def hasNumbers(inputString):
+    return any(char.isdigit() for char in inputString)
+
+def splitGroups(inputString):
+    match=re.match(r"([0-9]+)([A-Z]+)", inputString, re.I)
+    if match:
+        items = match.groups()
+    else:
+        items = []
+    return items
+
+def split(word): 
+    return [char for char in word]
+
+def specialCharacters(inputString):
+    regex = re.compile('■@_!#$%^&*?/\|~')
+    inputString_list= split(inputString)
+    spc_cont=0
+    for i in inputString_list:
+        if re.match(r'^[_\W]+$', i):
+            spc_cont+=1
+    return spc_cont 
+       
+
+def get_header_eb(header_left, header_right):
+    header = ''
+    type = ''
+    if (header_left == '') and (header_right == ""):
+        type="Empty"
+    elif (len(header_left) <= 4) and(len(header_right) <=4):
+        header= header_left+ " " + header_right
+        type="Articles"
+    elif ('(' in header_left) and (')' in header_right):
+        header= header_left+ " " + header_right
+        type="Articles"
+    elif (('('in header_left) and (')' in header_left)) or (('C' in header_left) and (')' in header_left)):
+        header=header_left
+        type="Mix"
+    elif hasNumbers(header_right) and specialCharacters(header_right)< 3:
+        header_tmp= header_left + header_right
+        header=header_tmp.split(".")[0]
+        type="Topic"
+    elif hasNumbers(header_left) and specialCharacters(header_left) <3:
+        header_tmp= header_left + header_right
+        items=splitGroups(header_tmp)
+        if items:
+           header = items[1].split(".")[0]
+        else:
+            header = header_tmp.split(".")[0]
+        type="Topic"
+    else:
+        header = header_left + header_right
+        if ("Plate" in header) or ("Plafr" in header) or ("Elate" in header) or ("Tlafe" in header):
+            header = "Plate"
+            type = "FullPage"
+        elif "PREFACE" in header:
+            header = "Preface"
+            type="FullPage"
+        elif "ENCYCLOPEDIA" in header:
+            header = "FrontPage" 
+            type="FullPage"
+        elif "ARTSandSCI" in header:
+            header = "FrontPage" 
+            type="FullPage"
+        elif "ERRATA" in header:
+            header = "Errata" 
+            type="FullPage"
+        elif ("LISTofAUTHORS" in header) or ("ListofAUTHORS" in header) or ("listofAuthors" in header) or ("ListOfAuthors" in header) or ("listofauthors" in header):
+            header = "AuthorList"
+            type="FullPage"
+        elif specialCharacters(header) > 5:
+            type="Exception"
+        elif len(header) >=25:
+            type="Exception"
+        else:
+            type="Exception"
+    return type, header
+
+def get_articles_page(text):
+        text_list= text.split()
+        terms_view=[s.isupper() for s in text_list]
+        num_words= len(terms_view)
+        articles_page={}
+        latin_view=[s in words.words() for s in text_list]
         key='previous_page'
         articles_page[key]=[]
         articles_page[key].append('')
@@ -397,7 +531,7 @@ def get_articles_eb(header_left, header_right, text):
         half_key=''
         latin_key=''
         cont = 0
-        for i in range(0, len(terms_view)):
+        for i in range(0, num_words):
             flag = 0
             word= text_list[i].split(",")[0]
             #term in uppercase
@@ -440,11 +574,14 @@ def get_articles_eb(header_left, header_right, text):
                                    list_key[key] = 0
                                    articles_page[key]= []
                                articles_page[key].append('')
-                           #ignoring the header of the first page - second half
-                           if(half_key == "DCOMPLETEONARYFCIENCE"): 
-                               half_key='' 
+                           elif (("N." == text_list[i]) or ("S." == text_list[i]) or ("E." == text_list[i]) or ("O." == text_list[i])) and (("lat" in text_list[i+1]) or ("long" in text_list[i+1])):
+                               articles_page[key][list_key[key]]= articles_page[key][list_key[key]] + ' ' + text_list[i]
 
-                    
+                           #ignoring the header of the first page - second half
+                           elif(half_key == "DCOMPLETEONARYFCIENCE"): 
+                               half_key=''
+                           else:
+                               half_key=half_key+text_list[i]
 
                     # AB ACO, - recording AB (of AB ACO,) 
                     else:
@@ -529,65 +666,69 @@ def get_articles_eb(header_left, header_right, text):
                 else:
                     articles_page[key][list_key[key]]= text_list[i]
         # deleting empty keys:
-        #empty_keys = [k for k,v in articles_page.items() if not v]
-        #for k in empty_keys:
-        #    del articles_page[k]
-    return articles_page
+        empty_keys = [k for k,v in articles_page.items() if v[0] == '']
+        for k in empty_keys:
+            del articles_page[k]
 
-def get_text_keyword_idx(text,
-                            keywords):
-    """
-    Gets a list of keywords (and their position indices) within an
-    article.
+        # deleting keys that are too small for being a real article:
+        empty_keys =[]
+        for k, v in articles_page.items():
+            if (len(v[0]) < 15 ) and ("See" not in v[0]) and (len(v) == 1):
+                empty_keys.append(k)
 
-    :param text: text
-    :type article: string
-    :param keywords: keywords
-    :type keywords: list(str or unicode)
-    :return: sorted list of keywords and their indices
-    :rtype: list(tuple(str or unicode, int))
-    """
+        for k in empty_keys:
+            del articles_page[k]
+
+        return articles_page
+           
+
+def get_articles_eb(header_left, header_right, text):
+    type, header = get_header_eb(header_left, header_right)
     text_list= text.split()
-    matches = set()
-    for idx, word in enumerate(text_list):
-        if  word in keywords:
-            match = (word, idx)
-            matches.add(match)
-    return sorted(list(matches))
+    terms_view=[s.isupper() for s in text_list]
+    num_words= len(terms_view)
+    articles_page={}
 
-def get_concordance(text,
-                    keyword,
-                    idx,
-                    window):
-    """
-    For a given keyword (and its position in an article), return
-    the concordance of words (before and after) using a window.
+    if type == "Empty" and num_words < 10:
+       return type, header, articles_page
+ 
+    elif type == "FullPage":
+       articles_page[header]= text
+       return type, header, articles_page, len(articles_page)
 
-    :param text: text
-    :type text: string 
-    :param keyword: keyword
-    :type keyword: str or unicode
-    :param idx: keyword index (position) in list of article's words
-    :type idx: int
-    :window: number of words to the right and left
-    :type: int
-    :return: concordance
-    :rtype: list(str or unicode)
-    """
-    text_list= text.split()
-    text_size = len(text_list)
+    elif type == "Topic":
+        # We check that the page hasnt been erroneous classfied as a topic. 
+        if (not terms_view[0]) and (',' not in text_list[0]):
+            articles_page[header] = text
+        else:
+            type="Mix"
+            articles_page= get_articles_page(text)
+        return type, header, articles_page, len(articles_page)
 
-    if idx >= window:
-        start_idx = idx - window
+    elif (type == "Exception"): 
+        if num_words < 40 :
+            type="Exception_FullPage"
+            articles_page[header] = text
+
+        elif ("." in header):
+            type="Exception_Topic"
+            articles_page[header] = text
+
+        else:
+            type="Exception_Articles"
+            articles_page= get_articles_page(text)
+        return type, header, articles_page, len(articles_page)
+
+    elif (type == "Articles") or (type == "Mix"):
+        if num_words >= 20:
+            articles_page= get_articles_page(text)
+        else:
+            type="Exception_FullPage"
+            articles_page["FullPage"] = text
+ 
+        return type, header, articles_page, len(articles_page)
     else:
-        start_idx = 0
-
-    if idx + window >= text_size:
-        end_idx = text_size
-    else:
-        end_idx = idx + window + 1
-
-    concordance_words = []
-    for word in text_list[start_idx:end_idx]:
-        concordance_words.append(word)
-    return concordance_words
+        type="Exception"
+        articles_page["FullPage"] = text
+        return type, header, articles_page, len(articles_page)
+	
