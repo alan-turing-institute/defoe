@@ -64,14 +64,16 @@ def do_query(archives, config_file=None, logger=None, context=None):
     pages_articles = pages_clean.flatMap(
         lambda clean_page: [(clean_page[0], clean_page[1], clean_page[2],\
                                clean_page[3], clean_page[4], clean_page[5], clean_page[6], clean_page[7], \
-                               get_articles_eb(clean_page[8][0],clean_page[8][1],clean_page[8][2]),\
-                               clean_page[9])]) 
+                               clean_page[8], clean_page[9], clean_page[10],
+                               get_articles_eb(clean_page[11][0],clean_page[11][1],clean_page[11][2]),\
+                               clean_page[12])]) 
 
     pages_header_articles = pages_articles.flatMap(
         lambda articles_page: [(articles_page[0], articles_page[1], articles_page[2],\
                                articles_page[3], articles_page[4], articles_page[5], articles_page[6], articles_page[7], \
-                               articles_page[8][0], articles_page[8][1], articles_page[8][2], articles_page[8][3],\
-                               articles_page[9])]) 
+                               articles_page[8], articles_page[9], articles_page[10] \ 
+                               articles_page[11][0], articles_page[11][1], articles_page[11][2], articles_page[11][3],\
+                               articles_page[12])]) 
 
 
 
