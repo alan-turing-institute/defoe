@@ -517,10 +517,7 @@ def get_header_eb(header_left, header_right):
             type="Exception"
     return type, header
 
-def get_articles_page(text):
-        text_list= text.split()
-        terms_view=[s.isupper() for s in text_list]
-        num_words= len(terms_view)
+def get_articles_page(text, text_list, terms_view, num_words):
         articles_page={}
         latin_view=[s in words.words() for s in text_list]
         key='previous_page'
@@ -669,13 +666,12 @@ def get_articles_page(text):
         empty_keys = [k for k,v in articles_page.items() if v[0] == '']
         for k in empty_keys:
             del articles_page[k]
-
+      
         # deleting keys that are too small for being a real article:
         empty_keys =[]
         for k, v in articles_page.items():
             if (len(v[0]) < 15 ) and ("See" not in v[0]) and (len(v) == 1):
                 empty_keys.append(k)
-
         for k in empty_keys:
             del articles_page[k]
 
@@ -697,12 +693,13 @@ def get_articles_eb(header_left, header_right, text):
        return type, header, articles_page, len(articles_page)
 
     elif type == "Topic":
-        # We check that the page hasnt been erroneous classfied as a topic. 
-        if (not terms_view[0]) and (',' not in text_list[0]):
-            articles_page[header] = text
-        else:
-            type="Mix"
-            articles_page= get_articles_page(text)
+        # We check that the page hasnt been erroneous classfied as a topic.
+        if len(tex_list)>=1: 
+            if (not terms_view[0]) and (',' not in text_list[0]):
+                articles_page[header] = text
+            else:
+                type="Mix"
+                articles_page= get_articles_page(text, text_list, terms_view, num_words)
         return type, header, articles_page, len(articles_page)
 
     elif (type == "Exception"): 
@@ -716,12 +713,12 @@ def get_articles_eb(header_left, header_right, text):
 
         else:
             type="Exception_Articles"
-            articles_page= get_articles_page(text)
+            articles_page= get_articles_page(text, text_list, terms_view, num_words)
         return type, header, articles_page, len(articles_page)
 
     elif (type == "Articles") or (type == "Mix"):
         if num_words >= 20:
-            articles_page= get_articles_page(text)
+            articles_page= get_articles_page(text, text_list, terms_view, num_words)
         else:
             type="Exception_FullPage"
             articles_page["FullPage"] = text
