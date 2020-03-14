@@ -1,5 +1,5 @@
 """
-Geoparser a NLS document - original geoparsing 
+Identify the locations per page and geo-resolve them.
 """
 
 from operator import add
@@ -14,32 +14,12 @@ import yaml, os
 
 def do_query(df, config_file=None, logger=None, context=None):
     """
-    Read from HDFS, and counts number of occurrences of keywords or keysentences and groups by year.
-    We have an entry in the HFDS file with the following information: 
+    Ingest NLS pages, applies scpaCy NLP pipeline for identifying the possible locations of each page. And applies the edinburgh geoparser for getting the latituted and longitude of each of them.
+    Before applying the geoparser, two clean steps are applied - long-S and hyphen words. 
     
-    "title",  "edition", "year", "place", "archive_filename",  "source_text_filename", 
-    "text_unit", "text_unit_id", "num_text_unit", "type_archive", "model", "source_text_raw", 
-    "source_text_clean", "source_text_norm", "source_text_lemmatize", "source_text_stem", "num_words"
+    Example:
 
-    config_filep 
-
-    config_file must be the path to a configuration file with a list
-    of the keywords to search for, one per line.
-
-    Both keywords/keysentences and words in documents are normalized, by removing
-    all non-'a-z|A-Z' characters.
-
-    Returns result of form:
-
-        {
-          <YEAR>:
-          [
-            [<SENTENCE|WORD>, <NUM_SENTENCES|WORDS>],
-            ...
-          ],
-          <YEAR>:
-          ...
-        }
+    ("Descriptive account of the principal towns in Scotland: to accompany Wood's town atlas", '1828', 1828, 'Edinburgh', '/home/tdm/datasets/nls-data-gazetteersOfScotland/97350713', 'alto/97350911.34.xml', 'page', 'Page17', 376, 'book', 'nls', 'CONTENTS. Page. Aberdeen, 1 Annan, 19 Arbroath, 23 Ayr, .--SO Banff, 39 Berwick, 4S Brechin, 55 Crieff, 61 Cupar Fife, • 65 Dalkeith, 70 Dingwall, 76 DunbartorT, • 79 Dundee, 83 Dumfries, <• 91 Dunfermline, 99 Dunkeid, « 105 Edinburgh, -. . 1 1 1 Elgin, . . . ]29 Forfar, -135 Forres, 139 Glasgow, . 117', {}), ("Descriptive account of the principal towns in Scotland: to accompany Wood's town atlas", '1828', 1828, 'Edinburgh', '/home/tdm/datasets/nls-data-gazetteersOfScotland/97350713', 'alto/97350923.34.xml', 'page', 'Page18', 376, 'book', 'nls', 'Xll Greenock, 171 Haddington, 181 Hamilton, 185 Hawick, 191 Inverary, 199 Inverness, . * •> 203 Irvine, * 211 Jedburgh, * * 215 Kelso, 221 Kilmarnock, • 227 Kirkcaldy 233 Kinross, * * 241 Lanark, * 247 Leith, 253 Linlithgow, «• * 265 Montrose, 271 Nairn, 277 Paisley, 281 Peebles, 291 Perth, * 297 Portobello, 309 Rothesay, * 313 Selkirk, > , 319 St Andrews, 323 Stirling, -^331 Stonehaven, * 339 Stornowav, ... Si-5', {('Hamilton', '1'): ('55.77731433348086', '-4.067392672500774'), ('Inverary', '2'): ('56.2333333', '-5.0666667'), ('Inverness', '3'): ('57.47871409771949', '-4.212450527351024'), ('Lanark', '4'): ('55.67483195471274', '-3.775417694605498')}),
 
     :param archives: RDD of defoe.nls.archive.Archive
     :type archives: pyspark.rdd.PipelinedRDD
