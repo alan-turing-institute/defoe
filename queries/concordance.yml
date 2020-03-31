@@ -1,2 +1,2 @@
 preprocess: normalize
-data: concordance.txt
+data: concordance_sg.txt

@@ -1,4 +1,5 @@
-Scotland
-Edinburgh
-maid
+edinburgh
+scotland
 woman
+maid
+man
