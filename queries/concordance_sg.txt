@@ -1,0 +1,12 @@
+stirling
+aberdeen
+dundee
+glasgow
+inverness
+perth
+edinburgh
+scotland
+england
+wales
+ireland
+britain
