@@ -33,22 +33,23 @@ def do_query(archives, config_file=None, logger=None, context=None):
     
     lang_model = config["lang_model"]
     documents = archives.flatMap(
-        lambda archive: [(document.title, document.edition, document.year, \
-                          document) for document in list(archive)])
+        lambda archive: [(document.year, document.title, document.edition, \
+                          document.archive.filename, document) for document in list(archive)])
     
     pages_clean = documents.flatMap(
         lambda year_document: [(year_document[0], year_document[1], year_document[2],\
-                               page.code, page.page_id, clean_page_as_string(page)) for page in year_document[3]])
+                                year_document[3], page.code, page.page_id, clean_page_as_string(page)) for page in year_document[4]])
 
     matching_pages = pages_clean.map(
         lambda geo_page:
         (geo_page[0],
-         {"edition": geo_page[1],
-          "year": geo_page[2], 
-          "page_filename": geo_page[3],
-          "text_unit id": geo_page[4],
-          "lang_model": lang_model,
-          "georesolution_page": georesolve_page_2(geo_page[5],lang_model)}))
+         {"title": geo_page[1],
+          "edition": geo_page[2],
+          "archive": geo_page[3], 
+          "page_filename": geo_page[4],
+          "text_unit id": geo_page[5],
+          "lang_model": lang_model, 
+          "georesolution_page": georesolve_page_2(geo_page[6],lang_model)}))
     
     result = matching_pages \
         .groupByKey() \

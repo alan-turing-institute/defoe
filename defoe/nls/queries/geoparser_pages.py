@@ -30,31 +30,31 @@ def do_query(archives, config_file=None, logger=None, context=None):
     """
     
     documents = archives.flatMap(
-        lambda archive: [(document.title, document.edition, document.year, \
-                          document) for document in list(archive)])
+        lambda archive: [(document.year, document.title, document.edition, \
+                          document.archive.filename, document) for document in list(archive)])
     
-    # [(tittle, edition, year, xame, page filename, text_unit, text_unit_id, 
+    # [(tittle, edition, year, archive name, page filename, text_unit, text_unit_id, 
     #   num_text_unit, type of archive, type of disribution, model, clean_page)]
     
     pages_clean = documents.flatMap(
         lambda year_document: [(year_document[0], year_document[1], year_document[2],\
-                               page.code, page.page_id, clean_page_as_string(page)) for page in year_document[3]])
+                                year_document[3], page.code, page.page_id, clean_page_as_string(page)) for page in year_document[4]])
 
-    
     geo_xml_pages = pages_clean.flatMap(
         lambda clean_page: [(clean_page[0], clean_page[1], clean_page[2],\
-                               clean_page[3], clean_page[4], query_utils.geoparser_cmd(clean_page[5]))])
+                               clean_page[3], clean_page[4], clean_page[5], query_utils.geoparser_cmd(clean_page[6]))])
     
-    
+     
     matching_pages = geo_xml_pages.map(
         lambda geo_page:
         (geo_page[0],
-         {"edition": geo_page[1],
-          "year": geo_page[2], 
-          "page_filename": geo_page[3],
-          "text_unit id": geo_page[4],
-          "lang_model": "geoparser_original",
-          "georesolution_page": query_utils.geoparser_coord_xml(geo_page[5])}))
+         {"title": geo_page[1],
+          "edition": geo_page[2],
+          "archive": geo_page[3], 
+          "page_filename": geo_page[4],
+          "text_unit id": geo_page[5],
+          "lang_model": "geoparser_original", 
+          "georesolution_page": query_utils.geoparser_coord_xml(geo_page[6])}))
 
     
     result = matching_pages \
@@ -63,3 +63,4 @@ def do_query(archives, config_file=None, logger=None, context=None):
              (date_context[0], list(date_context[1]))) \
         .collect()
     return result
+    
