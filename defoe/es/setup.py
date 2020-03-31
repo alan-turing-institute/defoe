@@ -23,7 +23,7 @@ def filename_to_object(filename, context):
     es_index=fields[0]
     es_host=fields[1]
     es_port=fields[2].rstrip('\n')
-
+    print("es_index %s, es_host %s, es_port %s" %(es_index, es_host,es_port))
     sqlContext = SQLContext(context)
     reader = sqlContext.read.format("org.elasticsearch.spark.sql").option("es.read.metadata", "true").option("es.nodes.wan.only","true").option("es.port",es_port).option("es.net.ssl","false").option("es.nodes", "http://"+es_host)
     df = reader.load(es_index)

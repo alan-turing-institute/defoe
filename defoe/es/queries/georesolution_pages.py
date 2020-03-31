@@ -27,11 +27,19 @@ def do_query(df, config_file=None, logger=None, context=None):
     :return: 
     :rtype: string
     """
+    #with open(config_file, "r") as f:
+    #    config = yaml.load(f)
+
+    #year = config["year"]    
    
     lang_model = "en_core_web_lg"
     fdf = df.withColumn("source_text_clean", blank_as_null("source_text_clean"))
-   
-    newdf=fdf.filter(fdf.source_text_clean.isNotNull()).filter(fdf["model"]=="nls").select(fdf.year, fdf.title, fdf.edition, fdf.archive_filename, fdf.source_text_filename, fdf.text_unit_id, fdf.source_text_clean)
+
+    #newdf=fdf.filter(fdf.source_text_clean.isNotNull()).filter(fdf["model"]=="nls").filter(df["year"]==year).filter(df["archive_filename"]=="/home/tdm/datasets/nls-data-gazetteersOfScotland/97376462").select(fdf.year, fdf.title, fdf.edition, fdf.archive_filename, fdf.source_text_filename, fdf.text_unit_id, fdf.source_text_clean)
+    
+    #newdf=fdf.filter(fdf.source_text_clean.isNotNull()).filter(fdf["model"]=="nls").filter(df["year"]=="1883").filter(df["edition"]=="1884-1885, Volume 3").select(fdf.year, fdf.title, fdf.edition, fdf.archive_filename, fdf.source_text_filename, fdf.text_unit_id, fdf.source_text_clean)
+
+    newdf=fdf.filter(fdf.source_text_clean.isNotNull()).filter(fdf["model"]=="nls").filter(df["year"]=="1828").select(fdf.year, fdf.title, fdf.edition, fdf.archive_filename, fdf.source_text_filename, fdf.text_unit_id, fdf.source_text_clean)
 
     pages=newdf.rdd.map(tuple)
     matching_pages = pages.map(
@@ -42,8 +50,8 @@ def do_query(df, config_file=None, logger=None, context=None):
           "archive": geo_page[3], 
           "page_filename": geo_page[4],
           "text_unit id": geo_page[5],
-          "lang_model": "geoparser_original", 
-          "georesolution_page": georesolve_page_2(geo_page[5],lang_model)}))
+          "lang_model": lang_model, 
+          "georesolution_page": georesolve_page_2(geo_page[6],lang_model)}))
     
     result = matching_pages \
         .groupByKey() \
