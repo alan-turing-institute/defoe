@@ -1,2 +1,2 @@
-#index,type_name,host,port
-nls,Encyclopaedia_Britannica,tdm-es-01.edina.ac.uk,9200 
+#index,host,port
+encyclopedia-britannica,172.16.51.140,9200
