@@ -1,2 +1,0 @@
-#index,host,port
-first-vol-eb-with-mapping,172.16.51.140,9200
