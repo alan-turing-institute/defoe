@@ -1,0 +1,2 @@
+#index,host,port
+encyclopedia-britannica,172.16.51.140,9200

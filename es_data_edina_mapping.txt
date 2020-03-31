@@ -1,0 +1,2 @@
+#index,host,port
+eb-with-mapping,172.16.51.140,9200
