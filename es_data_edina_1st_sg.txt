@@ -1,2 +1,0 @@
-#index,host,port
-1st-gazetteer-scotland,172.16.51.140,9200
