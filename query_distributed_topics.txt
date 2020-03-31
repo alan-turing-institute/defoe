@@ -1,0 +1,2 @@
+defoe.nls.queries.geoparser_pages -r geoparser_original_sc_gz_6_10
+defoe.nls.queries.georesolution_pages queries/lang_model.yml -r georesolution_en_core_web_lg_sc_gz_6_10

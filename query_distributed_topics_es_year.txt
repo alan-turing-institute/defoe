@@ -1,0 +1,2 @@
+defoe.es.queries.geoparser_pages queries/lang_model.yml -r geoparser_original_sc_gz_1828_bb
+defoe.es.queries.georesolution_pages queries/lang_model.yml -r georesolution_en_core_web_lg_sc_gz_1828_bb

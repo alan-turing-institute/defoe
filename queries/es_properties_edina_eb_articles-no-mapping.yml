@@ -1,0 +1,3 @@
+index: eb-articles-no-mapping
+host: 172.16.51.140 
+port: 9200
