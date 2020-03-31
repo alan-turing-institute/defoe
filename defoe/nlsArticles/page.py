@@ -93,26 +93,55 @@ class Page(object):
     def words(self):
         if not self.page_words:
             page_words=[]
-            skip = 1
-            for lines in self.tree.iterfind('.//{%s}TextLine' % self.namespaces):
-                if skip == 1:
-                    skip = 0
+            lines= list(self.tree.iterfind('.//{%s}TextLine' % self.namespaces))
+            num_lines = len(lines)
+            f_line = self.tree.find('.//{%s}TextLine' % self.namespaces)
+            if f_line is not None:
+                vpos = int(f_line.attrib.get('VPOS'))
+                ln = 1
+                flag = 1
+                while (flag == 1) and (ln < num_lines):
+                    current_vpos = int (lines[ln].attrib.get('VPOS'))
+                    if current_vpos == vpos:
+                        ln += 1
+                    else:
+                        flag = 0
+                if flag == 0:
+                    while (ln < num_lines):
+                        for line in lines[ln].findall('{%s}String' % self.namespaces):
+                            text = line.attrib.get('CONTENT')
+                            page_words.append(text)
+                        ln+= 1
+                    self.page_words = list(map(str,page_words))
                 else:
-                    for line in lines.findall('{%s}String' % self.namespaces):
-                        text = line.attrib.get('CONTENT')
-                        page_words.append(text)
-            self.page_words = list(map(str,page_words))
+                    self.page_words= []
+            else:
+                self.page_words = []
         return self.page_words
-    
+
     @property
     def header_left_words(self):
         if not self.page_header_left_words:
             page_header_left_words=[]
+            lines= list(self.tree.iterfind('.//{%s}TextLine' % self.namespaces))
             f_line = self.tree.find('.//{%s}TextLine' % self.namespaces)
             if f_line is not None:
+                vpos = int(f_line.attrib.get('VPOS'))
                 for line in f_line.findall('{%s}String' % self.namespaces):
                     text = line.attrib.get('CONTENT')
                     page_header_left_words.append(text)
+                ln = 1
+                flag = 1
+                num_lines = len(lines)
+                while (flag == 1) and (ln < num_lines):
+                    current_vpos = int (lines[ln].attrib.get('VPOS'))
+                    if (current_vpos == vpos) or (current_vpos < vpos + 5):
+                        for line in lines[ln].findall('{%s}String' % self.namespaces):
+                            text = line.attrib.get('CONTENT')
+                            page_header_left_words.append(text)
+                        ln += 1
+                    else:
+                        flag = 0
                 self.page_header_left_words = list(map(str,page_header_left_words))
             else:
                 self.page_header_left_words=[]
@@ -126,12 +155,12 @@ class Page(object):
             f_line = self.tree.find('.//{%s}TextLine' % self.namespaces)
             if f_line is not None:
                 vpos = int(f_line.attrib.get('VPOS'))
-                ln = 0
+                ln = 1
                 flag = 1
                 num_lines = len(lines)
                 while (flag == 1) and (ln < num_lines):
                     current_vpos = int (lines[ln].attrib.get('VPOS'))
-                    if current_vpos >= vpos:
+                    if (current_vpos + 5) >= vpos:
                         vpos = current_vpos
                         ln += 1
                     else:
@@ -140,6 +169,18 @@ class Page(object):
                     for line in lines[ln].findall('{%s}String' % self.namespaces):
                         text = line.attrib.get('CONTENT')
                         page_header_right_words.append(text)
+                    vpos = current_vpos 
+                    flag = 1
+                    ln += 1
+                    while (flag == 1) and (ln < num_lines):
+                        current_vpos = int (lines[ln].attrib.get('VPOS'))
+                        if (current_vpos == vpos) or (current_vpos < vpos + 5):
+                            for line in lines[ln].findall('{%s}String' % self.namespaces):
+                                text = line.attrib.get('CONTENT')
+                                page_header_right_words.append(text)
+                            ln += 1
+                        else:
+                            flag = 0
                     self.page_header_right_words = list(map(str,page_header_right_words))
                 else:
                     self.page_header_right_words=[]

@@ -307,7 +307,9 @@ def xml_geo_entities(doc):
     xml_doc='<placenames> '
     flag=0
     for ent in doc.ents:
+       #print("ROSA-ENTITY: Spacy entities %s" %ent)
        if ent.label_ == "LOC" or ent.label_ == "GPE":
+            #print("ROSA-LOCATION: Found as place the entity: %s" %ent.text)
             id=id+1
             toponym = ent.text
             child ='<placename id="' + str(id) + '" name="' + toponym + '"/> '
@@ -322,9 +324,9 @@ def georesolve_cmd(in_xml):
     flag = 1
     if "'" in in_xml:
         in_xml=in_xml.replace("'", "\'\\\'\'")
-    #cmd = 'printf \'%s\' \''+ in_xml + ' \' | ./georesolve/scripts/geoground -g unlock -lb -8.6500, 54.6330, -0.7321, 60.8547. 2 -top '
-    cmd = 'printf \'%s\' \''+ in_xml + '\' | ./georesolve/scripts/geoground -g unlockgeonames -top'
-    while (len(georesolve_xml) < 5) and (atempt < 500) and (flag == 1): 
+    cmd = 'printf \'%s\' \''+ in_xml + ' \' | ./georesolve/scripts/geoground -g unlockgeonames -lb -7.54296875, 54.689453125, -0.774267578125, 60.8318847656 2 -top '
+    #cmd = 'printf \'%s\' \''+ in_xml + '\' | ./georesolve/scripts/geoground -g unlockgeonames -top'
+    while (len(georesolve_xml) < 5) and (atempt < 100) and (flag == 1): 
         proc=subprocess.Popen(cmd.encode('utf-8'), shell=True,
                                stdin=subprocess.PIPE,
                                stdout=subprocess.PIPE,
@@ -335,9 +337,10 @@ def georesolve_cmd(in_xml):
         if "Error" in str(stderr):
             flag = 0
             print("err: '{}'".format(stderr))
-            georesolve_xml = ''
+            georesolve_xml =  ''
         else:
             georesolve_xml = stdout
+    #print("ROSA -1- georesolve_xml: %s!!!" %georesolve_xml)
     return georesolve_xml
 
 
@@ -348,12 +351,17 @@ def coord_xml(geo_xml):
         for child in root:
             toponymName = child.attrib["name"]
             toponymId = child.attrib["id"]
-            for subchild in child:
-                latitude = subchild.attrib["lat"]
-                longitude = subchild.attrib["long"]
-                dResolvedLocs[toponymName+"-"+toponymId] = (latitude, longitude)
+            latitude = ''
+            longitude = '' 
+            if len(child) >= 1 :
+                for subchild in child:
+                    latitude = subchild.attrib["lat"]
+                    longitude = subchild.attrib["long"]
+                    dResolvedLocs[toponymName+"-"+toponymId] = (latitude, longitude)
+            dResolvedLocs[toponymName+"-"+toponymId] = (latitude, longitude)
     except:
         dResolvedLocs["cmd"]=geo_xml
+    #print("ROSA -2- ResolvedLocs: %s!!!" % dResolvedLocs)
     return dResolvedLocs
 
 def geomap_cmd(in_xml):
@@ -361,8 +369,8 @@ def geomap_cmd(in_xml):
     atempt=0
     if "'" in in_xml:
         in_xml=in_xml.replace("'", "\'\\\'\'")
-    cmd = 'printf \'%s\' \''+ in_xml + ' \' | ./georesolve/scripts/geoground -g unlock -lb -8.6500, 54.6330, -0.7321, 60.8547. 2 -top | ./georesolve/bin/sys-i386-64/lxt -s ./georesolve/lib/georesolve/gazmap-leaflet.xsl'
-    while (len(geomap_html) < 5) and (atempt < 500): 
+    cmd = 'printf \'%s\' \''+ in_xml + ' \' | ./georesolve/scripts/geoground -g unlockgeonames -lb -7.54296875, 54.689453125, -0.774267578125, 60.8318847656 2 -top | ./georesolve/bin/sys-i386-64/lxt -s ./georesolve/lib/georesolve/gazmap-leaflet.xsl'
+    while (len(geomap_html) < 5) and (atempt < 100): 
         proc=subprocess.Popen(cmd.encode('utf-8'), shell=True,
                                stdin=subprocess.PIPE,
                                stdout=subprocess.PIPE,
@@ -379,9 +387,9 @@ def geoparser_cmd(text):
     geoparser_xml = ''
     if "'" in text:
         text=text.replace("'", "\'\\\'\'")
-    #cmd = 'echo \'%s\' \''+ text + ' \' | ./geoparser-v1.1/scripts/run -t plain -g unlock -lb -8.6500, 54.6330, -0.7321, 60.8547. 2 -top' 
-    cmd = 'echo \'%s\' \''+ text + ' \' | ./geoparser-v1.1/scripts/run -t plain -g unlockgeonames -top' 
-    while (len(geoparser_xml) < 5) and (atempt < 500) and (flag == 1): 
+    cmd = 'echo \'%s\' \''+ text + ' \' | ./geoparser-v1.1/scripts/run -t plain -g unlockgeonames -lb -7.54296875, 54.689453125, -0.774267578125, 60.8318847656 2 -top' 
+    #cmd = 'echo \'%s\' \''+ text + ' \' | ./geoparser-v1.1/scripts/run -t plain -g unlockgeonames -top' 
+    while (len(geoparser_xml) < 5) and (atempt < 100) and (flag == 1): 
         proc=subprocess.Popen(cmd.encode('utf-8'), shell=True,
                                stdin=subprocess.PIPE,
                                stdout=subprocess.PIPE,

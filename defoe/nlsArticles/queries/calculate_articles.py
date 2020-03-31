@@ -53,11 +53,9 @@ def do_query(archives, config_file=None, logger=None, context=None):
                   "text_unit id": articles_page[5], 
                   "type": articles_page[6][0],
                   "header": articles_page[6][1],
-                  "articles": articles_page[6][2], 
                   "num_articles": articles_page[6][3]}))
     
-    #"articles": articles_page[6],
-    #"num_articles": len(articles_page[6].keys())}))
+    #"articles": articles_page[6][2], 
     result = r_articles_pages \
         .groupByKey() \
         .map(lambda date_context:

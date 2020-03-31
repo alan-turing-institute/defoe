@@ -694,7 +694,7 @@ def get_articles_eb(header_left, header_right, text):
 
     elif type == "Topic":
         # We check that the page hasnt been erroneous classfied as a topic.
-        if len(tex_list)>=1: 
+        if len(text_list)>=1: 
             if (not terms_view[0]) and (',' not in text_list[0]):
                 articles_page[header] = text
             else:
