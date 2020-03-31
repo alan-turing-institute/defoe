@@ -31,6 +31,7 @@ def get_pages_matches_no_prep(title, edition, archive, filename, text, keysenten
     """  
     matches = []
     for keysentence in keysentences:
+        #sentence_match = get_sentences_list_matches(text, keysentence)
         sentence_match_idx = get_text_keyword_idx(text, keysentence)
         if sentence_match: 
             match = (title, edition, archive, filename, text, keysentence)
@@ -316,13 +317,16 @@ def preprocess_clean_page_spacy(clean_page):
 
 
 def georesolve_page_2(text, lang_model):
+    #print("---> Clean_Text to analyse %s" %text)
     nlp = spacy.load(lang_model)
     doc = nlp(text)
+    #print("---> DOC -NLP to analyse %s" %doc)
     if doc.ents:
         flag,in_xml = xml_geo_entities(doc)
         if flag == 1:
             geo_xml=georesolve_cmd(in_xml)
             dResolved_loc= coord_xml(geo_xml)
+            #print("ROSA-3- My final result %s" % dResolved_loc)
             return dResolved_loc
         else:
            return {}
@@ -335,7 +339,6 @@ def georesolve_page(doc):
         if flag == 1:
             geo_xml=georesolve_cmd(in_xml)
             dResolved_loc= coord_xml(geo_xml)
-            print(dResolved_loc)
             return dResolved_loc
         else:
            return {}
