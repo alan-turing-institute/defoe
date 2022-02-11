@@ -1,6 +1,8 @@
 # "Defoe" - analysis of historical books and newspapers data
 
-This repository contains code to analyse historical books and newspapers datasets using Apache Spark.
+### This repository contains deprecated code to analyse historical books and newspapers datasets using Apache Spark.
+
+### The current live repository is at https://github.com/defoe-code
 
 ---
 
